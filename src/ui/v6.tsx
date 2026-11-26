@@ -1,7 +1,7 @@
 // V6 : tableau de bord, page d'encyclopédie « Chronique », personnalisation (emblème, parti, financements).
 import { useEffect, useState } from 'preact/hooks';
 import { useMagasin, useVue, agir, aller, nb, euro, Bloc, Jauge, Parti, Logo, ouvrirFiche, RANGS } from './composants';
-import { Portrait } from './parcours';
+import { Portrait, Visage } from './parcours';
 
 const SCRUTINS: Record<string, string> = { municipales: 'Municipales', departementales: 'Départementales', regionales: 'Régionales', legislatives: 'Législatives', europeennes: 'Européennes', senatoriales: 'Sénatoriales', presidentielle: 'Présidentielle' };
 const ROLES: Record<string, string> = { mentor: 'mentor', allie: 'allié', rival: 'rival', journaliste: 'journaliste', cadre: 'cadre du parti', elu: 'élu d\'un autre parti' };
@@ -63,7 +63,7 @@ export function Chronique() {
         <H>Historique de la page</H>{v.modifs.length === 0 && <p class="doux">Page créée.</p>}{v.modifs.map((x: any) => <div class="petit-texte doux">{x.date} : ajout de « {x.t} »</div>)}
       </div>
       <div class="bloc" style={{ fontSize: '13px' }}>
-        <div class="centre" style={{ marginBottom: '8px' }}>{v.portrait ? <Portrait p={v.portrait} taille={150} /> : <span class="avatar" style={{ width: '110px', height: '110px', borderRadius: '24%', background: v.parti >= 0 ? m.base.partis[v.parti].couleur : '#8e8e93', fontSize: '34px' }}>{v.nom.split(' ').map((x: string) => x[0]).slice(0, 2).join('')}</span>}<div style={{ marginTop: '6px' }}><b>{v.nom}</b></div></div>
+        <div class="centre" style={{ marginBottom: '8px' }}>{v.portrait ? <Portrait p={v.portrait} taille={150} /> : !v.reel ? <Visage nom={v.nom} couleur={v.parti >= 0 ? m.base.partis[v.parti].couleur : undefined} taille={150} /> : <span class="avatar" style={{ width: '110px', height: '110px', borderRadius: '24%', background: v.parti >= 0 ? m.base.partis[v.parti].couleur : '#8e8e93', fontSize: '34px' }}>{v.nom.split(' ').map((x: string) => x[0]).slice(0, 2).join('')}</span>}<div style={{ marginTop: '6px' }}><b>{v.nom}</b></div></div>
         <table><tbody>
           {v.fonctions.map((f: any) => <tr><td style={{ whiteSpace: 'normal' }}><b>{f.nom.charAt(0).toUpperCase() + f.nom.slice(1)}</b><div class="doux petit-texte">depuis le {f.depuis}</div></td></tr>)}
           {v.postes.map((t: string) => <tr><td style={{ whiteSpace: 'normal' }}>{t.charAt(0).toUpperCase() + t.slice(1)}</td></tr>)}

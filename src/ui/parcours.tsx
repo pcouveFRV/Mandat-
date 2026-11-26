@@ -21,6 +21,14 @@ function EditeurVisage({ vis }: { vis: Record<string, number> }) {
 }
 let moduleAvatars: Promise<any> | null = null; const cacheAvatars = new Map<string, string>();
 const chargerAvatars = () => moduleAvatars ?? (moduleAvatars = import(/* @vite-ignore */ new URL('./vendor/avatars.js', document.baseURI).href).catch(() => null));
+// Visage d'un personnage inventé (contact, élu simulé), tiré de son nom. À ne pas utiliser pour une personne réelle.
+export function Visage({ nom, couleur = '#8e8e93', taille = 34 }: { nom: string; couleur?: string; taille?: number }) {
+  const [svg, setSvg] = useState<string>(cacheAvatars.get(nom) ?? '');
+  useEffect(() => { const dispo = cacheAvatars.get(nom); if (dispo) { setSvg(dispo); return; } let vivant = true; chargerAvatars().then(m => { if (!m) return; const s = m.avatar(nom); cacheAvatars.set(nom, s); if (vivant) setSvg(s); }); return () => { vivant = false; }; }, [nom]);
+  const cadre = { width: `${taille}px`, height: `${taille}px`, borderRadius: '26%', flex: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' };
+  if (svg) return <span aria-label="Avatar" style={{ ...cadre, background: `color-mix(in srgb, ${couleur} 16%, #fff)` }} dangerouslySetInnerHTML={{ __html: svg }} />;
+  return <span aria-label="Avatar" style={{ ...cadre, background: couleur, color: '#fff', fontWeight: 600, fontSize: `${Math.round(taille * 0.38)}px` }}>{nom.split(/[\s-]+/).filter(Boolean).map(x => x[0]).slice(0, 2).join('').toUpperCase()}</span>;
+}
 export function Portrait({ p, taille = 64 }: { p?: number[]; taille?: number }) {
   const b = useMagasin().base; const nom: string = b?.moi?.nom ?? ''; const c = b?.partis?.[b.parti]?.couleur ?? '#8e8e93'; const reel = !!b?.moi?.reel; const vis: Record<string, number> = b?.visage ?? {}; const cle = `${nom}#${p?.[0] ?? 0}`; const cleV = cle + JSON.stringify(vis);
   const [svg, setSvg] = useState<string>(cacheAvatars.get(cleV) ?? '');
@@ -121,7 +129,7 @@ export function Carnet() {
     <h1>Carnet</h1>
     <div class="grille g2">
       <Bloc titre="Mes contacts"><p class="doux petit-texte">Une relation qu'on n'entretient pas s'use. Un service demandé se rend.</p>
-        {v.contacts.map((c: any) => <div class="ligne" style={{ padding: '8px 0', borderBottom: '1px solid var(--bord)', flexWrap: 'nowrap' }}><span class="avatar" style={{ width: '34px', height: '34px', borderRadius: '50%', background: c.role === 'rival' ? 'var(--danger)' : c.role === 'journaliste' ? '#6e6e73' : 'var(--accent)', fontSize: '12px' }}>{c.prenom[0]}{c.nom[0]}</span>
+        {v.contacts.map((c: any) => <div class="ligne" style={{ padding: '8px 0', borderBottom: '1px solid var(--bord)', flexWrap: 'nowrap' }}>{c.reel ? <span class="avatar" style={{ width: '34px', height: '34px', borderRadius: '50%', background: c.role === 'rival' ? 'var(--danger)' : c.role === 'journaliste' ? '#6e6e73' : 'var(--accent)', fontSize: '12px' }}>{c.prenom[0]}{c.nom[0]}</span> : <Visage nom={`${c.prenom} ${c.nom}`} couleur={c.role === 'rival' ? '#d70015' : c.role === 'journaliste' ? '#6e6e73' : undefined} taille={40} />}
           <div style={{ flex: 1, minWidth: 0 }}><b>{c.prenom} {c.nom}</b> <span class="doux">{ROLES[c.role]}</span><div class="doux petit-texte" style={{ whiteSpace: 'normal' }}>{c.qui}.{c.dette < 0 ? ` Vous lui devez ${-c.dette} service${c.dette < -1 ? 's' : ''}.` : c.dette > 0 ? ' Il vous doit un service.' : ''}</div><div style={{ maxWidth: '220px', marginTop: '3px' }}><Jauge v={c.relation} couleur={c.relation >= 55 ? 'var(--ok)' : c.relation >= 35 ? 'var(--accent-t)' : 'var(--alerte)'} /></div></div>
           <button class="petit" disabled={c.vu} onClick={() => setOuvert(c.id)}>{c.vu ? 'Vu cette semaine' : 'Voir'}</button></div>)}</Bloc>
       <Bloc titre="Personnes suivies"><p class="doux petit-texte">Ouvrez la fiche de n'importe quel personnage et cliquez sur Suivre. Vous serez prévenu de ses promotions, de ses mandats et de ses changements de parti. Douze au plus.</p>
