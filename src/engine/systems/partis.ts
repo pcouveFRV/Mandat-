@@ -52,7 +52,7 @@ export function tourPartis(e: Etat, d: Donnees, rng: Rng, ctx: Ctx) {
     // Adhésions : dynamique, notoriété, qualité des délégués. Une croissance trop rapide sans cadres abîme l'unité.
     // Usure du pouvoir : le parti du président et ses alliés de gouvernement s'usent, l'opposition se refait une santé.
     const us = P.scoreIA.usure ?? 0; const auPouvoir = e.presidence.parti === P.idx; const allie = !auPouvoir && e.gouvernement.coalition.includes(P.idx);
-    P.scoreIA.usure = clamp(us + (auPouvoir ? 0.0030 * (e.presidence.popularite < 45 ? 1.25 : 0.6) : allie ? 0.0013 : -0.004), 0, 0.95);
+    P.scoreIA.usure = auPouvoir ? Math.min(Math.max(us, 0.42), us + 0.0019 * (e.presidence.popularite < 45 ? 1.25 : 0.6)) : allie ? Math.min(Math.max(us, 0.2), us + 0.0009) : Math.max(0, us - 0.003);
     // Adhésions : dynamique, notoriété, crédibilité, qualité des délégués, et rappel vers une taille cohérente avec le poids électoral.
     const adh0 = P.scoreIA.adh0 || P.adherents, int0 = P.scoreIA.int0 || 0.02; const cibleAdh = adh0 * Math.pow(Math.max(0.2, (e.intentions[P.idx] ?? int0) / int0), 0.7);
     const g = 0.0009 * P.dynamique / 10 + 0.0006 * (P.notoriete - 50) / 50 + 0.0004 * (P.credibilite - 50) / 50 - 0.0006 - 0.0016 * (P.adherents / cibleAdh - 1) - (P.cotisation - 30) * 0.00001;

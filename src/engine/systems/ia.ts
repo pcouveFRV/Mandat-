@@ -72,7 +72,7 @@ export function tourIA(e: Etat, d: Donnees, rng: Rng, ctx: Ctx) {
     if (iaDecide(e, P, 'finances')) {
       const f = fluxMensuel(e, P); const net = netMensuel(f);
       if (net < 0 && P.tresorerie < -net * 10) { P.permanents = Math.max(1, P.permanents - Math.ceil(P.permanents * 0.1)); P.budgetCom = Math.round(P.budgetCom * 0.8); }
-      else if (net > 20000 && P.tresorerie > 400000) { P.permanents += P.tresorerie > -18 * (f.permanents + f.locaux + f.com) ? Math.ceil(P.permanents * 0.08) : rng.chance(0.5) ? 1 : 0; P.budgetCom = Math.min(Math.round(P.tresorerie * 0.012), P.budgetCom + 8000); P.budgetFormation = Math.min(60000, Math.round(net * 0.1)); }
+      else if (net > 20000 && P.tresorerie > 400000) { P.permanents += P.tresorerie > -30 * (f.permanents + f.locaux + f.com) ? Math.ceil(P.permanents * 0.03) : rng.chance(0.4) ? 1 : 0; P.budgetCom = Math.min(Math.round(P.tresorerie * 0.012), P.budgetCom + 8000); P.budgetFormation = Math.min(60000, Math.round(net * 0.1)); }
       const pres = e.calendrier.find(x => x.type === 'presidentielle' && !x.fait1); if (pres && pres.s1 - e.semaine === 13 && P.candidatPres >= 0 && P.parrainages >= 300) { const cap = capaciteEmprunt(e, P); if (cap > 500000) emprunter(e, P, Math.min(cap * 0.7, 8e6), 60); }
     }
     if (iaDecide(e, P, 'doctrine')) {

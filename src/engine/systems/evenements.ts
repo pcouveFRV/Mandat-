@@ -13,7 +13,7 @@ function eligible(e: Etat, d: Donnees, ev: DonEvenement, roles: string[]): boole
   const c = ev.cond; const an = annee(e.semaine);
   if (c.de && an < c.de) return false; if (c.a && an > c.a) return false; if (c.mois && !c.mois.includes(mois(e.semaine))) return false;
   if (c.mode && c.mode !== e.joueur.mode) return false; if (c.role && !roles.includes(c.role)) return false;
-  const vu = e.evVus[ev.id]; if (vu !== undefined && e.semaine - vu < (ev.portee === 'nat' ? 70 : 45)) return false;
+  const vu = e.evVus[ev.id]; if (vu !== undefined && e.semaine - vu < (ev.portee === 'nat' ? 90 : 130)) return false;
   if (ev.portee === 'parti' && !droits(e).tout) return false;
   return true;
 }

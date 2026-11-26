@@ -81,7 +81,7 @@ function tour2(e: Etat, d: Donnees, rng: Rng, type: Scrutin, mode: 'uni' | 'list
     const t1 = u.t1.slice(); for (const k of Object.keys(u.fusions)) { const f = +k, t = u.fusions[f]; if (maint.includes(t)) { t1[t] += 0.88 * t1[f]; t1[f] = 0; if (!u.cands[t].soutiens.includes(u.cands[f].parti)) u.cands[t].soutiens.push(u.cands[f].parti, ...u.cands[f].soutiens); } }
     const partisL = u.cands.map(c => c.parti); const restP = maint.map(i => partisL[i]);
     const r = reporter(e, t1, partisL, maint, q => consigneDe(e, q, restP), q => barrageDe(e, q, restP));
-    const bonus = ed.bonusDebat; const voix = r.voix.map((v, i) => maint.includes(i) ? Math.round(v * Math.exp(rng.gauss() * 0.03) * (bonus ? 1 + (bonus[i] ?? 0) : 1)) : 0);
+    const bonus = ed.bonusDebat; const voix = r.voix.map((v, i) => maint.includes(i) ? Math.round(v * Math.exp(rng.gauss() * (type === 'presidentielle' ? 0.05 : 0.03)) * (bonus ? 1 + (bonus[i] ?? 0) : 1)) : 0);
     let g = maint[0]; for (const i of maint) if (voix[i] > voix[g]) g = i;
     const votants = Math.round(u.votants - r.abst * 0.9); res[uid] = { voix, gagnant: g, votants }; ins += u.inscrits; vot += votants;
     for (const i of maint) nat[partisL[i]] += voix[i];
@@ -165,7 +165,8 @@ function laisserExecutif(e: Etat, d: Donnees, rng: Rng, p: Perso, type: string, 
 export function formerGouvernement(e: Etat, d: Donnees, sieges: number[]): string {
   const total = sieges.reduce((a, b) => a + b, 0) || 577; const maj = Math.floor(total / 2) + 1; const pres = e.presidence.parti;
   let pivot = pres >= 0 && sieges[pres] > 0 ? pres : sieges.indexOf(Math.max(...sieges)); const essais = [pivot, sieges.indexOf(Math.max(...sieges))]; let meilleur: number[] = [], ms = 0;
-  for (const pv of essais) { const co = [pv]; let s = sieges[pv]; const cand = e.partis.filter(p => p.actif && p.idx !== pv && sieges[p.idx] > 0).sort((a, b) => rel(e, pv, b.idx) - rel(e, pv, a.idx)); for (const q of cand) { if (s >= maj) break; if (rel(e, pv, q.idx) >= 25 && co.every(x => rel(e, x, q.idx) >= 0)) { co.push(q.idx); s += sieges[q.idx]; } } if (s > ms) { ms = s; meilleur = co; } if (s >= maj) break; }
+  for (const pv of essais) { const co = [pv]; let s = sieges[pv]; const cand = e.partis.filter(p => p.actif && p.idx !== pv && sieges[p.idx] > 0).sort((a, b) => rel(e, pv, b.idx) - rel(e, pv, a.idx)); for (const q of cand) { if (s >= maj) break; if (rel(e, pv, q.idx) >= 25 && co.every(x => rel(e, x, q.idx) >= 0)) { co.push(q.idx); s += sieges[q.idx]; } } // Le camp du président gouverne sauf si un autre bloc a la majorité absolue (cohabitation) ou le dépasse nettement.
+    if (!meilleur.length || s >= maj || s > ms * 1.35) { ms = s; meilleur = co; } if (s >= maj) break; }
   const chef = meilleur[0]; e.gouvernement = { parti: chef, coalition: meilleur, pm: e.partis[chef].chef };
   const noms = meilleur.map(p => e.partis[p].sigle).join(', ');
   return ms >= maj ? `Majorité ${meilleur.length > 1 ? 'de coalition' : 'absolue'} (${noms}) avec ${ms} sièges.` : `Pas de majorité absolue. Gouvernement minoritaire (${noms}, ${ms} sièges).`;
@@ -336,6 +337,8 @@ export function candidatsPresidentielle(e: Etat, d: Donnees): Candidature[] {
 }
 export function presidentielleT1(e: Etat, d: Donnees, rng: Rng, ctx: Ctx, ech: Echeance) {
   const c = preparer(e, d); const cands = candidatsPresidentielle(e, d); if (cands.length < 2) { ech.fait1 = ech.fait2 = true; return; }
+  // Aléa de campagne : une campagne présidentielle réussit plus ou moins bien, au-delà des fondamentaux.
+  for (const cd of cands) cd.qualite += rng.gauss() * 0.09;
   const zf = d.zones.map(z => [z.idx, 1] as [number, number]); const u: DefUnite = { uid: 'PR', nom: 'France', zf, lieu: 0, bonusSortant: (e.presidence.popularite - 45) / 60 };
   const r = voteUnite(e, d, c, rng, u, cands, { local: false, seuilSeul: 0, echelle: 1, facteur: FACTEUR_ABST.presidentielle, national: true });
   const ordre = r.voix.map((v, i) => [v, i]).sort((a, b) => b[0] - a[0]).map(x => x[1]); const tot = r.voix.reduce((a, b) => a + b, 0) || 1;
@@ -366,7 +369,7 @@ export function presidentielleT2(e: Etat, d: Donnees, rng: Rng, ctx: Ctx, ech: E
   for (const cd of [g, perdant]) if (cd) cloreCompte(e, d, rng, ctx, e.partis[cd.parti], 0.3);
   message(e, ctx, 'resultats', 'Présidentielle : second tour', `${resume}. Participation : ${Math.round(part * 100)} %.\n${explication(e, d, u, rr.voix, rr.gagnant)}`, true);
   delete e.entreDeux.presidentielle; for (const k of Object.keys(e.consignes)) delete e.consignes[+k]; ech.fait2 = true;
-  if (g.parti === e.joueur.parti && (e.joueur.mode === 'parti' || g.perso === e.joueur.perso)) { e.joueur.pointsVictoire.elysee = (e.joueur.pointsVictoire.elysee ?? 0) + 1; message(e, ctx, 'victoire', 'Victoire : l\'Élysée', `${nomComplet(p)} entre à l'Élysée. C'est une victoire historique. Vous pouvez continuer la partie en mode Président : popularité, réformes sous forme de décisions, législatives à suivre.`, true, { action: { type: 'victoire', data: { type: 'elysee' } } }); }
+  if (g.parti === e.joueur.parti && (e.joueur.mode === 'parti' || g.perso === e.joueur.perso || e.partis[g.parti].chef === e.joueur.perso)) { e.joueur.pointsVictoire.elysee = (e.joueur.pointsVictoire.elysee ?? 0) + 1; message(e, ctx, 'victoire', 'Victoire : l\'Élysée', `${nomComplet(p)} entre à l'Élysée. C'est une victoire historique. Vous pouvez continuer la partie en mode Président : popularité, réformes sous forme de décisions, législatives à suivre.`, true, { action: { type: 'victoire', data: { type: 'elysee' } } }); }
 }
 
 const P0 = (e: Etat, i: number) => e.partis[i];

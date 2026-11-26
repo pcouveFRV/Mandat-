@@ -143,4 +143,6 @@ function App() {
     {m.toast && <div class={`toast ${m.toast.ok ? '' : 'ko'}`} onClick={() => maj({ toast: null })}>{m.toast.texte}</div>}
   </>;
 }
+// Accès de diagnostic à l'état de l'interface (lecture seule), utile pour les essais automatisés.
+(window as any).__mandat = { lire: lireMagasin };
 render(<App />, document.getElementById('app')!);

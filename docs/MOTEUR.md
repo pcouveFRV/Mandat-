@@ -95,7 +95,7 @@ Chaque semaine :
 - Crédibilité : tend vers `crédibilité de départ + 2 x (compétence moyenne des figures - 12,5) + 0,2 x (bilan moyen des mairies - 58) - 1,5 x passif de gaffes - 2 x changements de ligne récents`.
 - Notoriété : tend vers un plancher qui dépend des parlementaires et des adhérents, plus la viralité.
 - Unité : tend vers `78 - 60 x poids des courants mécontents + 0,3 x dynamique`. Sous 16, la scission menace.
-- Usure du pouvoir : +0,3 point par semaine pour le parti du président (plus si le président est impopulaire), +0,13 pour ses alliés au gouvernement, -0,4 dans l'opposition. Elle se retranche directement du vote.
+- Usure du pouvoir : +0,0019 par semaine pour le parti du président (x 1,25 si sa popularité est sous 45 %, x 0,6 sinon), plafonnée à 0,42. +0,0009 pour ses alliés au gouvernement, plafonnée à 0,2. -0,003 par semaine dans l'opposition. Elle se retranche directement de l'utilité : à 0,42, le parti pèse environ un tiers de moins dans le vote.
 - Dynamique : suit la tendance des intentions de vote et les résultats, revient vers 0.
 
 Chaque mois : cotisations, dons, financement public par douzièmes, reversements d'élus, permanents, locaux, communication, formation, mensualités. Six mois de trésorerie négative : faillite (défaite pour le joueur, plan de sauvetage pour une IA).

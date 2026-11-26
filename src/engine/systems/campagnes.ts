@@ -66,6 +66,13 @@ export function tourCampagnes(e: Etat, d: Donnees, rng: Rng, ctx: Ctx) {
       const dr = droits(e); const Pj = e.partis[e.joueur.parti];
       message(e, ctx, 'campagne', `Ouverture de la campagne : ${NOM_SCRUTIN[ech.type].toLowerCase()}`, `Le premier tour aura lieu le ${jourVote(ech.s1)}. ${ech.type === 'senatoriales' ? 'Seuls les grands électeurs votent : le résultat dépend de vos élus locaux.' : dr.finances ? `Budget proposé : ${Math.round((Pj.campagne?.total ?? 0) / 1000)} k€. Vous pouvez le modifier dans l'écran Campagne, ainsi que les investitures et les alliances.` : 'La direction du parti fixe le budget et les investitures.'}`, true);
     }
+    // Débat télévisé de campagne pour les scrutins nationaux, trois semaines avant le premier tour.
+    if (['presidentielle', 'legislatives', 'europeennes'].includes(ech.type) && e.semaine === ech.s1 - 3) {
+      const j = e.joueur.parti; const Pj = e.partis[j]; const rivaux = e.partis.filter(q => q.actif && q.idx !== j && q.chef >= 0 && (ech.type !== 'presidentielle' || q.candidatPres >= 0)).sort((a, b) => (e.intentions[b.idx] ?? 0) - (e.intentions[a.idx] ?? 0));
+      const enLice = ech.type !== 'presidentielle' || (Pj.candidatPres >= 0 && Pj.parrainages >= 500);
+      if (Pj.actif && enLice && rivaux.length && !e.options.auto && droits(e).medias && (e.intentions[j] ?? 0) > 0.03) { const adv = rivaux[0]; const qui = ech.type === 'presidentielle' ? adv.candidatPres : adv.chef; message(e, ctx, 'medias', `Débat télévisé : ${NOM_SCRUTIN[ech.type].toLowerCase()}`, `La grande chaîne organise le débat de la campagne. Vous seriez face à ${nomComplet(e.persos[qui])} (${adv.sigle}). Un bon débat pèse sur la dynamique de fin de campagne.`, true, { choix: [{ t: 'Y aller moi-même', info: 'Vous jouez le débat dans l\'écran Médias.' }, { t: 'Envoyer le porte-parole' }, { t: 'Décliner', info: 'Votre chaise vide sera commentée.' }], action: { type: 'invitation', data: { media: 'une20h', adversaire: qui } }, expire: e.semaine + 1 }); }
+      for (const Q of e.partis) if (Q.actif && Q.idx !== j && Q.chef >= 0 && (e.intentions[Q.idx] ?? 0) > 0.05) { const c = e.persos[ech.type === 'presidentielle' && Q.candidatPres >= 0 ? Q.candidatPres : Q.chef]; Q.dynamique = clamp(Q.dynamique + (attr(d, c, A.debat, 'debat') - 11) * 0.5 + rng.gauss() * 1.5, -50, 50); }
+    }
     // Effets hebdomadaires de la dépense de campagne.
     if (e.semaine > ech.s1 - duree && e.semaine <= (ech.s2 > 0 ? ech.s2 : ech.s1) && ech.type !== 'senatoriales') {
       const nP = e.partis.length;
