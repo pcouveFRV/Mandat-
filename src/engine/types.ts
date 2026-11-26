@@ -30,7 +30,7 @@ export interface Donnees {
   segments: DonSegment[]; axes: { id: string; nom: string; poleMoins: string; polePlus: string }[]; themes: { id: string; nom: string; axes: number[] }[];
   propositions: DonProposition[]; evenements: DonEvenement[]; medias: DonMedia[]; traits: DonTrait[];
   noms: { prenoms: Record<string, string[][]>; noms: Record<string, string[]> };
-  personnalites: DonPersonnalite[]; mairesImposes: { zone: string; parti: string }[];
+  personnalites: DonPersonnalite[]; mairesImposes: { zone: string; parti: string }[]; affiliations: Record<string, string[]>;
   zones: Zone[]; socio: number[]; circos: DonCirco[]; depts: DonDept[]; regions: DonRegion[];
   // index dérivés
   idxParti: Record<string, number>; idxDept: Record<string, number>; idxRegion: Record<string, number>; idxCirco: Record<string, number>; idxZone: Record<string, number>;

@@ -34,7 +34,7 @@ export function assembler(brut: Record<string, any>): Donnees {
   }
   return {
     partis, nuances: brut.partis.nuances, segments: brut.segments.segments, axes: brut.doctrine.axes, themes: brut.doctrine.themes, propositions: brut.doctrine.propositions,
-    evenements: brut.evenements.evenements, medias: brut.medias.medias, traits: brut.traits.traits, noms: brut.noms, personnalites: brut.personnalites.personnalites, mairesImposes: brut.personnalites.maires ?? [],
+    evenements: brut.evenements.evenements, medias: brut.medias.medias, traits: brut.traits.traits, noms: brut.noms, personnalites: brut.personnalites.personnalites, mairesImposes: brut.personnalites.maires ?? [], affiliations: brut.personnalites.affiliations ?? {},
     zones, socio: brut.socio.poids, circos, depts, regions, idxParti, idxDept, idxRegion, idxCirco, idxZone, zonesParDept, zonesParCirco, villes, idxVille: idx(villes, 'id'),
     traitsParId: Object.fromEntries(brut.traits.traits.map((t: any) => [t.id, t])),
   };

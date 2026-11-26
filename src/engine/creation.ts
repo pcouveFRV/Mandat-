@@ -60,13 +60,16 @@ export function creerPartie(d: Donnees, o: OptPartie): Etat {
   }
 
   // --- Députés (résultats réels de 2024) ---
-  const titulaires: Record<string, string> = {};
+  const titulaires: Record<string, string> = {}; const norm = (s: string) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase().replace(/[^A-Z]/g, '');
+  const affil: Record<string, string> = {}; for (const pid of Object.keys(d.affiliations)) for (const x of d.affiliations[pid]) { const [n, i] = x.split('|'); affil[norm(n) + (i ? '|' + i : '')] = pid; }
+  const nomPropre = (s: string) => s.toLowerCase().replace(/(^|[\s'-])(\p{L})/gu, (_m, a, b) => a + b.toUpperCase()).replace(/\b(De|Du|Des|D|La|Le)\b(?=\s|')/g, x => x === 'Le' || x === 'La' ? x : x.toLowerCase());
   d.circos.forEach((c, ci) => {
     const perso = parRole[`depute:${c.id}`]; const el = c.elu; let parti = el ? partiDeNuance(d, el.nuance, c.id, c.dept) : 'DVC';
+    if (el && ['UG', 'ENS', 'FI', 'SOC', 'ECO', 'COM', 'DVG', 'HOR', 'REG', 'DVC'].includes(el.nuance)) { const a = affil[norm(el.nom) + '|' + norm(el.prenom).charAt(0)] ?? affil[norm(el.nom)]; parti = a ?? (el.nuance === 'UG' ? 'PS' : el.nuance === 'ENS' ? 'RE' : parti); titulaires[`${ci}:${el.nuance}`] = parti; }
     if (perso) { parti = e.partis[perso.parti].id; if (el) titulaires[`${ci}:${el.nuance}`] = parti; donnerMandat(e, perso, 'depute', ci, true); e.assemblee.push({ perso: perso.id, parti: perso.parti }); return; }
     if (!el) { e.assemblee.push({ perso: -1, parti: d.idxParti[parti] }); return; }
     const zf = d.zonesParCirco[ci]; const zone = zf.length ? zf.slice().sort((a, b) => d.zones[b[0]].pop * b[1] - d.zones[a[0]].pop * a[1])[0][0] : 0;
-    const p = creerPerso(e, d, rng, { parti: d.idxParti[parti], dept: d.idxDept[c.dept] ?? 0, zone, rang: 3, sexe: el.sexe as 'M' | 'F', nom: el.nom.charAt(0) + el.nom.slice(1).toLowerCase().replace(/(^|[\s-])(\p{L})/gu, (m, a, b) => a + b.toUpperCase()), prenom: el.prenom, reel: true, age: 38 + (hash(el.nom + el.prenom) % 28), roles: ['depute'] });
+    const p = creerPerso(e, d, rng, { parti: d.idxParti[parti], dept: d.idxDept[c.dept] ?? 0, zone, rang: 3, sexe: el.sexe as 'M' | 'F', nom: nomPropre(el.nom), prenom: el.prenom, reel: true, age: 38 + (hash(el.nom + el.prenom) % 28), roles: ['depute'] });
     p.notoriete = clamp(18 + Math.round(el.pct / 6) + rng.int(0, 8), 5, 60); donnerMandat(e, p, 'depute', ci, true); e.assemblee.push({ perso: p.id, parti: p.parti });
   });
 
@@ -122,11 +125,11 @@ export function creerPartie(d: Donnees, o: OptPartie): Etat {
   for (const P of e.partis) {
     if (!P.actif) continue; if (P.chef < 0) designerChef(e, d, rng, null, P);
     const dispo = e.persos.filter(p => p.parti === P.idx && p.rang >= 3 && p.id !== P.chef && !p.mandats.some(m => m.type === 'president' || m.type === 'premier_ministre'));
-    const choisir = (attrs: number[]) => { let best: Perso | null = null, bs = -1; for (const p of dispo) { if (p.postes.length) continue; const s = attrs.reduce((a, i) => a + p.attrs[i], 0) + p.notoriete * 0.05; if (s > bs) { bs = s; best = p; } } if (!best) best = creerPerso(e, d, rng, { parti: P.idx, dept: rng.pondere(P.adhDept), rang: 3 }); return best; };
+    const choisir = (attrs: number[]) => { let best: Perso | null = null, bs = -1; for (const p of dispo) { if (p.postes.length || p.reel) continue; const s = attrs.reduce((a, i) => a + p.attrs[i], 0) + p.notoriete * 0.05; if (s > bs) { bs = s; best = p; } } if (!best) best = creerPerso(e, d, rng, { parti: P.idx, dept: rng.pondere(P.adhDept), rang: 3 }); return best; };
     const R: [string, number[]][] = [['tresorier', [A.gestion, A.discipline]], ['porte_parole', [A.medias, A.eloquence, A.debat]], ['organisation', [A.organisation, A.terrain]], ['elections', [A.negociation, A.organisation]], ['projet', [A.dossiers, A.eloquence]], ['jeunes', [A.reseaux, A.energie]]];
     for (const [k, at] of R) { const p = choisir(at); P.bureau[k] = p.id; p.postes.push(k); }
     const ordre = P.adhDept.map((a, i) => [a, i]).sort((a, b) => b[0] - a[0]); const max = P.adherents >= 30000 ? 101 : P.adherents >= 10000 ? 60 : 25;
-    for (const [a, di] of ordre.slice(0, max)) { if (a < 15) break; const loc = e.persos.find(p => p.parti === P.idx && p.dept === di && p.rang >= 2 && p.rang < 4 && !p.postes.length && !p.mandats.some(m => m.type === 'depute' || m.type === 'senateur')) ?? creerPerso(e, d, rng, { parti: P.idx, dept: di, rang: P.adherents >= 20000 ? 2 : 1 }); P.delegues[di] = loc.id; loc.postes.push('delegue'); }
+    for (const [a, di] of ordre.slice(0, max)) { if (a < 15) break; const loc = e.persos.find(p => p.parti === P.idx && p.dept === di && !p.reel && p.rang >= 2 && p.rang < 4 && !p.postes.length && !p.mandats.some(m => m.type === 'depute' || m.type === 'senateur')) ?? creerPerso(e, d, rng, { parti: P.idx, dept: di, rang: P.adherents >= 20000 ? 2 : 1 }); P.delegues[di] = loc.id; loc.postes.push('delegue'); }
     tisserRelations(e, rng, e.persos.filter(p => p.parti === P.idx && p.rang >= 2)); recalculerCourants(e, d, P);
     P.prochainCongres = debut + 30 + rng.int(0, 150);
     // Financement public issu des législatives 2024.
@@ -148,6 +151,6 @@ export function creerPartie(d: Donnees, o: OptPartie): Etat {
 
   const c = preparer(e, d); e.intentions = intentions(e, d, c); e.histIntentions.push({ s: e.semaine, v: e.intentions.map(x => Math.round(x * 1000) / 10) });
   e.rng = rng.s;
-  message(e, null, 'actu', `Bienvenue à la tête de ${o.mode === 'parti' ? Pj.nom : 'votre carrière'}`, o.mode === 'parti' ? `Nous sommes le ${annee(e.semaine) === 2026 ? (o.scenario === 'municipales2026' ? '6 avril 2026' : '7 septembre 2026') : ''}. Vous dirigez ${Pj.nom} : ${Math.round(Pj.adherents)} adhérents, ${Math.round(Pj.tresorerie / 1000)} k€ en caisse, ${e.assemblee.filter(s => s.parti === Pj.idx).length} députés. Le bouton Continuer fait avancer le temps d'une semaine.` : `Vous êtes militant ${Pj.sigle}. Faites vos preuves sur le terrain, obtenez des responsabilités, puis une investiture. Le bouton Continuer fait avancer le temps d'une semaine.`, true);
+  message(e, null, 'actu', o.mode === 'parti' ? `Bienvenue : ${Pj.nom}` : 'Bienvenue : votre carrière commence', o.mode === 'parti' ? `Nous sommes le ${o.scenario === 'municipales2026' ? '6 avril 2026' : '7 septembre 2026'}. Votre parti : ${Pj.nom}. ${Math.round(Pj.adherents)} adhérents, ${Math.round(Pj.tresorerie / 1000)} k€ en caisse, ${e.assemblee.filter(s => s.parti === Pj.idx).length} députés, ${e.mairies.filter(m => m.parti === Pj.idx).length} mairies. Le bouton Continuer fait avancer le temps d'une semaine.` : `Vous êtes militant ${Pj.sigle}. Faites vos preuves sur le terrain, obtenez des responsabilités, puis une investiture. Le bouton Continuer fait avancer le temps d'une semaine.`, true);
   return e;
 }
