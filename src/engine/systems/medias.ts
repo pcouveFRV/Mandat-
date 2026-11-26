@@ -96,6 +96,5 @@ export function tourMedias(e: Etat, d: Donnees, rng: Rng, ctx: Ctx) {
       const adv = rng.chance(0.3) ? e.partis.filter(q => q.actif && q.idx !== P.idx && q.chef >= 0)[rng.int(0, e.partis.filter(q => q.actif && q.idx !== P.idx && q.chef >= 0).length - 1)] : null;
       message(e, ctx, 'medias', adv ? `Invitation : débat sur ${media.nom}` : `Invitation : ${media.nom}`, adv ? `${media.nom} propose un débat face à ${nomComplet(e.persos[adv.bureau.porte_parole >= 0 ? adv.bureau.porte_parole : adv.chef])} (${adv.sigle}). Audience : ${media.audience} 000 personnes.` : `${media.nom} vous invite cette semaine. Audience : ${media.audience} 000 personnes. Ton de l'émission : ${['posé', 'vif', 'polémique'][media.ton]}.`, false, { choix: [{ t: 'Y aller moi-même', info: 'Vous jouez l\'entretien dans l\'écran Médias.' }, { t: 'Envoyer le porte-parole', info: 'Résultat selon ses attributs.' }, { t: 'Décliner' }], action: { type: 'invitation', data: { media: media.id, adversaire: adv ? (adv.bureau.porte_parole >= 0 ? adv.bureau.porte_parole : adv.chef) : -1 } }, expire: e.semaine + 1 });
     } else passageAuto(e, d, rng, P, pp, media);
-    if (!joueur || e.joueur.mode === 'carriere') { if (rng.chance(0.35)) publier(e, d, rng, null, P, rng.pick(P.style === 'offensif' ? ['polemique', 'humour', 'coulisses'] : ['fond', 'coulisses', 'humour'])); }
   }
 }

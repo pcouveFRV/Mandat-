@@ -9,8 +9,8 @@ export function Inbox() {
   const msgs: any[] = v?.messages ?? []; const liste = msgs.filter(x => filtre === 'tout' || (filtre === 'decisions' ? x.choix && x.repondu === undefined : x.cat === filtre));
   const cur = msgs.find(x => x.id === sel) ?? liste.find(x => x.choix && x.repondu === undefined) ?? liste[0];
   const ouvrir = (x: any) => { setSel(x.id); if (!x.lu) agir({ type: 'lu', id: x.id }, true); };
-  return <div class="grille g12" style={{ height: '100%' }}>
-    <div class="bloc" style={{ padding: 0, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+  return <div class="courrier">
+    <div class="liste">
       <div class="ligne" style={{ padding: '8px 10px', borderBottom: '1px solid var(--bord)' }}>
         <select value={filtre} onChange={(ev: any) => setFiltre(ev.target.value)}><option value="tout">Tous les messages</option><option value="decisions">Décisions en attente</option>{Object.keys(CATS).map(k => <option value={k}>{CATS[k]}</option>)}</select>
         <span class="espace" /><button class="petit" onClick={() => agir({ type: 'toutLu' }, true)}>Tout marquer comme lu</button></div>
@@ -19,8 +19,8 @@ export function Inbox() {
         <b>{x.titre}</b>{x.choix && x.repondu === undefined && <span class="badge rouge" style={{ marginLeft: '6px' }}>à décider</span>}</div>)}
         {liste.length === 0 && <p class="doux" style={{ padding: '10px' }}>Aucun message.</p>}</div>
     </div>
-    <div class="grille" style={{ alignContent: 'start' }}>
-      {cur ? <div class="bloc"><div class="ligne"><span class="cat doux">{CATS[cur.cat] ?? cur.cat}</span><span class="espace" /><span class="doux">{cur.date}</span></div><h2 style={{ marginTop: '4px' }}>{cur.titre}</h2><p class="pre">{cur.texte}</p>
+    <div class="lecture">
+      {cur ? <div class="bloc lettre"><div class="ligne"><span class="cat doux">{CATS[cur.cat] ?? cur.cat}</span><span class="espace" /><span class="doux">{cur.date}</span></div><h2 style={{ marginTop: '4px' }}>{cur.titre}</h2><p class="pre">{cur.texte}</p>
         {cur.choix && cur.repondu === undefined && <div class="choix">{cur.choix.map((c: any, i: number) => <button onClick={() => agir({ type: 'repondre', id: cur.id, choix: i })}><b>{c.t}</b>{c.info && <small>{c.info}</small>}</button>)}{cur.expire !== undefined && <small class="doux">Sans réponse d'ici {Math.max(0, cur.expire - b.semaine)} semaine(s), la dernière option s'applique.</small>}</div>}
         {cur.choix && cur.repondu !== undefined && <p class="doux">Votre décision : {cur.choix[cur.repondu]?.t}</p>}
         {cur.cat === 'resultats' && <button onClick={() => aller('historique')}>Voir le détail dans l'historique</button>}

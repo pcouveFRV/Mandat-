@@ -14,7 +14,7 @@ Le tutoriel présente les écrans un par un. Il se désactive dans le menu.
 
 ## Le temps
 
-Le bouton Continuer avance d'une semaine. La flèche à côté propose : jusqu'au prochain message important, jusqu'à la veille de la prochaine élection, ou un nombre de semaines au choix. L'avance s'arrête toujours quand une décision vous attend ou qu'une soirée électorale commence. La partie est sauvegardée automatiquement toutes les huit semaines environ (emplacement « Sauvegarde automatique »).
+Le bouton Continuer avance d'une semaine. La flèche à côté propose : une semaine, un mois, un trimestre, jusqu'au prochain message important, jusqu'à la veille de la prochaine élection, ou un nombre de semaines au choix. L'avance s'arrête toujours quand une décision vous attend ou qu'une soirée électorale commence. La partie est sauvegardée automatiquement toutes les huit semaines environ (emplacement « Sauvegarde automatique »).
 
 ## Les ressources du parti
 
@@ -90,12 +90,36 @@ Présidentielle : il faut 500 parrainages cinq semaines avant le premier tour. L
 
 Un entretien se joue en 4 questions, un débat en 5, le grand débat présidentiel en 8. À chaque question, cinq réponses possibles : attaquer, esquiver, sortir un chiffre, jouer l'émotion, contre-attaquer. Chaque genre de question a sa meilleure réponse (un chiffre sur une question technique, l'émotion sur un drame, l'esquive sur un piège interne). La réussite dépend aussi des attributs de celui qui parle. Une contre-attaque ratée coûte cher. Les dérapages laissent des traces durables.
 
+## Agora, le réseau social
+
+Un seul réseau, qui mélange message court, visuel, vidéo et direct. Chaque parti et chaque personnage y a un compte et des abonnés.
+
+- En mode Parti, vous publiez sur le compte du parti ou sur celui d'un dirigeant (président, porte-parole, responsable des jeunes). En mode Carrière, vous publiez sur votre compte personnel, dès le premier jour.
+- Une publication, c'est un sujet, un format et un ton. Vous pouvez écrire votre propre texte (280 caractères) ou laisser le jeu proposer une formule.
+- Sujets : vos dix thèmes de doctrine, les tendances de la semaine, ou une réaction à l'actualité. Réagir la semaine même rapporte plus, avec un risque de faux pas plus élevé.
+- Formats : le message court est sûr, le visuel plaît aux militants, la vidéo touche les jeunes, le direct soude la base mais chaque mot compte.
+- Tons : pédagogue (crédibilité), offensif (viral et risqué), décalé, témoignage, coulisses.
+- Le résultat dépend de l'attribut Réseaux sociaux de celui qui publie, du nombre d'abonnés, du sujet du moment et de la cohérence avec la ligne du parti.
+- Trois publications utiles par semaine. Au-delà, vos abonnés décrochent.
+- Une réussite apporte des abonnés, de la notoriété, des dons et de l'opinion chez les jeunes. Un mauvais buzz coûte de la crédibilité.
+- En mode Parti, vous pouvez laisser l'équipe numérique publier à votre place : c'est prudent, avec moins d'éclat.
+
+Les personnes réelles ont un compte, mais le jeu ne leur prête aucun propos : leurs publications sont décrites en une ligne neutre.
+
 ## Exercer un mandat
 
 - Mairie : budget, fiscalité, six domaines de projets, adjoints et délégations, relations avec l'opposition et l'intercommunalité. Le bilan pèse lourd sur la réélection.
 - Département, région : budget et grandes compétences.
 - Assemblée : question au gouvernement, amendements, proposition de loi, commission d'enquête, niche parlementaire. Une initiative par semaine.
-- Élysée : mode Président simplifié. Les réformes arrivent sous forme de décisions. La popularité pèse sur les élections de votre camp.
+- Élysée et Matignon : quand votre camp gouverne, l'écran Mandat ouvre le bloc Présidence ou Gouvernement.
+  - Réformes : vous choisissez un domaine et une orientation. Chaque texte passe par la concertation (jusqu'à trois rounds, chacun fait monter le soutien), le Conseil des ministres, puis le Parlement. Une étape par semaine, deux textes au plus à la fois.
+  - Vote : avec la majorité absolue (289 sièges), le texte passe presque toujours. Sans elle, il faut un soutien élevé, ou engager le 49.3.
+  - 49.3 : le texte passe sauf si la motion de censure est adoptée. Dans ce cas le gouvernement tombe et le texte est abandonné.
+  - Premier ministre : le président peut en changer tous les six mois, y compris en choisissant une figure d'un parti allié.
+  - Remaniement : un petit regain de popularité, à condition de ne pas en abuser.
+  - Référendum : tous les deux ans au plus. Le résultat dépend du soutien de fond à la mesure et de votre popularité. Un non coûte cher.
+  - Dissolution : une fois par an au plus, jamais dans l'année qui suit des législatives. Le premier tour a lieu quatre semaines plus tard.
+  - La popularité de l'exécutif pèse sur les élections de votre camp.
 
 Cumul : un parlementaire ne peut pas être maire ni présider un département ou une région. Le moteur applique la règle à l'élection.
 

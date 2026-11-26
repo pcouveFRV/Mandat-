@@ -4,7 +4,16 @@ Ce fichier permet de reprendre le travail à partir du dépôt seul.
 
 ## État
 
-Version V3 livrée. Toutes les étapes du plan sont faites. Il reste une action côté GitHub pour la mise en ligne (voir « À faire par le propriétaire du dépôt »).
+Version V4 en cours. La V3 est livrée. Il reste une action côté GitHub pour la mise en ligne (voir « À faire par le propriétaire du dépôt »).
+
+## V4 : état des lots
+
+1. Interface. Fait. Habillage refait (docs/DESIGN.md), barre latérale groupée, accent à la couleur du parti, emplacement des logos, boîte de réception en deux volets, thème clair par défaut. Bug du menu de vitesse corrigé (il passait derrière le contenu).
+2. Réseau social Agora. Fait. `src/engine/systems/agora.ts`, `src/ui/agora.tsx`, tests dans `tests/v4.test.ts`.
+3. Vraies données. Pas fait. Les sites officiels sont inaccessibles depuis la session. Un dépôt GitHub public (Mrsaltyx/defi-municipales-2026) contient le répertoire des maires et les résultats des municipales 2026 en parquet, mais l'outil de lecture a été refusé par les garde-fous de la session. À reprendre : lire ces fichiers sur un poste où pandas et pyarrow sont installés, exporter en CSV dans `.sources/`, puis compléter `scripts/data/construire.mjs`.
+4. Équilibre. Fait pour les présidentielles et les législatives (docs/EQUILIBRAGE.md : RN 37 %, RE 31 %, PS 24 %, LR 7 % des présidentielles simulées, 3,6 alternances par partie). Pas fait pour les scissions : toujours aucune en 20 parties, l'unité ne descend pas sous 53. Piste : relever le seuil d'unité dans `partis.ts` ou faire baisser l'unité plus fort après une défaite.
+5. Exécutif. Fait pour la présidence et le gouvernement (`src/engine/systems/executif.ts`). Pas fait : budgets pluriannuels des mairies, départements et régions.
+6. Finitions. Tests (42), rapport d'équilibrage, essais par robot : fait. Partie d'essai V4 : 160 semaines en mode Carrière à Marseille, sans erreur.
 
 ## Plan et état
 
@@ -37,7 +46,10 @@ Sans accès au registre npm (cas de l'environnement de construction) : `sh scrip
 
 ## Limites connues
 
-- Équilibrage sur 20 parties IA (docs/EQUILIBRAGE.md) : le RN gagne 75 % des présidentielles et 19 des 20 scrutins de 2027, il est premier groupe à l'Assemblée 83 fois sur 100. L'alternance existe (2,3 changements par partie en moyenne) mais un seul parti domine trop. Aucune scission en 20 parties : le seuil est trop haut.
+- Scissions : aucune en 20 parties IA, le seuil reste trop haut.
+- Érosion des fidélités de 2024 : en 2050 les petits partis sont plus hauts qu'au départ (PCF 6 %, LO 3 %), ce qui fragmente le paysage.
+- Dissolution : seule la prochaine échéance législative est avancée, les suivantes gardent leur date.
+- Agora : les abonnés de départ sont calculés à partir de la notoriété, pas des chiffres réels.
 
 Données
 
@@ -63,8 +75,9 @@ Interface
 - Pensée pour un écran d'ordinateur. Utilisable sur tablette en paysage, pas optimisée pour téléphone.
 - La soirée électorale des législatives liste les circonscriptions sans carte animée (577 contours seraient trop lourds à animer).
 
-## Pistes pour la V4
+## Pistes pour la suite
 
-1. Gouvernement complet après une victoire présidentielle : nominations, 49.3, dissolution, cohabitation, motions de censure jouables.
-2. Import du Répertoire national des élus et des données INSEE pour remplacer les données de substitution (maires, sénateurs, sociologie réelle).
-3. Élections municipales et conseils municipaux plus fins : conseillers avec fiche, opposition incarnée, intercommunalités réelles, contours des arrondissements.
+1. Vraies données (lot 3) : maires, sénateurs, résultats municipaux 2026, sociologie INSEE.
+2. Scissions et vie interne : seuils à revoir, congrès plus disputés.
+3. Collectivités : budgets pluriannuels, projets en plusieurs étapes, bilan détaillé à l'élection.
+4. Agora : messages privés entre élus, campagnes sponsorisées, comptes anonymes de militants.

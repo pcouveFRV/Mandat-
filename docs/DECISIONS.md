@@ -36,3 +36,21 @@ Une ligne par décision, avec la raison.
 - Une prise de parole médiatique pèse sur le parti selon le rang de celui qui parle. Raison : la gaffe d'un simple militant ne doit pas coûter autant que celle du chef.
 - La confirmation avant de quitter une partie se fait par un second clic sur le bouton, sans boîte de dialogue du navigateur. Raison : ces boîtes sont bloquées dans certains cadres d'affichage.
 - Équilibrage final accepté en l'état : le RN gagne 75 % des présidentielles simulées et 19 des 20 scrutins de 2027. Raison : c'est la conséquence du calage sur les législatives 2024 (premier parti au premier tour) et non d'une règle propre à ce parti. Corrigé en partie par l'usure, à reprendre en V4 (voir docs/EQUILIBRAGE.md).
+
+## V4
+
+- Ordre des lots : interface, réseau social, équilibre, exécutif, puis données. Raison : les données dépendent d'un accès que je n'ai pas depuis ma session.
+- Habillage : règles du design system cité par Pierre transposées à la main (docs/DESIGN.md), sans copier ses fichiers. Raison : sa référence est une application mobile, seules les règles se transposent au web.
+- Thème clair par défaut, sombre en option. Raison : plus proche du modèle demandé.
+- Accent de l'interface : couleur du parti joué, foncée ou éclaircie jusqu'à un contraste de 4,5. Raison : rester lisible avec les partis à couleur claire.
+- Logos : aucun logo officiel embarqué ni redessiné. Emplacement `public/data/logos/` pour les fichiers du joueur, pastille au sigle par défaut. Raison : les logos des partis sont des marques.
+- Réseau social : un seul réseau fictif nommé Agora. Raison : demandé, et un nom neutre évite toute confusion avec un réseau réel.
+- Agora, personnes réelles : leurs publications sont décrites en une ligne neutre, aucun propos ne leur est attribué. Les comptes citoyens commentent des sujets, jamais des personnes. Les vieilles publications qui ressortent ne concernent que des personnages générés.
+- Agora remplace les anciennes publications de l'écran Médias. En mode Carrière, le joueur publie sur son compte personnel dès le départ. Raison : donner une action hebdomadaire à un simple militant.
+- Trois publications utiles par semaine, portée dégressive. Raison : éviter le clic en rafale.
+- Exécutif : réformes en trois étapes, 49.3 avec risque de censure, remaniement, changement de Premier ministre, référendum, dissolution. Les gouvernements IA utilisent les mêmes règles.
+- Dissolution : la prochaine échéance législative est avancée, les suivantes gardent leur date. Raison : garder un calendrier simple. Limite connue : en réalité le mandat de cinq ans repart de la dissolution.
+- Reports de second tour : correction d'une erreur de la V3. L'abstention des électeurs sans candidat était comparée à des poids non normalisés et absorbait environ 70 % des reports. Le candidat arrivé en tête gagnait presque toujours. Les poids sont maintenant ramenés au meilleur choix.
+- Érosion des fidélités calées sur 2024 : 0,5 % par mois pour les valeurs positives, 0,2 % pour les négatives. Raison : sur 25 ans, ce que les partis font en jeu doit prendre le relais du point de départ. La règle est la même pour tous les partis.
+- Scissions : possibles quand un courant de 12 à 50 % est durablement mécontent dans un parti à l'unité sous 52, au plus une fois tous les trois ans. Une déroute aux législatives fait baisser l'unité et l'humeur des courants. Raison : aucune scission en 20 parties dans la V3.
+- Données réelles : un dépôt GitHub public contient le répertoire des maires et les résultats des municipales 2026 au format parquet. Je n'ai pas pu les lire : l'outil de lecture nécessaire a été refusé par les garde-fous de ma session et je n'ai pas contourné ce refus. Le lot reste à faire.

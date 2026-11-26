@@ -4,14 +4,15 @@ import { useEffect, useState } from 'preact/hooks';
 import './style.css';
 import * as moteur from './moteur';
 import * as stockage from './stockage';
-import { useMagasin, maj, lireMagasin, toast, aller, agir, euro, nb, Info, Parti } from './composants';
+import { useMagasin, maj, lireMagasin, toast, aller, agir, euro, nb, Info, Parti, Logo, accentParti } from './composants';
+import { Agora } from './agora';
 import { Accueil } from './accueil';
 import { Inbox, FichePerso, Effectif, EcranParti } from './ecrans1';
 import { Finances, Doctrine, Medias, Historique } from './ecrans2';
 import { Campagne, Mandat, Soiree, Pantheon } from './ecrans3';
 import { EcranCarte } from './carte';
 
-const ECRANS: [string, string][] = [['inbox', 'Boîte de réception'], ['carte', 'Carte'], ['effectif', 'Effectif'], ['parti', 'Parti'], ['finances', 'Finances'], ['doctrine', 'Doctrine'], ['campagne', 'Campagne'], ['medias', 'Médias'], ['mandat', 'Mandat'], ['historique', 'Historique']];
+const GROUPES: [string, [string, string][]][] = [['Bureau', [['inbox', 'Boîte de réception'], ['agora', 'Agora'], ['medias', 'Médias']]], ['Organisation', [['effectif', 'Effectif'], ['parti', 'Parti'], ['finances', 'Finances'], ['doctrine', 'Doctrine']]], ['Élections', [['carte', 'Carte'], ['campagne', 'Campagne'], ['mandat', 'Mandat'], ['historique', 'Historique']]]];
 const TUTO: [string, string, string][] = [
   ['inbox', 'La boîte de réception', 'Tout passe par ici : messages de vos cadres, sondages, invitations, décisions à prendre. Les messages qui attendent une réponse sont signalés en rouge.'],
   ['inbox', 'Le temps', 'Le bouton Continuer, en haut à droite, fait avancer d\'une semaine. La flèche à côté permet d\'aller jusqu\'au prochain message important ou jusqu\'à la prochaine élection.'],
@@ -20,8 +21,9 @@ const TUTO: [string, string, string][] = [
   ['finances', 'Les finances', 'Cotisations, dons, financement public et reversements d\'élus paient les permanents, les locaux et les campagnes. Une trésorerie négative six mois de suite, c\'est la faillite.'],
   ['doctrine', 'La doctrine', 'Dix axes de -5 à +5. Bouger coûte de la crédibilité. Les propositions phares se débloquent selon votre position et attirent ou repoussent des électorats.'],
   ['campagne', 'Les campagnes', 'Calendrier, alliances, investitures, budget, meetings, parrainages. Avant chaque scrutin, c\'est ici que tout se joue. Entre les deux tours, vous décidez des désistements et des fusions.'],
+  ['agora', 'Agora', 'Le réseau social du jeu. Publiez un message, un visuel, une vidéo ou un direct, sur vos thèmes ou en réaction à l\'actualité. Réagir à chaud rapporte plus et expose davantage. Vos abonnés montent avec les publications réussies.'],
   ['medias', 'Les médias', 'Interviews et débats se jouent en répliques : attaquer, esquiver, sortir un chiffre, jouer l\'émotion, contre-attaquer. Le bon choix dépend de la question et des attributs de celui qui parle.'],
-  ['inbox', 'À vous de jouer', 'Avancez de quelques semaines, répondez aux messages, et gardez un oeil sur la date de la prochaine élection. Le guide complet est dans docs/JOUER.md. Bonne partie.'],
+  ['inbox', 'À vous de jouer', 'Avancez de quelques semaines, répondez aux messages, et gardez un oeil sur la date de la prochaine élection. Quand votre camp gouverne, l\'écran Mandat ouvre les réformes, le 49.3, le référendum et la dissolution. Le guide complet est dans docs/JOUER.md. Bonne partie.'],
 ];
 const INFO_RES: Record<string, string> = {
   tresorerie: 'Argent en caisse. Recettes : cotisations, dons, financement public, reversements d\'élus. Dépenses : permanents, locaux, communication, campagnes.',
@@ -38,27 +40,29 @@ function BarreHaut() {
   const bloque = b.aRepondre > 0; const fini = !!b.fin && b.fin.type !== 'fin' || b.fini;
   const go = (k: number, arret: string) => { setOuvert(false); if (m.occupe) return; maj({ occupe: 'Simulation en cours' }); moteur.avancer(k, arret); };
   return <div class="haut">
-    <span class="titre">MANDAT</span><span class="date">{b.date}</span>
+    <span class="date">{b.date}</span>
     <div class="res">
       {r && <>
         <span class="r"><small><Info t={INFO_RES.tresorerie}>Trésorerie</Info></small><b class={r.tresorerie < 0 ? 'danger-t' : ''}>{euro(r.tresorerie)}</b></span>
-        <span class="r"><small><Info t={INFO_RES.militants}>Militants</Info></small><b>{nb(r.militants)}</b></span>
-        <span class="r"><small><Info t={INFO_RES.capital}>Capital</Info></small><b>{r.capital}</b></span>
-        <span class="r"><small><Info t={INFO_RES.credibilite}>Crédibilité</Info></small><b>{r.credibilite}</b></span>
-        <span class="r"><small><Info t={INFO_RES.notoriete}>Notoriété</Info></small><b>{r.notoriete}</b></span>
-        <span class="r"><small><Info t={INFO_RES.unite}>Unité</Info></small><b class={r.unite < 30 ? 'danger-t' : ''}>{r.unite}</b></span>
-        <span class="r"><small><Info t={INFO_RES.dynamique}>Dynamique</Info></small><b class={r.dynamique > 5 ? 'ok' : r.dynamique < -5 ? 'danger-t' : ''}>{r.dynamique > 0 ? '+' : ''}{r.dynamique}</b></span>
+        <span class="r opt1"><small><Info t={INFO_RES.militants}>Militants</Info></small><b>{nb(r.militants)}</b></span>
+        <span class="r opt2"><small><Info t={INFO_RES.capital}>Capital</Info></small><b>{r.capital}</b></span>
+        <span class="r opt1"><small><Info t={INFO_RES.credibilite}>Crédibilité</Info></small><b>{r.credibilite}</b></span>
+        <span class="r opt2"><small><Info t={INFO_RES.notoriete}>Notoriété</Info></small><b>{r.notoriete}</b></span>
+        <span class="r opt2"><small><Info t={INFO_RES.unite}>Unité</Info></small><b class={r.unite < 30 ? 'danger-t' : ''}>{r.unite}</b></span>
+        <span class="r opt1"><small><Info t={INFO_RES.dynamique}>Dynamique</Info></small><b class={r.dynamique > 5 ? 'ok' : r.dynamique < -5 ? 'danger-t' : ''}>{r.dynamique > 0 ? '+' : ''}{r.dynamique}</b></span>
       </>}
       {b.mode === 'carriere' && b.moi && <span class="r"><small><Info t="Votre poids dans le parti. Il monte avec le militantisme, le réseau et les mandats. Il décide des promotions et des investitures.">Estime</Info></small><b>{b.moi.estime}</b></span>}
       {b.prochaines[0] && <span class="r"><small>Prochaine échéance</small><b>{b.prochaines[0].nom.replace('Élections ', '').replace('Élection ', '')} {b.prochaines[0].tour2 ? '(2e tour)' : ''} : {b.prochaines[0].dans > 0 ? `${b.prochaines[0].dans} sem.` : 'cette semaine'}</b></span>}
     </div>
-    <Parti i={b.parti} />
     <button onClick={() => maj({ menuJeu: true })}>Menu</button>
     <span style={{ position: 'relative', display: 'flex' }}>
       <button class="principal" disabled={!!m.occupe || fini} title={bloque ? 'Des messages attendent une réponse : sans réponse, la décision par défaut sera appliquée.' : ''} onClick={() => go(1, 'semaines')}>{m.occupe ? m.occupe : 'Continuer'}</button>
-      {m.occupe ? <button onClick={() => moteur.arreter()}>Stop</button> : <button class="principal" disabled={fini} onClick={() => setOuvert(!ouvert)} style={{ marginLeft: '1px', padding: '5px 7px' }}>▾</button>}
-      {ouvert && <div class="bloc" style={{ position: 'absolute', right: 0, top: '34px', zIndex: 20, width: '290px', whiteSpace: 'normal' }}>
+      {m.occupe ? <button onClick={() => moteur.arreter()}>Stop</button> : <button class="principal" disabled={fini} onClick={() => setOuvert(!ouvert)} aria-label="Choisir la vitesse d'avance" style={{ marginLeft: '4px', padding: '6px 11px' }}>▾</button>}
+      {ouvert && <div class="deroulant">
         <div class="choix" style={{ marginTop: 0 }}>
+          <button onClick={() => go(1, 'semaines')}>Une semaine</button>
+          <button onClick={() => go(4, 'semaines')}>Un mois (4 semaines)</button>
+          <button onClick={() => go(13, 'semaines')}>Un trimestre (13 semaines)</button>
           <button onClick={() => go(520, 'message')}>Jusqu'au prochain message important</button>
           <button onClick={() => go(520, 'echeance')}>Jusqu'à la veille de la prochaine élection</button>
           <div class="ligne"><button onClick={() => go(n, 'semaines')}>Avancer de</button><input type="number" min="1" max="520" value={n} style={{ width: '64px' }} onInput={(ev: any) => setN(Math.max(1, +ev.target.value || 1))} /> semaines</div>
@@ -69,7 +73,7 @@ function BarreHaut() {
 }
 
 function MenuJeu() {
-  const m = useMagasin(); const [quitter, setQuitter] = useState(false); const [nom, setNom] = useState(m.nomPartie || 'Ma partie'); const [fiches, setFiches] = useState<stockage.Fiche[]>([]); const [clair, setClair] = useState(document.documentElement.classList.contains('clair'));
+  const m = useMagasin(); const [quitter, setQuitter] = useState(false); const [nom, setNom] = useState(m.nomPartie || 'Ma partie'); const [fiches, setFiches] = useState<stockage.Fiche[]>([]); const [clair, setClair] = useState(document.documentElement.classList.contains('sombre'));
   useEffect(() => { stockage.lister().then(setFiches).catch(() => { }); }, []);
   const resume = () => `${m.base.date}, ${m.base.partis[m.base.parti]?.sigle ?? ''}, ${m.base.mode === 'carriere' ? 'Carrière' : 'Parti'}`;
   const sauver = async () => { const e = await moteur.etatComplet(); await stockage.sauver(nom, resume(), e); maj({ nomPartie: nom }); toast('Partie sauvegardée.'); setFiches(await stockage.lister()); };
@@ -82,7 +86,7 @@ function MenuJeu() {
     {fiches.map(f => <div class="ligne" style={{ padding: '3px 0' }}><b>{f.nom}</b><span class="doux">{f.resume}</span><span class="espace" /><button class="petit" onClick={() => chargerF(f.nom)}>Charger</button><button class="petit danger" onClick={async () => { await stockage.supprimer(f.nom); setFiches(await stockage.lister()); }}>Supprimer</button></div>)}
     <div class="ligne" style={{ marginTop: '6px' }}><label class="doux">Importer un fichier .mandat : <input type="file" accept=".mandat,application/json" onChange={async (ev: any) => { const f = ev.target.files[0]; if (!f) return; try { const e = await stockage.importer(f); const r = await moteur.charger(e); maj({ base: r.base, tick: m.tick + 1, menuJeu: false, ecran: 'inbox' }); toast('Partie importée.'); } catch (err: any) { toast(String(err.message ?? err), false); } }} /></label></div>
     <h3 style={{ marginTop: '14px' }}>Options</h3>
-    <div class="ligne"><label><input type="checkbox" checked={clair} onChange={(ev: any) => { const v = ev.target.checked; setClair(v); document.documentElement.classList.toggle('clair', v); try { localStorage.setItem('mandat-theme', v ? 'clair' : 'sombre'); } catch { /* stockage indisponible */ } }} /> Thème clair</label>
+    <div class="ligne"><label><input type="checkbox" checked={clair} onChange={(ev: any) => { const v = ev.target.checked; setClair(v); document.documentElement.classList.toggle('sombre', v); try { localStorage.setItem('mandat-theme', v ? 'sombre' : 'clair'); } catch { /* stockage indisponible */ } maj({ theme: v ? 'sombre' : 'clair' }); }} /> Thème sombre</label>
       {m.base.tutoriel >= 0 ? <button class="petit" onClick={() => agir({ type: 'tutoriel', etape: -1 }, true)}>Désactiver le tutoriel</button> : <button class="petit" onClick={() => agir({ type: 'tutoriel', etape: 0 }, true)}>Relancer le tutoriel</button>}</div>
     <p class="doux petit-texte" style={{ marginTop: '6px' }}>Graine de la partie : {m.base.graine}. Une même graine et les mêmes choix donnent la même partie.</p>
     <div class="ligne" style={{ marginTop: '14px' }}><button onClick={() => maj({ menuJeu: false })}>Reprendre</button><span class="espace" /><button class="danger" onClick={() => { if (quitter) maj({ phase: 'menu', menuJeu: false, base: null }); else setQuitter(true); }}>{quitter ? 'Confirmer : quitter sans sauvegarder' : "Nouvelle partie ou retour à l'accueil"}</button></div>
@@ -97,18 +101,23 @@ function Tutoriel() {
 
 function Jeu() {
   const m = useMagasin(); const b = m.base;
-  const E = m.ecran === 'inbox' ? <Inbox /> : m.ecran === 'carte' ? <EcranCarte /> : m.ecran === 'effectif' ? <Effectif /> : m.ecran === 'parti' ? <EcranParti /> : m.ecran === 'finances' ? <Finances /> : m.ecran === 'doctrine' ? <Doctrine /> : m.ecran === 'campagne' ? <Campagne /> : m.ecran === 'medias' ? <Medias /> : m.ecran === 'mandat' ? <Mandat /> : m.ecran === 'historique' ? <Historique /> : m.ecran === 'pantheon' ? <Pantheon /> : <Inbox />;
+  const E = m.ecran === 'inbox' ? <Inbox /> : m.ecran === 'carte' ? <EcranCarte /> : m.ecran === 'effectif' ? <Effectif /> : m.ecran === 'parti' ? <EcranParti /> : m.ecran === 'finances' ? <Finances /> : m.ecran === 'doctrine' ? <Doctrine /> : m.ecran === 'campagne' ? <Campagne /> : m.ecran === 'medias' ? <Medias /> : m.ecran === 'mandat' ? <Mandat /> : m.ecran === 'historique' ? <Historique /> : m.ecran === 'agora' ? <Agora /> : m.ecran === 'pantheon' ? <Pantheon /> : <Inbox />;
+  const P = b.partis[b.parti]; const sombre = m.theme === 'sombre';
+  useEffect(() => { const a = accentParti(P?.couleur ?? '#0066cc', sombre); const st = document.documentElement.style; st.setProperty('--accent', a.accent); st.setProperty('--accent-t', a.texte); st.setProperty('--accent-doux', a.doux); return () => { st.removeProperty('--accent'); st.removeProperty('--accent-t'); st.removeProperty('--accent-doux'); }; }, [P?.couleur, sombre]);
   return <div class="cadre">
-    <BarreHaut />
     <nav class="menu">
-      {ECRANS.map(([k, n]) => <a class={m.ecran === k ? 'actif' : ''} onClick={() => aller(k)}>{n}{k === 'inbox' && b.aRepondre > 0 ? <span class="badge rouge">{b.aRepondre}</span> : k === 'inbox' && b.nonLus > 0 ? <span class="badge">{b.nonLus}</span> : k === 'campagne' && b.entreDeux.length > 0 ? <span class="badge rouge">2e tour</span> : k === 'medias' && (b.debat && !b.debat.fini || b.grandDebat) ? <span class="badge rouge">1</span> : null}</a>)}
-      <div class="sep" />
+      <div class="entete"><Logo i={b.parti} taille={38} /><div><b>{P?.nom}</b><small>{b.mode === 'carriere' && b.moi ? b.moi.nom : 'Direction du parti'}</small></div></div>
+      {GROUPES.map(([g, liste]) => <>
+        <div class="groupe">{g}</div>
+        {liste.map(([k, n]) => <a class={m.ecran === k ? 'actif' : ''} onClick={() => aller(k)}>{n}{k === 'inbox' && b.aRepondre > 0 ? <span class="badge rouge">{b.aRepondre}</span> : k === 'inbox' && b.nonLus > 0 ? <span class="badge">{b.nonLus}</span> : k === 'campagne' && b.entreDeux.length > 0 ? <span class="badge rouge">2e tour</span> : k === 'medias' && (b.debat && !b.debat.fini || b.grandDebat) ? <span class="badge rouge">1</span> : k === 'agora' && b.agora?.aReagir > 0 ? <span class="badge">{b.agora.aReagir}</span> : null}</a>)}
+      </>)}
+      <div class="groupe">Bilan</div>
       <a class={m.ecran === 'pantheon' ? 'actif' : ''} onClick={() => aller('pantheon')}>Panthéon</a>
-      <div class="sep" />
-      <div style={{ padding: '6px 14px' }} class="petit-texte doux">Score : <b style={{ color: 'var(--texte)' }}>{b.score}</b><br />{b.victoires.filter((v: any) => v.acquis).map((v: any) => <div class="ok">{v.nom}</div>)}
+      <div class="pied petit-texte doux">Score : <b style={{ color: 'var(--texte)' }}>{b.score}</b>{b.victoires.filter((v: any) => v.acquis).map((v: any) => <div class="ok">{v.nom}</div>)}
         {b.president && <div style={{ marginTop: '6px' }}>Président : {b.president.nom} <Parti i={b.president.parti} /><br />Popularité {b.president.popularite} %</div>}
         <div style={{ marginTop: '6px' }}>Chômage {String(b.eco.chomage).replace('.', ',')} %<br />Croissance {String(b.eco.croissance).replace('.', ',')} %</div></div>
     </nav>
+    <BarreHaut />
     <main class="contenu">{E}</main>
     {m.fiche >= 0 && <div class="voile" onClick={() => maj({ fiche: -1 })}><div class="modale" onClick={(ev: any) => ev.stopPropagation()}><FichePerso id={m.fiche} /></div></div>}
     {m.soiree && <Soiree />}
@@ -121,7 +130,7 @@ function Jeu() {
 function App() {
   const m = useMagasin();
   useEffect(() => {
-    try { if (localStorage.getItem('mandat-theme') === 'clair') document.documentElement.classList.add('clair'); } catch { /* stockage indisponible */ }
+    try { if (localStorage.getItem('mandat-theme') === 'sombre') { document.documentElement.classList.add('sombre'); maj({ theme: 'sombre' }); } } catch { /* stockage indisponible */ }
     const fin = moteur.ecouter(async msg => {
       const s = lireMagasin();
       if (msg.t === 'progression' && s.phase === 'jeu') maj({ occupe: msg.texte, ...(msg.base ? { base: msg.base } : {}) });

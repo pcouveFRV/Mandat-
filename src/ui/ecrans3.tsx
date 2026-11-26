@@ -74,13 +74,55 @@ export function Campagne() {
   </div>;
 }
 
+// Exécutif national : Matignon, réformes par étapes, 49.3, remaniement, dissolution, référendum.
+function Executif({ x, capital }: { x: any; capital: number }) {
+  const [axe, setAxe] = useState(0); const [sens, setSens] = useState(1); const [pm, setPm] = useState(-1); const [sur, setSur] = useState('');
+  const a = x.axes[axe]; const confirmer = (cle: string, action: any) => { if (sur === cle) { setSur(''); agir(action); } else setSur(cle); };
+  return <Bloc titre={x.president ? 'Présidence de la République' : 'Gouvernement'}>
+    <div class="ligne" style={{ alignItems: 'flex-start', gap: '24px' }}>
+      <div><div class="grand">{x.popularite} %</div><div class="doux petit-texte">de popularité de l'exécutif</div></div>
+      <div><b>{x.sieges} sièges</b> pour la majorité sur {x.total}<div class={`petit-texte ${x.absolue ? 'ok' : 'alerte'}`}>{x.absolue ? 'Majorité absolue : les textes passent.' : `Majorité relative : il manque ${x.majorite - x.sieges} sièges.`}</div><div class="ligne" style={{ marginTop: '4px' }}>{x.coalition.map((p: number) => <Parti i={p} />)}</div></div>
+      <div><span class="doux petit-texte">Premier ministre</span><div><NomPerso p={x.pm} /> {x.pm && <Parti i={x.pm.parti} />}</div>{x.cohabitation && <div class="alerte petit-texte">Cohabitation</div>}{x.censures > 0 && <div class="doux petit-texte">Gouvernements renversés : {x.censures}</div>}</div>
+    </div>
+    <h3 style={{ marginTop: '14px' }}>Réformes en cours</h3>
+    {x.reformes.length === 0 && <p class="doux">Aucun chantier ouvert.</p>}
+    {x.reformes.map((r: any) => <div class="bloc" style={{ marginBottom: '8px' }}>
+      <div class="ligne"><b>{r.nom}</b><span class="espace" /><span class="doux petit-texte">{r.etapeNom}, ouverte depuis {r.semaines} semaine{r.semaines > 1 ? 's' : ''}</span></div>
+      <div class="ligne" style={{ margin: '6px 0' }}>{['Concertation', 'Conseil des ministres', 'Parlement', 'Appliquée'].map((n, i) => <span class="petit-texte" style={{ padding: '2px 10px', borderRadius: '980px', background: i === r.etape ? 'var(--accent)' : 'var(--fond3)', color: i === r.etape ? '#fff' : i < r.etape ? 'var(--texte)' : 'var(--doux)' }}>{n}</span>)}</div>
+      <div class="ligne"><span style={{ width: '150px' }} class="petit-texte">Soutien : {r.soutien} %</span><div style={{ flex: 1 }}><Jauge v={r.soutien} /></div></div>
+      <div class="ligne" style={{ marginTop: '8px' }}>
+        {r.etape === 0 && <><button onClick={() => agir({ type: 'execAvancer', id: r.id, mode: 'concerter' })} disabled={r.concertations >= 3}>Concerter ({r.concertations}/3)</button><button class="principal" onClick={() => agir({ type: 'execAvancer', id: r.id })}>Clore la concertation</button></>}
+        {r.etape === 1 && <button class="principal" onClick={() => agir({ type: 'execAvancer', id: r.id })}>Présenter en Conseil des ministres</button>}
+        {r.etape === 2 && <><button class="principal" onClick={() => agir({ type: 'execAvancer', id: r.id, mode: 'vote' })}>Soumettre au vote</button><button onClick={() => confirmer(`493-${r.id}`, { type: 'execAvancer', id: r.id, mode: '49.3' })} disabled={capital < 8}>{sur === `493-${r.id}` ? 'Confirmer le 49.3' : 'Engager le 49.3 (8 de capital)'}</button></>}
+        <span class="espace" /><button class="petit danger" onClick={() => confirmer(`ab-${r.id}`, { type: 'execAbandon', id: r.id })}>{sur === `ab-${r.id}` ? 'Confirmer le retrait' : 'Retirer le texte'}</button>
+      </div>
+    </div>)}
+    <h3 style={{ marginTop: '12px' }}>Ouvrir un chantier</h3>
+    <div class="ligne"><select aria-label="Domaine" value={axe} onChange={(ev: any) => setAxe(+ev.target.value)}>{x.axes.map((k: any) => <option value={k.i}>{k.nom}</option>)}</select>
+      <select aria-label="Orientation" value={sens} onChange={(ev: any) => setSens(+ev.target.value)}><option value={1}>{a.plus} ({a.pour} % favorables)</option><option value={-1}>{a.moins} ({a.contre} % favorables)</option></select>
+      <button class="principal" disabled={capital < 5 || x.reformes.length >= 2} onClick={() => agir({ type: 'execReforme', axe, sens })}>Ouvrir (5 de capital)</button></div>
+    <p class="doux petit-texte" style={{ marginTop: '6px' }}>Ligne du parti qui gouverne sur ce domaine : {a.ligne > 0 ? '+' : ''}{a.ligne}. Une réforme contraire à cette ligne coûte de l'unité. Deux chantiers au plus à la fois, une étape par semaine et par texte.</p>
+    <h3 style={{ marginTop: '12px' }}>Leviers</h3>
+    <div class="ligne">
+      <button disabled={capital < 10} onClick={() => agir({ type: 'execRemaniement' })}>Remanier (10 de capital)</button>
+      {x.president && <><select aria-label="Premier ministre" value={pm} onChange={(ev: any) => setPm(+ev.target.value)}><option value={-1}>Choisir un Premier ministre</option>{x.candidatsPM.map((c: any) => <option value={c.id}>{c.nom} ({c.notoriete} de notoriété, négociation {c.negociation})</option>)}</select><button disabled={pm < 0 || capital < 8} onClick={() => agir({ type: 'execPM', perso: pm })}>Nommer (8 de capital)</button></>}
+    </div>
+    {x.president && <div class="ligne" style={{ marginTop: '8px' }}>
+      <button disabled={!x.peutReferendum || capital < 12} onClick={() => confirmer('ref', { type: 'execReferendum', axe, sens })}>{sur === 'ref' ? 'Confirmer le référendum' : 'Référendum sur le domaine choisi (12 de capital)'}</button>
+      <button class="danger" disabled={!x.peutDissoudre} onClick={() => confirmer('dis', { type: 'execDissolution' })}>{sur === 'dis' ? 'Confirmer la dissolution' : 'Dissoudre l\'Assemblée'}</button>
+    </div>}
+    {x.referendum && <p class="alerte" style={{ marginTop: '8px' }}>Référendum dans {x.referendum.dans} semaine{x.referendum.dans > 1 ? 's' : ''} : {x.referendum.titre}.</p>}
+    {x.faites.length > 0 && <><h3 style={{ marginTop: '12px' }}>Bilan</h3><table><tbody>{x.faites.map((f: any) => <tr><td style={{ whiteSpace: 'normal' }}>{f.nom}</td><td class={f.abandon ? 'danger-t' : 'ok'}>{f.abandon ? 'abandonnée' : 'adoptée'}</td><td class="droite doux">{f.date}</td></tr>)}</tbody></table></>}
+  </Bloc>;
+}
+
 export function Mandat() {
   const v = useVue('mandat'); const inst = useVue('institutions'); const m = useMagasin(); const b = m.base; const [adj, setAdj] = useState(-1); const [del, setDel] = useState('Finances');
   if (!v || !inst) return <div>Chargement...</div>; const M = v.mairie, C = v.conseil;
   return <div>
     <h1>Exercice du mandat</h1>
     {v.mandats.length > 0 && <p>Vos mandats : {v.mandats.map((x: any) => `${x.type}${x.lieu ? ' (' + x.lieu + ')' : ''}`).join(', ')}</p>}
-    {!M && !C && !v.estDepute && !v.presidence && <div class="bloc doux">Vous n'exercez aucun mandat exécutif ou parlementaire pour le moment. Cet écran s'active quand vous dirigez une mairie, un département, une région, quand vous siégez à l'Assemblée ou quand votre camp tient l'Élysée.</div>}
+    {!M && !C && !v.estDepute && !v.presidence && !v.executif && <div class="bloc doux">Vous n'exercez aucun mandat exécutif ou parlementaire pour le moment. Cet écran s'active quand vous dirigez une mairie, un département, une région, quand vous siégez à l'Assemblée ou quand votre camp tient l'Élysée.</div>}
     <div class="grille g2">
       {M && <Bloc titre={`Mairie de ${M.ville}`}>
         <div class="ligne" style={{ justifyContent: 'space-between' }}><span><Info t="Le bilan pèse lourd sur votre réélection. Il monte avec les projets, de bons adjoints et un climat apaisé au conseil.">Bilan</Info></span><b>{M.bilan}/100</b></div><Jauge v={M.bilan} />
@@ -100,8 +142,7 @@ export function Mandat() {
         <p class="petit-texte">{b.mode === 'parti' ? `Votre groupe : ${v.deputes} députés.` : 'Vous siégez à l\'Assemblée.'} {v.majorite ? 'Vous êtes dans la majorité : vos textes ont de bonnes chances.' : 'Vous êtes dans l\'opposition : vos textes passent rarement, mais ils pèsent dans le débat.'} Une initiative par semaine. Initiatives menées : {v.activite}.</p>
         <div class="choix" style={{ marginTop: 0 }}>{Object.keys(v.actionsParlement).map(k => <button onClick={() => agir({ type: 'parlement', valeur: k })}><b>{v.actionsParlement[k].nom}</b><small>{v.actionsParlement[k].desc} Coût : {v.actionsParlement[k].forme} de forme{v.actionsParlement[k].capital ? `, ${v.actionsParlement[k].capital} de capital politique` : ''}.</small></button>)}</div>
         <div style={{ marginTop: '8px' }}><Hemicycle sieges={inst.assemblee} taille={260} /></div></Bloc>}
-      {v.presidence && <Bloc titre="Présidence de la République"><div class="grand">{v.presidence.popularite} %</div><p class="doux">de popularité. À l'Élysée depuis le {v.presidence.depuis}.</p><Jauge v={v.presidence.popularite} />
-        <p style={{ marginTop: '8px' }}>Les grandes réformes arrivent sous forme de décisions dans la boîte de réception. Vos choix jouent sur la popularité, qui pèse sur les élections suivantes de votre camp. Décisions de référendum prises : {v.presidence.reformes}.</p><p class="doux petit-texte">Mode Président simplifié. La composition du gouvernement, le 49.3 et la dissolution arriveront dans une version ultérieure.</p></Bloc>}
+      {v.executif && <Executif x={v.executif} capital={v.capital} />}
     </div>
   </div>;
 }

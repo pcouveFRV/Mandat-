@@ -3,6 +3,8 @@ import type { Donnees, Etat } from '../types';
 import { NB_AXES, NB_THEMES } from '../types';
 import { hash, clamp } from '../rng';
 
+// Reports de second tour : poids de la distance doctrinale et prime au candidat arrivé en tête.
+export const REPORT_DISTANCE = 4.6, REPORT_FAVORI = 0.35;
 export const LAMBDA = 0.11;      // poids de la distance doctrinale
 export const TAU_ALLIANCE = 0.85; // part des électeurs d'un allié qui suivent le candidat commun
 export const FACTEUR_ABST: Record<string, number> = { presidentielle: 0.6, legislatives: 0.8, municipales: 1.05, europeennes: 1.18, departementales: 1.55, regionales: 1.55, sondage: 0.8 };
@@ -95,10 +97,12 @@ export function reporter(e: Etat, t1: number[], partisListe: number[], restants:
     const pq = partisListe[q]; const w: number[] = []; let dmin = 1e9, sw = 0;
     for (const r of restants) {
       const pr = partisListe[r]; const dist = distancePartis(e, pq, pr); if (dist < dmin) dmin = dist;
-      let u = -dist / 6 + 0.5 * Math.log(Math.max(1e-6, t1[r] / tot)) + e.relPartis[pq * e.partis.length + pr] / 60;
+      let u = -dist / REPORT_DISTANCE + REPORT_FAVORI * Math.log(Math.max(1e-6, t1[r] / tot)) + e.relPartis[pq * e.partis.length + pr] / 60;
       const cs = consigne(pq); if (cs === pr) u += 1.2; const br = barrage(pq); if (br >= 0 && br !== pr) u += 0.7; if (br === pr) u -= 0.8;
       const x = Math.exp(u); w.push(x); sw += x;
     }
+    // Les poids sont ramenés au meilleur choix (poids 1) : l'abstention se compare alors à un vote réel, pas à une valeur absolue.
+    const wm = Math.max(...w, 1e-9); sw = 0; for (let k = 0; k < w.length; k++) { w[k] /= wm; sw += w[k]; }
     const a = Math.exp(-1.2 + dmin / 9 + (consigne(pq) === -2 ? 0.8 : 0)); // abstention des électeurs sans candidat proche
     for (let k = 0; k < restants.length; k++) voix[restants[k]] += t1[q] * w[k] / (sw + a);
     abst += t1[q] * a / (sw + a);

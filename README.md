@@ -47,7 +47,8 @@ Les chemins sont relatifs : le jeu fonctionne quel que soit le nom du dépôt.
 ```
 src/engine/        moteur pur : état, tour, création, actions, vues, victoire
   systems/         electorat, regles, scrutins, partis, personnages, finances, medias, campagnes,
-                   doctrine, evenements, mandats, ia, justice, sondages, carriere, inbox
+                   doctrine, evenements, mandats, ia, justice, sondages, carriere, inbox,
+                   agora (réseau social), executif (réformes, 49.3, dissolution, référendum)
 src/worker/        Web Worker qui fait tourner le moteur
 src/ui/            interface Preact : cadre, écrans, carte SVG
 src/data/          chargement des données hors navigateur (tests, scripts)
@@ -55,7 +56,8 @@ public/data/       données du jeu en JSON (modifiables à la main)
 scripts/data/      pipeline de données
 scripts/           calibrage et équilibrage
 tests/             tests du moteur
-docs/              JOUER, MOTEUR, DATA, EQUILIBRAGE, DECISIONS, PROGRESS
+docs/              JOUER, MOTEUR, DATA, DESIGN, EQUILIBRAGE, DECISIONS, PROGRESS
+public/data/logos/ emplacement pour vos logos de partis (voir LISEZMOI.md)
 ```
 
 ## Modifier les données

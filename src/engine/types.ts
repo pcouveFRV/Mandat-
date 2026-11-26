@@ -55,6 +55,7 @@ export interface Perso {
   rang: number; // 0 militant, 1 cadre local, 2 cadre départemental, 3 figure nationale, 4 premier plan
   ineligibleJusqua?: number; observe?: { s: number; pot: number; fidelite: number; casserole: number; marge: number };
   victoires: number; defaites: number;
+  abonnes?: number; // compte Agora, créé à la première lecture
 }
 export interface Courant { nom: string; chef: number; poids: number; axe: number; sens: number; humeur: number }
 export interface Pret { montant: number; restant: number; mensualite: number; fin: number }
@@ -111,5 +112,10 @@ export interface Etat {
   journal: { s: number; t: string }[]; consignes: Record<number, number>; desistements: Record<string, string[]>;
   entreDeux: Record<string, EntreDeux>; politiqueAlliance: Record<string, string>;
   options: { vitesse: number; auto?: boolean; activite?: string };
+  agora?: Agora; executif?: Executif;
 }
+export interface Reforme { id: number; axe: number; sens: number; nom: string; etape: number; debut: number; soutien: number; concertations?: number; derniere?: number; fin?: number; abandon?: boolean }
+export interface Executif { reformes: Reforme[]; prochain: number; dernierRemaniement: number; dernierePM: number; derniereDissolution: number; dernierReferendum: number; referendum: { axe: number; sens: number; s: number; titre: string } | null; censures: number }
+export interface Post { id: number; s: number; perso: number; parti: number; compte: string; genre: 'elu' | 'parti' | 'media' | 'citoyen'; format: string; ton: string; sujet: string; texte: string; vues: number; likes: number; partages: number; comm: number; etat: '' | 'buzz' | 'polemique'; moi?: boolean }
+export interface Agora { posts: Post[]; prochain: number; tendances: { sujet: string; axe: number; force: number; fin: number }[]; abP: number[]; reactions: { id: number; titre: string; axe: number; s: number; expire: number }[]; delegue: boolean; semaineJoueur: number; nbJoueur: number; dernierTitre?: number; hist: { s: number; parti: number; moi: number }[] }
 export interface Ctx { d: Donnees; messages: Message[] }

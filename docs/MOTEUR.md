@@ -13,7 +13,7 @@ Le moteur est dans `src/engine/`, en TypeScript pur, sans accès au DOM. Il tour
 ## Ordre d'exécution d'un tour (`tour.ts`)
 
 1. `evenements` : tirage des événements, chocs sur les priorités, réactions des partis IA, réponses par défaut aux messages expirés.
-2. `medias` : invitations, passages médias des partis IA, publications.
+2. `medias` : invitations, passages médias des partis IA. Puis `agora` : tendances, publications des partis IA, comptes de médias et de citoyens, abonnés.
 3. `partis` : décroissance de l'implantation et de la mobilisation, militants, terrain, adhésions, capital, crédibilité, notoriété, unité, usure du pouvoir, congrès, scissions.
 4. `campagnes` : désignation des candidats à la présidentielle, parrainages, ouverture des campagnes, effets des dépenses.
 5. `ia` : accords électoraux, terrain, finances, doctrine, mercato des partis IA.
@@ -21,7 +21,7 @@ Le moteur est dans `src/engine/`, en TypeScript pur, sans accès au DOM. Il tour
 7. `scrutins` : premiers et seconds tours prévus cette semaine.
 8. Chaque mois : `finances`, progression des personnages, `mandats` (bilans locaux, présidence, économie). Chaque trimestre : recalcul des courants.
 9. Chaque année : retraits, décès de personnages générés, nouveaux talents.
-10. `justice` : affaires. Contrôle des comptes de campagne.
+10. `executif` : référendum, réformes des gouvernements IA, censure. Puis `justice` : affaires. Contrôle des comptes de campagne.
 11. `sondages` : intentions de vote réelles (cachées), sondages publiés.
 12. `carriere` : activité hebdomadaire, promotions (mode Carrière).
 13. `victoire` : conditions de victoire, de défaite, fin de partie.
@@ -55,6 +55,8 @@ Participation d'un segment : `1 - abstention de base x facteur du scrutin x (1 -
 
 ### Second tour
 
+Depuis la V4, les poids des reports sont ramenés au meilleur choix avant de calculer l'abstention : auparavant, l'abstention écrasait les reports et le candidat arrivé en tête gagnait presque toujours. Les fidélités calées sur 2024 (`prox`) s'érodent aussi de 0,5 % par mois quand elles sont positives et de 0,2 % quand elles sont négatives.
+
 Les voix du premier tour sont reportées à l'échelle de chaque unité (circonscription, ville, région, pays). Les candidats maintenus gardent 97 % de leurs voix. Pour chaque candidat éliminé ou retiré, ses voix se répartissent entre les candidats restants selon :
 
 ```
@@ -84,6 +86,24 @@ Contrôle : `npx tsx scripts/calibrer.ts` et le test `calibrage`. Écart moyen p
 - Présidentielle : 500 parrainages, deux tours.
 
 Après des législatives, un gouvernement se forme : le parti du président s'il a des députés, sinon le premier groupe, cherche des partenaires dont la relation dépasse 25 jusqu'à la majorité absolue.
+
+## Agora (`systems/agora.ts`)
+
+- État : `e.agora` (publications récentes, tendances, abonnés des partis, fenêtres de réaction) et `abonnes` sur chaque personnage. Tout est créé à la première lecture : une sauvegarde V3 se charge sans migration.
+- Une publication a un score : (niveau en réseaux sociaux - 10) / 4, plus un tirage, plus un bonus de tendance, de cohérence avec la ligne et de réaction à chaud. Les vues partent du nombre d'abonnés et croissent exponentiellement avec ce score. Au-dessus de 2,1 c'est un buzz, en dessous de -0,5 un mauvais buzz est possible selon le format, le ton et les traits de l'auteur.
+- Les effets (viralité, crédibilité, opinion des segments jeunes, militants, dons, abonnés) dépendent de l'audience et du rang de celui qui parle. La portée des publications du joueur baisse à chaque publication de la semaine : 100 %, 60 %, 35 %, 15 %.
+- Un événement national ouvre une tendance et une fenêtre de réaction de deux semaines.
+- Les partis IA publient avec la même fonction que le joueur.
+- Personnes réelles : le texte de leurs publications est une description neutre, jamais une citation.
+
+## Exécutif (`systems/executif.ts`)
+
+- État : `e.executif` (réformes, dates du dernier remaniement, de la dernière dissolution, du dernier référendum, référendum en cours, nombre de censures).
+- Soutien d'une réforme : part pondérée des segments dont la position sur l'axe va dans le sens du texte.
+- Vote : avec 289 sièges ou plus, adoption sauf accident. En dessous, il faut une marge positive (soutien, tirage). 49.3 : sans majorité absolue, la censure passe avec une probabilité qui croît avec le nombre de sièges manquants et l'impopularité.
+- Une réforme adoptée déplace la popularité selon son soutien, la crédibilité et l'unité du parti qui gouverne selon sa cohérence avec sa ligne, et l'opinion de chaque segment selon sa position.
+- Dissolution : la prochaine échéance législative est avancée à quatre semaines.
+- Les exécutifs IA ouvrent un chantier de temps en temps sur l'axe le plus marqué de leur parti et le mènent avec les mêmes règles.
 
 ## Les partis (`systems/partis.ts`, `systems/finances.ts`)
 

@@ -1,4 +1,6 @@
 // Actions du joueur. Chaque action vérifie les droits du joueur puis appelle les mêmes fonctions que l'IA.
+import { actionExecutif } from './systems/executif';
+import { publierJoueur, agoraDe } from './systems/agora';
 import type { Donnees, Etat, Ctx, Scrutin, Message } from './types';
 import { A } from './types';
 import { Rng, clamp } from './rng';
@@ -58,6 +60,9 @@ function executer(e: Etat, d: Donnees, rng: Rng, ctx: Ctx, a: Action): Retour {
     case 'adopter': if (!dr.doctrine) return non(REFUS); { const t = adopter(e, d, ctx, P, a.id); return t.includes('entre au programme') ? ok(t) : non(t); }
     case 'bougerAxe': if (!dr.doctrine) return non(REFUS); { const t = bougerAxe(e, d, rng, ctx, P, a.axe, a.delta); return t.startsWith('Ligne') ? ok(t) : non(t); }
     // ----- Médias -----
+    case 'execReforme': case 'execAvancer': case 'execAbandon': case 'execPM': case 'execRemaniement': case 'execDissolution': case 'execReferendum': { const r = actionExecutif(e, d, rng, ctx, a); return r.ok ? ok(r.texte) : non(r.texte); }
+    case 'agoraPublier': { if (e.joueur.mode === 'parti' && !dr.medias) return non(REFUS); const t = publierJoueur(e, d, rng, a as any); return t.ok ? ok(t.texte) : non(t.texte); }
+    case 'agoraDeleguer': { if (e.joueur.mode !== 'parti') return non('Vous gérez vous-même votre compte.'); agoraDe(e, d).delegue = !!a.valeur; return ok(a.valeur ? 'Votre équipe numérique publie désormais à votre place, prudemment.' : 'Vous reprenez la main sur le compte du parti.'); }
     case 'publier': if (!dr.medias) return non(REFUS); return ok(publier(e, d, rng, ctx, P, a.valeur));
     case 'debat': if (!e.debat || e.debat.fini) return non('Aucun entretien en cours.'); return ok(repondre(e, d, rng, ctx, a.rep));
     case 'fermerDebat': if (e.debat?.fini) e.debat = null; return ok();

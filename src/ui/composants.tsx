@@ -4,8 +4,8 @@ import type { ComponentChildren } from 'preact';
 import * as moteur from './moteur';
 
 // ---------- Magasin ----------
-export interface Magasin { phase: 'chargement' | 'menu' | 'jeu'; base: any; ref: any; ecran: string; params: any; tick: number; toast: { texte: string; ok: boolean } | null; occupe: string; fiche: number; soiree: boolean; menuJeu: boolean; nomPartie: string; erreur: string }
-let etat: Magasin = { phase: 'chargement', base: null, ref: null, ecran: 'inbox', params: {}, tick: 0, toast: null, occupe: '', fiche: -1, soiree: false, menuJeu: false, nomPartie: '', erreur: '' };
+export interface Magasin { phase: 'chargement' | 'menu' | 'jeu'; base: any; ref: any; ecran: string; params: any; tick: number; toast: { texte: string; ok: boolean } | null; occupe: string; fiche: number; soiree: boolean; menuJeu: boolean; nomPartie: string; erreur: string; theme: string }
+let etat: Magasin = { phase: 'chargement', base: null, ref: null, ecran: 'inbox', params: {}, tick: 0, toast: null, occupe: '', fiche: -1, soiree: false, menuJeu: false, nomPartie: '', erreur: '', theme: 'clair' };
 const abonnes = new Set<() => void>();
 export const lireMagasin = () => etat;
 export function maj(p: Partial<Magasin>) { etat = { ...etat, ...p }; abonnes.forEach(f => f()); }
@@ -27,6 +27,27 @@ export const THEME_COULEURS = ['#e0a030', '#c0392b', '#8e44ad', '#16a085', '#298
 
 // ---------- Composants ----------
 export function Parti({ i, long }: { i: number; long?: boolean }) { const b = etat.base; const p = b?.partis[i]; if (!p) return <span class="doux">sans étiquette</span>; return <span class="pastille" style={{ background: p.couleur }} title={p.nom}>{long ? p.nom : p.sigle}</span>; }
+// Logo de parti : fichiers déposés par le joueur dans public/data/logos/ et déclarés dans index.json, sinon pastille neutre au sigle.
+let logos: Record<string, string> | null = null; let logosEnCours: Promise<void> | null = null;
+function chargerLogos(): Promise<void> { return logosEnCours ??= fetch(new URL('./data/logos/index.json', document.baseURI).href).then(r => r.ok ? r.json() : { fichiers: [] }).then((o: any) => { logos = {}; for (const f of (o.fichiers ?? []) as string[]) { const m = /^([A-Za-z0-9]+)\.(svg|png|webp)$/.exec(f); if (m) logos[m[1]] = new URL(`./data/logos/${f}`, document.baseURI).href; } }).catch(() => { logos = {}; }); }
+export function Logo({ i, taille = 28 }: { i: number; taille?: number }) {
+  const p = etat.base?.partis[i]; const [, set] = useState(0);
+  useEffect(() => { if (logos) return; let vivant = true; chargerLogos().then(() => { if (vivant) set(x => x + 1); }); return () => { vivant = false; }; }, []);
+  if (!p) return null; const src = logos?.[p.id];
+  return <span class="logo" title={p.nom} style={{ width: `${taille}px`, height: `${taille}px`, background: p.couleur, fontSize: `${Math.max(8, Math.round(taille * (p.sigle.length > 3 ? 0.27 : 0.34)))}px` }}>{src ? <img src={src} alt={p.sigle} /> : p.sigle}</span>;
+}
+// Accent de l'interface tiré de la couleur du parti, ajusté pour rester lisible (contraste 4,5 au moins).
+const hex = (c: string) => { const m = /^#?([0-9a-f]{6})$/i.exec(c.trim()); const n = m ? parseInt(m[1], 16) : 0x0066cc; return [n >> 16 & 255, n >> 8 & 255, n & 255]; };
+const lum = (r: number[]) => { const f = (v: number) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }; return 0.2126 * f(r[0]) + 0.7152 * f(r[1]) + 0.0722 * f(r[2]); };
+const contraste = (a: number[], b: number[]) => { const x = lum(a), y = lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); };
+const melange = (a: number[], b: number[], k: number) => a.map((v, i) => Math.round(v + (b[i] - v) * k));
+const versHex = (r: number[]) => '#' + r.map(v => v.toString(16).padStart(2, '0')).join('');
+export function accentParti(couleur: string, sombre: boolean): { accent: string; texte: string; doux: string } {
+  const base = hex(couleur); const blanc = [255, 255, 255], noir = [0, 0, 0]; const fond = sombre ? [30, 30, 33] : [255, 255, 255];
+  let a = base; for (let k = 0; k <= 20 && contraste(a, blanc) < 4.5; k++) a = melange(base, noir, k / 20);
+  let t = base; for (let k = 0; k <= 20 && contraste(t, fond) < 4.5; k++) t = melange(base, sombre ? blanc : noir, k / 20);
+  return { accent: versHex(a), texte: versHex(t), doux: `rgba(${t[0]},${t[1]},${t[2]},${sombre ? 0.18 : 0.10})` };
+}
 export const couleurParti = (i: number) => etat.base?.partis[i]?.couleur ?? '#666';
 export function Jauge({ v, max = 100, couleur }: { v: number; max?: number; couleur?: string }) { const p = Math.max(0, Math.min(100, 100 * v / max)); return <div class="jauge"><i style={{ width: `${p}%`, background: couleur ?? (p < 30 ? 'var(--danger)' : p < 55 ? 'var(--alerte)' : 'var(--ok)') }} /></div>; }
 export function Attr({ v }: { v: number }) { return <span class={`attr ${v >= 16 ? 'a4' : v >= 13 ? 'a3' : v >= 9 ? 'a2' : 'a1'}`}>{v}</span>; }

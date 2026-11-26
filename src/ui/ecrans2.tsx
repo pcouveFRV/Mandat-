@@ -68,7 +68,7 @@ export function Medias() {
   const dernier = v.hist[v.hist.length - 1]; const top = dernier ? actifs.slice().sort((x: any, y: any) => (dernier.v[y.idx] ?? 0) - (dernier.v[x.idx] ?? 0)).slice(0, 9) : [];
   return <div>
     <h1>Médias et opinion</h1>
-    <Onglets liste={[['direct', D && !D.fini ? 'Entretien en cours' : 'Plateaux et réseaux'], ['sondages', 'Sondages'], ['paysage', 'Paysage médiatique']]} actif={onglet} choisir={setOnglet} />
+    <Onglets liste={[['direct', D && !D.fini ? 'Entretien en cours' : 'Plateaux'], ['sondages', 'Sondages'], ['paysage', 'Paysage médiatique']]} actif={onglet} choisir={setOnglet} />
     {onglet === 'direct' && <div class="grille g21">
       <div class="grille" style={{ alignContent: 'start' }}>
         {b.grandDebat && !D && <Bloc titre="Grand débat de l'entre-deux-tours"><p>Votre candidat est au second tour. Le débat télévisé peut déplacer jusqu'à quatre points. Huit échanges, face à votre adversaire.</p><button class="principal" onClick={() => agir({ type: 'grandDebat' })}>Entrer sur le plateau</button></Bloc>}
@@ -82,8 +82,7 @@ export function Medias() {
       <Bloc titre="Réseaux sociaux">
         <div class="ligne" style={{ justifyContent: 'space-between' }}><span><Info t="Jauge de viralité : monte avec les publications réussies et les campagnes numériques, retombe vite. Elle nourrit la notoriété et touche surtout les jeunes.">Viralité</Info></span><b>{String(v.viralite).replace('.', ',')}</b></div><Jauge v={v.viralite} max={20} couleur="var(--accent)" />
         <div class="ligne" style={{ justifyContent: 'space-between', marginTop: '6px' }}><span><Info t="Les gaffes laissent des traces : elles pèsent sur la crédibilité pendant des mois.">Passif de gaffes</Info></span><b class={v.gaffes > 2 ? 'danger-t' : ''}>{String(v.gaffes).replace('.', ',')}</b></div>
-        <h3 style={{ marginTop: '10px' }}>Publier cette semaine</h3>{!dr.medias && <p class="alerte petit-texte">Réservé au porte-parole, aux figures nationales et à la direction.</p>}
-        <div class="choix" style={{ marginTop: 0 }}>{Object.keys(v.publications).map(k => <button disabled={!dr.medias || v.dernierePub} onClick={() => agir({ type: 'publier', valeur: k })}><b>{v.publications[k].nom}</b><small>{v.publications[k].desc}</small></button>)}</div>{v.dernierePub && <p class="doux petit-texte">Déjà publié cette semaine.</p>}
+        <p class="doux petit-texte" style={{ marginTop: '10px' }}>Les publications se font désormais sur Agora, le réseau social du jeu.</p><button onClick={() => aller('agora')}>Ouvrir Agora</button>
       </Bloc>
     </div>}
     {onglet === 'sondages' && <div class="grille g21">

@@ -74,7 +74,9 @@ export function tourPartis(e: Etat, d: Donnees, rng: Rng, ctx: Ctx) {
     P.dynamique = clamp(P.dynamique * 0.965, -50, 50);
     for (const c of P.courants) c.humeur = clamp(c.humeur + (55 - c.humeur) * 0.02, 0, 100);
     // Menaces internes.
-    if (P.unite < 16 && rng.chance(0.08)) scission(e, d, rng, ctx, P);
+    // Scission : unité effondrée, ou courant important et durablement mécontent dans un parti divisé.
+    const fache = P.courants.find(c => c.humeur < 32 && c.poids >= 0.12 && c.poids <= 0.5);
+    if ((P.unite < 16 && rng.chance(0.08)) || (fache && P.unite < 52 && e.semaine - (P.scoreIA.derniereScission ?? -999) > 150 && rng.chance(0.012))) { P.scoreIA.derniereScission = e.semaine; scission(e, d, rng, ctx, P); }
     else if (joueur && P.unite < 30 && rng.chance(0.06)) { const c = P.courants.find(x => x.humeur < 45) ?? P.courants[0]; if (c && c.chef >= 0) message(e, ctx, 'parti', 'Menace de démission', `${nomComplet(e.persos[c.chef])}, chef de file du courant « ${c.nom} », menace de quitter le parti si la direction ne l'écoute pas. L'unité est à ${Math.round(P.unite)}.`, true); }
     if (P.chef < 0) designerChef(e, d, rng, ctx, P);
     if (e.semaine >= P.prochainCongres) congres(e, d, rng, ctx, P);

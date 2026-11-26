@@ -145,6 +145,8 @@ export function legislativesT2(e: Etat, d: Donnees, rng: Rng, ctx: Ctx, ech: Ech
   });
   serres.sort((a, b) => a[0] - b[0]); for (const s of serres.slice(0, 6)) expl.push(s[1]);
   const part = r.vot / (r.ins || 1); const national = agregat(e, r.nat, sieges); const gv = formerGouvernement(e, d, sieges);
+  // Une déroute ouvre une crise interne, une percée ressoude le parti.
+  for (const Q of e.partis) { if (!Q.actif) continue; const av = avant[Q.idx] * 577; if (av < 15) continue; const ratio = sieges[Q.idx] / av; if (ratio < 0.7) { Q.unite = clamp(Q.unite - 6 - (0.7 - ratio) * 14, 0, 100); for (const c of Q.courants) c.humeur = clamp(c.humeur - 8 - (0.7 - ratio) * 20, 0, 100); } else if (ratio > 1.3) Q.unite = clamp(Q.unite + 4, 0, 100); }
   const resume = `${national[0].nom} premier groupe avec ${national[0].sieges} sièges. ${gv}`;
   archiver(e, 'legislatives', 2, national, part || 0.6, resume, { sieges, explicationJoueur: expl.join('\n') });
   e.soiree = { type: 'legislatives', tour: 2, s: e.semaine, estimation: estimation(rng, national), final: national, lieux: r.lieux, participation: part, reactions: reactions(e, rng, p => sieges[p]), sieges, titre: `Législatives ${annee(e.semaine)}, second tour`, explication: expl.join('\n'), carte: { niveau: 'circo', couleurs: Object.fromEntries(d.circos.map((c, i) => [c.id, e.assemblee[i]?.parti ?? -1])) } };
