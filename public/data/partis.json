@@ -1,5 +1,5 @@
 {
- "_doc": "axes dans l'ordre de doctrine.json (-5 à +5). tresorerie et dette en euros. notabilite : poids des notables locaux aux élections municipales et départementales (0 à 1). strategie : local, presidentielle, union, isolement. style : prudent, offensif, opportuniste.",
+ "_doc": "axes dans l'ordre de doctrine.json (-5 à +5). tresorerie et dette en euros. notabilite : poids des notables locaux aux élections municipales et départementales (0 à 1,5). strategie : local, presidentielle, union, isolement. style : prudent, offensif, opportuniste.",
  "partis": [
   {
    "id": "LO",
@@ -82,7 +82,7 @@
    "strategie": "local",
    "style": "prudent",
    "famille": "gauche",
-   "notabilite": 0.75,
+   "notabilite": 0.7,
    "dette": 1000000
   },
   {
@@ -110,7 +110,7 @@
    "strategie": "union",
    "style": "prudent",
    "famille": "gauche",
-   "notabilite": 0.95,
+   "notabilite": 0.8,
    "dette": 3000000
   },
   {
@@ -194,7 +194,7 @@
    "strategie": "local",
    "style": "prudent",
    "famille": "gauche",
-   "notabilite": 1,
+   "notabilite": 0.95,
    "dette": 0
   },
   {
@@ -306,7 +306,7 @@
    "strategie": "presidentielle",
    "style": "prudent",
    "famille": "centre",
-   "notabilite": 0.55,
+   "notabilite": 0.65,
    "dette": 0
   },
   {
@@ -334,7 +334,7 @@
    "strategie": "local",
    "style": "prudent",
    "famille": "centre",
-   "notabilite": 0.9,
+   "notabilite": 1.1,
    "dette": 0
   },
   {
@@ -362,7 +362,7 @@
    "strategie": "union",
    "style": "prudent",
    "famille": "droite",
-   "notabilite": 0.7,
+   "notabilite": 1,
    "dette": 0
   },
   {
@@ -390,7 +390,7 @@
    "strategie": "local",
    "style": "prudent",
    "famille": "droite",
-   "notabilite": 1,
+   "notabilite": 1.35,
    "dette": 8000000
   },
   {
@@ -418,7 +418,7 @@
    "strategie": "local",
    "style": "prudent",
    "famille": "droite",
-   "notabilite": 1,
+   "notabilite": 1.4,
    "dette": 0
   },
   {
