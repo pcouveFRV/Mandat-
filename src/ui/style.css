@@ -114,3 +114,4 @@ svg.carte text { fill: var(--texte); font-size: 9px; pointer-events: none; }
 .menu .encart b { display: block; font-size: 14px; line-height: 1.15; } .menu .encart small { display: block; color: var(--doux); font-size: 11px; } .menu .encart small.ok { color: var(--ok); } .menu .encart small.danger-t { color: var(--danger); }
 .haut .echeance { background: var(--accent-doux); color: var(--accent-t); border-radius: 980px; padding: 4px 12px; font-weight: 600; font-size: 12px; }
 .res .r b .delta { font-size: 10px; font-weight: 600; margin-left: 3px; } .res .r b .delta.plus { color: var(--ok); } .res .r b .delta.moins { color: var(--danger); }
+span[aria-label="Avatar"] svg { width: 100%; height: 100%; display: block; }

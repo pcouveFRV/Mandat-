@@ -144,7 +144,7 @@ export function tourParcours(e: Etat, d: Donnees, rng: Rng, ctx: Ctx) {
 export function actionParcours(e: Etat, d: Donnees, rng: Rng, a: any): { ok: boolean; texte: string } {
   const g = parcoursDe(e, d); const non = (t: string) => ({ ok: false, texte: t }), ok = (t = '') => ({ ok: true, texte: t }); const p = moiDe(e); if (!p) return non('Réservé au mode Carrière.');
   switch (a.type) {
-    case 'profilPortrait': { const v = (a.portrait as number[] ?? []).slice(0, 6).map(x => clamp(+x | 0, 0, 5)); if (v.length !== 6) return non('Portrait invalide.'); g.portrait = v; return ok(); }
+    case 'profilPortrait': { const v = (a.portrait as number[] ?? []).slice(0, 6).map((x, i) => clamp(+x | 0, 0, i === 0 ? 99 : 5)); if (v.length !== 6) return non('Portrait invalide.'); g.portrait = v; return ok(); }
     case 'profilTexte': g.bio = String(a.bio ?? '').slice(0, 400); g.slogan = String(a.slogan ?? '').slice(0, 80); if (['pedagogue', 'offensif', 'humour', 'emotion', 'coulisses'].includes(a.style)) g.style = a.style; return ok('Fiche mise à jour.');
     case 'profilEntrainement': { const v = [...new Set((a.attrs as number[] ?? []).map(x => +x))].filter(x => ENTRAINABLES.includes(x)).slice(0, 3); if (!v.length) return non('Choisissez au moins un attribut.'); g.entrainement = v; return ok(`Vous travaillez : ${v.map(i => NOMS_ATTRS[i].toLowerCase()).join(', ')}.`); }
     case 'profilMetier': if (!METIERS[a.metier]) return non('Choix inconnu.'); if (g.metierChange !== undefined && e.semaine - g.metierChange < 12) return non('Vous venez de changer de situation. Attendez trois mois.'); g.metier = a.metier; g.metierChange = e.semaine; return ok(`${METIERS[a.metier].nom}. ${METIERS[a.metier].desc}`);
@@ -166,7 +166,7 @@ export function vueParcours(e: Etat, d: Donnees) {
   const ech = e.calendrier.filter(k => !k.fait1 && k.s1 > e.semaine && k.s1 - e.semaine <= 60 && k.s1 - e.semaine >= 6 && ['municipales', 'departementales', 'legislatives', 'regionales', 'europeennes'].includes(k.type)).map(k => ({ type: k.type, dans: k.s1 - e.semaine, date: jourVote(k.s1), investi: investi(e, p, k.type) }));
   const D = g.dossier;
   return {
-    carriere: true, id: p.id, nom: nomComplet(p), age: 2026 + Math.floor(e.semaine / 52) - p.naissance, parti: p.parti, rang: p.rang, portrait: g.portrait, bio: g.bio, slogan: g.slogan, style: g.style,
+    carriere: true, id: p.id, reel: !!p.reel, nom: nomComplet(p), age: 2026 + Math.floor(e.semaine / 52) - p.naissance, parti: p.parti, rang: p.rang, portrait: g.portrait, bio: g.bio, slogan: g.slogan, style: g.style,
     attrs: p.attrs.map((v, i) => ({ i, nom: NOMS_ATTRS[i], v, entrainable: ENTRAINABLES.includes(i), choisi: g.entrainement.includes(i) })), pot: p.pot, forme: Math.round(p.forme), moral: Math.round(p.moral), notoriete: Math.round(p.notoriete), estime: Math.round(es),
     metier: g.metier, metiers: METIERS, argent: Math.round(g.argent), revenu: (METIERS[g.metier]?.revenu ?? 0) + ind, indemnites: ind, depenses: TRAIN_VIE, mandats: p.mandats.map(m => LIB_MANDAT[m.type] ?? m.type),
     ambition: g.ambition, ambitions: Object.keys(AMBITIONS).map(k => ({ id: k, nom: AMBITIONS[k].nom })), etapes: etapesAmbition(e, d), reputation: rep,

@@ -67,7 +67,7 @@ export function Chronique() {
         <table><tbody>
           {v.fonctions.map((f: any) => <tr><td style={{ whiteSpace: 'normal' }}><b>{f.nom.charAt(0).toUpperCase() + f.nom.slice(1)}</b><div class="doux petit-texte">depuis le {f.depuis}</div></td></tr>)}
           {v.postes.map((t: string) => <tr><td style={{ whiteSpace: 'normal' }}>{t.charAt(0).toUpperCase() + t.slice(1)}</td></tr>)}
-          <tr><td>Naissance : {v.naissance}{v.lieu ? `, ${v.lieu}` : ''}</td></tr>
+          <tr><td style={{ whiteSpace: 'normal' }}>Naissance : {v.naissance}{v.lieu ? `, ${v.lieu}` : ''}</td></tr>
           <tr><td>Parti : {v.parti >= 0 ? <Parti i={v.parti} /> : 'aucun'}</td></tr>
           {v.profession && <tr><td style={{ whiteSpace: 'normal' }}>Profession : {v.profession}</td></tr>}
           <tr><td>Notoriété : {v.notoriete} sur 100</td></tr>{v.abonnes > 0 && <tr><td>Agora : {nb(v.abonnes)} abonnés</td></tr>}

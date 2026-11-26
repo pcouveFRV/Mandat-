@@ -105,7 +105,7 @@ Chaque ouverture est annoncée par un message et une pastille « nouveau » dans
 
 L'écran de votre personnage, ouvert dès le premier jour en mode Carrière.
 
-- **Fiche** : slogan, biographie, style. Modifiable à tout moment.
+- **Fiche** : visage dessiné (bouton Changer de visage), slogan, biographie, style. Modifiable à tout moment.
 - **Ambition** : maire, député, chef de parti ou président. Le jeu affiche les quatre étapes et salue chaque étape franchie.
 - **Ce que je travaille** : trois attributs au plus, qui progressent un peu plus vite.
 - **Vie hors politique** : un compte en banque, des dépenses chaque semaine, et un choix entre emploi à plein temps (plus d'argent, moins de rendement politique), mi-temps, ou tout pour la politique. Les mandats versent des indemnités. Un compte dans le rouge pèse sur le moral.

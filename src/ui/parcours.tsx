@@ -1,13 +1,21 @@
 // Mon parcours (fiche du joueur, entraînement, métier, ambition, réputation, investiture, journal) et Carnet (contacts, suivis).
-import { useState } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 import { useMagasin, useVue, agir, nb, Bloc, Jauge, Parti, toast, moteurAction, ouvrirFiche, RANGS } from './composants';
 import { discuter, assistantActif } from './assistant';
 
 // Portrait dessiné à composer : formes simples, sans ressemblance avec personne.
-// Avatar sobre : les initiales du personnage sur la couleur de son parti. Le portrait dessiné a été retiré à la demande de Pierre.
-export function Portrait({ taille = 64 }: { p?: number[]; taille?: number }) {
-  const b = useMagasin().base; const nom: string = b?.moi?.nom ?? ''; const ini = nom.split(/[\s-]+/).filter(Boolean).map(x => x[0]).slice(0, 2).join('').toUpperCase(); const c = b?.partis?.[b.parti]?.couleur ?? '#8e8e93';
-  return <span aria-label="Avatar" style={{ width: `${taille}px`, height: `${taille}px`, borderRadius: '26%', flex: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: `linear-gradient(145deg, ${c}, color-mix(in srgb, ${c} 68%, #000))`, color: '#fff', fontWeight: 600, fontSize: `${Math.round(taille * 0.38)}px`, letterSpacing: '.02em' }}>{ini}</span>;
+// Avatar du personnage : un visage dessiné (style Notionists, bibliothèque DiceBear embarquée dans public/vendor) tiré du nom.
+// Une personne réelle garde ses initiales : un visage tiré au hasard ne lui ressemblerait pas.
+let moduleAvatars: Promise<any> | null = null; const cacheAvatars = new Map<string, string>();
+const chargerAvatars = () => moduleAvatars ?? (moduleAvatars = import(/* @vite-ignore */ new URL('./vendor/avatars.js', document.baseURI).href).catch(() => null));
+export function Portrait({ p, taille = 64 }: { p?: number[]; taille?: number }) {
+  const b = useMagasin().base; const nom: string = b?.moi?.nom ?? ''; const c = b?.partis?.[b.parti]?.couleur ?? '#8e8e93'; const reel = !!b?.moi?.reel; const cle = `${nom}#${p?.[0] ?? 0}`;
+  const [svg, setSvg] = useState<string>(cacheAvatars.get(cle) ?? '');
+  useEffect(() => { if (reel || !nom) return; const dispo = cacheAvatars.get(cle); if (dispo) { setSvg(dispo); return; } let vivant = true; chargerAvatars().then(m => { if (!m) return; const s = m.avatar(cle); cacheAvatars.set(cle, s); if (vivant) setSvg(s); }); return () => { vivant = false; }; }, [cle, reel]);
+  const cadre = { width: `${taille}px`, height: `${taille}px`, borderRadius: '26%', flex: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' };
+  if (!reel && svg) return <span aria-label="Avatar" style={{ ...cadre, background: `color-mix(in srgb, ${c} 16%, #fff)` }} dangerouslySetInnerHTML={{ __html: svg }} />;
+  const ini = nom.split(/[\s-]+/).filter(Boolean).map(x => x[0]).slice(0, 2).join('').toUpperCase();
+  return <span aria-label="Avatar" style={{ ...cadre, background: `linear-gradient(145deg, ${c}, color-mix(in srgb, ${c} 68%, #000))`, color: '#fff', fontWeight: 600, fontSize: `${Math.round(taille * 0.38)}px`, letterSpacing: '.02em' }}>{ini}</span>;
 }
 const SCRUTINS: Record<string, string> = { municipales: 'Municipales', departementales: 'Départementales', legislatives: 'Législatives', regionales: 'Régionales', europeennes: 'Européennes' };
 const ROLES: Record<string, string> = { mentor: 'Mentor', allie: 'Allié', rival: 'Rival', journaliste: 'Journaliste', cadre: 'Cadre du parti' };
@@ -48,6 +56,7 @@ export function Profil() {
     <div class="ligne" style={{ gap: '16px', marginBottom: '14px' }}><Portrait p={P} taille={84} /><div><h1 style={{ margin: 0 }}>{v.nom}</h1><div class="doux">{v.age} ans, {RANGS[v.rang]}, {v.lieu} <Parti i={v.parti} /></div>{v.slogan && <div style={{ marginTop: '4px' }}><i>« {v.slogan} »</i></div>}{v.mandats.length > 0 && <div class="doux petit-texte">{v.mandats.join(', ')}</div>}</div><span class="espace" /><button onClick={() => { setEdit(!edit); setBio(v.bio); setSlogan(v.slogan); }}>{edit ? 'Fermer' : 'Modifier ma fiche'}</button></div>
     <div class="grille" style={{ gap: '14px' }}>
       {edit && <Bloc titre="Ma fiche">
+        {!v.reel && <div class="ligne" style={{ marginBottom: '10px' }}><button onClick={() => { const n = P.slice(); n[0] = (n[0] + 1) % 100; agir({ type: 'profilPortrait', portrait: n }, true); }}>Changer de visage</button><span class="doux petit-texte">Cent visages possibles pour votre nom.</span></div>}
         <div class="grille" style={{ gap: '6px', }}><input type="text" aria-label="Slogan" maxLength={80} placeholder="Votre slogan personnel (80 caractères)" value={slogan ?? ''} onInput={(ev: any) => setSlogan(ev.target.value)} />
           <textarea aria-label="Biographie" rows={3} maxLength={400} placeholder="Votre biographie : d'où vous venez, ce que vous faites, pourquoi vous vous engagez (400 caractères)" value={bio ?? ''} onInput={(ev: any) => setBio(ev.target.value)} />
           <div class="ligne"><span class="doux">Votre style :</span><select aria-label="Style" value={v.style} onChange={(ev: any) => agir({ type: 'profilTexte', bio: bio ?? v.bio, slogan: slogan ?? v.slogan, style: ev.target.value }, true)}><option value="pedagogue">Pédagogue</option><option value="offensif">Offensif</option><option value="humour">Décalé</option><option value="emotion">Proche des gens</option><option value="coulisses">Coulisses</option></select><span class="espace" /><button class="principal" onClick={() => agir({ type: 'profilTexte', bio, slogan, style: v.style })}>Enregistrer</button></div></div>

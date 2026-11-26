@@ -14,4 +14,5 @@ bun build src/ui/main.tsx --outdir "$OUT/assets" --target browser --minify --tsc
 bun build src/worker/worker.ts --outdir "$OUT/assets" --target browser --minify --entry-naming '[name].[ext]'
 sed -e 's#/src/ui/main.tsx#./assets/main.js#' -e 's#</head>#<link rel="stylesheet" href="./assets/main.css"></head>#' index.html > "$OUT/index.html"
 rm -rf "$OUT/data" && cp -r public/data "$OUT/data"
+rm -rf "$OUT/vendor" && cp -r public/vendor "$OUT/vendor"
 echo "Construit dans $OUT"
