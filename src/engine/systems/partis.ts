@@ -50,7 +50,12 @@ export function tourPartis(e: Etat, d: Donnees, rng: Rng, ctx: Ctx) {
     }
     P.fatigue = clamp(P.fatigue + effort * 9, 0, 100);
     // Adhésions : dynamique, notoriété, qualité des délégués. Une croissance trop rapide sans cadres abîme l'unité.
-    const g = 0.0009 * P.dynamique / 10 + 0.0006 * (P.notoriete - 50) / 50 + 0.0004 * (P.credibilite - 50) / 50 - 0.0006;
+    // Usure du pouvoir : le parti du président et ses alliés de gouvernement s'usent, l'opposition se refait une santé.
+    const us = P.scoreIA.usure ?? 0; const auPouvoir = e.presidence.parti === P.idx; const allie = !auPouvoir && e.gouvernement.coalition.includes(P.idx);
+    P.scoreIA.usure = clamp(us + (auPouvoir ? 0.0030 * (e.presidence.popularite < 45 ? 1.25 : 0.6) : allie ? 0.0013 : -0.004), 0, 0.95);
+    // Adhésions : dynamique, notoriété, crédibilité, qualité des délégués, et rappel vers une taille cohérente avec le poids électoral.
+    const adh0 = P.scoreIA.adh0 || P.adherents, int0 = P.scoreIA.int0 || 0.02; const cibleAdh = adh0 * Math.pow(Math.max(0.2, (e.intentions[P.idx] ?? int0) / int0), 0.7);
+    const g = 0.0009 * P.dynamique / 10 + 0.0006 * (P.notoriete - 50) / 50 + 0.0004 * (P.credibilite - 50) / 50 - 0.0006 - 0.0016 * (P.adherents / cibleAdh - 1) - (P.cotisation - 30) * 0.00001;
     let delta = 0, sansCadre = 0;
     for (let i = 0; i < P.adhDept.length; i++) { const a = P.adhDept[i]; if (a <= 0) continue; const del = P.delegues[i] >= 0 ? e.persos[P.delegues[i]] : null; const q = del ? (del.attrs[A.organisation] + del.attrs[A.terrain] - 20) * 0.00012 : -0.0006; if (!del) sansCadre += a; const na = Math.max(5, a * (1 + g + q)); delta += na - a; P.adhDept[i] = na; }
     P.adherents = Math.max(50, P.adherents + delta);
@@ -140,7 +145,7 @@ export function scission(e: Etat, d: Donnees, rng: Rng, ctx: Ctx, P: Parti) {
   const nP = e.partis.length; for (let z = 0; z < d.zones.length; z++) { e.impl[z * nP + P.idx] -= part * 0.5; e.impl[z * nP + cible] += part * 0.35; }
   const adh = P.adherents * part; P.adherents -= adh; Q.adherents += adh; for (let i = 0; i < P.adhDept.length; i++) { const x = P.adhDept[i] * part; P.adhDept[i] -= x; Q.adhDept[i] += x; }
   P.unite = 55; P.dynamique -= 10; P.courants = P.courants.filter(x => x !== c); bougerRel(e, P.idx, cible, -30);
-  journal(e, `Scission à ${P.sigle} : le courant « ${c.nom} » rejoint ${Q.sigle}`);
+  P.scoreIA.scissions = (P.scoreIA.scissions ?? 0) + 1; journal(e, `Scission à ${P.sigle} : le courant « ${c.nom} » rejoint ${Q.sigle}`);
   message(e, ctx, 'actu', `Scission à ${P.sigle}`, `Le courant « ${c.nom} » quitte ${P.nom} avec ${membres.length} cadres et environ ${Math.round(part * 100)} % des adhérents. Ils rejoignent ${Q.nom}.`, P.idx === e.joueur.parti);
   if (P.idx === e.joueur.parti && part >= 0.5) e.joueur.fin = { type: 'defaite', titre: 'Scission', texte: 'La scission vous laisse minoritaire dans votre propre parti.' };
 }

@@ -149,7 +149,9 @@ export function creerPartie(d: Donnees, o: OptPartie): Etat {
     if (o.perso.depart === 'conseiller') { const v = d.villes.find(x => x.zones.includes(zi) && x.plm !== 1); if (v) { donnerMandat(e, p, 'conseiller_municipal', v.idx, true); p.rang = 1; ajouterHist(e, p, `Conseiller municipal d'opposition à ${v.nom}`); p.notoriete = 5; } }
   } else { e.joueur.perso = Pj.chef; e.joueur.debutPremierPlan = debut; }
 
-  const c = preparer(e, d); e.intentions = intentions(e, d, c); e.histIntentions.push({ s: e.semaine, v: e.intentions.map(x => Math.round(x * 1000) / 10) });
+  const c = preparer(e, d); e.intentions = intentions(e, d, c); for (const P of e.partis) { P.scoreIA.adh0 = P.adherents; P.scoreIA.int0 = Math.max(0.004, e.intentions[P.idx] ?? 0.01); }
+  // L'usure du pouvoir déjà subie par la majorité sortante est contenue dans les résultats réels : elle sert de point de départ.
+  { const pp = e.partis[e.presidence.parti]; if (pp) pp.scoreIA.usure = pp.scoreIA.usure0 = 0.35; for (const q of e.gouvernement.coalition) if (q !== e.presidence.parti) e.partis[q].scoreIA.usure = e.partis[q].scoreIA.usure0 = 0.1; } e.histIntentions.push({ s: e.semaine, v: e.intentions.map(x => Math.round(x * 1000) / 10) });
   e.rng = rng.s;
   message(e, null, 'actu', o.mode === 'parti' ? `Bienvenue : ${Pj.nom}` : 'Bienvenue : votre carrière commence', o.mode === 'parti' ? `Nous sommes le ${o.scenario === 'municipales2026' ? '6 avril 2026' : '7 septembre 2026'}. Votre parti : ${Pj.nom}. ${Math.round(Pj.adherents)} adhérents, ${Math.round(Pj.tresorerie / 1000)} k€ en caisse, ${e.assemblee.filter(s => s.parti === Pj.idx).length} députés, ${e.mairies.filter(m => m.parti === Pj.idx).length} mairies. Le bouton Continuer fait avancer le temps d'une semaine.` : `Vous êtes militant ${Pj.sigle}. Faites vos preuves sur le terrain, obtenez des responsabilités, puis une investiture. Le bouton Continuer fait avancer le temps d'une semaine.`, true);
   return e;

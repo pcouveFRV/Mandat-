@@ -32,7 +32,7 @@ export function preparer(e: Etat, d: Donnees): Cache {
     if (!regionsAvecChoc.has(r) && !base) base = D.slice(r * nS * nP, (r + 1) * nS * nP);
   }
   const nat = new Float32Array(nP);
-  for (let p = 0; p < nP; p++) { const P = e.partis[p]; nat[p] = 0.012 * (P.notoriete - P.notoriete0) + 0.015 * (P.credibilite - P.credibilite0) + 0.01 * P.dynamique; }
+  for (let p = 0; p < nP; p++) { const P = e.partis[p]; nat[p] = 0.012 * (P.notoriete - P.notoriete0) + 0.015 * (P.credibilite - P.credibilite0) + 0.01 * P.dynamique - ((P.scoreIA.usure ?? 0) - (P.scoreIA.usure0 ?? 0)); }
   // Effet durable des propositions phares : elles attirent ou repoussent des segments selon leurs étiquettes et le poids du thème.
   const prop = new Float32Array(nS * nP); const propParId: Record<string, any> = (preparer as any)._idx ?? ((preparer as any)._idx = Object.fromEntries(d.propositions.map(x => [x.id, x]))); const idxTheme: Record<string, number> = (preparer as any)._th ?? ((preparer as any)._th = Object.fromEntries(d.themes.map((t, i) => [t.id, i])));
   for (let p = 0; p < nP; p++) for (const id of e.partis[p].propositions) { const pr = propParId[id]; if (!pr) continue; const th = idxTheme[pr.theme] ?? 0; for (let s = 0; s < nS; s++) { const sg = d.segments[s]; const k = 0.03 + 0.012 * sg.priorites[th]; let v = 0; for (const t of pr.attire) if (sg.etiquettes.includes(t)) v += k; for (const t of pr.repousse) if (sg.etiquettes.includes(t)) v -= k * 0.8; prop[s * nP + p] += v; } }
@@ -159,4 +159,19 @@ export function calibrer(e: Etat, d: Donnees, T: Float32Array, nReels: number): 
     err /= zones.length * nReels;
   }
   return { erreurMoy: err, iterations: it };
+}
+
+// Écart entre le vote simulé au lancement et le premier tour réel des législatives 2024, par circonscription et par bloc politique.
+const BLOC_PARTI: Record<string, number> = { LO: 0, LFI: 0, PCF: 0, PS: 0, ECO: 0, PP: 0, DVG: 0, REG: 1, RE: 1, MDM: 1, HOR: 1, DVC: 1, UDI: 1, LR: 2, DVD: 2, UDR: 3, RN: 3, REC: 3, DLF: 3 };
+export const BLOCS = ['Gauche', 'Centre', 'Droite', 'Droite nationale'];
+export function ecartCalibrage(e: Etat, d: Donnees): { moyen: number; p90: number; max: number; national: { bloc: string; reel: number; simule: number }[]; pires: { circo: string; ecart: number }[] } {
+  const c = preparer(e, d); const reels = d.partis.filter(p => !p.id.startsWith('NP')).map((_, i) => i); const L = reels.length; const ecarts: number[] = []; const pires: { circo: string; ecart: number }[] = []; const natR = [0, 0, 0, 0], natS = [0, 0, 0, 0]; let TR = 0, TS = 0;
+  d.circos.forEach((ci, i) => {
+    const zf = d.zonesParCirco[i]; if (!zf.length || !ci.exprimes) return; const v = voter(e, d, c, zf.map(x => x[0]), { partis: reels, facteur: FACTEUR_ABST.legislatives });
+    const sim = [0, 0, 0, 0]; let ts = 0; for (let k = 0; k < zf.length; k++) for (let l = 0; l < L; l++) { const x = v.voix[k * L + l] * zf[k][1]; sim[BLOC_PARTI[d.partis[l].id] ?? 1] += x; ts += x; }
+    const reel = [0, 0, 0, 0]; for (const nu of Object.keys(ci.t1)) { const parts = d.nuances[nu] ?? { DVC: 1 }; for (const k of Object.keys(parts)) reel[BLOC_PARTI[k] ?? 1] += ci.t1[nu] * parts[k]; }
+    let m = 0; for (let b = 0; b < 4; b++) { const dv = Math.abs(sim[b] / (ts || 1) - reel[b] / ci.exprimes) * 100; ecarts.push(dv); if (dv > m) m = dv; natR[b] += reel[b]; natS[b] += sim[b] / (ts || 1) * ci.exprimes; } TR += ci.exprimes; TS += ci.exprimes; pires.push({ circo: ci.id, ecart: Math.round(m * 10) / 10 });
+  });
+  ecarts.sort((a, b) => a - b); pires.sort((a, b) => b.ecart - a.ecart);
+  return { moyen: ecarts.reduce((a, b) => a + b, 0) / ecarts.length, p90: ecarts[Math.floor(ecarts.length * 0.9)], max: ecarts[ecarts.length - 1], national: BLOCS.map((b, i) => ({ bloc: b, reel: Math.round(1000 * natR[i] / TR) / 10, simule: Math.round(1000 * natS[i] / TS) / 10 })), pires: pires.slice(0, 10) };
 }

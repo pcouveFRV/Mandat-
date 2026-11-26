@@ -60,7 +60,7 @@ function choixIA(e: Etat, d: Donnees, rng: Rng, P: Parti, ev: DonEvenement): num
 
 export function tourEvenements(e: Etat, d: Donnees, rng: Rng, ctx: Ctx) {
   // Réponses par défaut aux messages expirés.
-  for (const m of e.inbox) if (m.action?.type === 'evenement' && m.repondu === undefined && m.expire !== undefined && e.semaine > m.expire) { m.repondu = m.choix!.length - 1; }
+  for (const m of e.inbox) if (m.choix && m.repondu === undefined && m.expire !== undefined && e.semaine > m.expire) { m.repondu = m.choix.length - 1; m.lu = true; if (m.action?.type === 'evenement') { const ev = d.evenements.find(x => x.id === m.action!.data.ev); if (ev) appliquerChoix(e, d, rng, null, e.partis[e.joueur.parti], ev, ev.choix[ev.choix.length - 1], m.action.data.rival ?? -1); } }
   e.chocs = e.chocs.filter(c => c.fin > e.semaine);
   const roles = roleJoueur(e); const j = e.partis[e.joueur.parti]; const dr = droits(e);
   const tirer = (portees: string[], proba: number) => {

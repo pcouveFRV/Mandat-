@@ -12,7 +12,9 @@ const MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 
 export function dateTexte(s: number): string { const d = dateDe(s); const j = d.getUTCDate(); return `${j === 1 ? '1er' : j} ${MOIS[d.getUTCMonth()]} ${d.getUTCFullYear()}`; }
 export function moisTexte(s: number): string { const d = dateDe(s); return `${MOIS[d.getUTCMonth()]} ${d.getUTCFullYear()}`; }
 // Dimanche de vote = fin de la semaine s. On renvoie la semaine qui contient ce dimanche.
-const dim = (a: number, m: number, j: number) => semaineDe(a, m, j);
+// Le vote a lieu le dimanche ; le moteur le traite au tour qui commence le lundi suivant (résultats de la veille).
+const dim = (a: number, m: number, j: number) => semaineDe(a, m, j) + 1;
+export const jourVote = (s: number) => dateTexte(s - 1 / 7);
 export const NOM_SCRUTIN: Record<Scrutin, string> = { municipales: 'Élections municipales', departementales: 'Élections départementales', regionales: 'Élections régionales', legislatives: 'Élections législatives', europeennes: 'Élections européennes', senatoriales: 'Élections sénatoriales', presidentielle: 'Élection présidentielle' };
 export const DUREE_CAMPAGNE: Record<Scrutin, number> = { municipales: 10, departementales: 8, regionales: 8, legislatives: 6, europeennes: 8, senatoriales: 6, presidentielle: 12 };
 

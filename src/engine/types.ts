@@ -101,7 +101,7 @@ export interface Etat {
   chocs: ChocTheme[]; eco: { croissance: number; chomage: number; inflation: number };
   mairies: Mairie[]; partsBassin: number[]; conseilsDept: Conseil[]; conseilsReg: Conseil[];
   assemblee: Siege[]; senat: Siege[][]; europe: Siege[];
-  presidence: { perso: number; parti: number; popularite: number; debut: number; budget: number; reformes: number };
+  presidence: { perso: number; parti: number; popularite: number; debut: number; budget: number; reformes: number; consecutifs?: number };
   gouvernement: { parti: number; coalition: number[]; pm: number };
   calendrier: Echeance[]; candidatures: Record<string, Record<string, Candidature[]>>; investitures: Record<string, Record<string, number>>; campagnesOuvertes: string[];
   relPartis: number[]; accords: Accord[]; affaires: Affaire[];

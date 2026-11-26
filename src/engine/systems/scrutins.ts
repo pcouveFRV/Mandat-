@@ -2,7 +2,7 @@
 import type { Donnees, Etat, Ctx, Candidature, Scrutin, Echeance, UniteT1, ResultatLigne, ResultatLieu, Conseil, Perso } from '../types';
 import { A } from '../types';
 import { Rng, clamp } from '../rng';
-import { NOM_SCRUTIN, dateTexte, annee } from '../calendrier';
+import { NOM_SCRUTIN, dateTexte, annee, jourVote } from '../calendrier';
 import { SIEGES_REGION } from '../donnees';
 import { preparer, voter, reporter, FACTEUR_ABST, Cache, distancePartis } from './electorat';
 import { formerListes, cloreCompte, politique } from './campagnes';
@@ -126,7 +126,7 @@ export function legislativesT1(e: Etat, d: Donnees, rng: Rng, ctx: Ctx, ech: Ech
   e.soiree = { type: 'legislatives', tour: 1, s: e.semaine, estimation: estimation(rng, national), final: national, lieux: r.lieux, participation: part, reactions: reactions(e, rng, p => r.nat[p]), titre: `Législatives ${annee(e.semaine)}, premier tour`, explication: '', carte: { niveau: 'circo', couleurs: Object.fromEntries(r.lieux.map(l => [l.id, l.lignes[0].partis[0]])) } };
   const j = e.joueur.parti; const mes = Object.entries(ed.unites).filter(([, u]) => u.elu < 0 && u.maintenus.some(i => u.cands[i].parti === j));
   const troisiemes = mes.filter(([, u]) => { const o = u.maintenus.slice().sort((a, b) => u.t1[b] - u.t1[a]); return o.findIndex(i => u.cands[i].parti === j) >= 2; });
-  message(e, ctx, 'campagne', 'Législatives : entre-deux-tours', `Vos candidats sont qualifiés dans ${mes.length} circonscriptions, dont ${troisiemes.length} en troisième position ou plus. Dans l'écran Campagne, vous pouvez décider des désistements et de la consigne de vote avant le second tour du ${dateTexte(ech.s2)}.`, true);
+  message(e, ctx, 'campagne', 'Législatives : entre-deux-tours', `Vos candidats sont qualifiés dans ${mes.length} circonscriptions, dont ${troisiemes.length} en troisième position ou plus. Dans l'écran Campagne, vous pouvez décider des désistements et de la consigne de vote avant le second tour du ${jourVote(ech.s2)}.`, true);
   ech.fait1 = true;
 }
 export function legislativesT2(e: Etat, d: Donnees, rng: Rng, ctx: Ctx, ech: Echeance) {
@@ -185,7 +185,7 @@ export function municipalesT1(e: Etat, d: Donnees, rng: Rng, ctx: Ctx, ech: Eche
   archiver(e, 'municipales', 1, national, part, `${des1} villes pourvues dès le premier tour sur ${Object.keys(ed.unites).length}, participation ${Math.round(part * 100)} %`);
   e.soiree = { type: 'municipales', tour: 1, s: e.semaine, estimation: estimation(rng, national), final: national, lieux: r.lieux.sort((a, b) => b.inscrits - a.inscrits).slice(0, 250), participation: part, reactions: reactions(e, rng, p => r.nat[p]), titre: `Municipales ${annee(e.semaine)}, premier tour`, explication: '', carte: { niveau: 'dept', couleurs: couleursParDept(e, d, r.lieux, id => d.villes[d.idxVille[id]].dept) } };
   const j = e.joueur.parti; const n = Object.values(ed.unites).filter(u => u.elu < 0 && u.cands.some((cd, i) => cd.parti === j && (u.maintenus.includes(i) || u.t1[i] / (u.t1.reduce((a, b) => a + b, 0) || 1) >= 0.05))).length;
-  message(e, ctx, 'campagne', 'Municipales : entre-deux-tours', `Vos listes peuvent se maintenir ou fusionner dans ${n} villes. Décidez des fusions et des désistements dans l'écran Campagne avant le ${dateTexte(ech.s2)}.`, true); ech.fait1 = true;
+  message(e, ctx, 'campagne', 'Municipales : entre-deux-tours', `Vos listes peuvent se maintenir ou fusionner dans ${n} villes. Décidez des fusions et des désistements dans l'écran Campagne avant le ${jourVote(ech.s2)}.`, true); ech.fait1 = true;
 }
 export function municipalesT2(e: Etat, d: Donnees, rng: Rng, ctx: Ctx, ech: Echeance) {
   const ed = e.entreDeux.municipales; if (!ed) { ech.fait2 = true; return; } const nP = e.partis.length; const j = e.joueur.parti; const avant = e.partis.map(p => e.mairies.filter(m => m.parti === p.idx).length / d.villes.length);
@@ -259,7 +259,7 @@ export function regionalesT1(e: Etat, d: Donnees, rng: Rng, ctx: Ctx, ech: Echea
   const r = tour1(e, d, rng, c, F, 'regionales', unitesRegionales(e, d), 'liste', { local: true, seuilSeul: 0.05, echelle: 0.9, facteur: FACTEUR_ABST.regionales }, ech.s2);
   const part = r.vot / (r.ins || 1); const national = agregat(e, r.nat); archiver(e, 'regionales', 1, national, part, `${national[0].nom} en tête avec ${national[0].pct} %, participation ${Math.round(part * 100)} %`);
   e.soiree = { type: 'regionales', tour: 1, s: e.semaine, estimation: estimation(rng, national), final: national, lieux: r.lieux, participation: part, reactions: reactions(e, rng, p => r.nat[p]), titre: `Régionales et départementales ${annee(e.semaine)}, premier tour`, explication: '', carte: { niveau: 'region', couleurs: Object.fromEntries(r.lieux.map(l => [l.id.slice(1), l.lignes[0].partis[0]])) } };
-  message(e, ctx, 'campagne', 'Régionales et départementales : entre-deux-tours', `Fusions de listes et désistements se décident dans l'écran Campagne avant le ${dateTexte(ech.s2)}.`, true); ech.fait1 = true;
+  message(e, ctx, 'campagne', 'Régionales et départementales : entre-deux-tours', `Fusions de listes et désistements se décident dans l'écran Campagne avant le ${jourVote(ech.s2)}.`, true); ech.fait1 = true;
 }
 export function regionalesT2(e: Etat, d: Donnees, rng: Rng, ctx: Ctx, ech: Echeance) {
   const ed = e.entreDeux.regionales; if (!ed) { ech.fait2 = true; return; } const nP = e.partis.length; const r = tour2(e, d, rng, 'regionales', 'liste'); const j = e.joueur.parti; const pres = new Array(nP).fill(0); const expl: string[] = []; const avant = e.partis.map(p => e.conseilsReg.filter(c => c.parti === p.idx).length / 18);
@@ -285,11 +285,12 @@ export function europeennesTour(e: Etat, d: Donnees, rng: Rng, ctx: Ctx, ech: Ec
   const c = preparer(e, d); const F = forcesZones(e, d, c); const nP = e.partis.length; const zf = d.zones.map(z => [z.idx, 1] as [number, number]); const forces = forcesUnite(d, F, zf, nP);
   const u: DefUnite = { uid: 'EU', nom: 'France', zf, lieu: 0 }; const avant = e.partis.map(p => e.europe.filter(s => s.parti === p.idx).length / 81);
   const cands = formerListes(e, d, { type: 'europeennes', uid: 'EU', forces, local: false, seuilSeul: 0.012, national: true, semaine: e.semaine });
-  for (const cd of cands) if (cd.perso < 0) { const P = e.partis[cd.parti]; const t = e.persos.filter(p => p.parti === cd.parti && p.statut === 'actif' && p.mandats.some(m => m.type === 'eurodepute')).sort((a, b) => b.notoriete - a.notoriete)[0] ?? (P.chef >= 0 ? e.persos[P.chef] : null); if (t) { cd.perso = t.id; cd.qualite = qualiteCandidat(d, t, true, true); } }
+  for (const cd of cands) if (cd.perso < 0) { const P = e.partis[cd.parti]; const libre = (p: Perso) => p.parti === cd.parti && p.statut === 'actif' && !p.mandats.some(m => m.type === 'president' || m.type === 'premier_ministre'); const t = e.persos.filter(p => libre(p) && p.mandats.some(m => m.type === 'eurodepute')).sort((a, b) => b.notoriete - a.notoriete)[0] ?? (P.chef >= 0 && libre(e.persos[P.chef]) ? e.persos[P.chef] : e.persos.filter(p => libre(p) && p.rang >= 3).sort((a, b) => b.notoriete - a.notoriete)[0] ?? null); if (t) { cd.perso = t.id; cd.qualite = qualiteCandidat(d, t, true, true); } }
   const r = voteUnite(e, d, c, rng, u, cands, { local: false, seuilSeul: 0, echelle: 1, facteur: FACTEUR_ABST.europeennes, national: true }); const s = regleEuro(r.voix, 81);
   const sieges = new Array(nP).fill(0); const nat = new Array(nP).fill(0); const nouveaux: { perso: number; parti: number }[] = [];
   cands.forEach((cd, i) => { nat[cd.parti] += r.voix[i]; const membres = [cd.parti, ...cd.soutiens]; for (let k = 0; k < s[i]; k++) { const p = membres[k % membres.length === 0 ? 0 : (k % 3 === 2 ? 1 + (k % cd.soutiens.length || 0) : 0)] ?? cd.parti; sieges[p]++; } });
   for (const P of e.partis) { if (!sieges[P.idx]) continue; const anciens = e.europe.filter(x => x.parti === P.idx && x.perso >= 0 && e.persos[x.perso].statut === 'actif').map(x => x.perso); const tete = cands.find(cd => cd.parti === P.idx)?.perso ?? -1; const liste = [...new Set([tete, ...anciens].filter(x => x >= 0 && !e.persos[x].mandats.some(m => ['depute', 'senateur', 'maire', 'president_region', 'president_dept'].includes(m.type))))]; for (let k = 0; k < sieges[P.idx]; k++) { const id = liste[k] ?? -1; nouveaux.push({ perso: id, parti: P.idx }); if (id >= 0 && !e.persos[id].mandats.some(m => m.type === 'eurodepute')) donnerMandat(e, e.persos[id], 'eurodepute', 0); } }
+  { const j = e.joueur; const pj = e.persos[j.perso]; if (j.mode === 'carriere' && pj && e.investitures.europeennes?.[`liste:${j.parti}`] === j.perso && sieges[j.parti] >= 4 && !pj.mandats.some(m => ['depute', 'senateur', 'maire', 'president_region', 'president_dept'].includes(m.type))) { const k = nouveaux.findIndex(n => n.parti === j.parti && n.perso < 0); if (k >= 0) { nouveaux[k].perso = pj.id; donnerMandat(e, pj, 'eurodepute', 0); message(e, ctx, 'resultats', 'Vous êtes élu au Parlement européen', `La liste obtient ${sieges[j.parti]} sièges. Vous siégerez à Strasbourg.`, true); } } }
   for (const x of e.europe) if (x.perso >= 0 && !nouveaux.some(n => n.perso === x.perso)) retirerMandat(e.persos[x.perso], 'eurodepute');
   e.europe = nouveaux; const part = r.votants / (r.inscrits || 1); const national = lignes(e, cands, r.voix, i => ({ sieges: s[i] }));
   const resume = `${national[0].nom} (${e.partis[national[0].partis[0]].sigle}) en tête avec ${national[0].pct} % et ${national[0].sieges} sièges, participation ${Math.round(part * 100)} %`;
@@ -354,10 +355,12 @@ export function presidentielleT2(e: Etat, d: Donnees, rng: Rng, ctx: Ctx, ech: E
   const national = lignes(e, u.maintenus.map(i => u.cands[i]), u.maintenus.map(i => rr.voix[i]), i => ({ elu: u.maintenus[i] === rr.gagnant })); const part = rr.votants / (u.inscrits || 1); const p = e.persos[g.perso];
   const ancien = e.presidence.perso; if (ancien >= 0 && ancien !== p.id) { retirerMandat(e.persos[ancien], 'president'); ajouterHist(e, e.persos[ancien], 'Quitte l\'Élysée'); }
   for (const m of p.mandats.slice()) if (m.type !== 'president') laisserExecutif(e, d, rng, p, m.type, m.lieu); for (let i = 0; i < e.assemblee.length; i++) if (e.assemblee[i].perso === p.id) e.assemblee[i] = { perso: -1, parti: e.assemblee[i].parti };
-  if (!p.mandats.some(m => m.type === 'president')) donnerMandat(e, p, 'president', 0, true); ajouterHist(e, p, `Élu président de la République avec ${national[0].pct} % des voix`); p.notoriete = 100; p.rang = 4;
-  e.presidence = { perso: p.id, parti: g.parti, popularite: 55, debut: e.semaine, budget: 0, reformes: 0 }; bilanMoral(e, g, true); if (perdant) bilanMoral(e, perdant, false);
+  if (!p.mandats.some(m => m.type === 'president')) donnerMandat(e, p, 'president', 0, true); ajouterHist(e, p, `${p.sexe === 'F' ? 'Élue présidente' : 'Élu président'} de la République avec ${national[0].pct} % des voix`); p.notoriete = 100; p.rang = 4;
+  e.presidence = { perso: p.id, parti: g.parti, popularite: 55, debut: e.semaine, budget: 0, reformes: 0, consecutifs: ancien === p.id ? (e.presidence.consecutifs ?? 1) + 1 : 1 };
+  // Le président élu quitte la direction de son parti.
+  if (P0(e, g.parti).chef === p.id && !(e.joueur.mode === 'carriere' && p.id === e.joueur.perso)) { P0(e, g.parti).chef = -1; p.postes = p.postes.filter(x => x !== 'chef'); } bilanMoral(e, g, true); if (perdant) bilanMoral(e, perdant, false);
   const P = e.partis[g.parti]; P.dynamique = clamp(P.dynamique + 25, -50, 50); P.capital = clamp(P.capital + 30, 0, 100); if (perdant) e.partis[perdant.parti].dynamique -= 5;
-  const resume = `${nomComplet(p)} (${P.sigle}) est élu président de la République avec ${national[0].pct} % des voix`;
+  const resume = `${nomComplet(p)} (${P.sigle}) est ${p.sexe === 'F' ? 'élue présidente' : 'élu président'} de la République avec ${national[0].pct} % des voix`;
   archiver(e, 'presidentielle', 2, national, part, resume);
   e.soiree = { type: 'presidentielle', tour: 2, s: e.semaine, estimation: estimation(rng, national), final: national, lieux: [], participation: part, reactions: reactions(e, rng, q => q === g.parti ? 2 : q === perdant?.parti ? 1 : 0), titre: `Présidentielle ${annee(e.semaine)}, second tour`, explication: explication(e, d, u, rr.voix, rr.gagnant), carte: { niveau: 'dept', couleurs: {} } };
   for (const cd of [g, perdant]) if (cd) cloreCompte(e, d, rng, ctx, e.partis[cd.parti], 0.3);
@@ -366,10 +369,14 @@ export function presidentielleT2(e: Etat, d: Donnees, rng: Rng, ctx: Ctx, ech: E
   if (g.parti === e.joueur.parti && (e.joueur.mode === 'parti' || g.perso === e.joueur.perso)) { e.joueur.pointsVictoire.elysee = (e.joueur.pointsVictoire.elysee ?? 0) + 1; message(e, ctx, 'victoire', 'Victoire : l\'Élysée', `${nomComplet(p)} entre à l'Élysée. C'est une victoire historique. Vous pouvez continuer la partie en mode Président : popularité, réformes sous forme de décisions, législatives à suivre.`, true, { action: { type: 'victoire', data: { type: 'elysee' } } }); }
 }
 
+const P0 = (e: Etat, i: number) => e.partis[i];
 export function tourScrutins(e: Etat, d: Donnees, rng: Rng, ctx: Ctx) {
   for (const ech of e.calendrier) {
     if (e.semaine === ech.s1 && !ech.fait1) { switch (ech.type) { case 'legislatives': legislativesT1(e, d, rng, ctx, ech); break; case 'municipales': municipalesT1(e, d, rng, ctx, ech); break; case 'departementales': departementalesT1(e, d, rng, ctx, ech); break; case 'regionales': regionalesT1(e, d, rng, ctx, ech); break; case 'europeennes': europeennesTour(e, d, rng, ctx, ech); break; case 'senatoriales': senatorialesTour(e, d, rng, ctx, ech); break; case 'presidentielle': presidentielleT1(e, d, rng, ctx, ech); break; } }
     else if (ech.s2 > 0 && e.semaine === ech.s2 && !ech.fait2) { switch (ech.type) { case 'legislatives': legislativesT2(e, d, rng, ctx, ech); break; case 'municipales': municipalesT2(e, d, rng, ctx, ech); break; case 'departementales': departementalesT2(e, d, rng, ctx, ech); break; case 'regionales': regionalesT2(e, d, rng, ctx, ech); break; case 'presidentielle': presidentielleT2(e, d, rng, ctx, ech); break; } }
   }
+  // Les investitures d'un scrutin terminé sont effacées.
+  for (const ech of e.calendrier) if (ech.fait2 && e.investitures[ech.type] && e.semaine === (ech.s2 > 0 ? ech.s2 : ech.s1)) delete e.investitures[ech.type];
+  e.calendrier = e.calendrier.filter(x => !(x.fait2 && (x.s2 > 0 ? x.s2 : x.s1) < e.semaine - 4));
   void politique; void bougerRel; void cadres; void distancePartis;
 }

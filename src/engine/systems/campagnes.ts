@@ -2,7 +2,7 @@
 import type { Donnees, Etat, Parti, Ctx, Candidature, Scrutin, Echeance, BudgetCampagne } from '../types';
 import { A } from '../types';
 import { Rng, clamp, hash } from '../rng';
-import { DUREE_CAMPAGNE, NOM_SCRUTIN, dateTexte } from '../calendrier';
+import { DUREE_CAMPAGNE, NOM_SCRUTIN, dateTexte, jourVote, annee } from '../calendrier';
 import { message, journal } from './inbox';
 import { rel, cadres, parlementaires, bougerRel, droits } from './partis';
 import { attr, qualiteCandidat, nomComplet, ajouterHist } from './personnages';
@@ -45,7 +45,7 @@ export function formerListes(e: Etat, d: Donnees, o: OptListes): Candidature[] {
 // ---------- Ouverture et déroulement des campagnes ----------
 export function budgetParDefaut(e: Etat, d: Donnees, P: Parti, type: Scrutin): BudgetCampagne {
   const pop = d.zones.reduce((s, z) => s + z.pop, 0); const ech = { presidentielle: 1, legislatives: 0.5, europeennes: 0.6, regionales: 0.25, departementales: 0.12, municipales: 0.3, senatoriales: 0.02 }[type];
-  const plaf = plafondParti(e, d, P, type); const dispo = Math.max(0, P.tresorerie) * (type === 'presidentielle' ? 0.7 : 0.4) * ech + (type === 'presidentielle' ? plaf * 0.25 * (P.notoriete / 100) : 0);
+  const plaf = plafondParti(e, d, P, type); const dispo = Math.max(0, P.tresorerie) * (type === 'presidentielle' ? 0.8 : 0.65) * Math.min(1, ech * 1.5) + (type === 'presidentielle' ? plaf * 0.25 * (P.notoriete / 100) : 0);
   const total = Math.round(Math.min(plaf * 0.9, dispo)); void pop;
   return { scrutin: type, total, meetings: 0.3, affichage: 0.2, tracts: 0.2, numerique: 0.2, sondages: 0.1, depense: 0, cibles: [] };
 }
@@ -64,7 +64,7 @@ export function tourCampagnes(e: Etat, d: Donnees, rng: Rng, ctx: Ctx) {
       e.campagnesOuvertes.push(cle);
       for (const P of e.partis) { if (!P.actif || ech.type === 'senatoriales') continue; if (ech.type === 'presidentielle' && (P.candidatPres < 0 || P.parrainages < 500)) continue; const b = budgetParDefaut(e, d, P, ech.type); if (P.campagne && P.campagne.scrutin !== ech.type) cloreCompte(e, d, rng, ctx, P, 0.05); P.campagne = b; P.comptes.push({ scrutin: ech.type, semaine: ech.s1, depenses: 0, plafond: plafondParti(e, d, P, ech.type), statut: 'en_cours', rembourse: 0, controle: 0 }); }
       const dr = droits(e); const Pj = e.partis[e.joueur.parti];
-      message(e, ctx, 'campagne', `Ouverture de la campagne : ${NOM_SCRUTIN[ech.type].toLowerCase()}`, `Le premier tour aura lieu le ${dateTexte(ech.s1)}. ${ech.type === 'senatoriales' ? 'Seuls les grands électeurs votent : le résultat dépend de vos élus locaux.' : dr.finances ? `Budget proposé : ${Math.round((Pj.campagne?.total ?? 0) / 1000)} k€. Vous pouvez le modifier dans l'écran Campagne, ainsi que les investitures et les alliances.` : 'La direction du parti fixe le budget et les investitures.'}`, true);
+      message(e, ctx, 'campagne', `Ouverture de la campagne : ${NOM_SCRUTIN[ech.type].toLowerCase()}`, `Le premier tour aura lieu le ${jourVote(ech.s1)}. ${ech.type === 'senatoriales' ? 'Seuls les grands électeurs votent : le résultat dépend de vos élus locaux.' : dr.finances ? `Budget proposé : ${Math.round((Pj.campagne?.total ?? 0) / 1000)} k€. Vous pouvez le modifier dans l'écran Campagne, ainsi que les investitures et les alliances.` : 'La direction du parti fixe le budget et les investitures.'}`, true);
     }
     // Effets hebdomadaires de la dépense de campagne.
     if (e.semaine > ech.s1 - duree && e.semaine <= (ech.s2 > 0 ? ech.s2 : ech.s1) && ech.type !== 'senatoriales') {
@@ -99,9 +99,10 @@ export function designerCandidats(e: Etat, d: Donnees, rng: Rng, ctx: Ctx) {
   for (const P of e.partis) {
     if (!P.actif) continue; P.parrainages = 0; if (P.candidatPres >= 0 && e.persos[P.candidatPres]?.statut === 'actif' && e.persos[P.candidatPres].parti === P.idx && P.idx === e.joueur.parti) continue;
     P.candidatPres = -1; if (P.strategie === 'local' && e.intentions[P.idx] < 0.04 && P.idx !== e.joueur.parti) continue;
-    const cs = cadres(e, P.idx, 3).filter(p => !p.mandats.some(m => m.type === 'president' && e.semaine - m.debut > 400) && !(p.reel && p.nom === 'Macron'));
+    // Pas plus de deux mandats présidentiels consécutifs (article 6 de la Constitution).
+    const cs = cadres(e, P.idx, 3).filter(p => !(e.presidence.perso === p.id && ((e.presidence.consecutifs ?? 1) >= 2 || e.presidence.debut < 100)) && annee(e.semaine) - p.naissance < 78);
     let best = -1, bs = -1; for (const p of cs) { const s = p.notoriete + p.attrs[A.charisme] * 2 + p.attrs[A.ambition] + (P.chef === p.id ? 12 : 0) + rng.next() * 8; if (s > bs) { bs = s; best = p.id; } }
-    if (best < 0 && P.chef >= 0) best = P.chef; P.candidatPres = best;
+    if (best < 0 && P.chef >= 0 && e.presidence.perso !== P.chef) best = P.chef; P.candidatPres = best;
     if (best >= 0) ajouterHist(e, e.persos[best], `Désigné candidat de ${P.sigle} à l'élection présidentielle`);
   }
   // Les petits partis proches d'un grand peuvent se ranger derrière son candidat.
