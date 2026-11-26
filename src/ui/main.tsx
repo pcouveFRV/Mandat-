@@ -69,7 +69,7 @@ function BarreHaut() {
 }
 
 function MenuJeu() {
-  const m = useMagasin(); const [nom, setNom] = useState(m.nomPartie || 'Ma partie'); const [fiches, setFiches] = useState<stockage.Fiche[]>([]); const [clair, setClair] = useState(document.documentElement.classList.contains('clair'));
+  const m = useMagasin(); const [quitter, setQuitter] = useState(false); const [nom, setNom] = useState(m.nomPartie || 'Ma partie'); const [fiches, setFiches] = useState<stockage.Fiche[]>([]); const [clair, setClair] = useState(document.documentElement.classList.contains('clair'));
   useEffect(() => { stockage.lister().then(setFiches).catch(() => { }); }, []);
   const resume = () => `${m.base.date}, ${m.base.partis[m.base.parti]?.sigle ?? ''}, ${m.base.mode === 'carriere' ? 'Carrière' : 'Parti'}`;
   const sauver = async () => { const e = await moteur.etatComplet(); await stockage.sauver(nom, resume(), e); maj({ nomPartie: nom }); toast('Partie sauvegardée.'); setFiches(await stockage.lister()); };
@@ -85,7 +85,7 @@ function MenuJeu() {
     <div class="ligne"><label><input type="checkbox" checked={clair} onChange={(ev: any) => { const v = ev.target.checked; setClair(v); document.documentElement.classList.toggle('clair', v); try { localStorage.setItem('mandat-theme', v ? 'clair' : 'sombre'); } catch { /* stockage indisponible */ } }} /> Thème clair</label>
       {m.base.tutoriel >= 0 ? <button class="petit" onClick={() => agir({ type: 'tutoriel', etape: -1 }, true)}>Désactiver le tutoriel</button> : <button class="petit" onClick={() => agir({ type: 'tutoriel', etape: 0 }, true)}>Relancer le tutoriel</button>}</div>
     <p class="doux petit-texte" style={{ marginTop: '6px' }}>Graine de la partie : {m.base.graine}. Une même graine et les mêmes choix donnent la même partie.</p>
-    <div class="ligne" style={{ marginTop: '14px' }}><button onClick={() => maj({ menuJeu: false })}>Reprendre</button><span class="espace" /><button class="danger" onClick={() => { if (confirm('Quitter la partie en cours ? Les progrès non sauvegardés seront perdus.')) maj({ phase: 'menu', menuJeu: false, base: null }); }}>Nouvelle partie ou retour à l'accueil</button></div>
+    <div class="ligne" style={{ marginTop: '14px' }}><button onClick={() => maj({ menuJeu: false })}>Reprendre</button><span class="espace" /><button class="danger" onClick={() => { if (quitter) maj({ phase: 'menu', menuJeu: false, base: null }); else setQuitter(true); }}>{quitter ? 'Confirmer : quitter sans sauvegarder' : "Nouvelle partie ou retour à l'accueil"}</button></div>
   </div></div>;
 }
 

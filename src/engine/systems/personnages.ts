@@ -28,7 +28,9 @@ export function creerPerso(e: Etat, d: Donnees, rng: Rng, o: OptPerso): Perso {
   // Niveau moyen des attributs techniques : fonction neutre du rang (taille du mandat, ancienneté) plus un bruit.
   const niveau = o.niveau ?? [6.5, 9, 11, 12.8, 14.2][Math.min(4, rang)] + Math.min(1.5, Math.max(0, age - 35) * 0.04);
   const attrs: number[] = [];
-  for (let i = 0; i < NB_ATTRS; i++) { const mental = i >= 9 && i <= 16; attrs.push(clamp(Math.round(mental ? 10.5 + rng.gauss() * 3.2 : niveau + rng.gauss() * 2.4), 1, 20)); }
+  // Personnes réelles : attributs mentaux neutres (autour de 11) et bruit réduit, pour ne porter aucun jugement personnel.
+  const sdT = o.reel ? 1.5 : 2.4, sdM = o.reel ? 0.9 : 3.2;
+  for (let i = 0; i < NB_ATTRS; i++) { const mental = i >= 9 && i <= 16; attrs.push(clamp(Math.round(mental ? (o.reel ? 11 : 10.5) + rng.gauss() * sdM : niveau + rng.gauss() * sdT), 1, 20)); }
   if (age > 62) attrs[A.energie] = clamp(attrs[A.energie] - Math.round((age - 62) / 4), 1, 20);
   attrs[A.ancrage] = clamp(attrs[A.ancrage] + (rang <= 2 ? 1 : -1), 1, 20);
   const reel = !!o.reel; let traits: string[] = [];
@@ -40,11 +42,11 @@ export function creerPerso(e: Etat, d: Donnees, rng: Rng, o: OptPerso): Perso {
   const p: Perso = {
     id: e.persos.length, nom: nm.nom, prenom: nm.prenom, sexe, naissance, parti: o.parti, reel, dept: o.dept, zone, attrs,
     notoriete: clamp(Math.round([2, 8, 18, 45, 72][Math.min(4, rang)] + rng.gauss() * 5), 0, 100),
-    pot: clamp(Math.round(moyenne + (age < 30 ? rng.int(1, 7) : age < 45 ? rng.int(0, 4) : rng.int(0, 2))), 1, 20),
+    pot: clamp(Math.round(moyenne + (reel ? 1 : age < 30 ? rng.int(1, 7) : age < 45 ? rng.int(0, 4) : rng.int(0, 2))), 1, 20),
     casserole: reel ? 0 : (rng.chance(0.12) ? 0.15 + rng.next() * 0.45 : rng.next() * 0.08),
-    fidelite: clamp(Math.round(attrs[A.loyaute] + rng.gauss() * 3 + (traits.includes('fidele') ? 5 : 0) - (traits.includes('opportuniste') ? 4 : 0)), 1, 20),
+    fidelite: reel ? 12 : clamp(Math.round(attrs[A.loyaute] + rng.gauss() * 3 + (traits.includes('fidele') ? 5 : 0) - (traits.includes('opportuniste') ? 4 : 0)), 1, 20),
     traits, axes, moral: 60 + rng.int(-10, 15), forme: 85 + rng.int(-10, 10), mandats: [], postes: [], rel: {}, hist: [], citations: [],
-    statut: 'actif', formation: rng.pick(FORMATIONS), profession: age < 24 ? 'Étudiant' : rng.pick(PROFESSIONS), rang, victoires: 0, defaites: 0,
+    statut: 'actif', formation: reel ? '' : rng.pick(FORMATIONS), profession: reel ? '' : age < 24 ? 'Étudiant' : rng.pick(PROFESSIONS), rang, victoires: 0, defaites: 0,
   };
   if (traits.includes('heritier')) p.attrs[A.reseau] = clamp(p.attrs[A.reseau] + 4, 1, 20);
   e.persos.push(p); return p;

@@ -37,6 +37,8 @@ Sans accès au registre npm (cas de l'environnement de construction) : `sh scrip
 
 ## Limites connues
 
+- Équilibrage sur 20 parties IA (docs/EQUILIBRAGE.md) : le RN gagne 75 % des présidentielles et 19 des 20 scrutins de 2027, il est premier groupe à l'Assemblée 83 fois sur 100. L'alternance existe (2,3 changements par partie en moyenne) mais un seul parti domine trop. Aucune scission en 20 parties : le seuil est trop haut.
+
 Données
 
 - Les maires des villes moyennes, les sénateurs, les présidents de département et la plupart des eurodéputés sont des personnages générés. Seuls les députés, les figures nationales et les maires de quelques grandes villes sont réels. Voir `docs/DATA.md` pour compléter `personnalites.json`.

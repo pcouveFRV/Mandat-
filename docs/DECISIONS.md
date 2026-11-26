@@ -29,3 +29,10 @@ Une ligne par décision, avec la raison.
 - Le score du mode Carrière compte surtout le parcours personnel. Le poids du parti n'est compté en entier que si le joueur le préside.
 - Déploiement : le workflow GitHub Actions teste, construit et déploie. L'activation de GitHub Pages se fait dans les réglages du dépôt et je n'y ai pas accès depuis ma session.
 - Partie d'essai : jouée à travers la vraie interface par un robot (Playwright) qui prend les décisions comme un joueur, avec relecture des journaux et des captures d'écran. Raison : c'est le seul moyen pour moi de jouer dix ans dans le navigateur.
+- Usure du pouvoir plafonnée à 0,42 pour le parti du président et à 0,2 pour ses alliés. Raison : sans plafond, le parti au pouvoir s'effondrait partout après un mandat (7 villes et une trésorerie négative dans la partie d'essai).
+- Formation du gouvernement : le camp du président gouverne, sauf si un autre bloc a la majorité absolue ou le dépasse de plus de 35 %. Raison : éviter des cohabitations pour quelques sièges d'écart.
+- Victoires collectives (majorité absolue, hégémonie locale, victoire culturelle) réservées au joueur qui dirige son parti. Raison : en mode Carrière, un cadre moyen recevait le mérite de son parti.
+- Personnes réelles : attributs mentaux fixés autour de 11 avec très peu de bruit, fidélité cachée fixée à 12, pas de profession ni de formation inventées. Raison : ne porter aucun jugement personnel et ne rien inventer sur elles.
+- Une prise de parole médiatique pèse sur le parti selon le rang de celui qui parle. Raison : la gaffe d'un simple militant ne doit pas coûter autant que celle du chef.
+- La confirmation avant de quitter une partie se fait par un second clic sur le bouton, sans boîte de dialogue du navigateur. Raison : ces boîtes sont bloquées dans certains cadres d'affichage.
+- Équilibrage final accepté en l'état : le RN gagne 75 % des présidentielles simulées et 19 des 20 scrutins de 2027. Raison : c'est la conséquence du calage sur les législatives 2024 (premier parti au premier tour) et non d'une règle propre à ce parti. Corrigé en partie par l'usure, à reprendre en V4 (voir docs/EQUILIBRAGE.md).
