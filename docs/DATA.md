@@ -96,3 +96,17 @@ Médias fictifs inspirés du paysage français (audience, orientation, ton, publ
 - `france.json` : contours des départements et des régions (coordonnées multipliées par 1 000).
 - `circos.json` : contours des circonscriptions (multipliées par 10 000).
 - `d/<département>.json` : communes du département avec l'index de leur zone, et secteurs pour Paris, Lyon, Marseille. Les contours des arrondissements municipaux n'étaient pas disponibles : les secteurs sont dessinés par des cercles placés au centre de chaque secteur.
+
+## Élus réels (V6)
+
+| Fichier | Contenu | Source |
+|---|---|---|
+| `elus.json` | 1 074 maires des communes simulées (nom, prénom, sexe, année de naissance, nuance, parti déduit pour 999 d'entre eux) | Répertoire national des élus, listes des municipales 2026 |
+| `elus/XX.json` | 38 792 conseillers municipaux et d'arrondissement, par département | Répertoire national des élus |
+| `elus/index.json` | Liste des départements disponibles | Produit par le script |
+
+Chaîne de production : le workflow `.github/workflows/donnees.yml` lance `scripts/data/telecharger-mac.mjs` sur un serveur GitHub et pousse les fichiers compressés sur la branche `donnees`. Ensuite `node scripts/data/elus.mjs <dossier des fichiers>` produit les JSON ci-dessus.
+
+Correspondance nuance vers parti : elle est dans `scripts/data/elus.mjs`. Les nuances « divers », « extrême » sans parti précis et les nuances vides ne donnent aucun parti.
+
+Non intégrés : sénateurs, conseillers départementaux et régionaux (le répertoire ne donne pas leur parti).

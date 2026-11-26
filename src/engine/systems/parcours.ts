@@ -182,3 +182,68 @@ export function reglerPromesse(e: Etat, d: Donnees, choix: number): string {
   if (choix === 1) { pr.regle = undefined; pr.rappel = e.semaine + 20; e.joueur.pointsVictoire.estime = clamp(estime(e) - 1, 0, 100); return 'Vous gagnez quelques mois. Ils reviendront.'; }
   pr.regle = 'dedit'; e.joueur.pointsVictoire.estime = clamp(estime(e) - 6, 0, 100); for (const c of g.contacts) if (c.role !== 'journaliste') c.relation = clamp(c.relation - 6, 0, 100); return 'Vous vous dédisez. La nouvelle fait le tour de la fédération en une journée.';
 }
+
+// ---------- V6 : emblème, fondation et financement du parti, tableau de bord, page d'encyclopédie ----------
+import { dateTexte } from '../calendrier';
+import { agoraDe } from './agora';
+import { fonderParti } from './carriere';
+
+const chefJoueur = (e: Etat) => e.joueur.mode === 'parti' || e.partis[e.joueur.parti]?.chef === e.joueur.perso;
+export function actionV6(e: Etat, d: Donnees, rng: Rng, a: any): { ok: boolean; texte: string } {
+  const non = (t: string) => ({ ok: false, texte: t }), ok = (t = '') => ({ ok: true, texte: t }); const P = e.partis[e.joueur.parti]; const S = P.scoreIA;
+  switch (a.type) {
+    case 'emblemeModifier': { const v = a.embleme ?? {}; e.embleme = { forme: clamp(+v.forme | 0, 0, 3), symbole: clamp(+v.symbole | 0, 0, 7), c1: /^#[0-9a-f]{6}$/i.test(v.c1) ? v.c1 : '#0066cc', c2: /^#[0-9a-f]{6}$/i.test(v.c2) ? v.c2 : '#ffffff', initiales: String(v.initiales ?? '').replace(/[^\p{L}\d]/gu, '').slice(0, 3).toUpperCase(), actif: !!v.actif }; return ok(v.actif ? 'Votre emblème remplace la pastille de votre parti.' : 'Emblème enregistré.'); }
+    case 'fonderPartiV6': { if (e.joueur.mode !== 'carriere') return non('Réservé au mode Carrière.'); const nom = String(a.nom ?? '').trim().slice(0, 40); const sigle = String(a.sigle ?? '').replace(/[^\p{L}\d]/gu, '').slice(0, 5).toUpperCase(); if (nom.length < 3 || sigle.length < 2) return non('Il faut un nom (3 lettres au moins) et un sigle (2 à 5 lettres).'); if (e.partis.some(q => q.actif && q.sigle.toUpperCase() === sigle)) return non('Ce sigle est déjà pris.');
+      const t = fonderParti(e, d, nom); if (!t.includes('est né')) return non(t); const N = e.partis[e.joueur.parti]; N.sigle = sigle; if (/^#[0-9a-f]{6}$/i.test(a.couleur)) N.couleur = a.couleur; N.scoreIA.fondeS = e.semaine; return ok(`${t} Sigle : ${sigle}. Il vous faut maintenant des adhérents, de l'argent et des candidats.`); }
+    case 'finEmprunt': { if (!chefJoueur(e)) return non('Seul le président du parti engage un emprunt.'); if ((S.pretReste ?? 0) > 0) return non('Un emprunt est déjà en cours.'); const plafond = Math.round(((e.intentions[P.idx] ?? 0) * 12e6 + P.adherents * 25) / 1000) * 1000; const m = clamp(Math.round(+a.montant || 0), 0, plafond); if (m < 10000) return non(`La banque ne prête qu'à partir de 10 000 €. Votre plafond actuel : ${plafond.toLocaleString('fr-FR')} €, selon vos sondages et vos adhérents.`);
+      P.tresorerie += m; S.pretReste = Math.round(m * 1.12); S.pretHebdo = Math.round(m * 1.12 / 156); return ok(`La banque accorde ${m.toLocaleString('fr-FR')} €, remboursables sur trois ans (${S.pretHebdo.toLocaleString('fr-FR')} € par semaine, intérêts compris).`); }
+    case 'finAppel': { if (!chefJoueur(e)) return non('Seul le président du parti lance un appel aux dons.'); if (e.semaine - (S.appelS ?? -99) < 13) return non('Un appel aux dons par trimestre. Au-delà, les sympathisants se lassent.'); S.appelS = e.semaine; const ab = agoraDe(e, d).abP[P.idx] ?? 0; const gain = Math.round(clamp(ab * 0.35 * (0.5 + rng.next()) * (0.6 + P.dynamique / 100 + P.unite / 250), 2000, 600000) / 100) * 100; P.tresorerie += gain; return ok(`Appel aux dons sur Agora : ${gain.toLocaleString('fr-FR')} € récoltés auprès de vos abonnés, dans la limite du plafond légal par donateur.`); }
+    case 'finPrets': { if (!chefJoueur(e)) return non('Seul le président du parti sollicite ses adhérents.'); if (e.semaine - (S.pretsS ?? -99) < 26) return non('Vous avez déjà sollicité vos adhérents il y a moins de six mois.'); S.pretsS = e.semaine; const gain = Math.round(P.adherents * (8 + rng.next() * 8) * (P.unite / 70) / 100) * 100; P.tresorerie += gain; P.unite = clamp(P.unite - 1.5, 0, 100); S.pretReste = (S.pretReste ?? 0) + gain; S.pretHebdo = Math.round((S.pretReste) / 156); return ok(`Vos adhérents prêtent ${gain.toLocaleString('fr-FR')} € au parti. Il faudra les rembourser, et certains trouvent qu'on leur demande beaucoup.`); }
+  }
+  return non('Action inconnue.');
+}
+// Remboursement hebdomadaire de l'emprunt du parti du joueur.
+export function tourFinancement(e: Etat) { const P = e.partis[e.joueur.parti]; const S = P?.scoreIA; if (!S || !(S.pretReste > 0)) return; const v = Math.min(S.pretReste, S.pretHebdo || 0); P.tresorerie -= v; S.pretReste -= v; }
+
+export function vueTableau(e: Etat, d: Donnees) {
+  const j = e.joueur; const P = e.partis[j.parti]; const eq = equipeDe(e, d); const ag = agoraDe(e, d); const car = j.mode === 'carriere'; const g = car ? parcoursDe(e, d) : null; const p = moiDe(e);
+  const taches: { t: string; ecran: string; urgent: boolean }[] = []; const rep = e.inbox.filter(m => m.choix && m.repondu === undefined).length;
+  if (rep) taches.push({ t: `${rep} décision${rep > 1 ? 's' : ''} à prendre dans la boîte de réception`, ecran: 'inbox', urgent: true });
+  if (eq.bilan && !eq.bilan.annonce) taches.push({ t: 'Soir de vote : les bureaux de votre secteur remontent', ecran: 'equipe', urgent: true });
+  if (eq.incident) taches.push({ t: `Incident à régler : ${eq.incident.titre.toLowerCase()}`, ecran: 'equipe', urgent: true });
+  if (g?.dossier && !g.dossier.verdict) taches.push(g.dossier.commission <= e.semaine ? { t: 'La commission d\'investiture vous attend', ecran: 'profil', urgent: true } : { t: `Investiture : ${g.dossier.soutiens} soutiens, commission dans ${g.dossier.commission - e.semaine} semaine(s)`, ecran: 'profil', urgent: false });
+  if (e.debat && !e.debat.fini) taches.push({ t: 'Un entretien est en cours', ecran: 'medias', urgent: true });
+  if (ag.reactions.length) taches.push({ t: `Réagir sur Agora : ${ag.reactions[0].titre}`, ecran: 'agora', urgent: ag.reactions[0].s === e.semaine });
+  const sorties = ['porte', 'tractage', 'reunion'].filter(k => !eq.jeux[k]).length; if (sorties) taches.push({ t: `${sorties} sortie${sorties > 1 ? 's' : ''} de terrain possible${sorties > 1 ? 's' : ''} cette semaine`, ecran: 'equipe', urgent: false });
+  if (eq.campagne) for (const k of Object.keys({ lancement: 1, reunion: 1, dernier: 1 })) { /* temps forts signalés dans l'écran Terrain */ }
+  if (eq.candidats.length) taches.push({ t: `${eq.candidats.length} personne${eq.candidats.length > 1 ? 's veulent' : ' veut'} rejoindre votre équipe`, ecran: 'equipe', urgent: false });
+  const negliges = g ? g.contacts.filter(c => e.semaine - c.parle > 8 && c.role !== 'rival').map(c => ({ nom: `${c.prenom} ${c.nom}`, role: c.role, depuis: c.parle < 0 ? -1 : e.semaine - c.parle })) : [];
+  const dettes = g ? g.contacts.filter(c => c.dette < 0).map(c => `${c.prenom} ${c.nom}`) : [];
+  const et = car ? etapesAmbition(e, d) : []; const suite = et.find(x => !x.fait);
+  return {
+    carriere: car, date: dateTexte(e.semaine), taches, ambition: car && g ? { nom: AMBITIONS[g.ambition]?.nom ?? '', etape: suite?.nom ?? 'Ambition atteinte', faites: et.filter(x => x.fait).length, total: et.length } : null,
+    echeances: e.calendrier.filter(k => !k.fait2 && k.s1 >= e.semaine).slice(0, 4).map(k => ({ type: k.type, dans: k.s1 - e.semaine, date: jourVote(k.s1) })), campagne: eq.campagne ? { type: eq.campagne.type, dans: eq.campagne.s1 - e.semaine, elan: Math.round(eq.campagne.elan) } : null,
+    quartiers: eq.quartiers.map(q => ({ nom: q.nom, ancrage: Math.round(q.ancrage), accueil: Math.round(q.accueil * 100) })), equipe: { n: eq.membres.length, motiv: eq.membres.length ? Math.round(eq.membres.reduce((s, m) => s + m.motiv, 0) / eq.membres.length) : 0, fatigues: eq.membres.filter(m => m.fatigue > 70).length, caisse: eq.caisse }, lieu: d.zones[eq.zone].nom,
+    parti: { nom: P.nom, sigle: P.sigle, intentions: Math.round((e.intentions[P.idx] ?? 0) * 1000) / 10, unite: Math.round(P.unite), tresorerie: Math.round(P.tresorerie), adherents: Math.round(P.adherents), pret: Math.round(P.scoreIA.pretReste ?? 0) },
+    classement: e.partis.filter(q => q.actif).map(q => ({ parti: q.idx, v: Math.round((e.intentions[q.idx] ?? 0) * 1000) / 10 })).sort((x, y) => y.v - x.v).slice(0, 8),
+    fil: ag.posts.slice(-3).reverse().map(x => ({ compte: x.compte, texte: x.texte, parti: x.parti, etat: x.etat })), tendances: ag.tendances.slice(0, 3).map(t => t.sujet), abonnes: car && p ? (p.abonnes ?? 0) : ag.abP[P.idx], negliges, dettes,
+    moi: p && car ? { nom: nomComplet(p), rang: p.rang, forme: Math.round(p.forme), moral: Math.round(p.moral), notoriete: Math.round(p.notoriete), estime: Math.round(estime(e)), argent: g ? Math.round(g.argent) : 0 } : null,
+  };
+}
+// Page d'encyclopédie d'un personnage, écrite à partir de ce qui s'est passé dans la partie.
+export function vueChronique(e: Etat, d: Donnees, id?: number) {
+  const j = e.joueur; const p = e.persos[id ?? j.perso]; if (!p) return null; const P = p.parti >= 0 ? e.partis[p.parti] : null; const estMoi = j.mode === 'carriere' && p.id === j.perso; const g = estMoi ? parcoursDe(e, d) : null; const F = p.sexe === 'F';
+  const an = (s: number) => 2026 + Math.floor((s + 14) / 52); const fonctions = p.mandats.map(m => ({ nom: LIB_MANDAT[m.type] ?? m.type, depuis: dateTexte(m.debut) })); const postes = p.postes.map(k => ({ chef: `président${F ? 'e' : ''} du parti`, delegue: `délégué${F ? 'e' : ''} départemental${F ? 'e' : ''}`, section: 'responsable de section' } as Record<string, string>)[k] ?? `membre du bureau national (${k.replace('_', ' ')})`);
+  const titre = fonctions.length ? fonctions.map(f => f.nom).join(', ') : postes[0] ?? (p.rang === 0 ? `militant${F ? 'e' : ''}` : `cadre`);
+  const chapeau = `${nomComplet(p)}, né${F ? 'e' : ''} en ${p.naissance}, est ${F ? 'une femme' : 'un homme'} politique français${F ? 'e' : ''}${P ? `, membre du parti ${P.nom} (${P.sigle})` : ', sans parti'}. ${F ? 'Elle' : 'Il'} est ${titre}${g?.slogan ? `. ${F ? 'Elle' : 'Il'} a fait de la formule « ${g.slogan} » sa marque de fabrique` : ''}.`;
+  const parAn: Record<number, string[]> = {}; for (const h of p.hist) (parAn[an(h.s)] ??= []).push(h.t); const parcours = Object.keys(parAn).map(Number).sort((a, b) => a - b).map(a => ({ an: a, texte: parAn[a].map(t => t.replace(/\.$/, '')).join('. ') + '.' }));
+  const ag = agoraDe(e, d); const posts = ag.posts.filter(x => x.perso === p.id); const positions = posts.filter(x => x.etat === 'buzz' || x.moi).slice(-4).reverse().map(x => ({ date: dateTexte(x.s), texte: x.texte, vues: x.vues }));
+  const controverses: string[] = []; for (const x of posts.filter(k => k.etat === 'polemique').slice(-3)) controverses.push(`${dateTexte(x.s)} : une publication sur « ${x.sujet} » déclenche une polémique (${x.vues.toLocaleString('fr-FR')} vues).`);
+  if (g) for (const pr of g.promesses.filter(k => k.regle === 'dedit')) controverses.push(`Promesse reniée : « ${pr.t} ».`); if (g?.dossier?.issue === 'ecarte') controverses.push(`Écarté${F ? 'e' : ''} par la commission d'investiture (${g.dossier.lib}).`);
+  if (!p.reel) for (const af of e.affaires.filter(k => k.perso === p.id)) controverses.push(`Affaire : ${af.titre}${af.close ? ' (close)' : ' (en cours)'}.`);
+  return {
+    id: p.id, nom: nomComplet(p), reel: p.reel, estMoi, chapeau, portrait: g?.portrait ?? null, parti: p.parti, naissance: p.naissance, lieu: p.reel ? '' : d.zones[p.zone]?.nom ?? '', fonctions, postes, profession: p.reel ? '' : p.profession,
+    bio: g?.bio ?? '', parcours, positions, controverses, promesses: g ? g.promesses.map(x => ({ t: x.t, regle: x.regle ?? false })) : [], elections: { victoires: p.victoires, defaites: p.defaites }, notoriete: Math.round(p.notoriete), abonnes: p.abonnes ?? 0,
+    modifs: p.hist.slice(-5).reverse().map(h => ({ date: dateTexte(h.s), t: h.t })), maj: dateTexte(e.semaine),
+  };
+}

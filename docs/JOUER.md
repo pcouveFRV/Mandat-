@@ -234,3 +234,13 @@ Défaites : faillite du parti (six mois de trésorerie négative), inéligibilit
 ## Sauvegardes
 
 Menu : sauvegarder sous un nom, charger, exporter un fichier `.mandat`, importer. Les sauvegardes sont dans le navigateur (IndexedDB). Pour changer de machine, exportez le fichier.
+
+## Nouveautés de la V6
+
+Tableau de bord. C'est l'écran d'ouverture. Il liste ce qui presse cette semaine (un clic ouvre l'écran concerné), l'ancrage dans vos six quartiers, les intentions de vote, le calendrier électoral, les dernières publications d'Agora et les proches que vous négligez.
+
+Incarner une personne réelle. À la création d'un personnage, choisissez une ville puis un nom dans la liste « Incarner une personne réelle » : élus du conseil municipal ou personnalités nationales. Vous reprenez son nom, son parti et son mandat. La suite est une fiction.
+
+Chronique. Chaque personnage a une page d'encyclopédie écrite à partir de votre partie : parcours, prises de position sur Agora, engagements, controverses, résultats électoraux. La vôtre est dans le menu Moi ; celle des autres s'ouvre depuis leur fiche.
+
+Personnalisation. L'atelier d'emblème compose un logo original (forme, symbole, couleurs, initiales) qui peut remplacer la pastille de votre parti. En mode Carrière, vous pouvez fonder votre parti dès que vous êtes assez connu (notoriété 25 ou mandat important). Le chef d'un parti peut lancer un appel aux dons, demander des prêts à ses adhérents ou emprunter à la banque.

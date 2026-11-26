@@ -1,7 +1,7 @@
 // Tour de jeu : une semaine. L'ordre d'exécution des systèmes est documenté dans docs/MOTEUR.md.
 // Chaque système est une fonction déterministe de (état, données, générateur aléatoire, contexte) : il ne lit et n'écrit rien d'autre
 // que l'état de jeu et la liste des messages. Pour la performance, le tour travaille sur l'état en place (pas de copie à chaque système).
-import { tourParcours } from './systems/parcours';
+import { tourParcours, tourFinancement } from './systems/parcours';
 import { tourEquipe } from './systems/equipe';
 import { tourExecutif } from './systems/executif';
 import { tourAgora } from './systems/agora';
@@ -44,7 +44,7 @@ export function tour(e: Etat, d: Donnees): Message[] {
   tourSondages(e, d, rng, ctx);     // 11. intentions de vote et sondages
   tourEquipe(e, d, rng, ctx);       // 11 bis. équipe de militants, campagne locale, incidents
   tourCarriere(e, d, rng, ctx);     // 12. mode Carrière
-  tourParcours(e, d, rng, ctx);     // 12 bis. argent, entraînement, ambition, investiture, contacts
+  tourParcours(e, d, rng, ctx); tourFinancement(e);     // 12 bis. argent, entraînement, ambition, investiture, contacts
   tourVictoire(e, d, ctx);          // 13. victoire, défaite, fin de partie
   e.rng = rng.s; return ctx.messages;
 }

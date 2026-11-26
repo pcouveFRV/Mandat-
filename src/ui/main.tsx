@@ -8,6 +8,7 @@ import { useMagasin, maj, lireMagasin, toast, aller, agir, euro, nb, Info, Parti
 import { Agora } from './agora';
 import { Terrain } from './terrain';
 import { Profil, Carnet, Portrait } from './parcours';
+import { TableauDeBord, Chronique, Personnalisation, Embleme } from './v6';
 import { lireConfig, ecrireConfig, tester, chargerLocal, localCharge, modeleLocal } from './assistant';
 import { Accueil } from './accueil';
 import { Inbox, FichePerso, Effectif, EcranParti } from './ecrans1';
@@ -15,8 +16,9 @@ import { Finances, Doctrine, Medias, Historique } from './ecrans2';
 import { Campagne, Mandat, Soiree, Pantheon } from './ecrans3';
 import { EcranCarte } from './carte';
 
-const GROUPES: [string, [string, string][]][] = [['Bureau', [['inbox', 'Boîte de réception'], ['agora', 'Agora'], ['equipe', 'Terrain'], ['medias', 'Médias']]], ['Moi', [['profil', 'Mon parcours'], ['contacts', 'Carnet']]], ['Organisation', [['effectif', 'Effectif'], ['parti', 'Parti'], ['finances', 'Finances'], ['doctrine', 'Doctrine']]], ['Élections', [['carte', 'Carte'], ['campagne', 'Campagne'], ['mandat', 'Mandat'], ['historique', 'Historique']]]];
+const GROUPES: [string, [string, string][]][] = [['Bureau', [['accueil', 'Tableau de bord'], ['inbox', 'Boîte de réception'], ['agora', 'Agora'], ['equipe', 'Terrain'], ['medias', 'Médias']]], ['Moi', [['profil', 'Mon parcours'], ['contacts', 'Carnet'], ['chronique', 'Chronique'], ['perso', 'Personnalisation']]], ['Organisation', [['effectif', 'Effectif'], ['parti', 'Parti'], ['finances', 'Finances'], ['doctrine', 'Doctrine']]], ['Élections', [['carte', 'Carte'], ['campagne', 'Campagne'], ['mandat', 'Mandat'], ['historique', 'Historique']]]];
 const TUTO: [string, string, string][] = [
+  ['accueil', 'Le tableau de bord', 'C\'est votre point de départ : ce qui presse cette semaine, votre secteur, les sondages, le calendrier. Un clic sur une ligne ouvre l\'écran concerné.'],
   ['inbox', 'La boîte de réception', 'Tout passe par ici : messages de vos cadres, sondages, invitations, décisions à prendre. Les messages qui attendent une réponse sont signalés en rouge.'],
   ['inbox', 'Le temps', 'Le bouton Continuer, en haut à droite, fait avancer d\'une semaine. La flèche à côté permet d\'aller jusqu\'au prochain message important ou jusqu\'à la prochaine élection.'],
   ['carte', 'La carte', 'Choisissez une couche (résultats, intentions de vote, implantation, sociologie, priorités), cliquez sur un département pour zoomer jusqu\'aux communes et aux secteurs.'],
@@ -28,7 +30,7 @@ const TUTO: [string, string, string][] = [
   ['equipe', 'Le terrain', 'Votre secteur est découpé en quartiers. Sortez vous-même en porte-à-porte ou en tractage, une fois par semaine. Quand vous prendrez une section, vous dirigerez l\'équipe de militants : missions, formation, matériel, temps forts de campagne.'],
   ['profil', 'Votre parcours', 'Votre fiche se modifie à tout moment : portrait, biographie, slogan. Choisissez une ambition, les attributs que vous travaillez, et votre équilibre entre métier et politique. C\'est aussi ici que vous vous déclarez candidat à une investiture.'],
   ['medias', 'Les médias', 'Interviews et débats se jouent en répliques : attaquer, esquiver, sortir un chiffre, jouer l\'émotion, contre-attaquer. Le bon choix dépend de la question et des attributs de celui qui parle.'],
-  ['inbox', 'À vous de jouer', 'Avancez de quelques semaines, répondez aux messages, et gardez un oeil sur la date de la prochaine élection. Quand votre camp gouverne, l\'écran Mandat ouvre les réformes, le 49.3, le référendum et la dissolution. Le guide complet est dans docs/JOUER.md. Bonne partie.'],
+  ['accueil', 'À vous de jouer', 'Avancez de quelques semaines, répondez aux messages, et gardez un oeil sur la date de la prochaine élection. Quand votre camp gouverne, l\'écran Mandat ouvre les réformes, le 49.3, le référendum et la dissolution. Le guide complet est dans docs/JOUER.md. Bonne partie.'],
 ];
 const INFO_RES: Record<string, string> = {
   tresorerie: 'Argent en caisse. Recettes : cotisations, dons, financement public, reversements d\'élus. Dépenses : permanents, locaux, communication, campagnes.',
@@ -112,14 +114,14 @@ function MenuJeu() {
   useEffect(() => { stockage.lister().then(setFiches).catch(() => { }); }, []);
   const resume = () => `${m.base.date}, ${m.base.partis[m.base.parti]?.sigle ?? ''}, ${m.base.mode === 'carriere' ? 'Carrière' : 'Parti'}`;
   const sauver = async () => { const e = await moteur.etatComplet(); await stockage.sauver(nom, resume(), e); maj({ nomPartie: nom }); toast('Partie sauvegardée.'); setFiches(await stockage.lister()); };
-  const chargerF = async (n: string) => { const f = await stockage.lire(n); if (!f) return; const r = await moteur.charger(f.etat); maj({ base: r.base, tick: m.tick + 1, menuJeu: false, nomPartie: n, ecran: 'inbox' }); toast('Partie chargée.'); };
+  const chargerF = async (n: string) => { const f = await stockage.lire(n); if (!f) return; const r = await moteur.charger(f.etat); maj({ base: r.base, tick: m.tick + 1, menuJeu: false, nomPartie: n, ecran: 'accueil' }); toast('Partie chargée.'); };
   return <div class="voile" onClick={() => maj({ menuJeu: false })}><div class="modale" style={{ width: 'min(560px, 94vw)' }} onClick={(ev: any) => ev.stopPropagation()}>
     <h2>Menu</h2>
     <h3>Sauvegarder</h3><div class="ligne"><input type="text" value={nom} onInput={(ev: any) => setNom(ev.target.value)} /><button class="principal" onClick={sauver}>Sauvegarder</button><button onClick={async () => stockage.exporter(nom, await moteur.etatComplet())}>Exporter un fichier .mandat</button></div>
     <h3 style={{ marginTop: '14px' }}>Charger</h3>
     {fiches.length === 0 && <p class="doux">Aucune sauvegarde.</p>}
     {fiches.map(f => <div class="ligne" style={{ padding: '3px 0' }}><b>{f.nom}</b><span class="doux">{f.resume}</span><span class="espace" /><button class="petit" onClick={() => chargerF(f.nom)}>Charger</button><button class="petit danger" onClick={async () => { await stockage.supprimer(f.nom); setFiches(await stockage.lister()); }}>Supprimer</button></div>)}
-    <div class="ligne" style={{ marginTop: '6px' }}><label class="doux">Importer un fichier .mandat : <input type="file" accept=".mandat,application/json" onChange={async (ev: any) => { const f = ev.target.files[0]; if (!f) return; try { const e = await stockage.importer(f); const r = await moteur.charger(e); maj({ base: r.base, tick: m.tick + 1, menuJeu: false, ecran: 'inbox' }); toast('Partie importée.'); } catch (err: any) { toast(String(err.message ?? err), false); } }} /></label></div>
+    <div class="ligne" style={{ marginTop: '6px' }}><label class="doux">Importer un fichier .mandat : <input type="file" accept=".mandat,application/json" onChange={async (ev: any) => { const f = ev.target.files[0]; if (!f) return; try { const e = await stockage.importer(f); const r = await moteur.charger(e); maj({ base: r.base, tick: m.tick + 1, menuJeu: false, ecran: 'accueil' }); toast('Partie importée.'); } catch (err: any) { toast(String(err.message ?? err), false); } }} /></label></div>
     <h3 style={{ marginTop: '14px' }}>Options</h3>
     <div class="ligne"><label><input type="checkbox" checked={clair} onChange={(ev: any) => { const v = ev.target.checked; setClair(v); document.documentElement.classList.toggle('sombre', v); try { localStorage.setItem('mandat-theme', v ? 'sombre' : 'clair'); } catch { /* stockage indisponible */ } maj({ theme: v ? 'sombre' : 'clair' }); }} /> Thème sombre</label>
       {m.base.tutoriel >= 0 ? <button class="petit" onClick={() => agir({ type: 'tutoriel', etape: -1 }, true)}>Désactiver le tutoriel</button> : <button class="petit" onClick={() => agir({ type: 'tutoriel', etape: 0 }, true)}>Relancer le tutoriel</button>}</div>
@@ -138,14 +140,14 @@ function Tutoriel() {
 
 function Jeu() {
   const m = useMagasin(); const b = m.base;
-  const E = m.ecran === 'inbox' ? <Inbox /> : m.ecran === 'carte' ? <EcranCarte /> : m.ecran === 'effectif' ? <Effectif /> : m.ecran === 'parti' ? <EcranParti /> : m.ecran === 'finances' ? <Finances /> : m.ecran === 'doctrine' ? <Doctrine /> : m.ecran === 'campagne' ? <Campagne /> : m.ecran === 'medias' ? <Medias /> : m.ecran === 'mandat' ? <Mandat /> : m.ecran === 'historique' ? <Historique /> : m.ecran === 'agora' ? <Agora /> : m.ecran === 'equipe' ? <Terrain /> : m.ecran === 'profil' ? <Profil /> : m.ecran === 'contacts' ? <Carnet /> : m.ecran === 'pantheon' ? <Pantheon /> : <Inbox />;
+  const E = m.ecran === 'inbox' ? <Inbox /> : m.ecran === 'carte' ? <EcranCarte /> : m.ecran === 'effectif' ? <Effectif /> : m.ecran === 'parti' ? <EcranParti /> : m.ecran === 'finances' ? <Finances /> : m.ecran === 'doctrine' ? <Doctrine /> : m.ecran === 'campagne' ? <Campagne /> : m.ecran === 'medias' ? <Medias /> : m.ecran === 'mandat' ? <Mandat /> : m.ecran === 'historique' ? <Historique /> : m.ecran === 'agora' ? <Agora /> : m.ecran === 'equipe' ? <Terrain /> : m.ecran === 'accueil' ? <TableauDeBord /> : m.ecran === 'chronique' ? <Chronique /> : m.ecran === 'perso' ? <Personnalisation /> : m.ecran === 'profil' ? <Profil /> : m.ecran === 'contacts' ? <Carnet /> : m.ecran === 'pantheon' ? <Pantheon /> : <Inbox />;
   const P = b.partis[b.parti]; const sombre = m.theme === 'sombre'; const acces: string[] = b.acces ?? [];
   useEffect(() => { const a = accentParti(P?.couleur ?? '#0066cc', sombre); const st = document.documentElement.style; st.setProperty('--accent', a.accent); st.setProperty('--accent-t', a.texte); st.setProperty('--accent-doux', a.doux); return () => { st.removeProperty('--accent'); st.removeProperty('--accent-t'); st.removeProperty('--accent-doux'); }; }, [P?.couleur, sombre]);
   return <div class="cadre">
     <nav class="menu">
       {b.mode === 'carriere' && b.moi && b.portrait ? <a class="entete" style={{ padding: '6px 8px 10px' }} onClick={() => aller('profil')}><Portrait p={b.portrait} taille={42} /><div><b>{b.moi.nom}</b><small>{RANGS[b.moi.rang]}</small></div></a>
         : <div class="entete"><Logo i={b.parti} taille={38} /><div><b>{P?.nom}</b><small>Direction du parti</small></div></div>}
-      <div class="encart" onClick={() => aller(acces.includes('parti') ? 'parti' : 'agora')}><div class="ligne" style={{ flexWrap: 'nowrap' }}><Logo i={b.parti} taille={30} /><div style={{ minWidth: 0 }}><b>{P?.sigle}</b><small>{b.encart.rang === 1 ? '1er parti' : `${b.encart.rang}e parti`} sur {b.encart.nb}</small></div><span class="espace" /><div class="droite"><b>{String(b.encart.intentions).replace('.', ',')} %</b><small class={b.encart.dynamique > 0 ? 'ok' : b.encart.dynamique < 0 ? 'danger-t' : ''}>{b.encart.dynamique > 0 ? 'en hausse' : b.encart.dynamique < 0 ? 'en baisse' : 'stable'}</small></div></div>
+      <div class="encart" onClick={() => aller(acces.includes('parti') ? 'parti' : 'accueil')}><div class="ligne" style={{ flexWrap: 'nowrap' }}>{b.embleme?.actif ? <Embleme e={b.embleme} taille={30} /> : <Logo i={b.parti} taille={30} />}<div style={{ minWidth: 0 }}><b>{P?.sigle}</b><small>{b.encart.rang === 1 ? '1er parti' : `${b.encart.rang}e parti`} sur {b.encart.nb}</small></div><span class="espace" /><div class="droite"><b>{String(b.encart.intentions).replace('.', ',')} %</b><small class={b.encart.dynamique > 0 ? 'ok' : b.encart.dynamique < 0 ? 'danger-t' : ''}>{b.encart.dynamique > 0 ? 'en hausse' : b.encart.dynamique < 0 ? 'en baisse' : 'stable'}</small></div></div>
         <div class="petit-texte doux" style={{ marginTop: '4px' }}>{b.encart.deputes} député{b.encart.deputes > 1 ? 's' : ''}{b.argent !== null && b.argent !== undefined ? `, votre compte : ${nb(b.argent)} €` : ''}</div></div>
       {GROUPES.map(([g, tous]) => { const liste = tous.filter(([k]) => acces.includes(k)); return liste.length === 0 ? null : <>
         <div class="groupe">{g}</div>

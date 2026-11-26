@@ -11,7 +11,7 @@ import { senatorialesTour } from './systems/scrutins';
 import { message } from './systems/inbox';
 import { SIEGES_REGION } from './donnees';
 
-export interface OptPartie { scenario: 'municipales2026' | 'route2027' | 'monde_apres'; mode: Mode; parti: string; graine: number; tutoriel?: boolean; perso?: { nom: string; prenom: string; sexe: 'M' | 'F'; age: number; zone: string; origine: string; etudes: string; traits: string[]; attrs: number[]; depart: 'militant' | 'conseiller' } }
+export interface OptPartie { scenario: 'municipales2026' | 'route2027' | 'monde_apres'; mode: Mode; parti: string; graine: number; tutoriel?: boolean; perso?: { nom: string; prenom: string; sexe: 'M' | 'F'; age: number; zone: string; origine: string; etudes: string; traits: string[]; attrs: number[]; depart: 'militant' | 'conseiller'; incarne?: { zone?: string; nom: string; prenom: string; sexe?: 'M' | 'F'; naissance?: number; fonction?: string; parti?: string } } }
 export const SCENARIOS = [
   { id: 'municipales2026', nom: 'Après les municipales 2026', date: 'Avril 2026', texte: 'Les municipales viennent de redessiner la carte. Un an pour préparer la présidentielle.' },
   { id: 'route2027', nom: 'La route de 2027', date: 'Septembre 2026', texte: 'Rentrée politique. Sénatoriales dans trois semaines, présidentielle dans sept mois.' },
@@ -83,11 +83,13 @@ export function creerPartie(d: Donnees, o: OptPartie): Etat {
   const poidsLocal = (zs: number[], p: number) => { let t = 0, w = 0; for (const z of zs) { t += d.zones[z].inscrits * T[z * nP + p]; w += d.zones[z].inscrits; } return (t / (w || 1)) ** 0.7 * (0.15 + e.partis[p].notabilite) ** 2; };
   const imposes: Record<string, number> = {}; for (const m of d.mairesImposes) if (d.idxParti[m.parti] !== undefined) imposes[m.zone] = d.idxParti[m.parti];
   for (const v of d.villes) {
-    const reel = parRole[`maire:${v.id}`]; const w = e.partis.map(P => P.actif ? poidsLocal(v.zones, P.idx) : 0);
+    // Maire réel issu du Répertoire national des élus, avec le parti déduit de la nuance officielle de sa liste en 2026.
+    const rm = d.elus[v.id]; const pm = rm && rm.parti ? d.idxParti[rm.parti] : undefined; const reelRne = !parRole[`maire:${v.id}`] && rm && pm !== undefined && e.partis[pm]?.actif;
+    const reel = parRole[`maire:${v.id}`] ?? (reelRne ? creerPerso(e, d, rng, { parti: pm!, dept: v.deptIdx, zone: v.zones[0], rang: v.pop > 100000 ? 3 : 2, age: clamp(2026 - rm!.a, 18, 95), nom: rm!.n, prenom: rm!.p, sexe: rm!.s, reel: true }) : undefined); const w = e.partis.map(P => P.actif ? poidsLocal(v.zones, P.idx) : 0);
     let parti = reel ? reel.parti : imposes[v.id] ?? (v.plm === 2 && e.mairies[v.mere] && rng.chance(0.35) ? e.mairies[v.mere].parti : rng.pondere(w.map(x => x ** 1.6)));
     const voix = w.map((x, i) => i === parti ? Math.max(...w) * 1.6 : x); const s = primeMajoritaire(voix, v.sieges, v.prime);
     const maire = reel ?? creerPerso(e, d, rng, { parti, dept: v.deptIdx, zone: v.zones[0], rang: v.pop > 100000 ? 3 : 2, age: rng.int(40, 70) });
-    donnerMandat(e, maire, 'maire', v.idx, true); if (!reel) maire.notoriete = clamp(Math.round(8 + Math.log10(v.pop) * 6 - 20 + rng.int(0, 6)), 3, 45);
+    donnerMandat(e, maire, 'maire', v.idx, true); if (!reel || reelRne) maire.notoriete = clamp(Math.round(8 + Math.log10(v.pop) * 6 - 20 + rng.int(0, 6)), 3, 45);
     const m: Mairie = { ville: v.idx, maire: maire.id, parti, sieges: s, coalition: [parti], bilan: 50 + rng.int(-10, 12), budget: v.pop * 1350, dette: v.pop * 900, projets: [1, 1, 1, 1, 1, 1].map(x => x + rng.int(0, 1)), adjoints: [], opposition: 50, interco: 50, impots: 50 };
     e.mairies.push(m);
   }
@@ -141,7 +143,15 @@ export function creerPartie(d: Donnees, o: OptPartie): Etat {
 
   // --- Joueur ---
   const Pj = e.partis[e.joueur.parti];
-  if (o.mode === 'carriere' && o.perso) {
+  // Incarner une personne réelle : on reprend son personnage s'il existe déjà dans le monde, sinon on le crée à partir du répertoire des élus.
+  const inc = o.mode === 'carriere' ? o.perso?.incarne : undefined; let incarneFait = false;
+  if (inc) {
+    const norm = (s: string) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim(); const zi = inc.zone !== undefined ? d.idxZone[inc.zone] : undefined;
+    let p = e.persos.find(x => x.reel && x.statut === 'actif' && norm(x.nom) === norm(inc.nom) && norm(x.prenom) === norm(inc.prenom) && (zi === undefined || x.zone === zi || x.dept === d.zones[zi].deptIdx));
+    if (!p && zi !== undefined) { const z = d.zones[zi]; const pi = inc.parti && d.idxParti[inc.parti] !== undefined && e.partis[d.idxParti[inc.parti]].actif ? d.idxParti[inc.parti] : Pj.idx; p = creerPerso(e, d, rng, { parti: pi, dept: z.deptIdx, zone: zi, rang: 1, sexe: inc.sexe ?? 'M', nom: inc.nom, prenom: inc.prenom, age: clamp(2026 - (inc.naissance ?? 1980), 18, 95), reel: true }); const v = d.villes.find(x => x.zones.includes(zi) && x.plm !== 1); if (v) { donnerMandat(e, p, /adjoint/i.test(inc.fonction ?? '') ? 'adjoint' : 'conseiller_municipal', v.idx, true); ajouterHist(e, p, `${inc.fonction || 'Conseiller municipal'} à ${v.nom}`); } p.notoriete = Math.max(p.notoriete, 5); }
+    if (p) { if (p.parti >= 0 && e.partis[p.parti]?.actif) e.joueur.parti = p.parti; else p.parti = Pj.idx; p.rel = p.rel ?? {}; p.moral = 70; p.forme = 95; e.joueur.perso = p.id; if (p.rang >= 3) e.joueur.debutPremierPlan = debut; incarneFait = true; }
+  }
+  if (incarneFait) { /* le personnage incarné garde ses attributs et ses mandats */ } else if (o.mode === 'carriere' && o.perso) {
     const zi = d.idxZone[o.perso.zone] ?? 0; const z = d.zones[zi]; const p = creerPerso(e, d, rng, { parti: Pj.idx, dept: z.deptIdx, zone: zi, rang: 0, sexe: o.perso.sexe, nom: o.perso.nom, prenom: o.perso.prenom, age: clamp(o.perso.age, 18, 70) });
     let reste = POINTS_CREATION; for (let i = 0; i < NB_ATTRS; i++) { const plus = clamp(Math.round(o.perso.attrs[i] ?? 0), 0, Math.min(8, reste)); p.attrs[i] = 7 + plus; reste -= plus; }
     p.traits = o.perso.traits.filter(t => d.traitsParId[t]).slice(0, 2); p.formation = o.perso.etudes; p.profession = o.perso.origine; p.pot = 17; p.casserole = 0; p.fidelite = 12; p.notoriete = 2; p.axes = Pj.axes.slice(); p.moral = 70; p.forme = 95; p.rel = {};
@@ -153,6 +163,6 @@ export function creerPartie(d: Donnees, o: OptPartie): Etat {
   // L'usure du pouvoir déjà subie par la majorité sortante est contenue dans les résultats réels : elle sert de point de départ.
   { const pp = e.partis[e.presidence.parti]; if (pp) pp.scoreIA.usure = pp.scoreIA.usure0 = 0.35; for (const q of e.gouvernement.coalition) if (q !== e.presidence.parti) e.partis[q].scoreIA.usure = e.partis[q].scoreIA.usure0 = 0.1; } e.histIntentions.push({ s: e.semaine, v: e.intentions.map(x => Math.round(x * 1000) / 10) });
   e.rng = rng.s;
-  message(e, null, 'actu', o.mode === 'parti' ? `Bienvenue : ${Pj.nom}` : 'Bienvenue : votre carrière commence', o.mode === 'parti' ? `Nous sommes le ${o.scenario === 'municipales2026' ? '6 avril 2026' : '7 septembre 2026'}. Votre parti : ${Pj.nom}. ${Math.round(Pj.adherents)} adhérents, ${Math.round(Pj.tresorerie / 1000)} k€ en caisse, ${e.assemblee.filter(s => s.parti === Pj.idx).length} députés, ${e.mairies.filter(m => m.parti === Pj.idx).length} mairies. Le bouton Continuer fait avancer le temps d'une semaine.` : `Vous êtes militant ${Pj.sigle}. Faites vos preuves sur le terrain, obtenez des responsabilités, puis une investiture. Le bouton Continuer fait avancer le temps d'une semaine.`, true);
+  message(e, null, 'actu', o.mode === 'parti' ? `Bienvenue : ${Pj.nom}` : 'Bienvenue : votre carrière commence', o.mode === 'parti' ? `Nous sommes le ${o.scenario === 'municipales2026' ? '6 avril 2026' : '7 septembre 2026'}. Votre parti : ${Pj.nom}. ${Math.round(Pj.adherents)} adhérents, ${Math.round(Pj.tresorerie / 1000)} k€ en caisse, ${e.assemblee.filter(s => s.parti === Pj.idx).length} députés, ${e.mairies.filter(m => m.parti === Pj.idx).length} mairies. Le bouton Continuer fait avancer le temps d'une semaine.` : o.perso?.incarne ? `Vous incarnez ${e.persos[e.joueur.perso].prenom} ${e.persos[e.joueur.perso].nom} (${e.partis[e.joueur.parti].sigle}). Vous reprenez son nom et son mandat à cette date ; tout ce qui suit appartient à votre partie.` : `Vous êtes militant ${Pj.sigle}. Faites vos preuves sur le terrain, obtenez des responsabilités, puis une investiture. Le bouton Continuer fait avancer le temps d'une semaine.`, true);
   return e;
 }

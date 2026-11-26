@@ -30,7 +30,7 @@ export interface Donnees {
   segments: DonSegment[]; axes: { id: string; nom: string; poleMoins: string; polePlus: string }[]; themes: { id: string; nom: string; axes: number[] }[];
   propositions: DonProposition[]; evenements: DonEvenement[]; medias: DonMedia[]; traits: DonTrait[];
   noms: { prenoms: Record<string, string[][]>; noms: Record<string, string[]> };
-  personnalites: DonPersonnalite[]; mairesImposes: { zone: string; parti: string }[]; affiliations: Record<string, string[]>;
+  personnalites: DonPersonnalite[]; mairesImposes: { zone: string; parti: string }[]; elus: Record<string, { n: string; p: string; s: 'M' | 'F'; a: number; nuance: string; parti: string }>; affiliations: Record<string, string[]>;
   zones: Zone[]; socio: number[]; circos: DonCirco[]; depts: DonDept[]; regions: DonRegion[];
   // index dérivés
   idxParti: Record<string, number>; idxDept: Record<string, number>; idxRegion: Record<string, number>; idxCirco: Record<string, number>; idxZone: Record<string, number>;
@@ -112,7 +112,7 @@ export interface Etat {
   journal: { s: number; t: string }[]; consignes: Record<number, number>; desistements: Record<string, string[]>;
   entreDeux: Record<string, EntreDeux>; politiqueAlliance: Record<string, string>;
   options: { vitesse: number; auto?: boolean; activite?: string };
-  agora?: Agora; executif?: Executif; equipe?: Equipe; parcours?: Parcours;
+  agora?: Agora; executif?: Executif; equipe?: Equipe; parcours?: Parcours; embleme?: { forme: number; symbole: number; c1: string; c2: string; initiales: string; actif: boolean };
 }
 export interface Contact { id: number; nom: string; prenom: string; sexe: 'M' | 'F'; age: number; role: string; qui: string; relation: number; parle: number; dette: number; caractere: string }
 export interface Dossier { type: Scrutin; place: 'tete' | 'liste'; lib: string; commission: number; scrutin: number; soutiens: number; rivaux: { nom: string; profil: string; score: number }[]; fait: Record<string, number>; promesses: string[]; oral: { i: number; score: number; journal: string[]; fini: boolean } | null; verdict: string; issue: string }

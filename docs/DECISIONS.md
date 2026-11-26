@@ -87,3 +87,13 @@ Une ligne par décision, avec la raison.
 - Dissidence après un refus d'investiture : pas faite. Elle demande de créer une candidature hors parti dans chaque scrutin.
 - Contacts : cinq personnages générés propres au joueur, distincts des personnages du monde. Raison : pouvoir leur prêter des répliques.
 - Scissions : seuil d'unité relevé de 52 à 60.
+
+## V6
+
+- Élus réels : les maires viennent du Répertoire national des élus. Le parti est déduit de la nuance officielle de la liste aux municipales 2026. Une nuance ambiguë (divers, extrême sans parti précis, vide) ne donne aucun parti : le moteur garde alors le maire simulé. Raison : ne pas attribuer une étiquette à une personne réelle sans source.
+- Récupération des données : un workflow GitHub (`donnees.yml`) télécharge les fichiers officiels et les pousse sur la branche `donnees`. Raison : data.gouv.fr n'est pas joignable depuis l'environnement de travail, et Pierre préfère passer par GitHub plutôt que télécharger à la main.
+- Incarner une personne réelle : on reprend son nom, son parti et son mandat à la date de départ, rien d'autre. Un bandeau « Fiction générée par le jeu » figure sur sa page Chronique. Aucune affaire judiciaire n'est inventée pour une personne réelle, joueur compris.
+- Chronique : mise en page et nom propres au jeu, sans reprise de l'habillage d'un site existant. Pour une personne réelle non jouée, la biographie et la profession restent vides : la page ne contient que ce qui arrive dans la partie.
+- Emblème : dessin original composé dans le jeu (4 formes, 8 symboles neutres, 2 couleurs, initiales). Les logos réels des partis ne sont pas dessinés (marques déposées) ; l'emplacement `public/data/logos` reste prévu pour des fichiers fournis par le joueur.
+- Financement : emprunt bancaire à 12 % sur trois ans, plafonné selon les sondages et les adhérents ; appel aux dons une fois par trimestre ; prêts d'adhérents une fois par semestre, contre un peu d'unité. Un seul prêt à la fois.
+- Le tableau de bord est l'écran d'ouverture et la première étape du tutoriel. Il est accessible dès le rang de militant, comme Chronique et Personnalisation.

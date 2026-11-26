@@ -155,3 +155,10 @@ Chaque parti IA a une stratégie (conquête locale, coup présidentiel, union, i
 ## Performance
 
 Mesures sur la machine de construction (2 coeurs) : environ 65 ms par semaine en moyenne, 250 à 400 ms un soir d'élection nationale, 3,5 s pour une année d'avance rapide, 80 s pour une partie complète jusqu'en 2050.
+
+## V6 (`systems/parcours.ts`, `creation.ts`)
+
+- `vueTableau` : résumé de la semaine (tâches, quartiers, classement, échéances, fil Agora, proches négligés).
+- `vueChronique(e, d, id?)` : page d'un personnage, construite depuis son historique, ses publications, ses promesses. Champ `reel` pour le bandeau de fiction.
+- `actionV6` : `emblemeModifier` (valeurs nettoyées), `fonderPartiV6`, `finEmprunt`, `finAppel`, `finPrets`. `tourFinancement` rembourse chaque semaine.
+- `creerPartie` : `perso.incarne` reprend un personnage réel existant ou crée l'élu à partir du répertoire. Les maires réels remplacent les maires simulés quand leur parti est connu.

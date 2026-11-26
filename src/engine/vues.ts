@@ -1,5 +1,5 @@
 // Vues : données dérivées de l'état pour l'interface. Aucune vue ne modifie l'état. Les valeurs cachées ne sortent jamais d'ici.
-import { vueParcours, parcoursDe } from './systems/parcours';
+import { vueParcours, parcoursDe, vueTableau, vueChronique } from './systems/parcours';
 import { vueEquipe } from './systems/equipe';
 import { accesJoueur } from './systems/carriere';
 import { vueExecutif, roleExecutif } from './systems/executif';
@@ -33,7 +33,7 @@ export function vue(e: Etat, d: Donnees, nom: string, p: any = {}): any {
       return { semaine: e.semaine, date: dateTexte(e.semaine), annee: annee(e.semaine), fini: e.semaine >= SEMAINE_FIN, scenario: e.scenario, graine: e.graine, mode: j.mode, parti: j.parti, perso: j.perso, tutoriel: j.tutoriel, fin: j.fin ?? null, scoreFinal: j.scoreFinal, droits: droits(e),
         partis: e.partis.map(q => ({ idx: q.idx, id: q.id, sigle: q.sigle, nom: q.nom, couleur: q.couleur, actif: q.actif, famille: q.famille })),
         res: P ? { tresorerie: Math.round(P.tresorerie), militants: Math.round(P.militants), adherents: Math.round(P.adherents), capital: Math.round(P.capital), credibilite: Math.round(P.credibilite), notoriete: Math.round(P.notoriete), unite: Math.round(P.unite), dynamique: Math.round(P.dynamique), fatigue: Math.round(P.fatigue), usure: Math.round((P.scoreIA.usure ?? 0) * 100) } : null,
-        agora: { aReagir: (e.agora?.reactions ?? []).length }, acces: accesJoueur(e), nouveaux: j.nouveaux ?? [], portrait: j.mode === 'carriere' ? parcoursDe(e, d).portrait : null, argent: j.mode === 'carriere' ? Math.round(parcoursDe(e, d).argent) : null,
+        agora: { aReagir: (e.agora?.reactions ?? []).length }, acces: accesJoueur(e), nouveaux: j.nouveaux ?? [], embleme: e.embleme ?? null, estChef: j.mode === 'parti' || P.chef === j.perso, portrait: j.mode === 'carriere' ? parcoursDe(e, d).portrait : null, argent: j.mode === 'carriere' ? Math.round(parcoursDe(e, d).argent) : null,
         encart: (() => { const act = e.partis.filter(q => q.actif); const v = e.intentions[P.idx] ?? 0; return { intentions: Math.round(v * 1000) / 10, rang: act.filter(q => (e.intentions[q.idx] ?? 0) > v).length + 1, nb: act.length, deputes: e.assemblee.filter(s => s && s.parti === P.idx).length, dynamique: Math.round(P.dynamique) }; })(),
         moi: moi ? { ...resumePerso(e, d, moi), estime: Math.round(estime(e)), activite: e.options.activite ?? 'terrain', zone: d.zones[moi.zone]?.nom } : null, activites: ACTIVITES,
         nonLus: e.inbox.filter(m => !m.lu).length, aRepondre: e.inbox.filter(m => m.choix && m.repondu === undefined).length, prochaines: proch, soiree: !!e.soiree, debat: e.debat ? { fini: e.debat.fini, type: e.debat.type } : null, entreDeux: Object.keys(e.entreDeux),
@@ -68,6 +68,8 @@ export function vue(e: Etat, d: Donnees, nom: string, p: any = {}): any {
     case 'brouillons': return brouillons(e, d, p.cible, p.n ?? 0);
     case 'equipe': return vueEquipe(e, d);
     case 'parcours': return vueParcours(e, d);
+    case 'tableau': return vueTableau(e, d);
+    case 'chronique': return vueChronique(e, d, p.id);
     case 'medias': return { medias: d.medias, debat: e.debat ? { ...e.debat, persoNom: nomComplet(e.persos[e.debat.perso]), advNom: e.debat.adversaire >= 0 ? nomComplet(e.persos[e.debat.adversaire]) : '', advParti: e.debat.adversaire >= 0 ? e.persos[e.debat.adversaire].parti : -1, mediaNom: d.medias.find(m => m.id === e.debat!.media)?.nom ?? 'Débat' } : null, reponses: REPONSES.map(r => ({ id: r.id, nom: r.nom, desc: r.desc, attr: ATTRS_NOM[r.attr] })), publications: PUBLICATIONS, viralite: r1(P.viralite), gaffes: r1(P.gaffes), dernierePub: (P.scoreIA.dernierePub ?? -9) >= e.semaine,
       sondages: e.sondages.slice(-14).reverse().map(s => ({ ...s, date: dateTexte(s.s) })), hist: e.histIntentions, porteParole: P.bureau.porte_parole >= 0 ? resumePerso(e, d, e.persos[P.bureau.porte_parole]) : null };
     case 'historique': return { archives: e.archives.slice().reverse().map(a => ({ ...a, date: jourVote(a.s), lieux: undefined })), journal: e.journal.slice(-150).reverse().map(x => ({ date: dateTexte(x.s), t: x.t })), abstention: e.abstentionHist, hist: e.histIntentions };

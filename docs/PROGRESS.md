@@ -4,7 +4,21 @@ Ce fichier permet de reprendre le travail à partir du dépôt seul.
 
 ## État
 
-Version V4 en cours. La V3 est livrée. Il reste une action côté GitHub pour la mise en ligne (voir « À faire par le propriétaire du dépôt »).
+Version V6 livrée. Le jeu est en ligne sur https://pcouvefrv.github.io/Mandat-/ et se redéploie à chaque push sur `main`.
+
+## V6 : plan validé par Pierre et état
+
+| Lot | Contenu | État |
+|---|---|---|
+| 1 | Élus réels : 1 074 maires et 38 792 conseillers municipaux du Répertoire national des élus, récupérés par un workflow GitHub (branche `donnees`) | Fait, testé |
+| 2 | Tableau de bord : écran d'ouverture (à faire cette semaine, secteur, sondages, calendrier, Agora, proches) | Fait, testé |
+| 3 | Chronique : page d'encyclopédie du personnage joué et de n'importe quel personnage | Fait, testé |
+| 4 | Personnalisation : atelier d'emblème, fondation d'un parti (nom, sigle, couleur), financements (dons, prêts d'adhérents, emprunt) | Fait, testé |
+| 5 | Incarner une personne réelle : un élu de la ville choisie ou une personnalité nationale | Fait, testé |
+
+Tests de la V6 : 70 tests automatiques (10 nouveaux dans `tests/v6.test.ts`), 8 parties simulées de 330 semaines avec élus réels sans erreur, robot navigateur sur les nouveaux écrans sans erreur de console, une partie robot de 300 semaines par l'interface.
+
+Non fait dans la V6 : base historique (départs 2010 à 2022), sénateurs et conseillers départementaux et régionaux réels (le répertoire ne donne pas leur parti), sociologie INSEE, scissions spontanées (toujours aucune en simulation), essai du modèle d'écriture local avec un vrai modèle.
 
 ## V5.2 : plan validé par Pierre et état
 
@@ -90,7 +104,7 @@ Simulation
 - Petites communes : pas d'élection commune par commune, mais une répartition des mairies par sensibilité dans chaque bassin.
 - Départementales : les cantons des grandes villes sont approchés (une ville compte pour plusieurs cantons qui votent pareil).
 - Sénatoriales : grands électeurs déduits des conseils municipaux et des élus, sans liste nominative.
-- Conseils municipaux : seuls le maire, les adjoints du joueur et le joueur ont une fiche. Les autres sièges sont comptés par parti.
+- Conseils municipaux : seuls le maire, les adjoints du joueur et le joueur ont une fiche. Les autres sièges sont comptés par parti. Les conseillers réels servent à la création (incarner un élu), pas à peupler les conseils.
 - Mode Président simplifié, comme prévu pour la V3 : popularité et décisions, pas de gouvernement détaillé, pas de 49.3 ni de dissolution à la main.
 - Le premier parti des données réelles (RN) reste le vainqueur le plus fréquent des présidentielles dans la simulation automatique. L'usure du pouvoir produit des alternances. Voir `docs/EQUILIBRAGE.md`.
 - Intercommunalité et opposition municipale : deux jauges et deux actions, sans personnages.
@@ -103,7 +117,7 @@ Interface
 
 ## Pistes pour la suite
 
-1. Vraies données (lot 3) : maires, sénateurs, résultats municipaux 2026, sociologie INSEE.
+1. Vraies données, suite : sénateurs, conseillers départementaux et régionaux avec leur parti, sociologie INSEE, départs historiques (2010 à 2022).
 2. Scissions et vie interne : seuils à revoir, congrès plus disputés.
 3. Collectivités : budgets pluriannuels, projets en plusieurs étapes, bilan détaillé à l'élection.
 4. Agora : messages privés entre élus, campagnes sponsorisées, comptes anonymes de militants.

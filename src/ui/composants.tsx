@@ -5,7 +5,7 @@ import * as moteur from './moteur';
 
 // ---------- Magasin ----------
 export interface Magasin { phase: 'chargement' | 'menu' | 'jeu'; base: any; ref: any; ecran: string; params: any; tick: number; toast: { texte: string; ok: boolean } | null; occupe: string; fiche: number; soiree: boolean; menuJeu: boolean; nomPartie: string; erreur: string; theme: string }
-let etat: Magasin = { phase: 'chargement', base: null, ref: null, ecran: 'inbox', params: {}, tick: 0, toast: null, occupe: '', fiche: -1, soiree: false, menuJeu: false, nomPartie: '', erreur: '', theme: 'clair' };
+let etat: Magasin = { phase: 'chargement', base: null, ref: null, ecran: 'accueil', params: {}, tick: 0, toast: null, occupe: '', fiche: -1, soiree: false, menuJeu: false, nomPartie: '', erreur: '', theme: 'clair' };
 const abonnes = new Set<() => void>();
 export const lireMagasin = () => etat;
 export function maj(p: Partial<Magasin>) { etat = { ...etat, ...p }; abonnes.forEach(f => f()); }
