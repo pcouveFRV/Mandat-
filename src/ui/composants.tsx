@@ -13,6 +13,8 @@ export function useMagasin(): Magasin { const [, set] = useState(0); useEffect((
 let minuterie: any;
 export function toast(texte: string, ok = true) { if (!texte) return; clearTimeout(minuterie); maj({ toast: { texte, ok } }); minuterie = setTimeout(() => maj({ toast: null }), 5200); }
 export async function agir(a: any, silencieux = false): Promise<boolean> { try { const r = await moteur.action(a); maj({ base: r.base, tick: etat.tick + 1 }); if (!silencieux || !r.retour.ok) toast(r.retour.texte, r.retour.ok); return r.retour.ok; } catch (err: any) { toast(String(err.message ?? err), false); return false; } }
+// Action dont l'appelant lit lui-même la réponse (texte d'une réplique, par exemple).
+export async function moteurAction(a: any): Promise<{ ok: boolean; texte: string }> { try { const r = await moteur.action(a); maj({ base: r.base, tick: etat.tick + 1 }); return r.retour; } catch (err: any) { return { ok: false, texte: String(err.message ?? err) }; } }
 export const aller = (ecran: string, params: any = {}) => maj({ ecran, params, fiche: -1 });
 export const ouvrirFiche = (id: number) => { if (id >= 0) maj({ fiche: id }); };
 // Charge une vue du moteur et la recharge à chaque changement d'état du jeu.

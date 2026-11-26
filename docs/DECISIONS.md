@@ -59,3 +59,13 @@ Une ligne par décision, avec la raison.
 
 - Déverrouillage des écrans en mode Carrière : un écran non gagné n'apparaît pas du tout dans le menu, sans bouton grisé. Raison : demande de Pierre. Paliers : militant (boîte de réception, Agora), responsable de section ou élu (carte, effectif, historique, Panthéon, campagne), élu (mandat), cadre départemental (parti, finances), bureau national ou figure nationale (médias, doctrine). L'écran Médias s'ouvre aussi le temps d'un entretien en cours.
 - Le tutoriel ne présente que les écrans déjà ouverts.
+- Écran Terrain ouvert dès le rang de simple militant, avec les sorties (porte-à-porte, tractage). La direction de l'équipe arrive avec la section. Raison : donner tout de suite quelque chose à faire au militant de base.
+- Six quartiers génériques par secteur (Centre-ville, Grands Ensembles, Pavillons, Hauts, Faubourg, Gare), décrits par les segments d'électeurs du jeu. Raison : pas de découpage réel par bureau de vote tant que les vraies données ne sont pas intégrées.
+- Pas de campagne de terrain pour les sénatoriales. Raison : le scrutin se joue entre grands électeurs.
+- Soir du vote : le score des bureaux est lu dans le modèle de vote au moment de la clôture, pas dans le résultat officiel du scrutin. Raison : garder l'équipe indépendante du type de scrutin. Les deux peuvent différer de quelques dixièmes.
+- Événements en trois temps : l'issue à froid est tirée au sort (55 % confirmation, 20 % retournement, 25 % oubli). Raison : rendre risquée la réaction à chaud sans la rendre perdante.
+- Assistant d'écriture : côté interface uniquement, facultatif, avec repli sur les textes du jeu. Le moteur reste déterministe et sans réseau. Pierre veut le modèle sur un serveur : le dossier `serveur/` fournit Ollama derrière Caddy, non déployé faute d'informations sur le serveur.
+- Discussion libre réservée aux militants de l'équipe, qui sont tous des personnages générés. Raison : ne prêter aucun propos inventé à une personne réelle.
+- Affaires réelles : règle levée par Pierre. Elles entreront avec la base historique, comme des faits datés et sourcés. Rien n'est encore intégré.
+- Négociation et question au gouvernement en mini-jeux : reportées. Le débat télévisé existant en tient lieu pour l'instant.
+- Données : script `scripts/data/telecharger-mac.mjs`, à lancer sur le Mac de Pierre. Les identifiants des jeux de données ont été vérifiés sur data.gouv.fr. Une copie est déposée dans `~/Mandat-donnees/`.

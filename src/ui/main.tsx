@@ -6,13 +6,15 @@ import * as moteur from './moteur';
 import * as stockage from './stockage';
 import { useMagasin, maj, lireMagasin, toast, aller, agir, euro, nb, Info, Parti, Logo, accentParti } from './composants';
 import { Agora } from './agora';
+import { Terrain } from './terrain';
+import { lireConfig, ecrireConfig, tester } from './assistant';
 import { Accueil } from './accueil';
 import { Inbox, FichePerso, Effectif, EcranParti } from './ecrans1';
 import { Finances, Doctrine, Medias, Historique } from './ecrans2';
 import { Campagne, Mandat, Soiree, Pantheon } from './ecrans3';
 import { EcranCarte } from './carte';
 
-const GROUPES: [string, [string, string][]][] = [['Bureau', [['inbox', 'Boîte de réception'], ['agora', 'Agora'], ['medias', 'Médias']]], ['Organisation', [['effectif', 'Effectif'], ['parti', 'Parti'], ['finances', 'Finances'], ['doctrine', 'Doctrine']]], ['Élections', [['carte', 'Carte'], ['campagne', 'Campagne'], ['mandat', 'Mandat'], ['historique', 'Historique']]]];
+const GROUPES: [string, [string, string][]][] = [['Bureau', [['inbox', 'Boîte de réception'], ['agora', 'Agora'], ['equipe', 'Terrain'], ['medias', 'Médias']]], ['Organisation', [['effectif', 'Effectif'], ['parti', 'Parti'], ['finances', 'Finances'], ['doctrine', 'Doctrine']]], ['Élections', [['carte', 'Carte'], ['campagne', 'Campagne'], ['mandat', 'Mandat'], ['historique', 'Historique']]]];
 const TUTO: [string, string, string][] = [
   ['inbox', 'La boîte de réception', 'Tout passe par ici : messages de vos cadres, sondages, invitations, décisions à prendre. Les messages qui attendent une réponse sont signalés en rouge.'],
   ['inbox', 'Le temps', 'Le bouton Continuer, en haut à droite, fait avancer d\'une semaine. La flèche à côté permet d\'aller jusqu\'au prochain message important ou jusqu\'à la prochaine élection.'],
@@ -22,6 +24,7 @@ const TUTO: [string, string, string][] = [
   ['doctrine', 'La doctrine', 'Dix axes de -5 à +5. Bouger coûte de la crédibilité. Les propositions phares se débloquent selon votre position et attirent ou repoussent des électorats.'],
   ['campagne', 'Les campagnes', 'Calendrier, alliances, investitures, budget, meetings, parrainages. Avant chaque scrutin, c\'est ici que tout se joue. Entre les deux tours, vous décidez des désistements et des fusions.'],
   ['agora', 'Agora', 'Le réseau social du jeu. Publiez un message, un visuel, une vidéo ou un direct, sur vos thèmes ou en réaction à l\'actualité. Réagir à chaud rapporte plus et expose davantage. Vos abonnés montent avec les publications réussies.'],
+  ['equipe', 'Le terrain', 'Votre secteur est découpé en quartiers. Sortez vous-même en porte-à-porte ou en tractage, une fois par semaine. Quand vous prendrez une section, vous dirigerez l\'équipe de militants : missions, formation, matériel, temps forts de campagne.'],
   ['medias', 'Les médias', 'Interviews et débats se jouent en répliques : attaquer, esquiver, sortir un chiffre, jouer l\'émotion, contre-attaquer. Le bon choix dépend de la question et des attributs de celui qui parle.'],
   ['inbox', 'À vous de jouer', 'Avancez de quelques semaines, répondez aux messages, et gardez un oeil sur la date de la prochaine élection. Quand votre camp gouverne, l\'écran Mandat ouvre les réformes, le 49.3, le référendum et la dissolution. Le guide complet est dans docs/JOUER.md. Bonne partie.'],
 ];
@@ -72,6 +75,19 @@ function BarreHaut() {
   </div>;
 }
 
+// Réglage de l'assistant d'écriture : adresse du serveur de modèle, nom du modèle, jeton.
+function ReglageAssistant() {
+  const [c, setC] = useState(lireConfig()); const [etatT, setEtatT] = useState('');
+  const chg = (k: string, v: string) => { const n = { ...c, [k]: v }; setC(n); ecrireConfig(n); };
+  return <div style={{ marginTop: '14px' }}><h3>Assistant d'écriture (facultatif)</h3>
+    <p class="doux petit-texte">Branchez un serveur de modèle compatible avec l'API OpenAI (par exemple Ollama) pour obtenir des propositions de publications sur mesure et discuter librement avec vos militants. Sans lui, le jeu utilise ses propres textes. Voir le dossier serveur/ du dépôt.</p>
+    <div class="grille" style={{ gap: '6px' }}><input type="text" aria-label="Adresse du serveur" placeholder="Adresse du serveur, par exemple https://ia.mondomaine.fr" value={c.url} onInput={(ev: any) => chg('url', ev.target.value.trim())} />
+      <div class="ligne"><input type="text" aria-label="Modèle" style={{ flex: 1 }} placeholder="Nom du modèle" value={c.modele} onInput={(ev: any) => chg('modele', ev.target.value.trim())} /><input type="text" aria-label="Jeton" style={{ flex: 1 }} placeholder="Jeton d'accès" value={c.cle} onInput={(ev: any) => chg('cle', ev.target.value.trim())} />
+        <button disabled={!c.url || !c.modele} onClick={async () => { setEtatT('Test en cours...'); try { setEtatT('Réponse : ' + await tester()); } catch (err: any) { setEtatT('Échec : ' + (err?.message ?? 'erreur')); } }}>Tester</button></div></div>
+    {etatT && <p class="petit-texte" style={{ marginTop: '6px' }}>{etatT}</p>}
+  </div>;
+}
+
 function MenuJeu() {
   const m = useMagasin(); const [quitter, setQuitter] = useState(false); const [nom, setNom] = useState(m.nomPartie || 'Ma partie'); const [fiches, setFiches] = useState<stockage.Fiche[]>([]); const [clair, setClair] = useState(document.documentElement.classList.contains('sombre'));
   useEffect(() => { stockage.lister().then(setFiches).catch(() => { }); }, []);
@@ -89,6 +105,7 @@ function MenuJeu() {
     <div class="ligne"><label><input type="checkbox" checked={clair} onChange={(ev: any) => { const v = ev.target.checked; setClair(v); document.documentElement.classList.toggle('sombre', v); try { localStorage.setItem('mandat-theme', v ? 'sombre' : 'clair'); } catch { /* stockage indisponible */ } maj({ theme: v ? 'sombre' : 'clair' }); }} /> Thème sombre</label>
       {m.base.tutoriel >= 0 ? <button class="petit" onClick={() => agir({ type: 'tutoriel', etape: -1 }, true)}>Désactiver le tutoriel</button> : <button class="petit" onClick={() => agir({ type: 'tutoriel', etape: 0 }, true)}>Relancer le tutoriel</button>}</div>
     <p class="doux petit-texte" style={{ marginTop: '6px' }}>Graine de la partie : {m.base.graine}. Une même graine et les mêmes choix donnent la même partie.</p>
+    <ReglageAssistant />
     <div class="ligne" style={{ marginTop: '14px' }}><button onClick={() => maj({ menuJeu: false })}>Reprendre</button><span class="espace" /><button class="danger" onClick={() => { if (quitter) maj({ phase: 'menu', menuJeu: false, base: null }); else setQuitter(true); }}>{quitter ? 'Confirmer : quitter sans sauvegarder' : "Nouvelle partie ou retour à l'accueil"}</button></div>
   </div></div>;
 }
@@ -102,7 +119,7 @@ function Tutoriel() {
 
 function Jeu() {
   const m = useMagasin(); const b = m.base;
-  const E = m.ecran === 'inbox' ? <Inbox /> : m.ecran === 'carte' ? <EcranCarte /> : m.ecran === 'effectif' ? <Effectif /> : m.ecran === 'parti' ? <EcranParti /> : m.ecran === 'finances' ? <Finances /> : m.ecran === 'doctrine' ? <Doctrine /> : m.ecran === 'campagne' ? <Campagne /> : m.ecran === 'medias' ? <Medias /> : m.ecran === 'mandat' ? <Mandat /> : m.ecran === 'historique' ? <Historique /> : m.ecran === 'agora' ? <Agora /> : m.ecran === 'pantheon' ? <Pantheon /> : <Inbox />;
+  const E = m.ecran === 'inbox' ? <Inbox /> : m.ecran === 'carte' ? <EcranCarte /> : m.ecran === 'effectif' ? <Effectif /> : m.ecran === 'parti' ? <EcranParti /> : m.ecran === 'finances' ? <Finances /> : m.ecran === 'doctrine' ? <Doctrine /> : m.ecran === 'campagne' ? <Campagne /> : m.ecran === 'medias' ? <Medias /> : m.ecran === 'mandat' ? <Mandat /> : m.ecran === 'historique' ? <Historique /> : m.ecran === 'agora' ? <Agora /> : m.ecran === 'equipe' ? <Terrain /> : m.ecran === 'pantheon' ? <Pantheon /> : <Inbox />;
   const P = b.partis[b.parti]; const sombre = m.theme === 'sombre'; const acces: string[] = b.acces ?? [];
   useEffect(() => { const a = accentParti(P?.couleur ?? '#0066cc', sombre); const st = document.documentElement.style; st.setProperty('--accent', a.accent); st.setProperty('--accent-t', a.texte); st.setProperty('--accent-doux', a.doux); return () => { st.removeProperty('--accent'); st.removeProperty('--accent-t'); st.removeProperty('--accent-doux'); }; }, [P?.couleur, sombre]);
   return <div class="cadre">

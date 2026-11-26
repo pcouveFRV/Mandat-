@@ -82,13 +82,13 @@ export function publierAgora(e: Etat, d: Donnees, rng: Rng, P: Parti, auteur: Pe
     const gain = Math.round(vues * (buzz ? 0.012 : 0.004) * (x > 0 ? 1 : 0.4));
     if (auteur) { auteur.abonnes = abonnesDe(d, auteur) + gain; auteur.notoriete = clamp(auteur.notoriete + (buzz ? 0.9 : 0.15) * (auteur.notoriete > 70 ? 0.3 : 1), 0, 100); g.abP[P.idx] += Math.round(gain * 0.25); } else g.abP[P.idx] += gain;
   }
-  if (q.reaction !== undefined) g.reactions = g.reactions.filter(r => r.id !== q.reaction);
+  if (q.reaction !== undefined) { const r0 = g.reactions.find(r => r.id === q.reaction); const sv = r0 && moi ? (g.suivis ?? []).find(k => k.titre === r0.titre && k.ton === undefined) : null; if (sv && r0) { sv.ton = q.ton; sv.chaud = r0.s === e.semaine; } g.reactions = g.reactions.filter(r => r.id !== q.reaction); }
   return post;
 }
 
 // Appelé quand un événement national tombe : ouvre une tendance et une fenêtre de réaction pour le joueur.
-export function signalerEvenement(e: Etat, d: Donnees, titre: string, axe: number, duree: number) {
-  const g = agoraDe(e, d); g.tendances.unshift({ sujet: titre, axe, force: 1, fin: e.semaine + clamp(duree, 2, 5) }); if (g.tendances.length > 6) g.tendances.length = 6;
+export function signalerEvenement(e: Etat, d: Donnees, titre: string, axe: number, duree: number, episode = 0) {
+  const g = agoraDe(e, d); (g.suivis ??= []).push({ titre, axe, s: e.semaine, episode }); if (g.suivis.length > 12) g.suivis.shift(); g.tendances.unshift({ sujet: titre, axe, force: 1, fin: e.semaine + clamp(duree, 2, 5) }); if (g.tendances.length > 6) g.tendances.length = 6;
   g.reactions.push({ id: g.prochain++, titre, axe, s: e.semaine, expire: e.semaine + 1 }); if (g.reactions.length > 5) g.reactions.shift();
 }
 
@@ -96,6 +96,26 @@ export function tourAgora(e: Etat, d: Donnees, rng: Rng, ctx: Ctx) {
   const g = agoraDe(e, d);
   g.tendances = g.tendances.filter(t => t.fin > e.semaine); for (const t of g.tendances) t.force = Math.max(0.2, t.force * 0.8);
   g.reactions = g.reactions.filter(r => r.expire >= e.semaine);
+  // Les événements vivent en trois temps : à chaud (la semaine même), le lendemain (la presse et les rivaux), à froid (un mois après).
+  const SUITES = ['{t} : le mouvement s\'étend', '{t} : le gouvernement cherche une sortie', '{t} : les premières conséquences', '{t} : la polémique rebondit'];
+  const POSTURES = ['dénonce une faute du gouvernement', 'appelle au calme et à la responsabilité', 'demande une commission d\'enquête', 'y voit la preuve de ce qu\'il répète depuis des mois', 'refuse toute récupération', 'réclame des mesures immédiates'];
+  const actif = !e.options.auto; const poidsJ = e.joueur.mode === 'parti' ? 1 : Math.min(1, 0.25 + 0.2 * (e.persos[e.joueur.perso]?.rang ?? 0)); const PJ = e.partis[e.joueur.parti];
+  for (const sv of (g.suivis ?? []).slice()) {
+    const age = e.semaine - sv.s;
+    if (age === 1 && !sv.lendemain) { sv.lendemain = true; const riv = e.partis.filter(P => P.actif && P.idx !== PJ.idx).sort((a, b) => b.notoriete - a.notoriete).slice(0, 6); const deux = [riv[rng.int(0, Math.min(2, riv.length - 1))], riv[rng.int(Math.min(3, riv.length - 1), riv.length - 1)]].filter(Boolean);
+      if (actif && (sv.ton || poidsJ >= 0.6)) message(e, ctx, 'actu', `Le lendemain : ${sv.titre}`, `La presse reprend l'affaire ce matin. ${deux.map(P => `${P.nom} ${rng.pick(POSTURES)}`).join('. ')}.\n\n${sv.ton ? `Votre réaction ${sv.chaud ? 'à chaud ' : ''}(ton ${TONS[sv.ton]?.nom.toLowerCase() ?? sv.ton}) est citée parmi les premières.` : 'Votre camp ne s\'est pas encore exprimé. La fenêtre pour réagir sur Agora se referme cette semaine.'}`, false);
+      // Un fil qui dure : certains événements ont une suite, qui rouvre une tendance et une fenêtre de réaction.
+      if (sv.episode < 2 && rng.chance(sv.episode === 0 ? 0.35 : 0.25)) { const base = sv.titre.split(' : ')[0]; const t = rng.pick(SUITES).replace('{t}', base); g.suites = [...(g.suites ?? []), { titre: t, axe: sv.axe, s: e.semaine + rng.int(1, 2), episode: sv.episode + 1 }]; } }
+    if (age >= 4) { g.suivis = (g.suivis ?? []).filter(k => k !== sv); if (!sv.ton && poidsJ < 0.6) continue; const tirage = rng.next(); const issue = tirage < 0.55 ? 'confirme' : tirage < 0.75 ? 'retourne' : 'oublie'; let t = '', dc = 0;
+      if (issue === 'oublie') t = 'Un mois plus tard, plus personne n\'en parle. Ni gagnant ni perdant.';
+      else if (!sv.ton) { if (issue === 'confirme') { dc = -0.4; t = 'Les faits ont donné raison à ceux qui avaient parlé. On note que votre camp s\'était tu.'; } else { dc = 0.3; t = 'L\'histoire s\'est retournée contre ceux qui avaient réagi trop vite. Votre silence passe pour de la prudence.'; } }
+      else if (issue === 'confirme') { dc = (sv.chaud ? 0.8 : 0.4) + (sv.ton === 'pedagogue' ? 0.3 : 0); t = `Les faits vous ont donné raison. ${sv.chaud ? 'Vous étiez parmi les premiers à le dire, et on s\'en souvient.' : 'Votre réaction, posée, a bien vieilli.'}`; }
+      else { dc = sv.ton === 'offensif' ? (sv.chaud ? -1.4 : -0.8) : sv.ton === 'humour' ? -0.9 : -0.2; t = `De nouveaux éléments changent la lecture de l'affaire. ${sv.ton === 'offensif' || sv.ton === 'humour' ? 'Votre publication ressort, et elle a mal vieilli.' : 'Votre réaction mesurée vous protège.'}`; }
+      if (dc) PJ.credibilite = clamp(PJ.credibilite + dc * poidsJ, 0, 100);
+      if (actif) message(e, ctx, 'actu', `À froid : ${sv.titre}`, `${t}${dc ? ` Crédibilité ${dc > 0 ? 'en hausse' : 'en baisse'}.` : ''}`, false); }
+  }
+  for (const st of (g.suites ?? []).filter(k => k.s <= e.semaine)) { journal(e, st.titre); signalerEvenement(e, d, st.titre, st.axe, 3, st.episode); }
+  g.suites = (g.suites ?? []).filter(k => k.s > e.semaine);
   // Une tendance de fond quand l'actualité est calme.
   if (g.tendances.length < 2 && rng.chance(0.6)) { const a = rng.int(0, d.axes.length - 1); if (!g.tendances.some(t => t.axe === a)) g.tendances.push({ sujet: d.axes[a].nom, axe: a, force: 0.5 + rng.next() * 0.4, fin: e.semaine + rng.int(2, 4) }); }
   const sujetPour = (P: Parti): { sujet: string; axe: number } => {
@@ -161,5 +181,6 @@ export function vueAgora(e: Etat, d: Donnees) {
     reactions: g.reactions.map(r => ({ id: r.id, titre: r.titre, frais: r.s === e.semaine })),
     axes: d.axes.map((x, i) => ({ i, nom: x.nom })), formats: FORMATS, tons: TONS, voix, delegue: g.delegue, carriere, faits, max: MAX_POSTS,
     hist: g.hist.slice(-80), semaine: e.semaine,
+    ligne: d.axes.map((x, i) => ({ x, v: P.axes[i] })).filter(k => Math.abs(k.v) >= 2).sort((a, b) => Math.abs(b.v) - Math.abs(a.v)).slice(0, 4).map(k => `${k.x.nom} : ${(k.v > 0 ? k.x.polePlus : k.x.poleMoins).split(',')[0].toLowerCase()}`).join(' ; '),
   };
 }

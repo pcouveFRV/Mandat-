@@ -23,7 +23,7 @@ Le moteur est dans `src/engine/`, en TypeScript pur, sans accès au DOM. Il tour
 9. Chaque année : retraits, décès de personnages générés, nouveaux talents.
 10. `executif` : référendum, réformes des gouvernements IA, censure. Puis `justice` : affaires. Contrôle des comptes de campagne.
 11. `sondages` : intentions de vote réelles (cachées), sondages publiés.
-12. `carriere` : activité hebdomadaire, promotions (mode Carrière).
+12. `equipe` : équipe de militants, campagne locale, incidents. Puis `carriere` : accès aux écrans, activité hebdomadaire, promotions (mode Carrière).
 13. `victoire` : conditions de victoire, de défaite, fin de partie.
 
 Un vote a lieu le dimanche. Le moteur le traite au tour qui commence le lundi suivant.
@@ -95,6 +95,26 @@ Après des législatives, un gouvernement se forme : le parti du président s'il
 - Un événement national ouvre une tendance et une fenêtre de réaction de deux semaines.
 - Les partis IA publient avec la même fonction que le joueur.
 - Personnes réelles : le texte de leurs publications est une description neutre, jamais une citation.
+
+## Terrain et équipe (`systems/equipe.ts`)
+
+- État : `e.equipe` (militants, candidats, six quartiers, caisse, matériel, campagne en cours, incident, mini-jeu en cours, bilan du dernier scrutin). L'équipe de départ est tirée avec un générateur propre, dérivé de la graine, de la zone et du parti : elle ne dépend pas du moment de sa création.
+- Accueil d'un quartier : distance entre la ligne du parti et les segments qui composent le quartier.
+- Rendement hebdomadaire d'un militant : compétence utile x disponibilité x (1 - fatigue) x motivation x accueil x matériel. Il fait monter l'ancrage du quartier (avec rendement décroissant) et, pondéré par le poids du quartier, l'implantation du parti dans la zone (`e.impl`). En campagne, il nourrit aussi la mobilisation (`e.mob`).
+- Campagne : ouverte 12 semaines avant le prochain scrutin hors sénatoriales. À la clôture, le score de la zone est lu dans le modèle de vote et réparti en 12 bureaux selon l'accueil et l'ancrage.
+- Mini-jeux : le porte-à-porte compare le thème choisi aux priorités et aux positions du segment tiré. Le tractage additionne affluence et affinité du public. Le résultat alimente ancrage, implantation, estime.
+- Quand le joueur ne dirige pas l'équipe (simple militant, ou mode automatique), un responsable IA répartit, commande, règle les incidents et organise les temps forts.
+
+## Événements en trois temps (`systems/agora.ts`)
+
+- `suivis` : chaque événement national est suivi quatre semaines. Semaine +1 : message « Le lendemain ». Semaine +4 : tirage (55 % les faits confirment, 20 % ils se retournent, 25 % oubli) et effet sur la crédibilité selon le ton et le moment de la réaction du joueur, pondéré par son rang.
+- `suites` : 35 % des événements ont une suite, 25 % une seconde. Une suite rouvre une tendance et une fenêtre de réaction.
+
+## Assistant d'écriture (`src/ui/assistant.ts`)
+
+- Côté interface uniquement : le moteur n'appelle jamais de modèle et reste déterministe.
+- Client d'une API « chat completions » au format OpenAI. Consignes fixes : français simple, aucun nom de personne réelle, aucun propos ni accusation attribués à une personne réelle.
+- Repli automatique sur les textes du jeu si le serveur est absent, refuse ou répond mal.
 
 ## Exécutif (`systems/executif.ts`)
 

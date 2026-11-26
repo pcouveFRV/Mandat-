@@ -48,12 +48,14 @@ Les chemins sont relatifs : le jeu fonctionne quel que soit le nom du dépôt.
 src/engine/        moteur pur : état, tour, création, actions, vues, victoire
   systems/         electorat, regles, scrutins, partis, personnages, finances, medias, campagnes,
                    doctrine, evenements, mandats, ia, justice, sondages, carriere, inbox,
-                   agora (réseau social), executif (réformes, 49.3, dissolution, référendum)
+                   agora (réseau social, événements en trois temps), executif (réformes, 49.3, dissolution, référendum),
+                   equipe (militants, quartiers, campagne locale, mini-jeux)
 src/worker/        Web Worker qui fait tourner le moteur
 src/ui/            interface Preact : cadre, écrans, carte SVG
 src/data/          chargement des données hors navigateur (tests, scripts)
 public/data/       données du jeu en JSON (modifiables à la main)
-scripts/data/      pipeline de données
+scripts/data/      pipeline de données (telecharger-mac.mjs : à lancer sur votre ordinateur)
+serveur/           serveur facultatif de l'assistant d'écriture (Ollama derrière Caddy)
 scripts/           calibrage et équilibrage
 tests/             tests du moteur
 docs/              JOUER, MOTEUR, DATA, DESIGN, EQUILIBRAGE, DECISIONS, PROGRESS

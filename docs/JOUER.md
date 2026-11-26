@@ -90,6 +90,53 @@ Présidentielle : il faut 500 parrainages cinq semaines avant le premier tour. L
 
 Un entretien se joue en 4 questions, un débat en 5, le grand débat présidentiel en 8. À chaque question, cinq réponses possibles : attaquer, esquiver, sortir un chiffre, jouer l'émotion, contre-attaquer. Chaque genre de question a sa meilleure réponse (un chiffre sur une question technique, l'émotion sur un drame, l'esquive sur un piège interne). La réussite dépend aussi des attributs de celui qui parle. Une contre-attaque ratée coûte cher. Les dérapages laissent des traces durables.
 
+## Progression en mode Carrière
+
+Vous commencez simple militant et vous ne voyez que trois écrans : la boîte de réception, Agora et le Terrain. Les autres n'existent pas dans le menu tant que vous ne les avez pas gagnés.
+
+- Responsable de section, ou élu : Carte, Effectif, Historique, Panthéon, Campagne. Vous dirigez aussi l'équipe de militants.
+- Élu : Mandat.
+- Cadre départemental : Parti, Finances.
+- Bureau national ou figure nationale : Médias, Doctrine.
+
+Chaque ouverture est annoncée par un message et une pastille « nouveau » dans le menu. Le mode Parti ouvre tout dès le départ.
+
+## Le terrain et l'équipe
+
+Votre secteur est découpé en six quartiers, chacun avec son profil, son accueil pour votre parti et un niveau d'ancrage. L'ancrage monte avec le travail de terrain et redescend lentement si on n'y revient pas. Il pèse sur le vote du secteur.
+
+- **Sortir vous-même**, une fois par semaine et par type :
+  - Porte-à-porte : cinq portes. À chaque porte, un indice sur la personne et sur son sujet du moment, pas toujours fiable. Vous choisissez de quoi parler, ou vous écoutez sans chercher à convaincre.
+  - Tractage : six créneaux, trois à choisir, selon l'affluence et le public attendu.
+- **Diriger l'équipe** (à partir de responsable de section) : chaque militant a quatre compétences, une disponibilité, une motivation et une fatigue. Vous lui donnez une mission et un quartier, vous l'envoyez en formation ou au repos, vous nommez un bras droit, vous accueillez ou déclinez les nouveaux. Un militant épuisé ou négligé finit par partir. La taille de l'équipe est plafonnée selon votre rang.
+- **Parler** avec chaque militant, une fois par semaine : prendre des nouvelles, savoir ce qui se dit dans le quartier, demander un effort. Avec un assistant d'écriture branché, vous pouvez aussi lui écrire librement.
+- **Matériel** : tracts et affiches se commandent et arrivent avec un délai. Sans matériel, une mission rend deux fois moins.
+- **Incidents** : affiches arrachées, militant qui dérape, querelle, rumeur, rival qui vous copie. Trois réponses possibles à chaque fois, sans bonne réponse évidente.
+
+## La campagne dans votre secteur
+
+Douze semaines avant un scrutin (sauf les sénatoriales), la campagne s'ouvre dans l'écran Terrain.
+
+- Un élan de campagne, qui retombe chaque semaine.
+- Trois temps forts, chacun dans sa fenêtre : le lancement, la réunion publique, le dernier week-end. Ils demandent de l'argent et des militants en état de venir.
+- Le soir du vote, les douze bureaux du secteur remontent un par un. Vous pouvez annoncer à tout moment que vous êtes en tête ou non. Tôt et juste, on vous écoute. Tôt et faux, la séquence tourne en boucle.
+
+## L'actualité en trois temps
+
+Un événement national ne s'arrête plus à un message.
+
+1. À chaud : la semaine même, une fenêtre de réaction s'ouvre sur Agora.
+2. Le lendemain : la presse reprend, deux partis se positionnent, et on note si votre camp s'est exprimé.
+3. À froid : un mois après, les faits confirment, se retournent ou s'oublient. Une réaction offensive à chaud paie si les faits vous donnent raison et coûte cher s'ils se retournent. Le silence aussi a un prix.
+
+Certains événements ont une suite une ou deux semaines plus tard, qui rouvre le sujet.
+
+## L'assistant d'écriture
+
+Sur Agora, le bouton « Proposer trois versions » rédige trois publications sur le sujet choisi : posée, offensive, proche des gens. Vous en reprenez une et vous la retouchez.
+
+Sans rien brancher, ces textes viennent du jeu. Si vous branchez un serveur de modèle (menu du jeu, voir le dossier `serveur/`), ils sont rédigés sur mesure, et la discussion libre avec vos militants s'ouvre. L'assistant écrit, il ne décide de rien : les effets restent calculés par le jeu. Relisez toujours avant de publier.
+
 ## Agora, le réseau social
 
 Un seul réseau, qui mélange message court, visuel, vidéo et direct. Chaque parti et chaque personnage y a un compte et des abonnés.

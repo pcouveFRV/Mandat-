@@ -1,0 +1,20 @@
+{$DOMAINE} {
+	# Le navigateur demande d'abord la permission (requête OPTIONS).
+	@permission method OPTIONS
+	handle @permission {
+		header Access-Control-Allow-Origin "*"
+		header Access-Control-Allow-Headers "Authorization, Content-Type"
+		header Access-Control-Allow-Methods "POST, OPTIONS"
+		respond 204
+	}
+	# Seules les requêtes qui portent le bon jeton atteignent le modèle.
+	@autorise header Authorization "Bearer {$JETON}"
+	handle @autorise {
+		header Access-Control-Allow-Origin "*"
+		reverse_proxy ollama:11434
+	}
+	handle {
+		header Access-Control-Allow-Origin "*"
+		respond "Jeton manquant ou invalide." 401
+	}
+}
