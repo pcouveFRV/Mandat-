@@ -8,6 +8,7 @@ import { tour } from '../src/engine/tour';
 import { SEMAINE_FIN, annee } from '../src/engine/calendrier';
 import { score } from '../src/engine/victoire';
 declare const process: any;
+// @ts-ignore (module Node, absent des types du navigateur)
 const fs = await import('node:fs');
 const arg = (k: string, d: string) => { const i = process.argv.indexOf('--' + k); return i >= 0 ? process.argv[i + 1] : d; };
 

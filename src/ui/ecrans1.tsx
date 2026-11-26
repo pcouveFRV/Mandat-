@@ -69,7 +69,13 @@ export function FichePerso({ id }: { id: number }) {
         {p.mien && dr.tout && p.rang >= 3 && <button class="petit" onClick={() => agir({ type: 'candidatPres', perso: p.id })}>Désigner candidat à la présidentielle</button>}
         {!p.mien && p.statut === 'actif' && dr.mercato && <div><p class="petit-texte doux">Débauchage : coûte 8 de capital politique. La réussite dépend de sa fidélité réelle, de son ambition, de l'écart doctrinal et de l'état de son parti.</p><div class="ligne">{[['rien', 'Simple approche'], ['poste', 'Offrir un poste'], ['investiture', 'Offrir une investiture'], ['tete_de_liste', 'Offrir une tête de liste']].map(([k, n]) => <button class="petit" onClick={() => agir({ type: 'debaucher', cible: p.id, offre: k })}>{n}</button>)}</div></div>}
         {!p.mien && !dr.mercato && <span class="doux petit-texte">Le mercato est réservé à la direction du parti (secrétaire à l'organisation ou président).</span>}
-        {p.estMoi && <span class="doux">C'est vous.</span>}
+        {p.estMoi && b.mode !== 'carriere' && <span class="doux">C'est le dirigeant de votre parti.</span>}
+        {p.estMoi && b.mode === 'carriere' && <div>
+          <p class="petit-texte doux">Votre estime dans le parti : <b>{b.moi?.estime}</b>. Vos demandes d'investiture se font dans l'écran Campagne.</p>
+          <div class="ligne" style={{ marginBottom: '6px' }}><button class="petit" onClick={() => agir({ type: 'briguer' })}>Briguer la présidence du parti</button><button class="petit" onClick={() => agir({ type: 'critiquer' })}>Critiquer publiquement la direction</button></div>
+          <div class="ligne" style={{ marginBottom: '6px' }}><select id="rej-sel">{b.partis.filter((x: any) => x.actif && x.idx !== b.parti).map((x: any) => <option value={x.idx}>{x.sigle}</option>)}</select><button class="petit" onClick={() => { if (confirm('Changer de parti ? Votre estime repartira de presque zéro.')) agir({ type: 'rejoindre', parti: +(document.getElementById('rej-sel') as HTMLSelectElement).value }); }}>Rejoindre ce parti</button><button class="petit danger" onClick={() => { if (confirm('Quitter votre parti ? Sans parti ni mandat pendant trente semaines, la carrière s\'arrête.')) agir({ type: 'quitterParti' }); }}>Quitter le parti</button></div>
+          <div class="ligne"><input type="text" id="fonder-nom" placeholder="Nom du nouveau parti" /><button class="petit" onClick={() => agir({ type: 'fonderParti', nom: (document.getElementById('fonder-nom') as HTMLInputElement).value })}>Fonder un parti</button></div>
+        </div>}
       </Bloc>
     </div>
   </div>;
