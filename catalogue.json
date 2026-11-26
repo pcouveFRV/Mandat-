@@ -1,0 +1,789 @@
+{
+ "date": "2026-11-26T20:18:05.668Z",
+ "jeux": [
+  {
+   "id": "repertoire-national-des-elus-1",
+   "nom": "elus",
+   "titre": "Répertoire national des élus",
+   "maj": "2026-11-20T10:52:15.875000+00:00",
+   "licence": "lov2",
+   "fichiers": [
+    {
+     "titre": "elus-conseillers-darrondissements-ca.csv",
+     "fichier": "elus/elus-conseillers-darrondissements-ca.csv",
+     "url": "https://static.data.gouv.fr/resources/repertoire-national-des-elus-1/20261120-103617/elus-conseiller-darrondissement-ca.csv",
+     "taille": 153450,
+     "maj": "2026-11-20T10:36:18.444000+00:00"
+    },
+    {
+     "titre": "elus-conseillers-municipaux-cm.csv",
+     "fichier": "elus/elus-conseillers-municipaux-cm.csv",
+     "url": "https://static.data.gouv.fr/resources/repertoire-national-des-elus-1/20261120-105204/elus-conseiller-municipal-cm.csv",
+     "taille": 65177762,
+     "maj": "2026-11-20T10:52:15.875000+00:00"
+    },
+    {
+     "titre": "elus-conseillers-communautaires-epci.csv",
+     "fichier": "elus/elus-conseillers-communautaires-epci.csv",
+     "url": "https://static.data.gouv.fr/resources/repertoire-national-des-elus-1/20261120-104541/elus-conseiller-communautaire-epci.csv",
+     "taille": 10284927,
+     "maj": "2026-11-20T10:45:42.405000+00:00"
+    },
+    {
+     "titre": "elus-conseillers-departementaux-cd.csv",
+     "fichier": "elus/elus-conseillers-departementaux-cd.csv",
+     "url": "https://static.data.gouv.fr/resources/repertoire-national-des-elus-1/20261120-104558/elus-conseiller-departemental-cd.csv",
+     "taille": 536491,
+     "maj": "2026-11-20T10:46:00.294000+00:00"
+    },
+    {
+     "titre": "elus-conseillers-regionaux-cr.csv",
+     "fichier": "elus/elus-conseillers-regionaux-cr.csv",
+     "url": "https://static.data.gouv.fr/resources/repertoire-national-des-elus-1/20261120-104618/elus-conseiller-regional-cr.csv",
+     "taille": 220053,
+     "maj": "2026-11-20T10:46:19.539000+00:00"
+    },
+    {
+     "titre": "elus-membres-assemblee-ma.csv",
+     "fichier": "elus/elus-membres-assemblee-ma.csv",
+     "url": "https://static.data.gouv.fr/resources/repertoire-national-des-elus-1/20261120-104635/elus-membre-dune-assemblee-ma.csv",
+     "taille": 86155,
+     "maj": "2026-11-20T10:46:36.477000+00:00"
+    },
+    {
+     "titre": "elus-representants-Parlement-européen-rpe.csv",
+     "fichier": "elus/elus-representants-Parlement-europeen-rpe.csv",
+     "url": "https://static.data.gouv.fr/resources/repertoire-national-des-elus-1/20261120-104651/elus-representant-parlement-europeen-rpe.csv",
+     "taille": 6574,
+     "maj": "2026-11-20T10:46:51.837000+00:00"
+    },
+    {
+     "titre": "elus-senateurs-sen.csv",
+     "fichier": "elus/elus-senateurs-sen.csv",
+     "url": "https://static.data.gouv.fr/resources/repertoire-national-des-elus-1/20261120-104706/elus-senateur-sen.csv",
+     "taille": 34033,
+     "maj": "2026-11-20T10:47:07.389000+00:00"
+    },
+    {
+     "titre": "elus-deputes-dep.csv",
+     "fichier": "elus/elus-deputes-dep.csv",
+     "url": "https://static.data.gouv.fr/resources/repertoire-national-des-elus-1/20261120-104722/elus-depute-dep.csv",
+     "taille": 72949,
+     "maj": "2026-11-20T10:47:23.060000+00:00"
+    },
+    {
+     "titre": "elus-maires-mai.csv",
+     "fichier": "elus/elus-maires-mai.csv",
+     "url": "https://static.data.gouv.fr/resources/repertoire-national-des-elus-1/20261120-104746/elus-maire-mai.csv",
+     "taille": 4260523,
+     "maj": "2026-11-20T10:47:47.603000+00:00"
+    },
+    {
+     "titre": "elus-conseillers-des-francais-de-letranger-consfde.csv",
+     "fichier": "elus/elus-conseillers-des-francais-de-letranger-consfde.csv",
+     "url": "https://static.data.gouv.fr/resources/repertoire-national-des-elus-1/20260505-152134/elus-conseillers-des-francais-de-letranger-cons.csv",
+     "taille": 80448,
+     "maj": "2026-05-05T15:21:35.193000+00:00"
+    },
+    {
+     "titre": "elus-assemblee-des-francais-de-letranger-afe.csv",
+     "fichier": "elus/elus-assemblee-des-francais-de-letranger-afe.csv",
+     "url": "https://static.data.gouv.fr/resources/repertoire-national-des-elus-1/20260505-152148/elus-assemblee-des-francais-de-letranger-afe.csv",
+     "taille": 10897,
+     "maj": "2026-05-05T15:21:48.787000+00:00"
+    }
+   ]
+  },
+  {
+   "id": "elections-municipales-2026-resultats-du-premier-tour",
+   "nom": "municipales-2026-t1",
+   "titre": "Elections municipales 2026 - Résultats du premier tour",
+   "maj": "2026-03-20T16:44:50.510000+00:00",
+   "licence": "lov2",
+   "fichiers": [
+    {
+     "titre": "Municipales Polynésie française 2026 - Candidats Elus - Tour 1_2026-03-20.csv",
+     "fichier": "municipales-2026-t1/Municipales-Polynesie-francaise-2026---Candidats-Elus---Tour-1_2026-03-20.csv",
+     "url": "https://static.data.gouv.fr/resources/elections-municipales-2026-resultats-du-premier-tour/20260320-163956/municipales-polynesie-francaise-2026-candidats-elus-tour-1-2026-03-20.csv",
+     "taille": 51110,
+     "maj": "2026-03-20T16:39:56.840000+00:00"
+    },
+    {
+     "titre": "Conseils d'arrondissement Paris Lyon Marseille 2026 - Candidats Elus - Tour 1_2026-03-16.csv",
+     "fichier": "municipales-2026-t1/Conseils-d-arrondissement-Paris-Lyon-Marseille-2026---Candidats-Elus---Tour-1_2026-03-16.c",
+     "url": "https://static.data.gouv.fr/resources/elections-municipales-2026-resultats-du-premier-tour/20260316-162449/conseils-darrondissement-paris-lyon-marseille-2026-candidats-elus-tour-1-2026-03-16.csv",
+     "taille": 12167,
+     "maj": "2026-03-16T16:24:50.063000+00:00"
+    },
+    {
+     "titre": "Municipales 2026 - Candidats Elus - Tour 1_2026-03-20.csv",
+     "fichier": "municipales-2026-t1/Municipales-2026---Candidats-Elus---Tour-1_2026-03-20.csv",
+     "url": "https://static.data.gouv.fr/resources/elections-municipales-2026-resultats-du-premier-tour/20260320-164100/municipales-2026-candidats-elus-france-entiere-tour-1-2026-03-20.csv",
+     "taille": 34750623,
+     "maj": "2026-03-20T16:41:04.333000+00:00"
+    },
+    {
+     "titre": "Municipales 2026 - Résultats - BV par communes_2026-03-20.csv",
+     "fichier": "municipales-2026-t1/Municipales-2026---Resultats---BV-par-communes_2026-03-20.csv",
+     "url": "https://static.data.gouv.fr/resources/elections-municipales-2026-resultats-du-premier-tour/20260320-164249/municipales-2026-resultats-bv-par-communes-2026-03-20.csv",
+     "taille": 37681608,
+     "maj": "2026-03-20T16:42:54.097000+00:00"
+    },
+    {
+     "titre": "Municipales 2026 - Résultats - Communes_2026-03-20.csv",
+     "fichier": "municipales-2026-t1/Municipales-2026---Resultats---Communes_2026-03-20.csv",
+     "url": "https://static.data.gouv.fr/resources/elections-municipales-2026-resultats-du-premier-tour/20260320-164339/municipales-2026-resultats-communes-2026-03-20.csv",
+     "taille": 14423228,
+     "maj": "2026-03-20T16:43:41.116000+00:00"
+    },
+    {
+     "titre": "Conseils d'arrondissement Paris Lyon Marseille 2026 - Résultats - Secteurs_2026-03-16.csv",
+     "fichier": "municipales-2026-t1/Conseils-d-arrondissement-Paris-Lyon-Marseille-2026---Resultats---Secteurs_2026-03-16.csv",
+     "url": "https://static.data.gouv.fr/resources/elections-municipales-2026-resultats-du-premier-tour/20260316-160627/conseils-darrondissement-paris-lyon-marseille-2026-resultats-secteurs-2026-03-16.csv",
+     "taille": 33772,
+     "maj": "2026-03-16T16:06:28.926000+00:00"
+    },
+    {
+     "titre": "Conseils d'arrondissement Paris Lyon Marseille 2026 - Résultats - BV par secteurs_2026-03-16.csv",
+     "fichier": "municipales-2026-t1/Conseils-d-arrondissement-Paris-Lyon-Marseille-2026---Resultats---BV-par-secteurs_2026-03-.csv",
+     "url": "https://static.data.gouv.fr/resources/elections-municipales-2026-resultats-du-premier-tour/20260316-160625/conseils-darrondissement-paris-lyon-marseille-2026-resultats-bv-par-secteurs-2026-03-16.csv",
+     "taille": 1548370,
+     "maj": "2026-03-16T16:06:26.344000+00:00"
+    },
+    {
+     "titre": "Municipales Polynésie française 2026 - Résultats - Communes_2026-03-20.csv",
+     "fichier": "municipales-2026-t1/Municipales-Polynesie-francaise-2026---Resultats---Communes_2026-03-20.csv",
+     "url": "https://static.data.gouv.fr/resources/elections-municipales-2026-resultats-du-premier-tour/20260320-164407/municipales-polynesie-francaise-2026-resultats-communes-2026-03-20.csv",
+     "taille": 9259,
+     "maj": "2026-03-20T16:44:07.579000+00:00"
+    },
+    {
+     "titre": "Municipales Polynésie française 2026 - Résultats - BV par communes_2026-03-20.csv",
+     "fichier": "municipales-2026-t1/Municipales-Polynesie-francaise-2026---Resultats---BV-par-communes_2026-03-20.csv",
+     "url": "https://static.data.gouv.fr/resources/elections-municipales-2026-resultats-du-premier-tour/20260320-164422/municipales-polynesie-francaise-2026-resultats-bv-par-communes-2026-03-20.csv",
+     "taille": 287713,
+     "maj": "2026-03-20T16:44:22.922000+00:00"
+    }
+   ]
+  },
+  {
+   "id": "elections-municipales-2026-resultats-du-second-tour",
+   "nom": "municipales-2026-t2",
+   "titre": "Elections municipales 2026 - Résultats du second tour ",
+   "maj": "2026-03-23T18:02:03.191000+00:00",
+   "licence": "lov2",
+   "fichiers": [
+    {
+     "titre": "Conseils d&#39;arrondissement Paris Lyon Marseille 2026 - Résultats - Secteurs BV 2026-03-23_16h23.csv",
+     "fichier": "municipales-2026-t2/Conseils-d-39-arrondissement-Paris-Lyon-Marseille-2026---Resultats---Secteurs-BV-2026-03-2.csv",
+     "url": "https://static.data.gouv.fr/resources/elections-municipales-2026-resultats-du-scond-tour/20260323-180134/conseils-d-39-arrondissement-paris-lyon-marseille-2026-resultats-secteurs-bv-2026-03-23-16h23.csv",
+     "taille": 951973,
+     "maj": "2026-03-23T18:01:35.362000+00:00"
+    },
+    {
+     "titre": "Municipales Polynésie française 2026 - Résultats - Communes et BV_2026-03-23_16h24.csv",
+     "fichier": "municipales-2026-t2/Municipales-Polynesie-francaise-2026---Resultats---Communes-et-BV_2026-03-23_16h24.csv",
+     "url": "https://static.data.gouv.fr/resources/elections-municipales-2026-resultats-du-scond-tour/20260323-180134/municipales-polynesie-francaise-2026-resultats-communes-et-bv-2026-03-23-16h24.csv",
+     "taille": 218548,
+     "maj": "2026-03-23T18:01:34.784000+00:00"
+    },
+    {
+     "titre": "Municipales Polynésie française 2026 - Résultats - Communes_2026-03-23.csv",
+     "fichier": "municipales-2026-t2/Municipales-Polynesie-francaise-2026---Resultats---Communes_2026-03-23.csv",
+     "url": "https://static.data.gouv.fr/resources/elections-municipales-2026-resultats-du-scond-tour/20260323-180134/municipales-polynesie-francaise-2026-resultats-communes-2026-03-23.csv",
+     "taille": 4136,
+     "maj": "2026-03-23T18:01:35.152000+00:00"
+    },
+    {
+     "titre": "Municipales 2026 - Résultats - Bureau de vote_2026-03-23_16h15.csv",
+     "fichier": "municipales-2026-t2/Municipales-2026---Resultats---Bureau-de-vote_2026-03-23_16h15.csv",
+     "url": "https://static.data.gouv.fr/resources/elections-municipales-2026-resultats-du-scond-tour/20260323-180132/municipales-2026-resultats-bureau-de-vote-2026-03-23-16h15.csv",
+     "taille": 10425980,
+     "maj": "2026-03-23T18:01:33.956000+00:00"
+    },
+    {
+     "titre": "Municipales 2026 - Résultats - Communes_2026-03-23_16h14.csv",
+     "fichier": "municipales-2026-t2/Municipales-2026---Resultats---Communes_2026-03-23_16h14.csv",
+     "url": "https://static.data.gouv.fr/resources/elections-municipales-2026-resultats-du-scond-tour/20260323-180124/municipales-2026-resultats-communes-2026-03-23-16h14.csv",
+     "taille": 893849,
+     "maj": "2026-03-23T18:01:25.047000+00:00"
+    },
+    {
+     "titre": "Conseils d&#39;arrondissement Paris Lyon Marseille 2026 - Résultats - Secteurs_2026-03-23_16h22.csv",
+     "fichier": "municipales-2026-t2/Conseils-d-39-arrondissement-Paris-Lyon-Marseille-2026---Resultats---Secteurs_2026-03-23_1.csv",
+     "url": "https://static.data.gouv.fr/resources/elections-municipales-2026-resultats-du-scond-tour/20260323-180123/conseils-d-39-arrondissement-paris-lyon-marseille-2026-resultats-secteurs-2026-03-23-16h22.csv",
+     "taille": 19878,
+     "maj": "2026-03-23T18:01:23.963000+00:00"
+    },
+    {
+     "titre": "Municipales 2026 - Candidats Elus - France entière - Tour 2_2026-03-23.csv",
+     "fichier": "municipales-2026-t2/Municipales-2026---Candidats-Elus---France-entiere---Tour-2_2026-03-23.csv",
+     "url": "https://static.data.gouv.fr/resources/elections-municipales-2026-resultats-du-scond-tour/20260323-180122/municipales-2026-candidats-elus-france-entiere-tour-2-2026-03-23.csv",
+     "taille": 3343593,
+     "maj": "2026-03-23T18:01:23.302000+00:00"
+    },
+    {
+     "titre": "Conseils d'arrondissement Paris Lyon Marseille 2026 - Candidats Elus - France entière - Tour 2_2026-03-23.csv",
+     "fichier": "municipales-2026-t2/Conseils-d-arrondissement-Paris-Lyon-Marseille-2026---Candidats-Elus---France-entiere---To.csv",
+     "url": "https://static.data.gouv.fr/resources/elections-municipales-2026-resultats-du-scond-tour/20260323-180119/conseils-darrondissement-paris-lyon-marseille-2026-candidats-elus-france-entiere-tour-2-2026-03-23.csv",
+     "taille": 86587,
+     "maj": "2026-03-23T18:01:20.273000+00:00"
+    },
+    {
+     "titre": "Municipales Polynésie française 2026 - Candidats Elus - France entière - Tour 2_2026-03-23.csv",
+     "fichier": "municipales-2026-t2/Municipales-Polynesie-francaise-2026---Candidats-Elus---France-entiere---Tour-2_2026-03-23.csv",
+     "url": "https://static.data.gouv.fr/resources/elections-municipales-2026-resultats-du-scond-tour/20260323-180119/municipales-polynesie-francaise-2026-candidats-elus-france-entiere-tour-2-2026-03-23-15h48vmn.csv",
+     "taille": 29427,
+     "maj": "2026-03-23T18:01:20.051000+00:00"
+    }
+   ]
+  },
+  {
+   "id": "donnees-des-elections-agregees",
+   "nom": "elections-agregees",
+   "pourquoi": "Toutes les élections depuis 1999 par bureau de vote. Base des départs en 2010, 2014, 2017 et 2022.",
+   "max": 20000,
+   "lourd": true,
+   "ignore": true
+  }
+ ],
+ "recherches": [
+  {
+   "q": "insee dossier complet communes",
+   "resultats": []
+  },
+  {
+   "q": "insee revenus localisés filosofi communes",
+   "resultats": []
+  },
+  {
+   "q": "insee recensement population catégories socioprofessionnelles communes",
+   "resultats": []
+  },
+  {
+   "q": "élections départementales 2021 résultats",
+   "resultats": [
+    {
+     "id": "resultats-des-elections-departementales-2021-2eme-tour",
+     "titre": "Résultats des élections départementales 2021 - 2eme tour",
+     "organisation": "Rennes Métropole en accès libre",
+     "maj": "2021-06-27T22:13:05+00:00",
+     "fichiers": [
+      {
+       "titre": "resultats-des-elections-departementales-2021-2eme-tour.csv",
+       "format": "csv",
+       "taille": null,
+       "url": "https://data.rennesmetropole.fr/api/explore/v2.1/catalog/datasets/resultats-des-elections-departementales-2021-2eme-tour/exports/csv?use_labels=true"
+      },
+      {
+       "titre": "resultats-des-elections-departementales-2021-2eme-tour.json",
+       "format": "json",
+       "taille": null,
+       "url": "https://data.rennesmetropole.fr/api/explore/v2.1/catalog/datasets/resultats-des-elections-departementales-2021-2eme-tour/exports/json"
+      },
+      {
+       "titre": "resultats-des-elections-departementales-2021-2eme-tour.geojson",
+       "format": "json",
+       "taille": null,
+       "url": "https://data.rennesmetropole.fr/api/explore/v2.1/catalog/datasets/resultats-des-elections-departementales-2021-2eme-tour/exports/geojson"
+      },
+      {
+       "titre": "resultats-des-elections-departementales-2021-2eme-tour.zip",
+       "format": "zip",
+       "taille": null,
+       "url": "https://data.rennesmetropole.fr/api/explore/v2.1/catalog/datasets/resultats-des-elections-departementales-2021-2eme-tour/exports/shp"
+      }
+     ]
+    },
+    {
+     "id": "resultats-des-elections-departementales-2021-canton-soissons-2",
+     "titre": "Résultats des élections départementales 2021 Canton Soissons 2",
+     "organisation": "Ville de Soissons",
+     "maj": "2025-06-30T09:41:08.932000+00:00",
+     "fichiers": [
+      {
+       "titre": "resultats-des-elections-departementales-2021-canton-soissons-2.csv",
+       "format": "csv",
+       "taille": 11897,
+       "url": "https://static.data.gouv.fr/resources/resultats-des-elections-departementales-2021-canton-soissons-2/20250627-064945/resultats-des-elections-departementales-2021-canton-soissons-2.csv"
+      }
+     ]
+    },
+    {
+     "id": "resultats-des-elections-departementales-2021-canton-soissons-1",
+     "titre": "Résultats des élections départementales 2021 Canton Soissons 1",
+     "organisation": "Ville de Soissons",
+     "maj": "2025-06-27T06:50:42.919000+00:00",
+     "fichiers": [
+      {
+       "titre": "resultats-des-elections-departementales-2021-a-soissons.csv",
+       "format": "csv",
+       "taille": 11873,
+       "url": "https://static.data.gouv.fr/resources/resultats-des-elections-departementales-2021-canton-soissons-1/20250625-073307/resultats-des-elections-departementales-2021-a-soissons.csv"
+      }
+     ]
+    },
+    {
+     "id": "resultats-du-2eme-tour-des-elections-departementales-2021-tours",
+     "titre": "Résultats du 2ème tour des élections Départementales 2021 - Tours",
+     "organisation": "Ville de Tours",
+     "maj": "2026-11-17T14:51:30.541000+00:00",
+     "fichiers": [
+      {
+       "titre": "resultats-du-2-eme-tour-des-elections-departementales-2021-ville-de-tours.csv",
+       "format": "csv",
+       "taille": null,
+       "url": "https://data.tours-metropole.fr/api/explore/v2.1/catalog/datasets/resultats-du-2-eme-tour-des-elections-departementales-2021-ville-de-tours/exports/csv?use_labels=true"
+      },
+      {
+       "titre": "resultats-du-2-eme-tour-des-elections-departementales-2021-ville-de-tours.json",
+       "format": "json",
+       "taille": null,
+       "url": "https://data.tours-metropole.fr/api/explore/v2.1/catalog/datasets/resultats-du-2-eme-tour-des-elections-departementales-2021-ville-de-tours/exports/json"
+      },
+      {
+       "titre": "resultats-du-2-eme-tour-des-elections-departementales-2021-ville-de-tours.geojson",
+       "format": "json",
+       "taille": null,
+       "url": "https://data.tours-metropole.fr/api/explore/v2.1/catalog/datasets/resultats-du-2-eme-tour-des-elections-departementales-2021-ville-de-tours/exports/geojson"
+      },
+      {
+       "titre": "resultats-du-2-eme-tour-des-elections-departementales-2021-ville-de-tours.zip",
+       "format": "zip",
+       "taille": null,
+       "url": "https://data.tours-metropole.fr/api/explore/v2.1/catalog/datasets/resultats-du-2-eme-tour-des-elections-departementales-2021-ville-de-tours/exports/shp"
+      }
+     ]
+    },
+    {
+     "id": "resultats-du-1er-tour-des-elections-departementales-2021-tours",
+     "titre": "Résultats du 1er tour des élections Départementales 2021 - Tours",
+     "organisation": "Ville de Tours",
+     "maj": "2026-11-17T14:51:27.524000+00:00",
+     "fichiers": [
+      {
+       "titre": "resultats-des-elections-elections-departementales-2021-1er-tour-ville-de-tours.csv",
+       "format": "csv",
+       "taille": null,
+       "url": "https://data.tours-metropole.fr/api/explore/v2.1/catalog/datasets/resultats-des-elections-elections-departementales-2021-1er-tour-ville-de-tours/exports/csv?use_labels=true"
+      },
+      {
+       "titre": "resultats-des-elections-elections-departementales-2021-1er-tour-ville-de-tours.json",
+       "format": "json",
+       "taille": null,
+       "url": "https://data.tours-metropole.fr/api/explore/v2.1/catalog/datasets/resultats-des-elections-elections-departementales-2021-1er-tour-ville-de-tours/exports/json"
+      },
+      {
+       "titre": "resultats-des-elections-elections-departementales-2021-1er-tour-ville-de-tours.geojson",
+       "format": "json",
+       "taille": null,
+       "url": "https://data.tours-metropole.fr/api/explore/v2.1/catalog/datasets/resultats-des-elections-elections-departementales-2021-1er-tour-ville-de-tours/exports/geojson"
+      },
+      {
+       "titre": "resultats-des-elections-elections-departementales-2021-1er-tour-ville-de-tours.zip",
+       "format": "zip",
+       "taille": null,
+       "url": "https://data.tours-metropole.fr/api/explore/v2.1/catalog/datasets/resultats-des-elections-elections-departementales-2021-1er-tour-ville-de-tours/exports/shp"
+      }
+     ]
+    },
+    {
+     "id": "resultats-des-elections-departementales-2021-de-lille-hellemmes-et-lomme",
+     "titre": "Résultats des élections départementales 2021 de Lille, Hellemmes et Lomme",
+     "organisation": "Mairie de Lille",
+     "maj": "2021-04-13T13:14:01+00:00",
+     "fichiers": [
+      {
+       "titre": "resultats-des-elections-departementales-2021-de-lille-hellemmes-et-lomme.csv",
+       "format": "csv",
+       "taille": null,
+       "url": "https://opendata.lillemetropole.fr/api/explore/v2.1/catalog/datasets/resultats-des-elections-departementales-2021-de-lille-hellemmes-et-lomme/exports/csv"
+      },
+      {
+       "titre": "resultats-des-elections-departementales-2021-de-lille-hellemmes-et-lomme.json",
+       "format": "json",
+       "taille": null,
+       "url": "https://opendata.lillemetropole.fr/api/explore/v2.1/catalog/datasets/resultats-des-elections-departementales-2021-de-lille-hellemmes-et-lomme/exports/json"
+      }
+     ]
+    },
+    {
+     "id": "resultats-du-second-tour-des-elections-departementales-de-2021-au-canton-anglet-a-anglet",
+     "titre": "Résultats du second tour des élections départementales de 2021 au canton Anglet à Anglet",
+     "organisation": "Commune d'Anglet",
+     "maj": "2026-06-17T14:27:24+00:00",
+     "fichiers": [
+      {
+       "titre": "resultats-du-second-tour-des-elections-departementales-de-2021-au-canton-anglet-.csv",
+       "format": "csv",
+       "taille": null,
+       "url": "https://anglet-opendatapaysbasque.opendatasoft.com/api/explore/v2.1/catalog/datasets/resultats-du-second-tour-des-elections-departementales-de-2021-au-canton-anglet-/exports/csv?use_labels=true"
+      },
+      {
+       "titre": "resultats-du-second-tour-des-elections-departementales-de-2021-au-canton-anglet-.json",
+       "format": "json",
+       "taille": null,
+       "url": "https://anglet-opendatapaysbasque.opendatasoft.com/api/explore/v2.1/catalog/datasets/resultats-du-second-tour-des-elections-departementales-de-2021-au-canton-anglet-/exports/json"
+      },
+      {
+       "titre": "resultats-du-second-tour-des-elections-departementales-de-2021-au-canton-anglet-.geojson",
+       "format": "json",
+       "taille": null,
+       "url": "https://anglet-opendatapaysbasque.opendatasoft.com/api/explore/v2.1/catalog/datasets/resultats-du-second-tour-des-elections-departementales-de-2021-au-canton-anglet-/exports/geojson"
+      },
+      {
+       "titre": "resultats-du-second-tour-des-elections-departementales-de-2021-au-canton-anglet-.zip",
+       "format": "zip",
+       "taille": null,
+       "url": "https://anglet-opendatapaysbasque.opendatasoft.com/api/explore/v2.1/catalog/datasets/resultats-du-second-tour-des-elections-departementales-de-2021-au-canton-anglet-/exports/shp"
+      }
+     ]
+    },
+    {
+     "id": "resultats-des-elections-departementales-du-20-juin-2021-a-issy-les-moulineaux-1er-tour",
+     "titre": "Résultats des élections départementales du 20 juin 2021 à Issy-les-Moulineaux (1er tour)",
+     "organisation": "Ville d'Issy-les-Moulineaux",
+     "maj": "2026-11-17T13:48:25.540000+00:00",
+     "fichiers": [
+      {
+       "titre": "resultats-departementales-2021-t1.csv",
+       "format": "csv",
+       "taille": null,
+       "url": "https://data.issy.com/api/explore/v2.1/catalog/datasets/resultats-departementales-2021-t1/exports/csv?use_labels=true"
+      },
+      {
+       "titre": "resultats-departementales-2021-t1.json",
+       "format": "json",
+       "taille": null,
+       "url": "https://data.issy.com/api/explore/v2.1/catalog/datasets/resultats-departementales-2021-t1/exports/json"
+      },
+      {
+       "titre": "resultats-departementales-2021-t1.geojson",
+       "format": "json",
+       "taille": null,
+       "url": "https://data.issy.com/api/explore/v2.1/catalog/datasets/resultats-departementales-2021-t1/exports/geojson"
+      },
+      {
+       "titre": "resultats-departementales-2021-t1.zip",
+       "format": "zip",
+       "taille": null,
+       "url": "https://data.issy.com/api/explore/v2.1/catalog/datasets/resultats-departementales-2021-t1/exports/shp"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "q": "élections régionales 2021 résultats",
+   "resultats": [
+    {
+     "id": "elections-regionales-2021-resultats-par-commune",
+     "titre": "Élections régionales 2021 - Résultats par commune",
+     "organisation": "Région Normandie",
+     "maj": "2022-02-03T10:36:03.338000+00:00",
+     "fichiers": [
+      {
+       "titre": "elections_regionales_resultats_par_commune_0.csv",
+       "format": "csv",
+       "taille": null,
+       "url": "https://www.datanormandie.fr/sites/default/files/dataset/2cc/2cb35-400e-4417-a484-4ca16463d6f9/elections_regionales_resultats_par_commune_0.csv"
+      }
+     ]
+    },
+    {
+     "id": "resultats-des-elections-regionales-2021-1er-tour-1",
+     "titre": "Résultats des élections Régionales 2021 1er Tour",
+     "organisation": "Ville de Soissons",
+     "maj": "2025-06-26T12:08:05.209000+00:00",
+     "fichiers": [
+      {
+       "titre": "resultats-des-elections-regionales-1er-tour.csv",
+       "format": "csv",
+       "taille": 9632,
+       "url": "https://static.data.gouv.fr/resources/resultats-des-elections-regionales-2021-1er-tour-1/20250625-083057/resultats-des-elections-regionales-1er-tour.csv"
+      }
+     ]
+    },
+    {
+     "id": "elections-regionales-2021-resultats-du-1er-tour",
+     "titre": "Élections Régionales 2021 - Résultats du 1er tour",
+     "organisation": "Région Bretagne",
+     "maj": "2021-06-21T07:37:33+00:00",
+     "fichiers": [
+      {
+       "titre": "elections-regionales-2021-resultats-du-1er-tour.csv",
+       "format": "csv",
+       "taille": null,
+       "url": "https://data.bretagne.bzh/api/explore/v2.1/catalog/datasets/elections-regionales-2021-resultats-du-1er-tour/exports/csv?use_labels=true"
+      },
+      {
+       "titre": "elections-regionales-2021-resultats-du-1er-tour.json",
+       "format": "json",
+       "taille": null,
+       "url": "https://data.bretagne.bzh/api/explore/v2.1/catalog/datasets/elections-regionales-2021-resultats-du-1er-tour/exports/json"
+      },
+      {
+       "titre": "Export au format CSV",
+       "format": "csv",
+       "taille": null,
+       "url": "https://breizh.opendatasoft.com/explore/dataset/elections-regionales-2021-resultats-du-1er-tour/download?format=csv&timezone=Europe/Berlin&use_labels_for_header=false"
+      },
+      {
+       "titre": "Export au format JSON",
+       "format": "json",
+       "taille": null,
+       "url": "https://breizh.opendatasoft.com/explore/dataset/elections-regionales-2021-resultats-du-1er-tour/download?format=json&timezone=Europe/Berlin&use_labels_for_header=false"
+      }
+     ]
+    },
+    {
+     "id": "resultats-des-elections-regionales-2021-2eme-tour-1",
+     "titre": "Résultats des élections Régionales 2021 2eme tour",
+     "organisation": "Ville de Soissons",
+     "maj": "2025-06-26T12:08:16.493000+00:00",
+     "fichiers": [
+      {
+       "titre": "resultats-des-elections-regionales-2021-2eme-tour.csv",
+       "format": "csv",
+       "taille": 4012,
+       "url": "https://static.data.gouv.fr/resources/resultats-des-elections-regionales-2021-2eme-tour-1/20250625-082637/resultats-des-elections-regionales-2021-2eme-tour.csv"
+      }
+     ]
+    },
+    {
+     "id": "elections-regionales-2021-1er-tour-resultats-par-commune",
+     "titre": "Élections régionales 2021 - 1er tour, résultats par commune",
+     "organisation": "Région Bretagne",
+     "maj": "2021-08-31T11:53:41+00:00",
+     "fichiers": [
+      {
+       "titre": "elections-tour1.csv",
+       "format": "csv",
+       "taille": null,
+       "url": "https://data.bretagne.bzh/api/explore/v2.1/catalog/datasets/elections-tour1/exports/csv?use_labels=true"
+      },
+      {
+       "titre": "elections-tour1.json",
+       "format": "json",
+       "taille": null,
+       "url": "https://data.bretagne.bzh/api/explore/v2.1/catalog/datasets/elections-tour1/exports/json"
+      },
+      {
+       "titre": "Export au format CSV",
+       "format": "csv",
+       "taille": null,
+       "url": "https://breizh.opendatasoft.com/explore/dataset/elections-tour1/download?format=csv&timezone=Europe/Berlin&use_labels_for_header=false"
+      },
+      {
+       "titre": "Export au format JSON",
+       "format": "json",
+       "taille": null,
+       "url": "https://breizh.opendatasoft.com/explore/dataset/elections-tour1/download?format=json&timezone=Europe/Berlin&use_labels_for_header=false"
+      }
+     ]
+    },
+    {
+     "id": "elections-regionales-2021-2eme-tour-resultats-par-commune",
+     "titre": "Élections régionales 2021 - 2ème tour, résultats par commune",
+     "organisation": "Région Bretagne",
+     "maj": "2021-08-30T14:36:24+00:00",
+     "fichiers": [
+      {
+       "titre": "elections-deuxtour.csv",
+       "format": "csv",
+       "taille": null,
+       "url": "https://data.bretagne.bzh/api/explore/v2.1/catalog/datasets/elections-deuxtour/exports/csv?use_labels=true"
+      },
+      {
+       "titre": "elections-deuxtour.json",
+       "format": "json",
+       "taille": null,
+       "url": "https://data.bretagne.bzh/api/explore/v2.1/catalog/datasets/elections-deuxtour/exports/json"
+      },
+      {
+       "titre": "Export au format CSV",
+       "format": "csv",
+       "taille": null,
+       "url": "https://breizh.opendatasoft.com/explore/dataset/elections-deuxtour/download?format=csv&timezone=Europe/Berlin&use_labels_for_header=false"
+      },
+      {
+       "titre": "Export au format JSON",
+       "format": "json",
+       "taille": null,
+       "url": "https://breizh.opendatasoft.com/explore/dataset/elections-deuxtour/download?format=json&timezone=Europe/Berlin&use_labels_for_header=false"
+      }
+     ]
+    },
+    {
+     "id": "resultats-du-premier-tour-des-elections-regionales-2021",
+     "titre": "Résultats du premier tour des élections régionales 2021",
+     "maj": "2021-06-22T18:14:01.452000+00:00",
+     "fichiers": [
+      {
+       "titre": "elections-regionales-2021-T1-resultats-par-commune.csv",
+       "format": "csv",
+       "taille": 85850519,
+       "url": "https://static.data.gouv.fr/resources/resultats-du-premier-tour-elections-regionales-2021-par-commune/20210622-172113/resultats-par-commune-correctif.csv"
+      },
+      {
+       "titre": "elections-regionales-2021-T1-resultats-par-region.csv",
+       "format": "csv",
+       "taille": 42270,
+       "url": "https://static.data.gouv.fr/resources/resultats-du-premier-tour-elections-regionales-2021-par-commune/20210622-181153/reg-resultats-par-region-1-.csv"
+      }
+     ]
+    },
+    {
+     "id": "resultats-du-2eme-tour-des-elections-regionales-2021-tours",
+     "titre": "Résultats du 2ème tour des élections Régionales 2021 - Tours",
+     "organisation": "Ville de Tours",
+     "maj": "2026-11-17T11:03:47.359000+00:00",
+     "fichiers": [
+      {
+       "titre": "resultats-du-2eme-tour-des-elections-regionales-2021-ville-de-tours.csv",
+       "format": "csv",
+       "taille": null,
+       "url": "https://data.tours-metropole.fr/api/explore/v2.1/catalog/datasets/resultats-du-2eme-tour-des-elections-regionales-2021-ville-de-tours/exports/csv?use_labels=true"
+      },
+      {
+       "titre": "resultats-du-2eme-tour-des-elections-regionales-2021-ville-de-tours.json",
+       "format": "json",
+       "taille": null,
+       "url": "https://data.tours-metropole.fr/api/explore/v2.1/catalog/datasets/resultats-du-2eme-tour-des-elections-regionales-2021-ville-de-tours/exports/json"
+      },
+      {
+       "titre": "resultats-du-2eme-tour-des-elections-regionales-2021-ville-de-tours.geojson",
+       "format": "json",
+       "taille": null,
+       "url": "https://data.tours-metropole.fr/api/explore/v2.1/catalog/datasets/resultats-du-2eme-tour-des-elections-regionales-2021-ville-de-tours/exports/geojson"
+      },
+      {
+       "titre": "resultats-du-2eme-tour-des-elections-regionales-2021-ville-de-tours.zip",
+       "format": "zip",
+       "taille": null,
+       "url": "https://data.tours-metropole.fr/api/explore/v2.1/catalog/datasets/resultats-du-2eme-tour-des-elections-regionales-2021-ville-de-tours/exports/shp"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "q": "élections sénatoriales résultats",
+   "resultats": [
+    {
+     "id": "resultats-des-elections-senatoriales-partielles-du-6-septembre-2015-cantal-gers",
+     "titre": "Résultats des élections sénatoriales partielles du 6 septembre 2015 (Cantal, Gers)",
+     "organisation": "Ministère de l'intérieur",
+     "maj": "2015-11-11T07:35:35.879000+00:00",
+     "fichiers": [
+      {
+       "titre": "Résultats des élections sénatoriales partielles du 6 septembre 2015 (Cantal, Gers)",
+       "format": "xlsx",
+       "taille": 23016,
+       "url": "https://static.data.gouv.fr/resources/resultats-des-elections-senatoriales-partielles-du-6-septembre-2015-cantal-gers/20150908-114758/senatoriales_partielles_6_sept_2015.xlsx"
+      }
+     ]
+    },
+    {
+     "id": "elections-senatoriales-2008-resultats-572107",
+     "titre": "Elections sénatoriales 2008 – Résultats",
+     "organisation": "Ministère de l'intérieur",
+     "maj": "2015-09-11T23:38:47.520000+00:00",
+     "fichiers": [
+      {
+       "titre": "",
+       "format": "xls",
+       "taille": null,
+       "url": "https://static.data.gouv.fr/fa/bef0cfbf8c2b73b973a69ede89c024ac31134655422a57767e11ad5d7889ab.xls"
+      }
+     ]
+    },
+    {
+     "id": "elections-senatoriales-2001-resultats-572098",
+     "titre": "Elections sénatoriales 2001 – Résultats",
+     "organisation": "Ministère de l'intérieur",
+     "maj": "2015-09-11T23:38:11.013000+00:00",
+     "fichiers": [
+      {
+       "titre": "",
+       "format": "xls",
+       "taille": null,
+       "url": "https://static.data.gouv.fr/47/a29bd3dafe3ce3dd2fe8767e1a41085affa6b24d0059a3089d4881ced64892.xls"
+      }
+     ]
+    },
+    {
+     "id": "elections-senatoriales-2011-resultats-572109",
+     "titre": "Elections sénatoriales 2011 – Résultats",
+     "organisation": "Ministère de l'intérieur",
+     "maj": "2015-09-11T23:37:37.420000+00:00",
+     "fichiers": [
+      {
+       "titre": "",
+       "format": "xls",
+       "taille": null,
+       "url": "https://static.data.gouv.fr/6a/11effa497299567a95fc6b4da265ae95dbfbba45b048562eb7b727674f2957.xls"
+      }
+     ]
+    },
+    {
+     "id": "elections-senatoriales-1992-resultats-572092",
+     "titre": "Elections sénatoriales 1992 – Résultats",
+     "organisation": "Ministère de l'intérieur",
+     "maj": "2015-07-10T08:36:44.582000+00:00",
+     "fichiers": [
+      {
+       "titre": "",
+       "format": "xls",
+       "taille": null,
+       "url": "https://static.data.gouv.fr/12/b5c4a60f1fcddaefb3de0880e1a1e231d5a2928e63e1203036572ba332fa95.xls"
+      }
+     ]
+    },
+    {
+     "id": "elections-senatoriales-2014-resultats",
+     "titre": "Elections sénatoriales 2014 - Résultats",
+     "organisation": "Ministère de l'intérieur",
+     "maj": "2015-10-12T09:31:59.976000+00:00",
+     "fichiers": [
+      {
+       "titre": "Elections sénatoriales 2014 - Résultats",
+       "format": "xlsx",
+       "taille": null,
+       "url": "https://static.data.gouv.fr/resources/Senatoriales_2014.xlsx"
+      }
+     ]
+    },
+    {
+     "id": "elections-senatoriales-2023-resultats",
+     "titre": "Elections sénatoriales 2023 - Résultats",
+     "organisation": "Ministère de l'intérieur",
+     "maj": "2023-09-28T10:49:38.762000+00:00",
+     "fichiers": [
+      {
+       "titre": "Elections sénatoriales 2023 - Résultats",
+       "format": "xlsx",
+       "taille": 64832,
+       "url": "https://static.data.gouv.fr/resources/elections-senatoriales-2023-resultats/20230928-104908/senatoriales-2023-resultats-publication.xlsx"
+      }
+     ]
+    },
+    {
+     "id": "elections-senatoriales-1995-resultats-572094",
+     "titre": "Elections sénatoriales 1995 – Résultats",
+     "organisation": "Ministère de l'intérieur",
+     "maj": "2016-02-22T08:33:53.444000+00:00",
+     "fichiers": [
+      {
+       "titre": "",
+       "format": "xls",
+       "taille": null,
+       "url": "https://static.data.gouv.fr/90/655c00be65605db73f3fc1b0be16c6b863e5d1c9c3c2b41e549507473e0162.xls"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "erreurs": []
+}
