@@ -1,0 +1,795 @@
+{
+ "_doc": "axes : position idéale du groupe sur chaque axe de doctrine. priorites : poids de chaque thème (ordre de doctrine.json). abstention : part de base qui ne vote pas à une législative. volatilite : sensibilité à l'actualité et aux campagnes. Substitution : profils construits à partir des grandes enquêtes d'opinion connues, pas de données INSEE.",
+ "segments": [
+  {
+   "id": "etudiants",
+   "nom": "Étudiants",
+   "axes": [
+    -2,
+    -3,
+    3,
+    -2,
+    4,
+    4,
+    3,
+    3,
+    1,
+    1
+   ],
+   "priorites": [
+    3,
+    1,
+    1,
+    2,
+    4,
+    3,
+    5,
+    0,
+    4,
+    2,
+    2,
+    1,
+    0,
+    2,
+    0
+   ],
+   "abstention": 0.55,
+   "volatilite": 0.5,
+   "etiquettes": [
+    "jeunes",
+    "diplomes",
+    "urbain"
+   ]
+  },
+  {
+   "id": "jeunes_precaires",
+   "nom": "Jeunes précaires 18-34",
+   "axes": [
+    -3,
+    -1,
+    -1,
+    -1,
+    2,
+    3,
+    3,
+    4,
+    -1,
+    0
+   ],
+   "priorites": [
+    5,
+    2,
+    2,
+    2,
+    1,
+    5,
+    2,
+    0,
+    4,
+    2,
+    0,
+    1,
+    0,
+    2,
+    0
+   ],
+   "abstention": 0.65,
+   "volatilite": 0.6,
+   "etiquettes": [
+    "jeunes",
+    "precaires",
+    "populaire"
+   ]
+  },
+  {
+   "id": "jeunes_cadres",
+   "nom": "Jeunes cadres 25-34",
+   "axes": [
+    1,
+    -2,
+    4,
+    0,
+    3,
+    4,
+    1,
+    1,
+    3,
+    1
+   ],
+   "priorites": [
+    3,
+    1,
+    1,
+    2,
+    2,
+    3,
+    4,
+    1,
+    4,
+    1,
+    3,
+    0,
+    1,
+    3,
+    0
+   ],
+   "abstention": 0.4,
+   "volatilite": 0.5,
+   "etiquettes": [
+    "jeunes",
+    "diplomes",
+    "aise",
+    "urbain"
+   ]
+  },
+  {
+   "id": "ouvriers_actifs",
+   "nom": "Ouvriers 25-49",
+   "axes": [
+    -2,
+    3,
+    -3,
+    3,
+    -2,
+    -1,
+    3,
+    3,
+    -3,
+    0
+   ],
+   "priorites": [
+    5,
+    3,
+    4,
+    2,
+    1,
+    4,
+    0,
+    2,
+    2,
+    2,
+    0,
+    2,
+    0,
+    2,
+    0
+   ],
+   "abstention": 0.5,
+   "volatilite": 0.45,
+   "etiquettes": [
+    "actifs",
+    "populaire"
+   ]
+  },
+  {
+   "id": "ouvriers_seniors",
+   "nom": "Ouvriers 50-64",
+   "axes": [
+    -2,
+    3,
+    -3,
+    4,
+    -2,
+    -2,
+    2,
+    4,
+    -3,
+    0
+   ],
+   "priorites": [
+    5,
+    3,
+    4,
+    3,
+    0,
+    3,
+    0,
+    5,
+    1,
+    2,
+    0,
+    2,
+    0,
+    1,
+    0
+   ],
+   "abstention": 0.42,
+   "volatilite": 0.35,
+   "etiquettes": [
+    "actifs",
+    "populaire"
+   ]
+  },
+  {
+   "id": "employes_actifs",
+   "nom": "Employés 25-49",
+   "axes": [
+    -1,
+    2,
+    -1,
+    2,
+    0,
+    1,
+    2,
+    3,
+    -1,
+    0
+   ],
+   "priorites": [
+    5,
+    3,
+    3,
+    3,
+    3,
+    3,
+    1,
+    1,
+    3,
+    3,
+    0,
+    1,
+    0,
+    2,
+    0
+   ],
+   "abstention": 0.48,
+   "volatilite": 0.5,
+   "etiquettes": [
+    "actifs",
+    "populaire",
+    "moyen"
+   ]
+  },
+  {
+   "id": "employes_seniors",
+   "nom": "Employés 50-64",
+   "axes": [
+    -1,
+    2,
+    -1,
+    3,
+    0,
+    0,
+    1,
+    3,
+    -1,
+    0
+   ],
+   "priorites": [
+    4,
+    3,
+    3,
+    4,
+    1,
+    2,
+    1,
+    5,
+    1,
+    3,
+    0,
+    2,
+    1,
+    1,
+    0
+   ],
+   "abstention": 0.38,
+   "volatilite": 0.35,
+   "etiquettes": [
+    "actifs",
+    "moyen"
+   ]
+  },
+  {
+   "id": "interm_actifs",
+   "nom": "Professions intermédiaires 25-49",
+   "axes": [
+    0,
+    0,
+    2,
+    1,
+    2,
+    2,
+    1,
+    2,
+    1,
+    1
+   ],
+   "priorites": [
+    4,
+    2,
+    2,
+    3,
+    4,
+    3,
+    3,
+    1,
+    3,
+    3,
+    1,
+    1,
+    1,
+    3,
+    0
+   ],
+   "abstention": 0.38,
+   "volatilite": 0.5,
+   "etiquettes": [
+    "actifs",
+    "moyen"
+   ]
+  },
+  {
+   "id": "interm_seniors",
+   "nom": "Professions intermédiaires 50-64",
+   "axes": [
+    0,
+    1,
+    2,
+    2,
+    1,
+    1,
+    0,
+    2,
+    2,
+    1
+   ],
+   "priorites": [
+    3,
+    3,
+    2,
+    4,
+    2,
+    2,
+    2,
+    5,
+    1,
+    3,
+    1,
+    1,
+    2,
+    2,
+    0
+   ],
+   "abstention": 0.3,
+   "volatilite": 0.35,
+   "etiquettes": [
+    "actifs",
+    "moyen"
+   ]
+  },
+  {
+   "id": "cadres_actifs",
+   "nom": "Cadres 35-49",
+   "axes": [
+    2,
+    0,
+    4,
+    1,
+    2,
+    3,
+    0,
+    0,
+    3,
+    1
+   ],
+   "priorites": [
+    2,
+    2,
+    1,
+    2,
+    4,
+    3,
+    3,
+    1,
+    2,
+    1,
+    3,
+    0,
+    3,
+    3,
+    0
+   ],
+   "abstention": 0.28,
+   "volatilite": 0.4,
+   "etiquettes": [
+    "actifs",
+    "diplomes",
+    "aise"
+   ]
+  },
+  {
+   "id": "cadres_seniors",
+   "nom": "Cadres 50-64",
+   "axes": [
+    3,
+    1,
+    4,
+    2,
+    1,
+    1,
+    -1,
+    -1,
+    3,
+    1
+   ],
+   "priorites": [
+    2,
+    3,
+    2,
+    2,
+    2,
+    2,
+    2,
+    4,
+    1,
+    1,
+    3,
+    1,
+    4,
+    1,
+    0
+   ],
+   "abstention": 0.22,
+   "volatilite": 0.3,
+   "etiquettes": [
+    "actifs",
+    "diplomes",
+    "aise"
+   ]
+  },
+  {
+   "id": "independants",
+   "nom": "Artisans, commerçants, chefs d'entreprise",
+   "axes": [
+    4,
+    3,
+    0,
+    4,
+    -2,
+    -1,
+    -1,
+    -2,
+    0,
+    2
+   ],
+   "priorites": [
+    4,
+    4,
+    3,
+    2,
+    1,
+    4,
+    0,
+    2,
+    1,
+    0,
+    1,
+    2,
+    4,
+    2,
+    0
+   ],
+   "abstention": 0.35,
+   "volatilite": 0.4,
+   "etiquettes": [
+    "actifs",
+    "independants"
+   ]
+  },
+  {
+   "id": "agriculteurs",
+   "nom": "Agriculteurs",
+   "axes": [
+    2,
+    3,
+    -2,
+    3,
+    -4,
+    -3,
+    0,
+    0,
+    -1,
+    3
+   ],
+   "priorites": [
+    4,
+    2,
+    2,
+    2,
+    1,
+    1,
+    2,
+    3,
+    0,
+    3,
+    3,
+    3,
+    1,
+    1,
+    5
+   ],
+   "abstention": 0.3,
+   "volatilite": 0.35,
+   "etiquettes": [
+    "actifs",
+    "agri",
+    "rural",
+    "independants"
+   ]
+  },
+  {
+   "id": "sans_emploi",
+   "nom": "Sans emploi",
+   "axes": [
+    -3,
+    2,
+    -2,
+    1,
+    0,
+    0,
+    3,
+    5,
+    -2,
+    0
+   ],
+   "priorites": [
+    5,
+    2,
+    3,
+    3,
+    1,
+    5,
+    0,
+    1,
+    4,
+    3,
+    0,
+    1,
+    0,
+    2,
+    0
+   ],
+   "abstention": 0.68,
+   "volatilite": 0.6,
+   "etiquettes": [
+    "precaires",
+    "populaire"
+   ]
+  },
+  {
+   "id": "retraites_modestes",
+   "nom": "Retraités modestes",
+   "axes": [
+    -1,
+    3,
+    -2,
+    4,
+    -1,
+    -3,
+    0,
+    4,
+    -2,
+    0
+   ],
+   "priorites": [
+    5,
+    4,
+    4,
+    5,
+    0,
+    0,
+    0,
+    5,
+    1,
+    4,
+    0,
+    3,
+    1,
+    1,
+    1
+   ],
+   "abstention": 0.3,
+   "volatilite": 0.25,
+   "etiquettes": [
+    "retraites",
+    "populaire"
+   ]
+  },
+  {
+   "id": "retraites_moyens",
+   "nom": "Retraités des classes moyennes",
+   "axes": [
+    1,
+    2,
+    2,
+    3,
+    0,
+    -2,
+    -2,
+    2,
+    2,
+    1
+   ],
+   "priorites": [
+    3,
+    4,
+    3,
+    5,
+    1,
+    0,
+    1,
+    5,
+    0,
+    3,
+    2,
+    2,
+    3,
+    1,
+    1
+   ],
+   "abstention": 0.2,
+   "volatilite": 0.2,
+   "etiquettes": [
+    "retraites",
+    "moyen"
+   ]
+  },
+  {
+   "id": "retraites_aises",
+   "nom": "Retraités aisés",
+   "axes": [
+    3,
+    3,
+    3,
+    4,
+    -1,
+    -2,
+    -3,
+    -1,
+    3,
+    1
+   ],
+   "priorites": [
+    1,
+    4,
+    3,
+    4,
+    1,
+    0,
+    1,
+    4,
+    0,
+    1,
+    3,
+    3,
+    5,
+    0,
+    1
+   ],
+   "abstention": 0.15,
+   "volatilite": 0.2,
+   "etiquettes": [
+    "retraites",
+    "aise"
+   ]
+  },
+  {
+   "id": "fonctionnaires",
+   "nom": "Agents publics et enseignants",
+   "axes": [
+    -2,
+    -2,
+    2,
+    -1,
+    3,
+    3,
+    2,
+    4,
+    1,
+    1
+   ],
+   "priorites": [
+    4,
+    1,
+    1,
+    4,
+    5,
+    2,
+    3,
+    3,
+    2,
+    5,
+    1,
+    0,
+    0,
+    2,
+    0
+   ],
+   "abstention": 0.3,
+   "volatilite": 0.35,
+   "etiquettes": [
+    "actifs",
+    "public",
+    "moyen",
+    "diplomes"
+   ]
+  },
+  {
+   "id": "jeunes_populaires",
+   "nom": "Jeunes ouvriers et employés 18-24",
+   "axes": [
+    -1,
+    3,
+    -2,
+    2,
+    -1,
+    0,
+    3,
+    3,
+    -3,
+    0
+   ],
+   "priorites": [
+    5,
+    3,
+    3,
+    1,
+    1,
+    5,
+    1,
+    0,
+    3,
+    1,
+    0,
+    2,
+    0,
+    3,
+    0
+   ],
+   "abstention": 0.68,
+   "volatilite": 0.65,
+   "etiquettes": [
+    "jeunes",
+    "populaire"
+   ]
+  },
+  {
+   "id": "inactifs",
+   "nom": "Autres inactifs",
+   "axes": [
+    -1,
+    1,
+    0,
+    2,
+    0,
+    0,
+    1,
+    3,
+    0,
+    0
+   ],
+   "priorites": [
+    4,
+    3,
+    3,
+    4,
+    2,
+    2,
+    1,
+    2,
+    2,
+    3,
+    0,
+    2,
+    1,
+    1,
+    0
+   ],
+   "abstention": 0.55,
+   "volatilite": 0.45,
+   "etiquettes": [
+    "precaires"
+   ]
+  }
+ ]
+}

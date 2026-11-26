@@ -1,0 +1,1127 @@
+{
+ "_doc": "Figures nationales réelles, modifiables à la main. rang : 1 figure de premier plan, 2 figure nationale, 3 élu notable (sert au calcul neutre de la notoriété). roles : chef_parti, depute:<circo>, senateur:<dept>, maire:<zone> (V75, V69, V13 pour Paris, Lyon, Marseille ; C<code INSEE> pour une commune ; S<dept><arr> pour un secteur), president_region:<code région>, eurodepute, figure, president_republique, premier_ministre. Les attributs sont calculés par le jeu à partir des mandats, sans jugement. Vous pouvez ajouter un champ attributs pour les fixer à la main. Aucune affaire n'est attribuée à une personne réelle.",
+ "substitution": "Liste établie de mémoire à l'automne 2026 et vérifiée pour les maires des grandes villes élus en mars 2026. À corriger si besoin.",
+ "personnalites": [
+  {
+   "nom": "Le Pen",
+   "prenom": "Marine",
+   "sexe": "F",
+   "naissance": 1968,
+   "parti": "RN",
+   "rang": 1,
+   "roles": [
+    "depute:62-11",
+    "figure"
+   ]
+  },
+  {
+   "nom": "Bardella",
+   "prenom": "Jordan",
+   "sexe": "M",
+   "naissance": 1995,
+   "parti": "RN",
+   "rang": 1,
+   "roles": [
+    "chef_parti",
+    "eurodepute"
+   ]
+  },
+  {
+   "nom": "Chenu",
+   "prenom": "Sébastien",
+   "sexe": "M",
+   "naissance": 1973,
+   "parti": "RN",
+   "rang": 2,
+   "roles": [
+    "depute:59-19"
+   ]
+  },
+  {
+   "nom": "Tanguy",
+   "prenom": "Jean-Philippe",
+   "sexe": "M",
+   "naissance": 1986,
+   "parti": "RN",
+   "rang": 2,
+   "roles": [
+    "depute:80-04"
+   ]
+  },
+  {
+   "nom": "Aliot",
+   "prenom": "Louis",
+   "sexe": "M",
+   "naissance": 1969,
+   "parti": "RN",
+   "rang": 2,
+   "roles": [
+    "maire:C66136"
+   ]
+  },
+  {
+   "nom": "Lavalette",
+   "prenom": "Laure",
+   "sexe": "F",
+   "naissance": 1976,
+   "parti": "RN",
+   "rang": 2,
+   "roles": [
+    "depute:83-02"
+   ]
+  },
+  {
+   "nom": "Allisio",
+   "prenom": "Franck",
+   "sexe": "M",
+   "naissance": 1980,
+   "parti": "RN",
+   "rang": 2,
+   "roles": [
+    "depute:13-12"
+   ]
+  },
+  {
+   "nom": "Odoul",
+   "prenom": "Julien",
+   "sexe": "M",
+   "naissance": 1985,
+   "parti": "RN",
+   "rang": 2,
+   "roles": [
+    "depute:89-03"
+   ]
+  },
+  {
+   "nom": "Diaz",
+   "prenom": "Edwige",
+   "sexe": "F",
+   "naissance": 1987,
+   "parti": "RN",
+   "rang": 2,
+   "roles": [
+    "depute:33-11"
+   ]
+  },
+  {
+   "nom": "Ménagé",
+   "prenom": "Thomas",
+   "sexe": "M",
+   "naissance": 1991,
+   "parti": "RN",
+   "rang": 3,
+   "roles": [
+    "depute:45-04"
+   ]
+  },
+  {
+   "nom": "Jacobelli",
+   "prenom": "Laurent",
+   "sexe": "M",
+   "naissance": 1969,
+   "parti": "RN",
+   "rang": 3,
+   "roles": [
+    "depute:57-08"
+   ]
+  },
+  {
+   "nom": "Bez",
+   "prenom": "Eleonore",
+   "sexe": "F",
+   "naissance": null,
+   "parti": "RN",
+   "rang": 3,
+   "roles": [
+    "maire:S1309"
+   ]
+  },
+  {
+   "nom": "Ciotti",
+   "prenom": "Éric",
+   "sexe": "M",
+   "naissance": 1965,
+   "parti": "UDR",
+   "rang": 1,
+   "roles": [
+    "chef_parti",
+    "maire:C06088"
+   ]
+  },
+  {
+   "nom": "Retailleau",
+   "prenom": "Bruno",
+   "sexe": "M",
+   "naissance": 1960,
+   "parti": "LR",
+   "rang": 1,
+   "roles": [
+    "chef_parti",
+    "senateur:85"
+   ]
+  },
+  {
+   "nom": "Wauquiez",
+   "prenom": "Laurent",
+   "sexe": "M",
+   "naissance": 1975,
+   "parti": "LR",
+   "rang": 1,
+   "roles": [
+    "depute:43-01"
+   ]
+  },
+  {
+   "nom": "Bertrand",
+   "prenom": "Xavier",
+   "sexe": "M",
+   "naissance": 1965,
+   "parti": "LR",
+   "rang": 1,
+   "roles": [
+    "president_region:32"
+   ]
+  },
+  {
+   "nom": "Pécresse",
+   "prenom": "Valérie",
+   "sexe": "F",
+   "naissance": 1967,
+   "parti": "LR",
+   "rang": 1,
+   "roles": [
+    "president_region:11"
+   ]
+  },
+  {
+   "nom": "Larcher",
+   "prenom": "Gérard",
+   "sexe": "M",
+   "naissance": 1949,
+   "parti": "LR",
+   "rang": 1,
+   "roles": [
+    "senateur:78",
+    "president_senat"
+   ]
+  },
+  {
+   "nom": "Bellamy",
+   "prenom": "François-Xavier",
+   "sexe": "M",
+   "naissance": 1985,
+   "parti": "LR",
+   "rang": 2,
+   "roles": [
+    "eurodepute"
+   ]
+  },
+  {
+   "nom": "Copé",
+   "prenom": "Jean-François",
+   "sexe": "M",
+   "naissance": 1964,
+   "parti": "LR",
+   "rang": 2,
+   "roles": [
+    "maire:C77284"
+   ]
+  },
+  {
+   "nom": "Barnier",
+   "prenom": "Michel",
+   "sexe": "M",
+   "naissance": 1951,
+   "parti": "LR",
+   "rang": 1,
+   "roles": [
+    "depute:75-02"
+   ]
+  },
+  {
+   "nom": "Dati",
+   "prenom": "Rachida",
+   "sexe": "F",
+   "naissance": 1965,
+   "parti": "LR",
+   "rang": 1,
+   "roles": [
+    "figure"
+   ]
+  },
+  {
+   "nom": "Pannekoucke",
+   "prenom": "Fabrice",
+   "sexe": "M",
+   "naissance": 1975,
+   "parti": "LR",
+   "rang": 3,
+   "roles": [
+    "president_region:84"
+   ]
+  },
+  {
+   "nom": "Lisnard",
+   "prenom": "David",
+   "sexe": "M",
+   "naissance": 1969,
+   "parti": "DVD",
+   "rang": 2,
+   "roles": [
+    "maire:C06029"
+   ]
+  },
+  {
+   "nom": "Moudenc",
+   "prenom": "Jean-Luc",
+   "sexe": "M",
+   "naissance": 1960,
+   "parti": "DVD",
+   "rang": 2,
+   "roles": [
+    "maire:C31555"
+   ]
+  },
+  {
+   "nom": "Leroy",
+   "prenom": "Franck",
+   "sexe": "M",
+   "naissance": 1963,
+   "parti": "DVD",
+   "rang": 3,
+   "roles": [
+    "president_region:44"
+   ]
+  },
+  {
+   "nom": "Macron",
+   "prenom": "Emmanuel",
+   "sexe": "M",
+   "naissance": 1977,
+   "parti": "RE",
+   "rang": 1,
+   "roles": [
+    "president_republique"
+   ]
+  },
+  {
+   "nom": "Attal",
+   "prenom": "Gabriel",
+   "sexe": "M",
+   "naissance": 1989,
+   "parti": "RE",
+   "rang": 1,
+   "roles": [
+    "chef_parti",
+    "depute:92-10"
+   ]
+  },
+  {
+   "nom": "Lecornu",
+   "prenom": "Sébastien",
+   "sexe": "M",
+   "naissance": 1986,
+   "parti": "RE",
+   "rang": 1,
+   "roles": [
+    "premier_ministre"
+   ]
+  },
+  {
+   "nom": "Borne",
+   "prenom": "Élisabeth",
+   "sexe": "F",
+   "naissance": 1961,
+   "parti": "RE",
+   "rang": 1,
+   "roles": [
+    "depute:14-06"
+   ]
+  },
+  {
+   "nom": "Darmanin",
+   "prenom": "Gérald",
+   "sexe": "M",
+   "naissance": 1982,
+   "parti": "RE",
+   "rang": 1,
+   "roles": [
+    "depute:59-10"
+   ]
+  },
+  {
+   "nom": "Braun-Pivet",
+   "prenom": "Yaël",
+   "sexe": "F",
+   "naissance": 1970,
+   "parti": "RE",
+   "rang": 1,
+   "roles": [
+    "depute:78-05",
+    "president_assemblee"
+   ]
+  },
+  {
+   "nom": "Bergé",
+   "prenom": "Aurore",
+   "sexe": "F",
+   "naissance": 1986,
+   "parti": "RE",
+   "rang": 2,
+   "roles": [
+    "depute:78-10"
+   ]
+  },
+  {
+   "nom": "Muselier",
+   "prenom": "Renaud",
+   "sexe": "M",
+   "naissance": 1959,
+   "parti": "RE",
+   "rang": 2,
+   "roles": [
+    "president_region:93"
+   ]
+  },
+  {
+   "nom": "Bayrou",
+   "prenom": "François",
+   "sexe": "M",
+   "naissance": 1951,
+   "parti": "MDM",
+   "rang": 1,
+   "roles": [
+    "chef_parti"
+   ]
+  },
+  {
+   "nom": "Fesneau",
+   "prenom": "Marc",
+   "sexe": "M",
+   "naissance": 1971,
+   "parti": "MDM",
+   "rang": 2,
+   "roles": [
+    "depute:41-01"
+   ]
+  },
+  {
+   "nom": "Philippe",
+   "prenom": "Édouard",
+   "sexe": "M",
+   "naissance": 1970,
+   "parti": "HOR",
+   "rang": 1,
+   "roles": [
+    "chef_parti",
+    "maire:C76351"
+   ]
+  },
+  {
+   "nom": "Estrosi",
+   "prenom": "Christian",
+   "sexe": "M",
+   "naissance": 1955,
+   "parti": "HOR",
+   "rang": 2,
+   "roles": [
+    "figure"
+   ]
+  },
+  {
+   "nom": "Morançais",
+   "prenom": "Christelle",
+   "sexe": "F",
+   "naissance": 1975,
+   "parti": "HOR",
+   "rang": 3,
+   "roles": [
+    "president_region:52"
+   ]
+  },
+  {
+   "nom": "Marseille",
+   "prenom": "Hervé",
+   "sexe": "M",
+   "naissance": 1954,
+   "parti": "UDI",
+   "rang": 2,
+   "roles": [
+    "chef_parti",
+    "senateur:92"
+   ]
+  },
+  {
+   "nom": "Morin",
+   "prenom": "Hervé",
+   "sexe": "M",
+   "naissance": 1961,
+   "parti": "DVC",
+   "rang": 2,
+   "roles": [
+    "president_region:28"
+   ]
+  },
+  {
+   "nom": "Faure",
+   "prenom": "Olivier",
+   "sexe": "M",
+   "naissance": 1968,
+   "parti": "PS",
+   "rang": 1,
+   "roles": [
+    "chef_parti",
+    "depute:77-11"
+   ]
+  },
+  {
+   "nom": "Vallaud",
+   "prenom": "Boris",
+   "sexe": "M",
+   "naissance": 1975,
+   "parti": "PS",
+   "rang": 2,
+   "roles": [
+    "depute:40-03"
+   ]
+  },
+  {
+   "nom": "Hollande",
+   "prenom": "François",
+   "sexe": "M",
+   "naissance": 1954,
+   "parti": "PS",
+   "rang": 1,
+   "roles": [
+    "depute:19-01"
+   ]
+  },
+  {
+   "nom": "Delga",
+   "prenom": "Carole",
+   "sexe": "F",
+   "naissance": 1971,
+   "parti": "PS",
+   "rang": 1,
+   "roles": [
+    "president_region:76"
+   ]
+  },
+  {
+   "nom": "Hidalgo",
+   "prenom": "Anne",
+   "sexe": "F",
+   "naissance": 1959,
+   "parti": "PS",
+   "rang": 1,
+   "roles": [
+    "figure"
+   ]
+  },
+  {
+   "nom": "Grégoire",
+   "prenom": "Emmanuel",
+   "sexe": "M",
+   "naissance": 1977,
+   "parti": "PS",
+   "rang": 1,
+   "roles": [
+    "maire:V75"
+   ]
+  },
+  {
+   "nom": "Rolland",
+   "prenom": "Johanna",
+   "sexe": "F",
+   "naissance": 1979,
+   "parti": "PS",
+   "rang": 2,
+   "roles": [
+    "maire:C44109"
+   ]
+  },
+  {
+   "nom": "Klein",
+   "prenom": "Mathieu",
+   "sexe": "M",
+   "naissance": 1976,
+   "parti": "PS",
+   "rang": 3,
+   "roles": [
+    "maire:C54395"
+   ]
+  },
+  {
+   "nom": "Mayer-Rossignol",
+   "prenom": "Nicolas",
+   "sexe": "M",
+   "naissance": 1977,
+   "parti": "PS",
+   "rang": 2,
+   "roles": [
+    "maire:C76540"
+   ]
+  },
+  {
+   "nom": "Delafosse",
+   "prenom": "Michaël",
+   "sexe": "M",
+   "naissance": 1977,
+   "parti": "PS",
+   "rang": 2,
+   "roles": [
+    "maire:C34172"
+   ]
+  },
+  {
+   "nom": "Guedj",
+   "prenom": "Jérôme",
+   "sexe": "M",
+   "naissance": 1972,
+   "parti": "PS",
+   "rang": 2,
+   "roles": [
+    "depute:91-06"
+   ]
+  },
+  {
+   "nom": "Kanner",
+   "prenom": "Patrick",
+   "sexe": "M",
+   "naissance": 1957,
+   "parti": "PS",
+   "rang": 2,
+   "roles": [
+    "senateur:59"
+   ]
+  },
+  {
+   "nom": "Rousset",
+   "prenom": "Alain",
+   "sexe": "M",
+   "naissance": 1951,
+   "parti": "PS",
+   "rang": 2,
+   "roles": [
+    "president_region:75"
+   ]
+  },
+  {
+   "nom": "Bonneau",
+   "prenom": "François",
+   "sexe": "M",
+   "naissance": 1953,
+   "parti": "PS",
+   "rang": 3,
+   "roles": [
+    "president_region:24"
+   ]
+  },
+  {
+   "nom": "Durain",
+   "prenom": "Jérôme",
+   "sexe": "M",
+   "naissance": 1969,
+   "parti": "PS",
+   "rang": 3,
+   "roles": [
+    "president_region:27"
+   ]
+  },
+  {
+   "nom": "Payan",
+   "prenom": "Benoît",
+   "sexe": "M",
+   "naissance": 1978,
+   "parti": "DVG",
+   "rang": 1,
+   "roles": [
+    "maire:V13"
+   ]
+  },
+  {
+   "nom": "Chesnais-Girard",
+   "prenom": "Loïg",
+   "sexe": "M",
+   "naissance": 1977,
+   "parti": "DVG",
+   "rang": 3,
+   "roles": [
+    "president_region:53"
+   ]
+  },
+  {
+   "nom": "Cazeneuve",
+   "prenom": "Bernard",
+   "sexe": "M",
+   "naissance": 1963,
+   "parti": "DVG",
+   "rang": 1,
+   "roles": [
+    "figure"
+   ]
+  },
+  {
+   "nom": "Ruffin",
+   "prenom": "François",
+   "sexe": "M",
+   "naissance": 1975,
+   "parti": "DVG",
+   "rang": 1,
+   "roles": [
+    "depute:80-01"
+   ]
+  },
+  {
+   "nom": "Autain",
+   "prenom": "Clémentine",
+   "sexe": "F",
+   "naissance": 1973,
+   "parti": "DVG",
+   "rang": 2,
+   "roles": [
+    "depute:93-11"
+   ]
+  },
+  {
+   "nom": "Glucksmann",
+   "prenom": "Raphaël",
+   "sexe": "M",
+   "naissance": 1979,
+   "parti": "PP",
+   "rang": 1,
+   "roles": [
+    "chef_parti",
+    "eurodepute"
+   ]
+  },
+  {
+   "nom": "Lalucq",
+   "prenom": "Aurore",
+   "sexe": "F",
+   "naissance": 1979,
+   "parti": "PP",
+   "rang": 2,
+   "roles": [
+    "eurodepute"
+   ]
+  },
+  {
+   "nom": "Mélenchon",
+   "prenom": "Jean-Luc",
+   "sexe": "M",
+   "naissance": 1951,
+   "parti": "LFI",
+   "rang": 1,
+   "roles": [
+    "figure"
+   ]
+  },
+  {
+   "nom": "Bompard",
+   "prenom": "Manuel",
+   "sexe": "M",
+   "naissance": 1986,
+   "parti": "LFI",
+   "rang": 1,
+   "roles": [
+    "chef_parti",
+    "depute:13-04"
+   ]
+  },
+  {
+   "nom": "Panot",
+   "prenom": "Mathilde",
+   "sexe": "F",
+   "naissance": 1989,
+   "parti": "LFI",
+   "rang": 1,
+   "roles": [
+    "depute:94-10"
+   ]
+  },
+  {
+   "nom": "Guetté",
+   "prenom": "Clémence",
+   "sexe": "F",
+   "naissance": 1991,
+   "parti": "LFI",
+   "rang": 2,
+   "roles": [
+    "depute:94-02"
+   ]
+  },
+  {
+   "nom": "Coquerel",
+   "prenom": "Éric",
+   "sexe": "M",
+   "naissance": 1958,
+   "parti": "LFI",
+   "rang": 2,
+   "roles": [
+    "depute:93-01"
+   ]
+  },
+  {
+   "nom": "Aubry",
+   "prenom": "Manon",
+   "sexe": "F",
+   "naissance": 1989,
+   "parti": "LFI",
+   "rang": 2,
+   "roles": [
+    "eurodepute"
+   ]
+  },
+  {
+   "nom": "Boyard",
+   "prenom": "Louis",
+   "sexe": "M",
+   "naissance": 2000,
+   "parti": "LFI",
+   "rang": 2,
+   "roles": [
+    "depute:94-03"
+   ]
+  },
+  {
+   "nom": "Delogu",
+   "prenom": "Sébastien",
+   "sexe": "M",
+   "naissance": 1987,
+   "parti": "LFI",
+   "rang": 2,
+   "roles": [
+    "depute:13-07"
+   ]
+  },
+  {
+   "nom": "Trouvé",
+   "prenom": "Aurélie",
+   "sexe": "F",
+   "naissance": 1979,
+   "parti": "LFI",
+   "rang": 2,
+   "roles": [
+    "depute:93-09"
+   ]
+  },
+  {
+   "nom": "Léaument",
+   "prenom": "Antoine",
+   "sexe": "M",
+   "naissance": 1989,
+   "parti": "LFI",
+   "rang": 2,
+   "roles": [
+    "depute:91-10"
+   ]
+  },
+  {
+   "nom": "Guiraud",
+   "prenom": "David",
+   "sexe": "M",
+   "naissance": 1992,
+   "parti": "LFI",
+   "rang": 2,
+   "roles": [
+    "depute:59-08"
+   ]
+  },
+  {
+   "nom": "Hassan",
+   "prenom": "Rima",
+   "sexe": "F",
+   "naissance": 1992,
+   "parti": "LFI",
+   "rang": 2,
+   "roles": [
+    "eurodepute"
+   ]
+  },
+  {
+   "nom": "Vannier",
+   "prenom": "Paul",
+   "sexe": "M",
+   "naissance": 1985,
+   "parti": "LFI",
+   "rang": 3,
+   "roles": [
+    "depute:95-05"
+   ]
+  },
+  {
+   "nom": "Tondelier",
+   "prenom": "Marine",
+   "sexe": "F",
+   "naissance": 1986,
+   "parti": "ECO",
+   "rang": 1,
+   "roles": [
+    "chef_parti"
+   ]
+  },
+  {
+   "nom": "Chatelain",
+   "prenom": "Cyrielle",
+   "sexe": "F",
+   "naissance": 1987,
+   "parti": "ECO",
+   "rang": 2,
+   "roles": [
+    "depute:38-02"
+   ]
+  },
+  {
+   "nom": "Rousseau",
+   "prenom": "Sandrine",
+   "sexe": "F",
+   "naissance": 1972,
+   "parti": "ECO",
+   "rang": 1,
+   "roles": [
+    "depute:75-09"
+   ]
+  },
+  {
+   "nom": "Jadot",
+   "prenom": "Yannick",
+   "sexe": "M",
+   "naissance": 1967,
+   "parti": "ECO",
+   "rang": 1,
+   "roles": [
+    "senateur:75"
+   ]
+  },
+  {
+   "nom": "Doucet",
+   "prenom": "Grégory",
+   "sexe": "M",
+   "naissance": 1973,
+   "parti": "ECO",
+   "rang": 2,
+   "roles": [
+    "maire:V69"
+   ]
+  },
+  {
+   "nom": "Piolle",
+   "prenom": "Éric",
+   "sexe": "M",
+   "naissance": 1973,
+   "parti": "ECO",
+   "rang": 2,
+   "roles": [
+    "figure"
+   ]
+  },
+  {
+   "nom": "Roussel",
+   "prenom": "Fabien",
+   "sexe": "M",
+   "naissance": 1969,
+   "parti": "PCF",
+   "rang": 1,
+   "roles": [
+    "chef_parti",
+    "maire:C59526"
+   ]
+  },
+  {
+   "nom": "Peu",
+   "prenom": "Stéphane",
+   "sexe": "M",
+   "naissance": 1962,
+   "parti": "PCF",
+   "rang": 3,
+   "roles": [
+    "depute:93-02"
+   ]
+  },
+  {
+   "nom": "Brossat",
+   "prenom": "Ian",
+   "sexe": "M",
+   "naissance": 1980,
+   "parti": "PCF",
+   "rang": 2,
+   "roles": [
+    "senateur:75"
+   ]
+  },
+  {
+   "nom": "Zemmour",
+   "prenom": "Éric",
+   "sexe": "M",
+   "naissance": 1958,
+   "parti": "REC",
+   "rang": 1,
+   "roles": [
+    "chef_parti"
+   ]
+  },
+  {
+   "nom": "Knafo",
+   "prenom": "Sarah",
+   "sexe": "F",
+   "naissance": 1993,
+   "parti": "REC",
+   "rang": 1,
+   "roles": [
+    "eurodepute"
+   ]
+  },
+  {
+   "nom": "Maréchal",
+   "prenom": "Marion",
+   "sexe": "F",
+   "naissance": 1989,
+   "parti": "DVD",
+   "rang": 1,
+   "roles": [
+    "eurodepute"
+   ]
+  },
+  {
+   "nom": "Dupont-Aignan",
+   "prenom": "Nicolas",
+   "sexe": "M",
+   "naissance": 1961,
+   "parti": "DLF",
+   "rang": 1,
+   "roles": [
+    "chef_parti"
+   ]
+  },
+  {
+   "nom": "Arthaud",
+   "prenom": "Nathalie",
+   "sexe": "F",
+   "naissance": 1970,
+   "parti": "LO",
+   "rang": 1,
+   "roles": [
+    "chef_parti"
+   ]
+  },
+  {
+   "nom": "Simeoni",
+   "prenom": "Gilles",
+   "sexe": "M",
+   "naissance": 1967,
+   "parti": "REG",
+   "rang": 2,
+   "roles": [
+    "chef_parti",
+    "president_region:94"
+   ]
+  },
+  {
+   "nom": "Molac",
+   "prenom": "Paul",
+   "sexe": "M",
+   "naissance": 1962,
+   "parti": "REG",
+   "rang": 3,
+   "roles": [
+    "depute:56-04"
+   ]
+  }
+ ],
+ "maires": [
+  {
+   "zone": "C33063",
+   "parti": "RE"
+  },
+  {
+   "zone": "C67482",
+   "parti": "PS"
+  },
+  {
+   "zone": "C83137",
+   "parti": "DVD"
+  },
+  {
+   "zone": "C37261",
+   "parti": "ECO"
+  },
+  {
+   "zone": "C59350",
+   "parti": "PS"
+  },
+  {
+   "zone": "C35238",
+   "parti": "PS"
+  },
+  {
+   "zone": "C51454",
+   "parti": "DVD"
+  },
+  {
+   "zone": "C42218",
+   "parti": "DVD"
+  },
+  {
+   "zone": "C21231",
+   "parti": "PS"
+  },
+  {
+   "zone": "C49007",
+   "parti": "DVD"
+  },
+  {
+   "zone": "C30189",
+   "parti": "LR"
+  },
+  {
+   "zone": "C63113",
+   "parti": "PS"
+  },
+  {
+   "zone": "C72181",
+   "parti": "PS"
+  },
+  {
+   "zone": "C29019",
+   "parti": "PS"
+  },
+  {
+   "zone": "C87085",
+   "parti": "LR"
+  },
+  {
+   "zone": "C80021",
+   "parti": "DVC"
+  },
+  {
+   "zone": "C57463",
+   "parti": "DVD"
+  },
+  {
+   "zone": "C66136",
+   "parti": "RN"
+  },
+  {
+   "zone": "C45234",
+   "parti": "LR"
+  },
+  {
+   "zone": "C68224",
+   "parti": "LR"
+  },
+  {
+   "zone": "C14118",
+   "parti": "DVD"
+  },
+  {
+   "zone": "C84007",
+   "parti": "DVD"
+  },
+  {
+   "zone": "C38185",
+   "parti": "DVG"
+  }
+ ],
+ "_doc_maires": "Couleur politique imposée pour quelques mairies quand le nom du maire n'est pas renseigné. Les autres mairies sont tirées au sort selon le vote local et le poids des notables, puis un personnage est généré."
+}

@@ -1,0 +1,316 @@
+{
+ "_doc": "mods : effets mécaniques, voir docs/MOTEUR.md.",
+ "traits": [
+  {
+   "id": "bete_tele",
+   "nom": "Bête de télé",
+   "description": "Excellent sur les plateaux.",
+   "mods": {
+    "tv": 3,
+    "debat": 1
+   }
+  },
+  {
+   "id": "homme_dossiers",
+   "nom": "Homme ou femme de dossiers",
+   "description": "Maîtrise les sujets techniques.",
+   "mods": {
+    "dossiers": 3,
+    "tv": -1
+   }
+  },
+  {
+   "id": "notable",
+   "nom": "Notable indéboulonnable",
+   "description": "Très difficile à battre chez lui.",
+   "mods": {
+    "local": 4,
+    "ailleurs": -2
+   }
+  },
+  {
+   "id": "franc_tireur",
+   "nom": "Franc-tireur",
+   "description": "Dit ce qu'il pense, quitte à gêner.",
+   "mods": {
+    "tv": 1,
+    "gaffe": 1.5,
+    "loyaute": -3,
+    "unite": -1
+   }
+  },
+  {
+   "id": "fidele",
+   "nom": "Fidèle lieutenant",
+   "description": "Ne trahit pas.",
+   "mods": {
+    "loyaute": 5,
+    "interne": 1
+   }
+  },
+  {
+   "id": "ambitieux",
+   "nom": "Ambitieux pressé",
+   "description": "Veut tout, tout de suite.",
+   "mods": {
+    "progression": 1.25,
+    "loyaute": -3,
+    "ego": 2
+   }
+  },
+  {
+   "id": "gaffeur",
+   "nom": "Gaffeur",
+   "description": "Un micro ouvert est un risque.",
+   "mods": {
+    "gaffe": 2.5,
+    "tv": -1
+   }
+  },
+  {
+   "id": "bosseur",
+   "nom": "Bosseur de l'ombre",
+   "description": "Abat un travail énorme sans bruit.",
+   "mods": {
+    "dossiers": 2,
+    "gestion": 2,
+    "tv": -2,
+    "usure": 0.7
+   }
+  },
+  {
+   "id": "tribun",
+   "nom": "Tribun",
+   "description": "Soulève les salles.",
+   "mods": {
+    "campagne": 3,
+    "debat": 1
+   }
+  },
+  {
+   "id": "technocrate",
+   "nom": "Technocrate",
+   "description": "Compétent mais froid.",
+   "mods": {
+    "dossiers": 2,
+    "gestion": 2,
+    "terrain": -2
+   }
+  },
+  {
+   "id": "enfant_pays",
+   "nom": "Enfant du pays",
+   "description": "Connaît chaque rue.",
+   "mods": {
+    "local": 3,
+    "terrain": 1
+   }
+  },
+  {
+   "id": "parachute",
+   "nom": "Parachuté",
+   "description": "Sans attaches locales.",
+   "mods": {
+    "ailleurs": 2,
+    "local": -2
+   }
+  },
+  {
+   "id": "rassembleur",
+   "nom": "Rassembleur",
+   "description": "Apaise les conflits.",
+   "mods": {
+    "interne": 3,
+    "negociation": 2,
+    "unite": 2
+   }
+  },
+  {
+   "id": "clivant",
+   "nom": "Clivant",
+   "description": "Mobilise autant qu'il braque.",
+   "mods": {
+    "campagne": 2,
+    "reseaux": 2,
+    "negociation": -3,
+    "unite": -1
+   }
+  },
+  {
+   "id": "heritier",
+   "nom": "Héritier",
+   "description": "Un nom et un réseau.",
+   "mods": {
+    "reseauDepart": 4,
+    "ego": 1
+   }
+  },
+  {
+   "id": "self_made",
+   "nom": "Parti de rien",
+   "description": "S'est fait seul.",
+   "mods": {
+    "progression": 1.15,
+    "terrain": 1
+   }
+  },
+  {
+   "id": "stratege",
+   "nom": "Stratège",
+   "description": "Voit trois coups à l'avance.",
+   "mods": {
+    "negociation": 2,
+    "interne": 2
+   }
+  },
+  {
+   "id": "debatteur",
+   "nom": "Débatteur redoutable",
+   "description": "Rarement mis en difficulté.",
+   "mods": {
+    "debat": 3
+   }
+  },
+  {
+   "id": "as_reseaux",
+   "nom": "As des réseaux sociaux",
+   "description": "Chaque vidéo tourne.",
+   "mods": {
+    "reseaux": 4
+   }
+  },
+  {
+   "id": "homme_appareil",
+   "nom": "Homme ou femme d'appareil",
+   "description": "Tient les fédérations.",
+   "mods": {
+    "interne": 3,
+    "tv": -1
+   }
+  },
+  {
+   "id": "infatigable",
+   "nom": "Infatigable",
+   "description": "Ne s'arrête jamais.",
+   "mods": {
+    "usure": 0.5,
+    "terrain": 1
+   }
+  },
+  {
+   "id": "fragile",
+   "nom": "Santé fragile",
+   "description": "S'épuise vite.",
+   "mods": {
+    "usure": 1.6
+   }
+  },
+  {
+   "id": "orgueilleux",
+   "nom": "Orgueilleux",
+   "description": "Supporte mal l'ombre.",
+   "mods": {
+    "ego": 3,
+    "loyaute": -1
+   }
+  },
+  {
+   "id": "discret",
+   "nom": "Discret",
+   "description": "Fuit la lumière.",
+   "mods": {
+    "tv": -2,
+    "gaffe": 0.5,
+    "loyaute": 1
+   }
+  },
+  {
+   "id": "negociateur",
+   "nom": "Négociateur né",
+   "description": "Obtient toujours quelque chose.",
+   "mods": {
+    "negociation": 4
+   }
+  },
+  {
+   "id": "gestionnaire",
+   "nom": "Bon gestionnaire",
+   "description": "Les comptes sont tenus.",
+   "mods": {
+    "gestion": 4
+   }
+  },
+  {
+   "id": "populaire",
+   "nom": "Proche des gens",
+   "description": "À l'aise sur les marchés.",
+   "mods": {
+    "terrain": 3
+   }
+  },
+  {
+   "id": "intellectuel",
+   "nom": "Intellectuel",
+   "description": "Pense le fond.",
+   "mods": {
+    "dossiers": 2,
+    "debat": 1,
+    "terrain": -1
+   }
+  },
+  {
+   "id": "rancunier",
+   "nom": "Rancunier",
+   "description": "N'oublie rien.",
+   "mods": {
+    "loyaute": -1,
+    "negociation": -1
+   }
+  },
+  {
+   "id": "opportuniste",
+   "nom": "Girouette",
+   "description": "Suit le vent.",
+   "mods": {
+    "loyaute": -4,
+    "negociation": 1
+   }
+  },
+  {
+   "id": "mentor",
+   "nom": "Formateur",
+   "description": "Fait grandir les jeunes.",
+   "mods": {
+    "mentorat": 2
+   }
+  },
+  {
+   "id": "sang_froid",
+   "nom": "Nerfs d'acier",
+   "description": "Imperturbable en crise.",
+   "mods": {
+    "debat": 1,
+    "gaffe": 0.6
+   }
+  },
+  {
+   "id": "idealiste",
+   "nom": "Idéaliste",
+   "description": "Ne transige pas sur les idées.",
+   "mods": {
+    "loyaute": 1,
+    "negociation": -2,
+    "campagne": 1
+   }
+  },
+  {
+   "id": "pragmatique",
+   "nom": "Pragmatique",
+   "description": "Préfère un accord à une défaite.",
+   "mods": {
+    "negociation": 2,
+    "gestion": 1
+   }
+  }
+ ]
+}

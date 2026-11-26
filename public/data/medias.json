@@ -1,0 +1,548 @@
+{
+ "_doc": "Médias fictifs inspirés du paysage français. orientation : -2 (gauche) à +2 (droite). ton : 0 institutionnel, 1 vif, 2 polémique. audience en milliers. regions : codes de région INSEE ou null pour un média national.",
+ "medias": [
+  {
+   "id": "une20h",
+   "nom": "Le 20 heures de la Une",
+   "type": "tele",
+   "audience": 5200,
+   "orientation": 0.3,
+   "ton": 0,
+   "cibles": [
+    "retraites",
+    "populaire",
+    "moyen"
+   ],
+   "regions": null
+  },
+  {
+   "id": "deux20h",
+   "nom": "Le Journal de la Deux",
+   "type": "tele",
+   "audience": 4300,
+   "orientation": -0.2,
+   "ton": 0,
+   "cibles": [
+    "retraites",
+    "moyen",
+    "public"
+   ],
+   "regions": null
+  },
+  {
+   "id": "infocontinu",
+   "nom": "Info Continu TV",
+   "type": "tele",
+   "audience": 900,
+   "orientation": 0.2,
+   "ton": 1,
+   "cibles": [
+    "actifs",
+    "retraites"
+   ],
+   "regions": null
+  },
+  {
+   "id": "canaldebat",
+   "nom": "Canal Débat",
+   "type": "tele",
+   "audience": 800,
+   "orientation": 1.6,
+   "ton": 2,
+   "cibles": [
+    "retraites",
+    "populaire",
+    "independants"
+   ],
+   "regions": null
+  },
+  {
+   "id": "chaineinfo",
+   "nom": "La Chaîne Info",
+   "type": "tele",
+   "audience": 500,
+   "orientation": 0.4,
+   "ton": 1,
+   "cibles": [
+    "aise",
+    "retraites"
+   ],
+   "regions": null
+  },
+  {
+   "id": "publicinfo",
+   "nom": "Service Public Info",
+   "type": "tele",
+   "audience": 300,
+   "orientation": -0.5,
+   "ton": 0,
+   "cibles": [
+    "diplomes",
+    "public"
+   ],
+   "regions": null
+  },
+  {
+   "id": "politiquedimanche",
+   "nom": "Politique Dimanche",
+   "type": "tele",
+   "audience": 1500,
+   "orientation": 0,
+   "ton": 0,
+   "cibles": [
+    "diplomes",
+    "retraites"
+   ],
+   "regions": null
+  },
+  {
+   "id": "quotidien_tv",
+   "nom": "Le Talk du Soir",
+   "type": "tele",
+   "audience": 1800,
+   "orientation": -0.8,
+   "ton": 2,
+   "cibles": [
+    "jeunes",
+    "diplomes",
+    "urbain"
+   ],
+   "regions": null
+  },
+  {
+   "id": "intermatin",
+   "nom": "La Matinale Inter",
+   "type": "radio",
+   "audience": 4200,
+   "orientation": -0.9,
+   "ton": 0,
+   "cibles": [
+    "diplomes",
+    "public",
+    "moyen"
+   ],
+   "regions": null
+  },
+  {
+   "id": "rtn",
+   "nom": "RTN Matin",
+   "type": "radio",
+   "audience": 3400,
+   "orientation": 0.4,
+   "ton": 1,
+   "cibles": [
+    "populaire",
+    "actifs",
+    "retraites"
+   ],
+   "regions": null
+  },
+  {
+   "id": "europeun",
+   "nom": "Radio Europe",
+   "type": "radio",
+   "audience": 1300,
+   "orientation": 1.5,
+   "ton": 2,
+   "cibles": [
+    "retraites",
+    "independants"
+   ],
+   "regions": null
+  },
+  {
+   "id": "radiomc",
+   "nom": "RMC Info",
+   "type": "radio",
+   "audience": 2100,
+   "orientation": 0.5,
+   "ton": 2,
+   "cibles": [
+    "populaire",
+    "actifs"
+   ],
+   "regions": null
+  },
+  {
+   "id": "icimatin",
+   "nom": "Ici Matin (réseau local)",
+   "type": "radio",
+   "audience": 2500,
+   "orientation": -0.2,
+   "ton": 0,
+   "cibles": [
+    "retraites",
+    "rural"
+   ],
+   "regions": null
+  },
+  {
+   "id": "lesoir",
+   "nom": "Le Quotidien du Soir",
+   "type": "presse",
+   "audience": 480,
+   "orientation": -0.7,
+   "ton": 0,
+   "cibles": [
+    "diplomes",
+    "aise"
+   ],
+   "regions": null
+  },
+  {
+   "id": "lematinal",
+   "nom": "Le Matinal",
+   "type": "presse",
+   "audience": 350,
+   "orientation": 1.2,
+   "ton": 0,
+   "cibles": [
+    "aise",
+    "retraites"
+   ],
+   "regions": null
+  },
+  {
+   "id": "liberte",
+   "nom": "Liberté",
+   "type": "presse",
+   "audience": 100,
+   "orientation": -1.6,
+   "ton": 1,
+   "cibles": [
+    "diplomes",
+    "urbain"
+   ],
+   "regions": null
+  },
+  {
+   "id": "leparigot",
+   "nom": "Le Francilien",
+   "type": "presse",
+   "audience": 280,
+   "orientation": 0.1,
+   "ton": 0,
+   "cibles": [
+    "populaire",
+    "moyen"
+   ],
+   "regions": null
+  },
+  {
+   "id": "lhumain",
+   "nom": "L'Humain",
+   "type": "presse",
+   "audience": 35,
+   "orientation": -2,
+   "ton": 1,
+   "cibles": [
+    "populaire",
+    "public"
+   ],
+   "regions": null
+  },
+  {
+   "id": "leseco",
+   "nom": "Les Marchés",
+   "type": "presse",
+   "audience": 140,
+   "orientation": 1.3,
+   "ton": 0,
+   "cibles": [
+    "aise",
+    "independants"
+   ],
+   "regions": null
+  },
+  {
+   "id": "mediaparts",
+   "nom": "Enquêtes en ligne",
+   "type": "web",
+   "audience": 250,
+   "orientation": -1.5,
+   "ton": 2,
+   "cibles": [
+    "diplomes",
+    "public"
+   ],
+   "regions": null
+  },
+  {
+   "id": "valeurs",
+   "nom": "Convictions",
+   "type": "presse",
+   "audience": 100,
+   "orientation": 2,
+   "ton": 2,
+   "cibles": [
+    "retraites",
+    "independants"
+   ],
+   "regions": null
+  },
+  {
+   "id": "pointhebdo",
+   "nom": "Le Repère",
+   "type": "presse",
+   "audience": 290,
+   "orientation": 1,
+   "ton": 0,
+   "cibles": [
+    "aise",
+    "diplomes"
+   ],
+   "regions": null
+  },
+  {
+   "id": "nouvelhebdo",
+   "nom": "Le Nouvel Hebdo",
+   "type": "presse",
+   "audience": 200,
+   "orientation": -1,
+   "ton": 0,
+   "cibles": [
+    "diplomes"
+   ],
+   "regions": null
+  },
+  {
+   "id": "streamjeunes",
+   "nom": "Le Stream Politique",
+   "type": "web",
+   "audience": 600,
+   "orientation": -0.5,
+   "ton": 2,
+   "cibles": [
+    "jeunes"
+   ],
+   "regions": null
+  },
+  {
+   "id": "brutal",
+   "nom": "Format Court",
+   "type": "web",
+   "audience": 1500,
+   "orientation": -0.6,
+   "ton": 1,
+   "cibles": [
+    "jeunes",
+    "urbain"
+   ],
+   "regions": null
+  },
+  {
+   "id": "ouest",
+   "nom": "Ouest Quotidien",
+   "type": "presse",
+   "audience": 620,
+   "orientation": -0.1,
+   "ton": 0,
+   "cibles": [
+    "retraites",
+    "rural",
+    "moyen"
+   ],
+   "regions": [
+    "53",
+    "52",
+    "28"
+   ]
+  },
+  {
+   "id": "provence",
+   "nom": "Le Provençal",
+   "type": "presse",
+   "audience": 70,
+   "orientation": 0.1,
+   "ton": 0,
+   "cibles": [
+    "retraites",
+    "populaire"
+   ],
+   "regions": [
+    "93"
+   ]
+  },
+  {
+   "id": "sudouest",
+   "nom": "Sud-Ouest Matin",
+   "type": "presse",
+   "audience": 200,
+   "orientation": -0.2,
+   "ton": 0,
+   "cibles": [
+    "retraites",
+    "rural"
+   ],
+   "regions": [
+    "75"
+   ]
+  },
+  {
+   "id": "voixnord",
+   "nom": "La Voix des Hauts",
+   "type": "presse",
+   "audience": 180,
+   "orientation": 0,
+   "ton": 0,
+   "cibles": [
+    "populaire",
+    "retraites"
+   ],
+   "regions": [
+    "32"
+   ]
+  },
+  {
+   "id": "progres",
+   "nom": "Le Progrès du Rhône",
+   "type": "presse",
+   "audience": 150,
+   "orientation": 0.1,
+   "ton": 0,
+   "cibles": [
+    "retraites",
+    "moyen"
+   ],
+   "regions": [
+    "84"
+   ]
+  },
+  {
+   "id": "depeche",
+   "nom": "La Dépêche d'Occitanie",
+   "type": "presse",
+   "audience": 120,
+   "orientation": -0.6,
+   "ton": 0,
+   "cibles": [
+    "retraites",
+    "rural"
+   ],
+   "regions": [
+    "76"
+   ]
+  },
+  {
+   "id": "dna",
+   "nom": "Les Nouvelles de l'Est",
+   "type": "presse",
+   "audience": 190,
+   "orientation": 0.2,
+   "ton": 0,
+   "cibles": [
+    "retraites",
+    "moyen"
+   ],
+   "regions": [
+    "44"
+   ]
+  },
+  {
+   "id": "nicematin",
+   "nom": "Riviera Matin",
+   "type": "presse",
+   "audience": 60,
+   "orientation": 0.6,
+   "ton": 0,
+   "cibles": [
+    "retraites",
+    "aise"
+   ],
+   "regions": [
+    "93"
+   ]
+  },
+  {
+   "id": "telegramme",
+   "nom": "Le Télégraphe breton",
+   "type": "presse",
+   "audience": 170,
+   "orientation": -0.2,
+   "ton": 0,
+   "cibles": [
+    "retraites",
+    "rural"
+   ],
+   "regions": [
+    "53"
+   ]
+  },
+  {
+   "id": "bienpublic",
+   "nom": "Le Journal du Centre-Est",
+   "type": "presse",
+   "audience": 110,
+   "orientation": 0,
+   "ton": 0,
+   "cibles": [
+    "retraites",
+    "rural"
+   ],
+   "regions": [
+    "27",
+    "24"
+   ]
+  },
+  {
+   "id": "parisnormandie",
+   "nom": "Seine Normandie",
+   "type": "presse",
+   "audience": 40,
+   "orientation": 0,
+   "ton": 0,
+   "cibles": [
+    "retraites",
+    "populaire"
+   ],
+   "regions": [
+    "28"
+   ]
+  },
+  {
+   "id": "corsematin",
+   "nom": "Corse Quotidien",
+   "type": "presse",
+   "audience": 30,
+   "orientation": 0,
+   "ton": 0,
+   "cibles": [
+    "retraites"
+   ],
+   "regions": [
+    "94"
+   ]
+  },
+  {
+   "id": "trois_regions",
+   "nom": "La Trois Régions",
+   "type": "tele",
+   "audience": 2200,
+   "orientation": -0.1,
+   "ton": 0,
+   "cibles": [
+    "retraites",
+    "rural"
+   ],
+   "regions": null
+  },
+  {
+   "id": "outremer1",
+   "nom": "Outre-mer Première",
+   "type": "tele",
+   "audience": 350,
+   "orientation": 0,
+   "ton": 0,
+   "cibles": [
+    "populaire"
+   ],
+   "regions": [
+    "01",
+    "02",
+    "03",
+    "04",
+    "06"
+   ]
+  }
+ ]
+}

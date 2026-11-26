@@ -60,7 +60,7 @@ const deptsCsv = csv(`${S}/decoupage-administratif/sources/departements.csv`);
 const communesCsv = csv(`${S}/decoupage-administratif/sources/communes.csv`);
 const popCsv = csv(`${S}/decoupage-administratif/sources/donnees_communes.csv`, ';');
 const pop = new Map(popCsv.map(r => [r.COM, +r.PMUN]));
-for (const r of csv(`${S}/decoupage-administratif/sources/donnees_communes_mayotte.csv`, ';')) pop.set('976' + r.CODCOM, +r.PMUN);
+for (const r of csv(`${S}/decoupage-administratif/sources/donnees_communes_mayotte.csv`, ';')) pop.set('97' + r.CODCOM, +r.PMUN);
 const comOM = csv(`${S}/decoupage-administratif/sources/collectivites-outremer.csv`);
 
 // Sénateurs par département (répartition en vigueur, 348 sièges avec les collectivités et les Français de l'étranger).

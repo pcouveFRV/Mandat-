@@ -1,0 +1,8726 @@
+{
+ "_doc": "Voir docs/DATA.md. portee : nat (tous les partis réagissent), parti (vie interne du parti du joueur), mandat (selon le mandat exercé), perso (mode Carrière). cond : conditions de déclenchement. themes : hausse des priorités dans l'opinion. choix : axe et sens donnent la position prise, eff les effets directs, opinion l'effet par étiquette de segment.",
+ "evenements": [
+  {
+   "id": "greve01",
+   "titre": "Grève reconductible à la SNCF",
+   "texte": "Les cheminots cessent le travail à la veille des vacances. Les gares sont saturées.",
+   "cat": "social",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "transports": 3,
+    "services_publics": 2
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Soutenir le mouvement",
+     "axe": "social",
+     "sens": 1,
+     "eff": {
+      "militants": 2
+     },
+     "opinion": {
+      "populaire": 2,
+      "public": 2,
+      "independants": -2,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Dénoncer les blocages",
+     "axe": "social",
+     "sens": -1,
+     "opinion": {
+      "independants": 2,
+      "retraites": 1,
+      "aise": 1,
+      "public": -2,
+      "populaire": -1
+     }
+    },
+    {
+     "t": "Appeler au dialogue",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "greve02",
+   "titre": "Raffineries bloquées",
+   "texte": "Les stations-service se vident dans plusieurs régions. Les files s'allongent.",
+   "cat": "social",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "pouvoir_achat": 3,
+    "emploi": 1
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Soutenir le mouvement",
+     "axe": "social",
+     "sens": 1,
+     "eff": {
+      "militants": 2
+     },
+     "opinion": {
+      "populaire": 2,
+      "public": 2,
+      "independants": -2,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Dénoncer les blocages",
+     "axe": "social",
+     "sens": -1,
+     "opinion": {
+      "independants": 2,
+      "retraites": 1,
+      "aise": 1,
+      "public": -2,
+      "populaire": -1
+     }
+    },
+    {
+     "t": "Appeler au dialogue",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "greve03",
+   "titre": "Les enseignants dans la rue",
+   "texte": "Une journée de grève très suivie dans les écoles, collèges et lycées.",
+   "cat": "social",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "ecole": 3,
+    "services_publics": 2
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Soutenir le mouvement",
+     "axe": "social",
+     "sens": 1,
+     "eff": {
+      "militants": 2
+     },
+     "opinion": {
+      "populaire": 2,
+      "public": 2,
+      "independants": -2,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Dénoncer les blocages",
+     "axe": "social",
+     "sens": -1,
+     "opinion": {
+      "independants": 2,
+      "retraites": 1,
+      "aise": 1,
+      "public": -2,
+      "populaire": -1
+     }
+    },
+    {
+     "t": "Appeler au dialogue",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "greve04",
+   "titre": "L'hôpital à bout",
+   "texte": "Les soignants manifestent devant les urgences. Plusieurs services ferment la nuit.",
+   "cat": "social",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "sante": 4,
+    "services_publics": 2
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Soutenir le mouvement",
+     "axe": "social",
+     "sens": 1,
+     "eff": {
+      "militants": 2
+     },
+     "opinion": {
+      "populaire": 2,
+      "public": 2,
+      "independants": -2,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Dénoncer les blocages",
+     "axe": "social",
+     "sens": -1,
+     "opinion": {
+      "independants": 2,
+      "retraites": 1,
+      "aise": 1,
+      "public": -2,
+      "populaire": -1
+     }
+    },
+    {
+     "t": "Appeler au dialogue",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "greve05",
+   "titre": "Les tracteurs sur les autoroutes",
+   "texte": "Les agriculteurs bloquent les grands axes et déversent du fumier devant les préfectures.",
+   "cat": "social",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "agriculture": 4,
+    "pouvoir_achat": 1
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Soutenir le mouvement",
+     "axe": "social",
+     "sens": 1,
+     "eff": {
+      "militants": 2
+     },
+     "opinion": {
+      "populaire": 2,
+      "public": 2,
+      "independants": -2,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Dénoncer les blocages",
+     "axe": "social",
+     "sens": -1,
+     "opinion": {
+      "independants": 2,
+      "retraites": 1,
+      "aise": 1,
+      "public": -2,
+      "populaire": -1
+     }
+    },
+    {
+     "t": "Appeler au dialogue",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "greve06",
+   "titre": "Opération escargot des routiers",
+   "texte": "Les transporteurs protestent contre le prix du gazole.",
+   "cat": "social",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "transports": 2,
+    "pouvoir_achat": 2
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Soutenir le mouvement",
+     "axe": "social",
+     "sens": 1,
+     "eff": {
+      "militants": 2
+     },
+     "opinion": {
+      "populaire": 2,
+      "public": 2,
+      "independants": -2,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Dénoncer les blocages",
+     "axe": "social",
+     "sens": -1,
+     "opinion": {
+      "independants": 2,
+      "retraites": 1,
+      "aise": 1,
+      "public": -2,
+      "populaire": -1
+     }
+    },
+    {
+     "t": "Appeler au dialogue",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "greve07",
+   "titre": "Poubelles non ramassées",
+   "texte": "La grève des éboueurs dure depuis dix jours dans plusieurs grandes villes.",
+   "cat": "social",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "services_publics": 3
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Soutenir le mouvement",
+     "axe": "social",
+     "sens": 1,
+     "eff": {
+      "militants": 2
+     },
+     "opinion": {
+      "populaire": 2,
+      "public": 2,
+      "independants": -2,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Dénoncer les blocages",
+     "axe": "social",
+     "sens": -1,
+     "opinion": {
+      "independants": 2,
+      "retraites": 1,
+      "aise": 1,
+      "public": -2,
+      "populaire": -1
+     }
+    },
+    {
+     "t": "Appeler au dialogue",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "greve08",
+   "titre": "Ciel fermé",
+   "texte": "Les contrôleurs aériens font grève. Des centaines de vols sont annulés.",
+   "cat": "social",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "transports": 3
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Soutenir le mouvement",
+     "axe": "social",
+     "sens": 1,
+     "eff": {
+      "militants": 2
+     },
+     "opinion": {
+      "populaire": 2,
+      "public": 2,
+      "independants": -2,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Dénoncer les blocages",
+     "axe": "social",
+     "sens": -1,
+     "opinion": {
+      "independants": 2,
+      "retraites": 1,
+      "aise": 1,
+      "public": -2,
+      "populaire": -1
+     }
+    },
+    {
+     "t": "Appeler au dialogue",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "greve09",
+   "titre": "Journée morte dans la fonction publique",
+   "texte": "Tous les syndicats appellent à la grève sur les salaires.",
+   "cat": "social",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "services_publics": 3,
+    "pouvoir_achat": 2
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Soutenir le mouvement",
+     "axe": "social",
+     "sens": 1,
+     "eff": {
+      "militants": 2
+     },
+     "opinion": {
+      "populaire": 2,
+      "public": 2,
+      "independants": -2,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Dénoncer les blocages",
+     "axe": "social",
+     "sens": -1,
+     "opinion": {
+      "independants": 2,
+      "retraites": 1,
+      "aise": 1,
+      "public": -2,
+      "populaire": -1
+     }
+    },
+    {
+     "t": "Appeler au dialogue",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "greve10",
+   "titre": "Taxis contre plateformes",
+   "texte": "Les taxis bloquent les aéroports pour protester contre la concurrence.",
+   "cat": "social",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "transports": 2,
+    "emploi": 2
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Soutenir le mouvement",
+     "axe": "social",
+     "sens": 1,
+     "eff": {
+      "militants": 2
+     },
+     "opinion": {
+      "populaire": 2,
+      "public": 2,
+      "independants": -2,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Dénoncer les blocages",
+     "axe": "social",
+     "sens": -1,
+     "opinion": {
+      "independants": 2,
+      "retraites": 1,
+      "aise": 1,
+      "public": -2,
+      "populaire": -1
+     }
+    },
+    {
+     "t": "Appeler au dialogue",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "greve11",
+   "titre": "Coupures ciblées dans l'énergie",
+   "texte": "Les agents de l'énergie baissent la production pour peser sur la réforme.",
+   "cat": "social",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "pouvoir_achat": 2,
+    "retraites": 2
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Soutenir le mouvement",
+     "axe": "social",
+     "sens": 1,
+     "eff": {
+      "militants": 2
+     },
+     "opinion": {
+      "populaire": 2,
+      "public": 2,
+      "independants": -2,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Dénoncer les blocages",
+     "axe": "social",
+     "sens": -1,
+     "opinion": {
+      "independants": 2,
+      "retraites": 1,
+      "aise": 1,
+      "public": -2,
+      "populaire": -1
+     }
+    },
+    {
+     "t": "Appeler au dialogue",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "greve12",
+   "titre": "Les ports à l'arrêt",
+   "texte": "Les dockers bloquent les terminaux. Les conteneurs s'accumulent.",
+   "cat": "social",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "emploi": 3
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Soutenir le mouvement",
+     "axe": "social",
+     "sens": 1,
+     "eff": {
+      "militants": 2
+     },
+     "opinion": {
+      "populaire": 2,
+      "public": 2,
+      "independants": -2,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Dénoncer les blocages",
+     "axe": "social",
+     "sens": -1,
+     "opinion": {
+      "independants": 2,
+      "retraites": 1,
+      "aise": 1,
+      "public": -2,
+      "populaire": -1
+     }
+    },
+    {
+     "t": "Appeler au dialogue",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "eco01",
+   "titre": "Le chômage repart à la hausse",
+   "texte": "Les chiffres trimestriels sont mauvais. Les jeunes sont les premiers touchés.",
+   "cat": "economie",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "emploi": 4
+   },
+   "duree": 8,
+   "choix": [
+    {
+     "t": "Réclamer une intervention de l'État",
+     "axe": "economie",
+     "sens": -1,
+     "opinion": {
+      "populaire": 2,
+      "precaires": 1,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Demander des baisses de charges",
+     "axe": "economie",
+     "sens": 1,
+     "opinion": {
+      "independants": 2,
+      "aise": 1,
+      "public": -1
+     }
+    },
+    {
+     "t": "Publier une note chiffrée",
+     "eff": {
+      "credibilite": 2,
+      "capital": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "eco02",
+   "titre": "Les prix alimentaires flambent",
+   "texte": "Le panier moyen a pris 8 % en un an. Les associations d'aide sont débordées.",
+   "cat": "economie",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "pouvoir_achat": 4
+   },
+   "duree": 8,
+   "choix": [
+    {
+     "t": "Réclamer une intervention de l'État",
+     "axe": "economie",
+     "sens": -1,
+     "opinion": {
+      "populaire": 2,
+      "precaires": 1,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Demander des baisses de charges",
+     "axe": "economie",
+     "sens": 1,
+     "opinion": {
+      "independants": 2,
+      "aise": 1,
+      "public": -1
+     }
+    },
+    {
+     "t": "Publier une note chiffrée",
+     "eff": {
+      "credibilite": 2,
+      "capital": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "eco03",
+   "titre": "Un grand groupe annonce un plan social",
+   "texte": "Plusieurs milliers de postes supprimés en France. Les salariés occupent les sites.",
+   "cat": "economie",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "emploi": 4
+   },
+   "duree": 8,
+   "choix": [
+    {
+     "t": "Réclamer une intervention de l'État",
+     "axe": "economie",
+     "sens": -1,
+     "opinion": {
+      "populaire": 2,
+      "precaires": 1,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Demander des baisses de charges",
+     "axe": "economie",
+     "sens": 1,
+     "opinion": {
+      "independants": 2,
+      "aise": 1,
+      "public": -1
+     }
+    },
+    {
+     "t": "Publier une note chiffrée",
+     "eff": {
+      "credibilite": 2,
+      "capital": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "eco04",
+   "titre": "La note de la France dégradée",
+   "texte": "Une agence abaisse la note souveraine. Les taux d'emprunt montent.",
+   "cat": "economie",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "dette": 4
+   },
+   "duree": 8,
+   "choix": [
+    {
+     "t": "Réclamer une intervention de l'État",
+     "axe": "economie",
+     "sens": -1,
+     "opinion": {
+      "populaire": 2,
+      "precaires": 1,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Demander des baisses de charges",
+     "axe": "economie",
+     "sens": 1,
+     "opinion": {
+      "independants": 2,
+      "aise": 1,
+      "public": -1
+     }
+    },
+    {
+     "t": "Publier une note chiffrée",
+     "eff": {
+      "credibilite": 2,
+      "capital": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "eco05",
+   "titre": "Croissance meilleure que prévu",
+   "texte": "L'activité surprend à la hausse. Le gouvernement s'en félicite.",
+   "cat": "economie",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "emploi": 1,
+    "dette": 1
+   },
+   "duree": 8,
+   "choix": [
+    {
+     "t": "Réclamer une intervention de l'État",
+     "axe": "economie",
+     "sens": -1,
+     "opinion": {
+      "populaire": 2,
+      "precaires": 1,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Demander des baisses de charges",
+     "axe": "economie",
+     "sens": 1,
+     "opinion": {
+      "independants": 2,
+      "aise": 1,
+      "public": -1
+     }
+    },
+    {
+     "t": "Publier une note chiffrée",
+     "eff": {
+      "credibilite": 2,
+      "capital": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "eco06",
+   "titre": "Les taux immobiliers grimpent",
+   "texte": "Les primo-accédants renoncent à acheter. Le marché se grippe.",
+   "cat": "economie",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "logement": 4
+   },
+   "duree": 8,
+   "choix": [
+    {
+     "t": "Réclamer une intervention de l'État",
+     "axe": "economie",
+     "sens": -1,
+     "opinion": {
+      "populaire": 2,
+      "precaires": 1,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Demander des baisses de charges",
+     "axe": "economie",
+     "sens": 1,
+     "opinion": {
+      "independants": 2,
+      "aise": 1,
+      "public": -1
+     }
+    },
+    {
+     "t": "Publier une note chiffrée",
+     "eff": {
+      "credibilite": 2,
+      "capital": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "eco07",
+   "titre": "Le litre de carburant dépasse deux euros",
+   "texte": "La colère monte dans les zones rurales et périurbaines.",
+   "cat": "economie",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "pouvoir_achat": 3,
+    "transports": 2
+   },
+   "duree": 8,
+   "choix": [
+    {
+     "t": "Réclamer une intervention de l'État",
+     "axe": "economie",
+     "sens": -1,
+     "opinion": {
+      "populaire": 2,
+      "precaires": 1,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Demander des baisses de charges",
+     "axe": "economie",
+     "sens": 1,
+     "opinion": {
+      "independants": 2,
+      "aise": 1,
+      "public": -1
+     }
+    },
+    {
+     "t": "Publier une note chiffrée",
+     "eff": {
+      "credibilite": 2,
+      "capital": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "eco08",
+   "titre": "Crise du logement",
+   "texte": "Le nombre de permis de construire tombe au plus bas depuis trente ans.",
+   "cat": "economie",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "logement": 4
+   },
+   "duree": 8,
+   "choix": [
+    {
+     "t": "Réclamer une intervention de l'État",
+     "axe": "economie",
+     "sens": -1,
+     "opinion": {
+      "populaire": 2,
+      "precaires": 1,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Demander des baisses de charges",
+     "axe": "economie",
+     "sens": 1,
+     "opinion": {
+      "independants": 2,
+      "aise": 1,
+      "public": -1
+     }
+    },
+    {
+     "t": "Publier une note chiffrée",
+     "eff": {
+      "credibilite": 2,
+      "capital": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "eco09",
+   "titre": "Vague de faillites de petites entreprises",
+   "texte": "Les tribunaux de commerce croulent sous les dossiers.",
+   "cat": "economie",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "emploi": 3
+   },
+   "duree": 8,
+   "choix": [
+    {
+     "t": "Réclamer une intervention de l'État",
+     "axe": "economie",
+     "sens": -1,
+     "opinion": {
+      "populaire": 2,
+      "precaires": 1,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Demander des baisses de charges",
+     "axe": "economie",
+     "sens": 1,
+     "opinion": {
+      "independants": 2,
+      "aise": 1,
+      "public": -1
+     }
+    },
+    {
+     "t": "Publier une note chiffrée",
+     "eff": {
+      "credibilite": 2,
+      "capital": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "eco10",
+   "titre": "Record d'exportations agricoles",
+   "texte": "Les vins et les céréales tirent le commerce extérieur.",
+   "cat": "economie",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "agriculture": 2
+   },
+   "duree": 8,
+   "choix": [
+    {
+     "t": "Réclamer une intervention de l'État",
+     "axe": "economie",
+     "sens": -1,
+     "opinion": {
+      "populaire": 2,
+      "precaires": 1,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Demander des baisses de charges",
+     "axe": "economie",
+     "sens": 1,
+     "opinion": {
+      "independants": 2,
+      "aise": 1,
+      "public": -1
+     }
+    },
+    {
+     "t": "Publier une note chiffrée",
+     "eff": {
+      "credibilite": 2,
+      "capital": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "eco11",
+   "titre": "Le déficit dérape",
+   "texte": "Le trou budgétaire sera plus profond que prévu. Bruxelles s'inquiète.",
+   "cat": "economie",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "dette": 4,
+    "europe": 1
+   },
+   "duree": 8,
+   "choix": [
+    {
+     "t": "Réclamer une intervention de l'État",
+     "axe": "economie",
+     "sens": -1,
+     "opinion": {
+      "populaire": 2,
+      "precaires": 1,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Demander des baisses de charges",
+     "axe": "economie",
+     "sens": 1,
+     "opinion": {
+      "independants": 2,
+      "aise": 1,
+      "public": -1
+     }
+    },
+    {
+     "t": "Publier une note chiffrée",
+     "eff": {
+      "credibilite": 2,
+      "capital": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "eco12",
+   "titre": "Les salaires décrochent",
+   "texte": "Une étude montre que les salaires réels ont baissé sur deux ans.",
+   "cat": "economie",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "pouvoir_achat": 4
+   },
+   "duree": 8,
+   "choix": [
+    {
+     "t": "Réclamer une intervention de l'État",
+     "axe": "economie",
+     "sens": -1,
+     "opinion": {
+      "populaire": 2,
+      "precaires": 1,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Demander des baisses de charges",
+     "axe": "economie",
+     "sens": 1,
+     "opinion": {
+      "independants": 2,
+      "aise": 1,
+      "public": -1
+     }
+    },
+    {
+     "t": "Publier une note chiffrée",
+     "eff": {
+      "credibilite": 2,
+      "capital": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "eco13",
+   "titre": "Une usine ferme ses portes",
+   "texte": "Le dernier grand employeur industriel du bassin annonce sa fermeture.",
+   "cat": "economie",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "emploi": 4
+   },
+   "duree": 8,
+   "choix": [
+    {
+     "t": "Réclamer une intervention de l'État",
+     "axe": "economie",
+     "sens": -1,
+     "opinion": {
+      "populaire": 2,
+      "precaires": 1,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Demander des baisses de charges",
+     "axe": "economie",
+     "sens": 1,
+     "opinion": {
+      "independants": 2,
+      "aise": 1,
+      "public": -1
+     }
+    },
+    {
+     "t": "Publier une note chiffrée",
+     "eff": {
+      "credibilite": 2,
+      "capital": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "eco14",
+   "titre": "Les factures d'électricité bondissent",
+   "texte": "La hausse des tarifs réglementés provoque un tollé.",
+   "cat": "economie",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "pouvoir_achat": 4
+   },
+   "duree": 8,
+   "choix": [
+    {
+     "t": "Réclamer une intervention de l'État",
+     "axe": "economie",
+     "sens": -1,
+     "opinion": {
+      "populaire": 2,
+      "precaires": 1,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Demander des baisses de charges",
+     "axe": "economie",
+     "sens": 1,
+     "opinion": {
+      "independants": 2,
+      "aise": 1,
+      "public": -1
+     }
+    },
+    {
+     "t": "Publier une note chiffrée",
+     "eff": {
+      "credibilite": 2,
+      "capital": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "secu01",
+   "titre": "Attentat déjoué",
+   "texte": "Les services ont arrêté un homme qui préparait une attaque dans une gare.",
+   "cat": "securite",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "securite": 4
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Exiger la fermeté",
+     "axe": "securite",
+     "sens": 1,
+     "opinion": {
+      "retraites": 2,
+      "populaire": 1,
+      "jeunes": -1,
+      "diplomes": -1
+     }
+    },
+    {
+     "t": "Parler des causes et de la prévention",
+     "axe": "securite",
+     "sens": -1,
+     "opinion": {
+      "diplomes": 2,
+      "jeunes": 1,
+      "retraites": -2
+     }
+    },
+    {
+     "t": "Appeler à l'unité",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "secu02",
+   "titre": "Attentat dans une grande ville",
+   "texte": "Une attaque au couteau fait plusieurs victimes. Le pays est sous le choc.",
+   "cat": "securite",
+   "portee": "nat",
+   "poids": 1,
+   "cond": {},
+   "themes": {
+    "securite": 5,
+    "identite": 2
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Exiger la fermeté",
+     "axe": "securite",
+     "sens": 1,
+     "opinion": {
+      "retraites": 2,
+      "populaire": 1,
+      "jeunes": -1,
+      "diplomes": -1
+     }
+    },
+    {
+     "t": "Parler des causes et de la prévention",
+     "axe": "securite",
+     "sens": -1,
+     "opinion": {
+      "diplomes": 2,
+      "jeunes": 1,
+      "retraites": -2
+     }
+    },
+    {
+     "t": "Appeler à l'unité",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "secu03",
+   "titre": "Nuits d'émeutes",
+   "texte": "Des violences urbaines éclatent dans plusieurs quartiers après une intervention de police.",
+   "cat": "securite",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "securite": 5
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Exiger la fermeté",
+     "axe": "securite",
+     "sens": 1,
+     "opinion": {
+      "retraites": 2,
+      "populaire": 1,
+      "jeunes": -1,
+      "diplomes": -1
+     }
+    },
+    {
+     "t": "Parler des causes et de la prévention",
+     "axe": "securite",
+     "sens": -1,
+     "opinion": {
+      "diplomes": 2,
+      "jeunes": 1,
+      "retraites": -2
+     }
+    },
+    {
+     "t": "Appeler à l'unité",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "secu04",
+   "titre": "Fusillade liée au narcotrafic",
+   "texte": "Un règlement de comptes fait trois morts en pleine rue.",
+   "cat": "securite",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "securite": 4
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Exiger la fermeté",
+     "axe": "securite",
+     "sens": 1,
+     "opinion": {
+      "retraites": 2,
+      "populaire": 1,
+      "jeunes": -1,
+      "diplomes": -1
+     }
+    },
+    {
+     "t": "Parler des causes et de la prévention",
+     "axe": "securite",
+     "sens": -1,
+     "opinion": {
+      "diplomes": 2,
+      "jeunes": 1,
+      "retraites": -2
+     }
+    },
+    {
+     "t": "Appeler à l'unité",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "secu05",
+   "titre": "Un maire agressé",
+   "texte": "Un élu local est frappé devant sa mairie. Les associations d'élus alertent.",
+   "cat": "securite",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "securite": 3
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Exiger la fermeté",
+     "axe": "securite",
+     "sens": 1,
+     "opinion": {
+      "retraites": 2,
+      "populaire": 1,
+      "jeunes": -1,
+      "diplomes": -1
+     }
+    },
+    {
+     "t": "Parler des causes et de la prévention",
+     "axe": "securite",
+     "sens": -1,
+     "opinion": {
+      "diplomes": 2,
+      "jeunes": 1,
+      "retraites": -2
+     }
+    },
+    {
+     "t": "Appeler à l'unité",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "secu06",
+   "titre": "Évasion spectaculaire",
+   "texte": "Un détenu s'évade lors d'un transfert. La chasse à l'homme commence.",
+   "cat": "securite",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "securite": 3
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Exiger la fermeté",
+     "axe": "securite",
+     "sens": 1,
+     "opinion": {
+      "retraites": 2,
+      "populaire": 1,
+      "jeunes": -1,
+      "diplomes": -1
+     }
+    },
+    {
+     "t": "Parler des causes et de la prévention",
+     "axe": "securite",
+     "sens": -1,
+     "opinion": {
+      "diplomes": 2,
+      "jeunes": 1,
+      "retraites": -2
+     }
+    },
+    {
+     "t": "Appeler à l'unité",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "secu07",
+   "titre": "Refus d'obtempérer mortel",
+   "texte": "Un policier tire sur un conducteur. Deux versions s'opposent.",
+   "cat": "securite",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "securite": 4
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Exiger la fermeté",
+     "axe": "securite",
+     "sens": 1,
+     "opinion": {
+      "retraites": 2,
+      "populaire": 1,
+      "jeunes": -1,
+      "diplomes": -1
+     }
+    },
+    {
+     "t": "Parler des causes et de la prévention",
+     "axe": "securite",
+     "sens": -1,
+     "opinion": {
+      "diplomes": 2,
+      "jeunes": 1,
+      "retraites": -2
+     }
+    },
+    {
+     "t": "Appeler à l'unité",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "secu08",
+   "titre": "Cambriolages en série dans les campagnes",
+   "texte": "Les gendarmes sont débordés. Des habitants s'organisent.",
+   "cat": "securite",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "securite": 3
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Exiger la fermeté",
+     "axe": "securite",
+     "sens": 1,
+     "opinion": {
+      "retraites": 2,
+      "populaire": 1,
+      "jeunes": -1,
+      "diplomes": -1
+     }
+    },
+    {
+     "t": "Parler des causes et de la prévention",
+     "axe": "securite",
+     "sens": -1,
+     "opinion": {
+      "diplomes": 2,
+      "jeunes": 1,
+      "retraites": -2
+     }
+    },
+    {
+     "t": "Appeler à l'unité",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "secu09",
+   "titre": "Un hôpital paralysé par une cyberattaque",
+   "texte": "Les données des patients sont prises en otage.",
+   "cat": "securite",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "securite": 2,
+    "sante": 2
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Exiger la fermeté",
+     "axe": "securite",
+     "sens": 1,
+     "opinion": {
+      "retraites": 2,
+      "populaire": 1,
+      "jeunes": -1,
+      "diplomes": -1
+     }
+    },
+    {
+     "t": "Parler des causes et de la prévention",
+     "axe": "securite",
+     "sens": -1,
+     "opinion": {
+      "diplomes": 2,
+      "jeunes": 1,
+      "retraites": -2
+     }
+    },
+    {
+     "t": "Appeler à l'unité",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "secu10",
+   "titre": "Violence dans un lycée",
+   "texte": "Un professeur est blessé par un élève. La communauté éducative est sous le choc.",
+   "cat": "securite",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "securite": 3,
+    "ecole": 3
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Exiger la fermeté",
+     "axe": "securite",
+     "sens": 1,
+     "opinion": {
+      "retraites": 2,
+      "populaire": 1,
+      "jeunes": -1,
+      "diplomes": -1
+     }
+    },
+    {
+     "t": "Parler des causes et de la prévention",
+     "axe": "securite",
+     "sens": -1,
+     "opinion": {
+      "diplomes": 2,
+      "jeunes": 1,
+      "retraites": -2
+     }
+    },
+    {
+     "t": "Appeler à l'unité",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "secu11",
+   "titre": "Rixe mortelle entre bandes",
+   "texte": "Un adolescent est tué lors d'un affrontement entre jeunes de deux villes.",
+   "cat": "securite",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "securite": 4
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Exiger la fermeté",
+     "axe": "securite",
+     "sens": 1,
+     "opinion": {
+      "retraites": 2,
+      "populaire": 1,
+      "jeunes": -1,
+      "diplomes": -1
+     }
+    },
+    {
+     "t": "Parler des causes et de la prévention",
+     "axe": "securite",
+     "sens": -1,
+     "opinion": {
+      "diplomes": 2,
+      "jeunes": 1,
+      "retraites": -2
+     }
+    },
+    {
+     "t": "Appeler à l'unité",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "secu12",
+   "titre": "Malaise dans la police",
+   "texte": "Les syndicats de policiers dénoncent le manque de moyens et de soutien.",
+   "cat": "securite",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "securite": 3,
+    "services_publics": 1
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Exiger la fermeté",
+     "axe": "securite",
+     "sens": 1,
+     "opinion": {
+      "retraites": 2,
+      "populaire": 1,
+      "jeunes": -1,
+      "diplomes": -1
+     }
+    },
+    {
+     "t": "Parler des causes et de la prévention",
+     "axe": "securite",
+     "sens": -1,
+     "opinion": {
+      "diplomes": 2,
+      "jeunes": 1,
+      "retraites": -2
+     }
+    },
+    {
+     "t": "Appeler à l'unité",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "secu13",
+   "titre": "Trafic de drogue dans une ville moyenne",
+   "texte": "Un point de deal s'installe en centre-ville. Les commerçants ferment.",
+   "cat": "securite",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "securite": 4
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Exiger la fermeté",
+     "axe": "securite",
+     "sens": 1,
+     "opinion": {
+      "retraites": 2,
+      "populaire": 1,
+      "jeunes": -1,
+      "diplomes": -1
+     }
+    },
+    {
+     "t": "Parler des causes et de la prévention",
+     "axe": "securite",
+     "sens": -1,
+     "opinion": {
+      "diplomes": 2,
+      "jeunes": 1,
+      "retraites": -2
+     }
+    },
+    {
+     "t": "Appeler à l'unité",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "immig01",
+   "titre": "Naufrage dans la Manche",
+   "texte": "Une embarcation chavire. Plusieurs morts.",
+   "cat": "immigration",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "immigration": 4
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Demander plus de fermeté",
+     "axe": "immigration",
+     "sens": 1,
+     "opinion": {
+      "populaire": 2,
+      "retraites": 1,
+      "diplomes": -2
+     }
+    },
+    {
+     "t": "Défendre l'accueil",
+     "axe": "immigration",
+     "sens": -1,
+     "opinion": {
+      "diplomes": 2,
+      "jeunes": 1,
+      "populaire": -2
+     }
+    },
+    {
+     "t": "Renvoyer à l'Europe",
+     "axe": "europe",
+     "sens": 1,
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "immig02",
+   "titre": "Un campement évacué",
+   "texte": "La préfecture démantèle un campement de plusieurs centaines de personnes.",
+   "cat": "immigration",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "immigration": 3
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Demander plus de fermeté",
+     "axe": "immigration",
+     "sens": 1,
+     "opinion": {
+      "populaire": 2,
+      "retraites": 1,
+      "diplomes": -2
+     }
+    },
+    {
+     "t": "Défendre l'accueil",
+     "axe": "immigration",
+     "sens": -1,
+     "opinion": {
+      "diplomes": 2,
+      "jeunes": 1,
+      "populaire": -2
+     }
+    },
+    {
+     "t": "Renvoyer à l'Europe",
+     "axe": "europe",
+     "sens": 1,
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "immig03",
+   "titre": "Les titres de séjour au plus haut",
+   "texte": "Les chiffres annuels sont publiés. Chacun y lit ce qu'il veut.",
+   "cat": "immigration",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "immigration": 3
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Demander plus de fermeté",
+     "axe": "immigration",
+     "sens": 1,
+     "opinion": {
+      "populaire": 2,
+      "retraites": 1,
+      "diplomes": -2
+     }
+    },
+    {
+     "t": "Défendre l'accueil",
+     "axe": "immigration",
+     "sens": -1,
+     "opinion": {
+      "diplomes": 2,
+      "jeunes": 1,
+      "populaire": -2
+     }
+    },
+    {
+     "t": "Renvoyer à l'Europe",
+     "axe": "europe",
+     "sens": 1,
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "immig04",
+   "titre": "Une obligation de quitter le territoire non exécutée",
+   "texte": "Un fait divers relance le débat sur les expulsions.",
+   "cat": "immigration",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "immigration": 4,
+    "securite": 2
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Demander plus de fermeté",
+     "axe": "immigration",
+     "sens": 1,
+     "opinion": {
+      "populaire": 2,
+      "retraites": 1,
+      "diplomes": -2
+     }
+    },
+    {
+     "t": "Défendre l'accueil",
+     "axe": "immigration",
+     "sens": -1,
+     "opinion": {
+      "diplomes": 2,
+      "jeunes": 1,
+      "populaire": -2
+     }
+    },
+    {
+     "t": "Renvoyer à l'Europe",
+     "axe": "europe",
+     "sens": 1,
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "immig05",
+   "titre": "Un village divisé sur un centre d'accueil",
+   "texte": "L'État veut ouvrir un centre pour demandeurs d'asile dans une commune rurale.",
+   "cat": "immigration",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "immigration": 3,
+    "identite": 2
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Demander plus de fermeté",
+     "axe": "immigration",
+     "sens": 1,
+     "opinion": {
+      "populaire": 2,
+      "retraites": 1,
+      "diplomes": -2
+     }
+    },
+    {
+     "t": "Défendre l'accueil",
+     "axe": "immigration",
+     "sens": -1,
+     "opinion": {
+      "diplomes": 2,
+      "jeunes": 1,
+      "populaire": -2
+     }
+    },
+    {
+     "t": "Renvoyer à l'Europe",
+     "axe": "europe",
+     "sens": 1,
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "immig06",
+   "titre": "Régularisations dans les métiers en tension",
+   "texte": "Les restaurateurs et le bâtiment demandent des papiers pour leurs salariés.",
+   "cat": "immigration",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "immigration": 3,
+    "emploi": 2
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Demander plus de fermeté",
+     "axe": "immigration",
+     "sens": 1,
+     "opinion": {
+      "populaire": 2,
+      "retraites": 1,
+      "diplomes": -2
+     }
+    },
+    {
+     "t": "Défendre l'accueil",
+     "axe": "immigration",
+     "sens": -1,
+     "opinion": {
+      "diplomes": 2,
+      "jeunes": 1,
+      "populaire": -2
+     }
+    },
+    {
+     "t": "Renvoyer à l'Europe",
+     "axe": "europe",
+     "sens": 1,
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "immig07",
+   "titre": "Les départements saturés par les mineurs isolés",
+   "texte": "Les conseils départementaux réclament l'aide de l'État.",
+   "cat": "immigration",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "immigration": 3,
+    "services_publics": 1
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Demander plus de fermeté",
+     "axe": "immigration",
+     "sens": 1,
+     "opinion": {
+      "populaire": 2,
+      "retraites": 1,
+      "diplomes": -2
+     }
+    },
+    {
+     "t": "Défendre l'accueil",
+     "axe": "immigration",
+     "sens": -1,
+     "opinion": {
+      "diplomes": 2,
+      "jeunes": 1,
+      "populaire": -2
+     }
+    },
+    {
+     "t": "Renvoyer à l'Europe",
+     "axe": "europe",
+     "sens": 1,
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "immig08",
+   "titre": "Accord européen sur l'asile",
+   "texte": "Les Vingt-Sept s'entendent sur une répartition des demandeurs.",
+   "cat": "immigration",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "immigration": 3,
+    "europe": 3
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Demander plus de fermeté",
+     "axe": "immigration",
+     "sens": 1,
+     "opinion": {
+      "populaire": 2,
+      "retraites": 1,
+      "diplomes": -2
+     }
+    },
+    {
+     "t": "Défendre l'accueil",
+     "axe": "immigration",
+     "sens": -1,
+     "opinion": {
+      "diplomes": 2,
+      "jeunes": 1,
+      "populaire": -2
+     }
+    },
+    {
+     "t": "Renvoyer à l'Europe",
+     "axe": "europe",
+     "sens": 1,
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "climat01",
+   "titre": "Canicule historique",
+   "texte": "Les 42 degrés sont dépassés dans le Sud. Les hôpitaux déclenchent leurs plans.",
+   "cat": "ecologie",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {
+    "mois": [
+     6,
+     7,
+     8
+    ]
+   },
+   "themes": {
+    "ecologie": 4,
+    "sante": 2
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Réclamer une accélération de la transition",
+     "axe": "ecologie",
+     "sens": 1,
+     "opinion": {
+      "jeunes": 2,
+      "diplomes": 2,
+      "agri": -2,
+      "rural": -1
+     }
+    },
+    {
+     "t": "Refuser l'écologie punitive",
+     "axe": "ecologie",
+     "sens": -1,
+     "opinion": {
+      "rural": 2,
+      "populaire": 1,
+      "agri": 2,
+      "jeunes": -2
+     }
+    },
+    {
+     "t": "Se rendre sur place",
+     "eff": {
+      "notoriete": 2,
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "climat02",
+   "titre": "Inondations dévastatrices",
+   "texte": "Des villages entiers sont sous l'eau. Des milliers d'évacués.",
+   "cat": "ecologie",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "ecologie": 4
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Réclamer une accélération de la transition",
+     "axe": "ecologie",
+     "sens": 1,
+     "opinion": {
+      "jeunes": 2,
+      "diplomes": 2,
+      "agri": -2,
+      "rural": -1
+     }
+    },
+    {
+     "t": "Refuser l'écologie punitive",
+     "axe": "ecologie",
+     "sens": -1,
+     "opinion": {
+      "rural": 2,
+      "populaire": 1,
+      "agri": 2,
+      "jeunes": -2
+     }
+    },
+    {
+     "t": "Se rendre sur place",
+     "eff": {
+      "notoriete": 2,
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "climat03",
+   "titre": "Incendies géants",
+   "texte": "Des milliers d'hectares partent en fumée. Les campings sont évacués.",
+   "cat": "ecologie",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {
+    "mois": [
+     7,
+     8,
+     9
+    ]
+   },
+   "themes": {
+    "ecologie": 4,
+    "securite": 1
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Réclamer une accélération de la transition",
+     "axe": "ecologie",
+     "sens": 1,
+     "opinion": {
+      "jeunes": 2,
+      "diplomes": 2,
+      "agri": -2,
+      "rural": -1
+     }
+    },
+    {
+     "t": "Refuser l'écologie punitive",
+     "axe": "ecologie",
+     "sens": -1,
+     "opinion": {
+      "rural": 2,
+      "populaire": 1,
+      "agri": 2,
+      "jeunes": -2
+     }
+    },
+    {
+     "t": "Se rendre sur place",
+     "eff": {
+      "notoriete": 2,
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "climat04",
+   "titre": "Restrictions d'eau",
+   "texte": "La sécheresse impose des coupures. Agriculteurs et communes se disputent la ressource.",
+   "cat": "ecologie",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {
+    "mois": [
+     5,
+     6,
+     7,
+     8,
+     9
+    ]
+   },
+   "themes": {
+    "ecologie": 3,
+    "agriculture": 3
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Réclamer une accélération de la transition",
+     "axe": "ecologie",
+     "sens": 1,
+     "opinion": {
+      "jeunes": 2,
+      "diplomes": 2,
+      "agri": -2,
+      "rural": -1
+     }
+    },
+    {
+     "t": "Refuser l'écologie punitive",
+     "axe": "ecologie",
+     "sens": -1,
+     "opinion": {
+      "rural": 2,
+      "populaire": 1,
+      "agri": 2,
+      "jeunes": -2
+     }
+    },
+    {
+     "t": "Se rendre sur place",
+     "eff": {
+      "notoriete": 2,
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "climat05",
+   "titre": "Tempête sur l'Ouest",
+   "texte": "Des vents à 170 km/h. Un million de foyers sans électricité.",
+   "cat": "ecologie",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {
+    "mois": [
+     10,
+     11,
+     12,
+     1,
+     2
+    ]
+   },
+   "themes": {
+    "ecologie": 3
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Réclamer une accélération de la transition",
+     "axe": "ecologie",
+     "sens": 1,
+     "opinion": {
+      "jeunes": 2,
+      "diplomes": 2,
+      "agri": -2,
+      "rural": -1
+     }
+    },
+    {
+     "t": "Refuser l'écologie punitive",
+     "axe": "ecologie",
+     "sens": -1,
+     "opinion": {
+      "rural": 2,
+      "populaire": 1,
+      "agri": 2,
+      "jeunes": -2
+     }
+    },
+    {
+     "t": "Se rendre sur place",
+     "eff": {
+      "notoriete": 2,
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "climat06",
+   "titre": "Le littoral recule",
+   "texte": "Des immeubles du front de mer doivent être évacués.",
+   "cat": "ecologie",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "ecologie": 3,
+    "logement": 2
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Réclamer une accélération de la transition",
+     "axe": "ecologie",
+     "sens": 1,
+     "opinion": {
+      "jeunes": 2,
+      "diplomes": 2,
+      "agri": -2,
+      "rural": -1
+     }
+    },
+    {
+     "t": "Refuser l'écologie punitive",
+     "axe": "ecologie",
+     "sens": -1,
+     "opinion": {
+      "rural": 2,
+      "populaire": 1,
+      "agri": 2,
+      "jeunes": -2
+     }
+    },
+    {
+     "t": "Se rendre sur place",
+     "eff": {
+      "notoriete": 2,
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "climat07",
+   "titre": "Pic de pollution",
+   "texte": "La circulation différenciée est décrétée dans les grandes villes.",
+   "cat": "ecologie",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "ecologie": 3,
+    "transports": 2,
+    "sante": 1
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Réclamer une accélération de la transition",
+     "axe": "ecologie",
+     "sens": 1,
+     "opinion": {
+      "jeunes": 2,
+      "diplomes": 2,
+      "agri": -2,
+      "rural": -1
+     }
+    },
+    {
+     "t": "Refuser l'écologie punitive",
+     "axe": "ecologie",
+     "sens": -1,
+     "opinion": {
+      "rural": 2,
+      "populaire": 1,
+      "agri": 2,
+      "jeunes": -2
+     }
+    },
+    {
+     "t": "Se rendre sur place",
+     "eff": {
+      "notoriete": 2,
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "climat08",
+   "titre": "Un projet d'autoroute contesté",
+   "texte": "Des opposants occupent le chantier. Les élus locaux soutiennent le projet.",
+   "cat": "ecologie",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "ecologie": 3,
+    "transports": 3
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Réclamer une accélération de la transition",
+     "axe": "ecologie",
+     "sens": 1,
+     "opinion": {
+      "jeunes": 2,
+      "diplomes": 2,
+      "agri": -2,
+      "rural": -1
+     }
+    },
+    {
+     "t": "Refuser l'écologie punitive",
+     "axe": "ecologie",
+     "sens": -1,
+     "opinion": {
+      "rural": 2,
+      "populaire": 1,
+      "agri": 2,
+      "jeunes": -2
+     }
+    },
+    {
+     "t": "Se rendre sur place",
+     "eff": {
+      "notoriete": 2,
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "climat09",
+   "titre": "Bataille autour d'une retenue d'eau",
+   "texte": "Une manifestation interdite dégénère autour d'une réserve agricole.",
+   "cat": "ecologie",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "ecologie": 3,
+    "agriculture": 3,
+    "securite": 1
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Réclamer une accélération de la transition",
+     "axe": "ecologie",
+     "sens": 1,
+     "opinion": {
+      "jeunes": 2,
+      "diplomes": 2,
+      "agri": -2,
+      "rural": -1
+     }
+    },
+    {
+     "t": "Refuser l'écologie punitive",
+     "axe": "ecologie",
+     "sens": -1,
+     "opinion": {
+      "rural": 2,
+      "populaire": 1,
+      "agri": 2,
+      "jeunes": -2
+     }
+    },
+    {
+     "t": "Se rendre sur place",
+     "eff": {
+      "notoriete": 2,
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "climat10",
+   "titre": "Rapport alarmant sur le climat",
+   "texte": "Les scientifiques annoncent un réchauffement plus rapide que prévu en France.",
+   "cat": "ecologie",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "ecologie": 4
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Réclamer une accélération de la transition",
+     "axe": "ecologie",
+     "sens": 1,
+     "opinion": {
+      "jeunes": 2,
+      "diplomes": 2,
+      "agri": -2,
+      "rural": -1
+     }
+    },
+    {
+     "t": "Refuser l'écologie punitive",
+     "axe": "ecologie",
+     "sens": -1,
+     "opinion": {
+      "rural": 2,
+      "populaire": 1,
+      "agri": 2,
+      "jeunes": -2
+     }
+    },
+    {
+     "t": "Se rendre sur place",
+     "eff": {
+      "notoriete": 2,
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "climat11",
+   "titre": "La grêle détruit les vignes",
+   "texte": "En une heure, la récolte de l'année est perdue dans plusieurs appellations.",
+   "cat": "ecologie",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {
+    "mois": [
+     4,
+     5,
+     6
+    ]
+   },
+   "themes": {
+    "agriculture": 4,
+    "ecologie": 2
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Réclamer une accélération de la transition",
+     "axe": "ecologie",
+     "sens": 1,
+     "opinion": {
+      "jeunes": 2,
+      "diplomes": 2,
+      "agri": -2,
+      "rural": -1
+     }
+    },
+    {
+     "t": "Refuser l'écologie punitive",
+     "axe": "ecologie",
+     "sens": -1,
+     "opinion": {
+      "rural": 2,
+      "populaire": 1,
+      "agri": 2,
+      "jeunes": -2
+     }
+    },
+    {
+     "t": "Se rendre sur place",
+     "eff": {
+      "notoriete": 2,
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "climat12",
+   "titre": "Feu vert pour de nouveaux réacteurs",
+   "texte": "Le chantier des nouveaux réacteurs nucléaires est lancé.",
+   "cat": "ecologie",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "ecologie": 3,
+    "emploi": 2
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Réclamer une accélération de la transition",
+     "axe": "ecologie",
+     "sens": 1,
+     "opinion": {
+      "jeunes": 2,
+      "diplomes": 2,
+      "agri": -2,
+      "rural": -1
+     }
+    },
+    {
+     "t": "Refuser l'écologie punitive",
+     "axe": "ecologie",
+     "sens": -1,
+     "opinion": {
+      "rural": 2,
+      "populaire": 1,
+      "agri": 2,
+      "jeunes": -2
+     }
+    },
+    {
+     "t": "Se rendre sur place",
+     "eff": {
+      "notoriete": 2,
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "climat13",
+   "titre": "Une nappe phréatique polluée",
+   "texte": "L'eau du robinet est interdite à la consommation dans un département.",
+   "cat": "ecologie",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "ecologie": 3,
+    "sante": 3
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Réclamer une accélération de la transition",
+     "axe": "ecologie",
+     "sens": 1,
+     "opinion": {
+      "jeunes": 2,
+      "diplomes": 2,
+      "agri": -2,
+      "rural": -1
+     }
+    },
+    {
+     "t": "Refuser l'écologie punitive",
+     "axe": "ecologie",
+     "sens": -1,
+     "opinion": {
+      "rural": 2,
+      "populaire": 1,
+      "agri": 2,
+      "jeunes": -2
+     }
+    },
+    {
+     "t": "Se rendre sur place",
+     "eff": {
+      "notoriete": 2,
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "monde01",
+   "titre": "Sommet européen sous tension",
+   "texte": "Les dirigeants se déchirent sur le budget commun.",
+   "cat": "international",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "europe": 4,
+    "dette": 1
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Défendre une réponse européenne",
+     "axe": "europe",
+     "sens": 1,
+     "opinion": {
+      "diplomes": 2,
+      "aise": 1,
+      "populaire": -1
+     }
+    },
+    {
+     "t": "Défendre l'indépendance de la France",
+     "axe": "europe",
+     "sens": -1,
+     "opinion": {
+      "populaire": 2,
+      "rural": 1,
+      "diplomes": -1
+     }
+    },
+    {
+     "t": "Soutenir la position du gouvernement",
+     "eff": {
+      "credibilite": 1,
+      "militants": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "monde02",
+   "titre": "Escalade en Ukraine",
+   "texte": "Une offensive majeure relance la question de l'aide militaire.",
+   "cat": "international",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "europe": 3
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Renforcer l'aide à l'Ukraine",
+     "axe": "etranger",
+     "sens": 1,
+     "opinion": {
+      "diplomes": 2,
+      "populaire": -1
+     }
+    },
+    {
+     "t": "Appeler à la négociation",
+     "axe": "etranger",
+     "sens": -1,
+     "opinion": {
+      "populaire": 2,
+      "diplomes": -1
+     }
+    },
+    {
+     "t": "Rester prudent",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "monde03",
+   "titre": "Embrasement au Proche-Orient",
+   "texte": "Le conflit s'étend. Des manifestations ont lieu dans les grandes villes.",
+   "cat": "international",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "identite": 2,
+    "securite": 2
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Appeler à un cessez-le-feu immédiat",
+     "axe": "etranger",
+     "sens": -1,
+     "opinion": {
+      "jeunes": 2,
+      "retraites": -1
+     }
+    },
+    {
+     "t": "Rappeler les alliances de la France",
+     "axe": "etranger",
+     "sens": 1,
+     "opinion": {
+      "retraites": 1,
+      "jeunes": -2
+     }
+    },
+    {
+     "t": "Appeler au calme en France",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "monde04",
+   "titre": "Élection américaine",
+   "texte": "Le résultat change la donne pour l'Europe.",
+   "cat": "international",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {
+    "mois": [
+     11
+    ]
+   },
+   "themes": {
+    "europe": 3
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Défendre une réponse européenne",
+     "axe": "europe",
+     "sens": 1,
+     "opinion": {
+      "diplomes": 2,
+      "aise": 1,
+      "populaire": -1
+     }
+    },
+    {
+     "t": "Défendre l'indépendance de la France",
+     "axe": "europe",
+     "sens": -1,
+     "opinion": {
+      "populaire": 2,
+      "rural": 1,
+      "diplomes": -1
+     }
+    },
+    {
+     "t": "Soutenir la position du gouvernement",
+     "eff": {
+      "credibilite": 1,
+      "militants": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "monde05",
+   "titre": "Washington taxe les produits européens",
+   "texte": "Vins, avions et luxe sont visés par de nouveaux droits de douane.",
+   "cat": "international",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "emploi": 3,
+    "europe": 3,
+    "agriculture": 2
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Défendre une réponse européenne",
+     "axe": "europe",
+     "sens": 1,
+     "opinion": {
+      "diplomes": 2,
+      "aise": 1,
+      "populaire": -1
+     }
+    },
+    {
+     "t": "Défendre l'indépendance de la France",
+     "axe": "europe",
+     "sens": -1,
+     "opinion": {
+      "populaire": 2,
+      "rural": 1,
+      "diplomes": -1
+     }
+    },
+    {
+     "t": "Soutenir la position du gouvernement",
+     "eff": {
+      "credibilite": 1,
+      "militants": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "monde06",
+   "titre": "Afflux en Méditerranée",
+   "texte": "Les arrivées par la mer doublent en un mois.",
+   "cat": "international",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "immigration": 4,
+    "europe": 2
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Défendre une réponse européenne",
+     "axe": "europe",
+     "sens": 1,
+     "opinion": {
+      "diplomes": 2,
+      "aise": 1,
+      "populaire": -1
+     }
+    },
+    {
+     "t": "Défendre l'indépendance de la France",
+     "axe": "europe",
+     "sens": -1,
+     "opinion": {
+      "populaire": 2,
+      "rural": 1,
+      "diplomes": -1
+     }
+    },
+    {
+     "t": "Soutenir la position du gouvernement",
+     "eff": {
+      "credibilite": 1,
+      "militants": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "monde07",
+   "titre": "Un nouvel État aux portes de l'Union",
+   "texte": "Bruxelles ouvre les négociations d'adhésion.",
+   "cat": "international",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "europe": 4
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Défendre une réponse européenne",
+     "axe": "europe",
+     "sens": 1,
+     "opinion": {
+      "diplomes": 2,
+      "aise": 1,
+      "populaire": -1
+     }
+    },
+    {
+     "t": "Défendre l'indépendance de la France",
+     "axe": "europe",
+     "sens": -1,
+     "opinion": {
+      "populaire": 2,
+      "rural": 1,
+      "diplomes": -1
+     }
+    },
+    {
+     "t": "Soutenir la position du gouvernement",
+     "eff": {
+      "credibilite": 1,
+      "militants": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "monde08",
+   "titre": "Tempête sur l'euro",
+   "texte": "Les marchés attaquent la dette de plusieurs pays du Sud.",
+   "cat": "international",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "dette": 4,
+    "europe": 3
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Défendre une réponse européenne",
+     "axe": "europe",
+     "sens": 1,
+     "opinion": {
+      "diplomes": 2,
+      "aise": 1,
+      "populaire": -1
+     }
+    },
+    {
+     "t": "Défendre l'indépendance de la France",
+     "axe": "europe",
+     "sens": -1,
+     "opinion": {
+      "populaire": 2,
+      "rural": 1,
+      "diplomes": -1
+     }
+    },
+    {
+     "t": "Soutenir la position du gouvernement",
+     "eff": {
+      "credibilite": 1,
+      "militants": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "monde09",
+   "titre": "Coup d'État au Sahel",
+   "texte": "Les ressortissants français sont évacués.",
+   "cat": "international",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "identite": 1,
+    "securite": 1
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Défendre une réponse européenne",
+     "axe": "europe",
+     "sens": 1,
+     "opinion": {
+      "diplomes": 2,
+      "aise": 1,
+      "populaire": -1
+     }
+    },
+    {
+     "t": "Défendre l'indépendance de la France",
+     "axe": "europe",
+     "sens": -1,
+     "opinion": {
+      "populaire": 2,
+      "rural": 1,
+      "diplomes": -1
+     }
+    },
+    {
+     "t": "Soutenir la position du gouvernement",
+     "eff": {
+      "credibilite": 1,
+      "militants": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "monde10",
+   "titre": "Tension en mer de Chine",
+   "texte": "Les chaînes d'approvisionnement sont menacées.",
+   "cat": "international",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "emploi": 2,
+    "pouvoir_achat": 2
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Défendre une réponse européenne",
+     "axe": "europe",
+     "sens": 1,
+     "opinion": {
+      "diplomes": 2,
+      "aise": 1,
+      "populaire": -1
+     }
+    },
+    {
+     "t": "Défendre l'indépendance de la France",
+     "axe": "europe",
+     "sens": -1,
+     "opinion": {
+      "populaire": 2,
+      "rural": 1,
+      "diplomes": -1
+     }
+    },
+    {
+     "t": "Soutenir la position du gouvernement",
+     "eff": {
+      "credibilite": 1,
+      "militants": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "monde11",
+   "titre": "Accord de libre-échange avec l'Amérique du Sud",
+   "texte": "Les éleveurs dénoncent une concurrence déloyale.",
+   "cat": "international",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "agriculture": 4,
+    "europe": 3
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Défendre une réponse européenne",
+     "axe": "europe",
+     "sens": 1,
+     "opinion": {
+      "diplomes": 2,
+      "aise": 1,
+      "populaire": -1
+     }
+    },
+    {
+     "t": "Défendre l'indépendance de la France",
+     "axe": "europe",
+     "sens": -1,
+     "opinion": {
+      "populaire": 2,
+      "rural": 1,
+      "diplomes": -1
+     }
+    },
+    {
+     "t": "Soutenir la position du gouvernement",
+     "eff": {
+      "credibilite": 1,
+      "militants": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "monde12",
+   "titre": "Alerte sanitaire mondiale",
+   "texte": "Un nouveau virus inquiète. Les stocks de masques sont vérifiés.",
+   "cat": "international",
+   "portee": "nat",
+   "poids": 1,
+   "cond": {},
+   "themes": {
+    "sante": 4
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Défendre une réponse européenne",
+     "axe": "europe",
+     "sens": 1,
+     "opinion": {
+      "diplomes": 2,
+      "aise": 1,
+      "populaire": -1
+     }
+    },
+    {
+     "t": "Défendre l'indépendance de la France",
+     "axe": "europe",
+     "sens": -1,
+     "opinion": {
+      "populaire": 2,
+      "rural": 1,
+      "diplomes": -1
+     }
+    },
+    {
+     "t": "Soutenir la position du gouvernement",
+     "eff": {
+      "credibilite": 1,
+      "militants": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "soc01",
+   "titre": "Le débat sur la fin de vie revient",
+   "texte": "Le texte arrive au Parlement. Les consciences sont partagées.",
+   "cat": "societe",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "sante": 3
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Défendre une évolution",
+     "axe": "societe",
+     "sens": 1,
+     "opinion": {
+      "jeunes": 2,
+      "diplomes": 1,
+      "retraites": -1,
+      "rural": -1
+     }
+    },
+    {
+     "t": "Défendre la prudence",
+     "axe": "societe",
+     "sens": -1,
+     "opinion": {
+      "retraites": 2,
+      "rural": 1,
+      "jeunes": -2
+     }
+    },
+    {
+     "t": "Laisser la liberté de vote",
+     "eff": {
+      "unite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "soc02",
+   "titre": "Polémique sur la laïcité à l'école",
+   "texte": "Un incident dans un collège enflamme les plateaux.",
+   "cat": "societe",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "identite": 4,
+    "ecole": 3
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Défendre une évolution",
+     "axe": "societe",
+     "sens": 1,
+     "opinion": {
+      "jeunes": 2,
+      "diplomes": 1,
+      "retraites": -1,
+      "rural": -1
+     }
+    },
+    {
+     "t": "Défendre la prudence",
+     "axe": "societe",
+     "sens": -1,
+     "opinion": {
+      "retraites": 2,
+      "rural": 1,
+      "jeunes": -2
+     }
+    },
+    {
+     "t": "Laisser la liberté de vote",
+     "eff": {
+      "unite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "soc03",
+   "titre": "Réforme du baccalauréat",
+   "texte": "Le ministère change encore les règles. Les lycéens bloquent.",
+   "cat": "societe",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "ecole": 4
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Défendre une évolution",
+     "axe": "societe",
+     "sens": 1,
+     "opinion": {
+      "jeunes": 2,
+      "diplomes": 1,
+      "retraites": -1,
+      "rural": -1
+     }
+    },
+    {
+     "t": "Défendre la prudence",
+     "axe": "societe",
+     "sens": -1,
+     "opinion": {
+      "retraites": 2,
+      "rural": 1,
+      "jeunes": -2
+     }
+    },
+    {
+     "t": "Laisser la liberté de vote",
+     "eff": {
+      "unite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "soc04",
+   "titre": "Les déserts médicaux s'étendent",
+   "texte": "Six millions de Français n'ont plus de médecin traitant.",
+   "cat": "societe",
+   "portee": "nat",
+   "poids": 3,
+   "cond": {},
+   "themes": {
+    "sante": 5,
+    "services_publics": 2
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Réguler l'installation des médecins",
+     "axe": "social",
+     "sens": 1,
+     "opinion": {
+      "rural": 3,
+      "retraites": 2
+     }
+    },
+    {
+     "t": "Miser sur l'incitation",
+     "axe": "social",
+     "sens": -1,
+     "opinion": {
+      "aise": 1,
+      "rural": -1
+     }
+    },
+    {
+     "t": "Proposer des centres de santé publics",
+     "axe": "decentralisation",
+     "sens": 1,
+     "eff": {
+      "credibilite": 1
+     },
+     "opinion": {
+      "rural": 2
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "soc05",
+   "titre": "Urgences fermées la nuit",
+   "texte": "Faute de personnel, plusieurs hôpitaux ferment leurs urgences.",
+   "cat": "societe",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "sante": 5
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Défendre une évolution",
+     "axe": "societe",
+     "sens": 1,
+     "opinion": {
+      "jeunes": 2,
+      "diplomes": 1,
+      "retraites": -1,
+      "rural": -1
+     }
+    },
+    {
+     "t": "Défendre la prudence",
+     "axe": "societe",
+     "sens": -1,
+     "opinion": {
+      "retraites": 2,
+      "rural": 1,
+      "jeunes": -2
+     }
+    },
+    {
+     "t": "Laisser la liberté de vote",
+     "eff": {
+      "unite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "soc06",
+   "titre": "La natalité au plus bas",
+   "texte": "Le nombre de naissances n'a jamais été aussi faible depuis 1945.",
+   "cat": "societe",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "retraites": 2,
+    "identite": 2
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Défendre une évolution",
+     "axe": "societe",
+     "sens": 1,
+     "opinion": {
+      "jeunes": 2,
+      "diplomes": 1,
+      "retraites": -1,
+      "rural": -1
+     }
+    },
+    {
+     "t": "Défendre la prudence",
+     "axe": "societe",
+     "sens": -1,
+     "opinion": {
+      "retraites": 2,
+      "rural": 1,
+      "jeunes": -2
+     }
+    },
+    {
+     "t": "Laisser la liberté de vote",
+     "eff": {
+      "unite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "soc07",
+   "titre": "Mobilisation contre les violences faites aux femmes",
+   "texte": "Des dizaines de milliers de personnes défilent.",
+   "cat": "societe",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "securite": 2
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Défendre une évolution",
+     "axe": "societe",
+     "sens": 1,
+     "opinion": {
+      "jeunes": 2,
+      "diplomes": 1,
+      "retraites": -1,
+      "rural": -1
+     }
+    },
+    {
+     "t": "Défendre la prudence",
+     "axe": "societe",
+     "sens": -1,
+     "opinion": {
+      "retraites": 2,
+      "rural": 1,
+      "jeunes": -2
+     }
+    },
+    {
+     "t": "Laisser la liberté de vote",
+     "eff": {
+      "unite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "soc08",
+   "titre": "L'intelligence artificielle menace des emplois",
+   "texte": "Un grand groupe remplace un service entier par des logiciels.",
+   "cat": "societe",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "emploi": 4
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Défendre une évolution",
+     "axe": "societe",
+     "sens": 1,
+     "opinion": {
+      "jeunes": 2,
+      "diplomes": 1,
+      "retraites": -1,
+      "rural": -1
+     }
+    },
+    {
+     "t": "Défendre la prudence",
+     "axe": "societe",
+     "sens": -1,
+     "opinion": {
+      "retraites": 2,
+      "rural": 1,
+      "jeunes": -2
+     }
+    },
+    {
+     "t": "Laisser la liberté de vote",
+     "eff": {
+      "unite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "soc09",
+   "titre": "Réseaux sociaux interdits aux moins de 15 ans",
+   "texte": "Le projet divise parents, plateformes et élus.",
+   "cat": "societe",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "ecole": 2
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Défendre une évolution",
+     "axe": "societe",
+     "sens": 1,
+     "opinion": {
+      "jeunes": 2,
+      "diplomes": 1,
+      "retraites": -1,
+      "rural": -1
+     }
+    },
+    {
+     "t": "Défendre la prudence",
+     "axe": "societe",
+     "sens": -1,
+     "opinion": {
+      "retraites": 2,
+      "rural": 1,
+      "jeunes": -2
+     }
+    },
+    {
+     "t": "Laisser la liberté de vote",
+     "eff": {
+      "unite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "soc10",
+   "titre": "Le niveau des élèves inquiète",
+   "texte": "Les évaluations internationales classent la France en bas du tableau.",
+   "cat": "societe",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "ecole": 5
+   },
+   "duree": 6,
+   "choix": [
+    {
+     "t": "Défendre une évolution",
+     "axe": "societe",
+     "sens": 1,
+     "opinion": {
+      "jeunes": 2,
+      "diplomes": 1,
+      "retraites": -1,
+      "rural": -1
+     }
+    },
+    {
+     "t": "Défendre la prudence",
+     "axe": "societe",
+     "sens": -1,
+     "opinion": {
+      "retraites": 2,
+      "rural": 1,
+      "jeunes": -2
+     }
+    },
+    {
+     "t": "Laisser la liberté de vote",
+     "eff": {
+      "unite": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "sport01",
+   "titre": "Pluie de médailles",
+   "texte": "Les athlètes français brillent aux Jeux.",
+   "cat": "sport",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {
+    "mois": [
+     7,
+     8
+    ]
+   },
+   "themes": {},
+   "duree": 2,
+   "choix": [
+    {
+     "t": "Saluer la performance",
+     "eff": {
+      "notoriete": 1
+     }
+    },
+    {
+     "t": "En faire un message politique",
+     "eff": {
+      "notoriete": 3,
+      "credibilite": -2
+     },
+     "opinion": {
+      "jeunes": -1
+     }
+    },
+    {
+     "t": "Rester discret"
+    }
+   ]
+  },
+  {
+   "id": "sport02",
+   "titre": "Les Bleus champions",
+   "texte": "La France gagne la compétition. Les Champs-Élysées sont noirs de monde.",
+   "cat": "sport",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {
+    "mois": [
+     6,
+     7
+    ]
+   },
+   "themes": {},
+   "duree": 2,
+   "choix": [
+    {
+     "t": "Saluer la performance",
+     "eff": {
+      "notoriete": 1
+     }
+    },
+    {
+     "t": "En faire un message politique",
+     "eff": {
+      "notoriete": 3,
+      "credibilite": -2
+     },
+     "opinion": {
+      "jeunes": -1
+     }
+    },
+    {
+     "t": "Rester discret"
+    }
+   ]
+  },
+  {
+   "id": "sport03",
+   "titre": "Élimination des Bleus",
+   "texte": "La sélection sort dès le premier tour. La polémique enfle.",
+   "cat": "sport",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {
+    "mois": [
+     6,
+     7
+    ]
+   },
+   "themes": {},
+   "duree": 2,
+   "choix": [
+    {
+     "t": "Saluer la performance",
+     "eff": {
+      "notoriete": 1
+     }
+    },
+    {
+     "t": "En faire un message politique",
+     "eff": {
+      "notoriete": 3,
+      "credibilite": -2
+     },
+     "opinion": {
+      "jeunes": -1
+     }
+    },
+    {
+     "t": "Rester discret"
+    }
+   ]
+  },
+  {
+   "id": "sport04",
+   "titre": "Le Tour traverse le pays",
+   "texte": "Des millions de spectateurs au bord des routes.",
+   "cat": "sport",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {
+    "mois": [
+     7
+    ]
+   },
+   "themes": {},
+   "duree": 2,
+   "choix": [
+    {
+     "t": "Saluer la performance",
+     "eff": {
+      "notoriete": 1
+     }
+    },
+    {
+     "t": "En faire un message politique",
+     "eff": {
+      "notoriete": 3,
+      "credibilite": -2
+     },
+     "opinion": {
+      "jeunes": -1
+     }
+    },
+    {
+     "t": "Rester discret"
+    }
+   ]
+  },
+  {
+   "id": "sport05",
+   "titre": "Un grand festival annulé",
+   "texte": "Les organisateurs dénoncent la baisse des subventions.",
+   "cat": "sport",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "services_publics": 1
+   },
+   "duree": 2,
+   "choix": [
+    {
+     "t": "Saluer la performance",
+     "eff": {
+      "notoriete": 1
+     }
+    },
+    {
+     "t": "En faire un message politique",
+     "eff": {
+      "notoriete": 3,
+      "credibilite": -2
+     },
+     "opinion": {
+      "jeunes": -1
+     }
+    },
+    {
+     "t": "Rester discret"
+    }
+   ]
+  },
+  {
+   "id": "sport06",
+   "titre": "Un monument en flammes",
+   "texte": "Un joyau du patrimoine est gravement endommagé. L'émotion est nationale.",
+   "cat": "sport",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "identite": 3
+   },
+   "duree": 2,
+   "choix": [
+    {
+     "t": "Saluer la performance",
+     "eff": {
+      "notoriete": 1
+     }
+    },
+    {
+     "t": "En faire un message politique",
+     "eff": {
+      "notoriete": 3,
+      "credibilite": -2
+     },
+     "opinion": {
+      "jeunes": -1
+     }
+    },
+    {
+     "t": "Rester discret"
+    }
+   ]
+  },
+  {
+   "id": "sport07",
+   "titre": "Un prix Nobel pour la France",
+   "texte": "Une chercheuse française est récompensée.",
+   "cat": "sport",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "ecole": 1
+   },
+   "duree": 2,
+   "choix": [
+    {
+     "t": "Saluer la performance",
+     "eff": {
+      "notoriete": 1
+     }
+    },
+    {
+     "t": "En faire un message politique",
+     "eff": {
+      "notoriete": 3,
+      "credibilite": -2
+     },
+     "opinion": {
+      "jeunes": -1
+     }
+    },
+    {
+     "t": "Rester discret"
+    }
+   ]
+  },
+  {
+   "id": "sport08",
+   "titre": "Le XV de France au sommet",
+   "texte": "Grand Chelem dans le Tournoi.",
+   "cat": "sport",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {
+    "mois": [
+     3
+    ]
+   },
+   "themes": {},
+   "duree": 2,
+   "choix": [
+    {
+     "t": "Saluer la performance",
+     "eff": {
+      "notoriete": 1
+     }
+    },
+    {
+     "t": "En faire un message politique",
+     "eff": {
+      "notoriete": 3,
+      "credibilite": -2
+     },
+     "opinion": {
+      "jeunes": -1
+     }
+    },
+    {
+     "t": "Rester discret"
+    }
+   ]
+  },
+  {
+   "id": "inst01",
+   "titre": "Le gouvernement utilise le 49.3",
+   "texte": "Le texte est adopté sans vote. L'opposition dépose une motion.",
+   "cat": "institutions",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {
+    "retraites": 1
+   },
+   "duree": 5,
+   "choix": [
+    {
+     "t": "Dénoncer un passage en force",
+     "axe": "institutions",
+     "sens": 1,
+     "opinion": {
+      "populaire": 2,
+      "jeunes": 1,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Défendre la stabilité",
+     "axe": "institutions",
+     "sens": -1,
+     "opinion": {
+      "retraites": 2,
+      "aise": 1,
+      "jeunes": -1
+     }
+    },
+    {
+     "t": "Proposer un compromis",
+     "eff": {
+      "credibilite": 2,
+      "militants": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "inst02",
+   "titre": "Motion de censure",
+   "texte": "Le vote sera serré. Chaque voix compte.",
+   "cat": "institutions",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {},
+   "duree": 5,
+   "choix": [
+    {
+     "t": "Dénoncer un passage en force",
+     "axe": "institutions",
+     "sens": 1,
+     "opinion": {
+      "populaire": 2,
+      "jeunes": 1,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Défendre la stabilité",
+     "axe": "institutions",
+     "sens": -1,
+     "opinion": {
+      "retraites": 2,
+      "aise": 1,
+      "jeunes": -1
+     }
+    },
+    {
+     "t": "Proposer un compromis",
+     "eff": {
+      "credibilite": 2,
+      "militants": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "inst03",
+   "titre": "Rumeur de dissolution",
+   "texte": "L'Élysée laisse filtrer l'hypothèse. Les états-majors s'agitent.",
+   "cat": "institutions",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {},
+   "duree": 5,
+   "choix": [
+    {
+     "t": "Dénoncer un passage en force",
+     "axe": "institutions",
+     "sens": 1,
+     "opinion": {
+      "populaire": 2,
+      "jeunes": 1,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Défendre la stabilité",
+     "axe": "institutions",
+     "sens": -1,
+     "opinion": {
+      "retraites": 2,
+      "aise": 1,
+      "jeunes": -1
+     }
+    },
+    {
+     "t": "Proposer un compromis",
+     "eff": {
+      "credibilite": 2,
+      "militants": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "inst04",
+   "titre": "Un référendum annoncé",
+   "texte": "Le président veut consulter les Français.",
+   "cat": "institutions",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {},
+   "duree": 5,
+   "choix": [
+    {
+     "t": "Dénoncer un passage en force",
+     "axe": "institutions",
+     "sens": 1,
+     "opinion": {
+      "populaire": 2,
+      "jeunes": 1,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Défendre la stabilité",
+     "axe": "institutions",
+     "sens": -1,
+     "opinion": {
+      "retraites": 2,
+      "aise": 1,
+      "jeunes": -1
+     }
+    },
+    {
+     "t": "Proposer un compromis",
+     "eff": {
+      "credibilite": 2,
+      "militants": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "inst05",
+   "titre": "Remaniement",
+   "texte": "Le gouvernement est largement renouvelé.",
+   "cat": "institutions",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {},
+   "duree": 5,
+   "choix": [
+    {
+     "t": "Dénoncer un passage en force",
+     "axe": "institutions",
+     "sens": 1,
+     "opinion": {
+      "populaire": 2,
+      "jeunes": 1,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Défendre la stabilité",
+     "axe": "institutions",
+     "sens": -1,
+     "opinion": {
+      "retraites": 2,
+      "aise": 1,
+      "jeunes": -1
+     }
+    },
+    {
+     "t": "Proposer un compromis",
+     "eff": {
+      "credibilite": 2,
+      "militants": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "inst06",
+   "titre": "Débat sur la proportionnelle",
+   "texte": "La réforme du mode de scrutin revient sur la table.",
+   "cat": "institutions",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {},
+   "duree": 5,
+   "choix": [
+    {
+     "t": "Dénoncer un passage en force",
+     "axe": "institutions",
+     "sens": 1,
+     "opinion": {
+      "populaire": 2,
+      "jeunes": 1,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Défendre la stabilité",
+     "axe": "institutions",
+     "sens": -1,
+     "opinion": {
+      "retraites": 2,
+      "aise": 1,
+      "jeunes": -1
+     }
+    },
+    {
+     "t": "Proposer un compromis",
+     "eff": {
+      "credibilite": 2,
+      "militants": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "inst07",
+   "titre": "Un ministre démissionne",
+   "texte": "Mis en cause, il quitte le gouvernement pour se défendre.",
+   "cat": "institutions",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {},
+   "duree": 5,
+   "choix": [
+    {
+     "t": "Dénoncer un passage en force",
+     "axe": "institutions",
+     "sens": 1,
+     "opinion": {
+      "populaire": 2,
+      "jeunes": 1,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Défendre la stabilité",
+     "axe": "institutions",
+     "sens": -1,
+     "opinion": {
+      "retraites": 2,
+      "aise": 1,
+      "jeunes": -1
+     }
+    },
+    {
+     "t": "Proposer un compromis",
+     "eff": {
+      "credibilite": 2,
+      "militants": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "inst08",
+   "titre": "Le Conseil constitutionnel censure une loi",
+   "texte": "Plusieurs articles phares sont annulés.",
+   "cat": "institutions",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {},
+   "themes": {},
+   "duree": 5,
+   "choix": [
+    {
+     "t": "Dénoncer un passage en force",
+     "axe": "institutions",
+     "sens": 1,
+     "opinion": {
+      "populaire": 2,
+      "jeunes": 1,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Défendre la stabilité",
+     "axe": "institutions",
+     "sens": -1,
+     "opinion": {
+      "retraites": 2,
+      "aise": 1,
+      "jeunes": -1
+     }
+    },
+    {
+     "t": "Proposer un compromis",
+     "eff": {
+      "credibilite": 2,
+      "militants": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "rival01",
+   "titre": "Scandale chez {rival}",
+   "texte": "Un élu local de {rival} est mis en cause dans une affaire de marchés publics.",
+   "cat": "rival",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {
+    "rival": true
+   },
+   "themes": {},
+   "duree": 4,
+   "choix": [
+    {
+     "t": "Attaquer frontalement",
+     "eff": {
+      "notoriete": 2,
+      "relationRival": -15
+     }
+    },
+    {
+     "t": "Rester en retrait",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Tendre la main à ses électeurs",
+     "eff": {
+      "capital": -2,
+      "voleRival": 1,
+      "relationRival": -8
+     }
+    }
+   ]
+  },
+  {
+   "id": "rival02",
+   "titre": "Guerre des chefs chez {rival}",
+   "texte": "Deux dirigeants de {rival} s'affrontent par médias interposés.",
+   "cat": "rival",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {
+    "rival": true
+   },
+   "themes": {},
+   "duree": 4,
+   "choix": [
+    {
+     "t": "Attaquer frontalement",
+     "eff": {
+      "notoriete": 2,
+      "relationRival": -15
+     }
+    },
+    {
+     "t": "Rester en retrait",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Tendre la main à ses électeurs",
+     "eff": {
+      "capital": -2,
+      "voleRival": 1,
+      "relationRival": -8
+     }
+    }
+   ]
+  },
+  {
+   "id": "rival03",
+   "titre": "Fuite de documents chez {rival}",
+   "texte": "Des notes internes de {rival} sont publiées dans la presse.",
+   "cat": "rival",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {
+    "rival": true
+   },
+   "themes": {},
+   "duree": 4,
+   "choix": [
+    {
+     "t": "Attaquer frontalement",
+     "eff": {
+      "notoriete": 2,
+      "relationRival": -15
+     }
+    },
+    {
+     "t": "Rester en retrait",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Tendre la main à ses électeurs",
+     "eff": {
+      "capital": -2,
+      "voleRival": 1,
+      "relationRival": -8
+     }
+    }
+   ]
+  },
+  {
+   "id": "rival04",
+   "titre": "Démissions en série chez {rival}",
+   "texte": "Plusieurs cadres locaux de {rival} claquent la porte.",
+   "cat": "rival",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {
+    "rival": true
+   },
+   "themes": {},
+   "duree": 4,
+   "choix": [
+    {
+     "t": "Attaquer frontalement",
+     "eff": {
+      "notoriete": 2,
+      "relationRival": -15
+     }
+    },
+    {
+     "t": "Rester en retrait",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Tendre la main à ses électeurs",
+     "eff": {
+      "capital": -2,
+      "voleRival": 1,
+      "relationRival": -8
+     }
+    }
+   ]
+  },
+  {
+   "id": "rival05",
+   "titre": "{rival} en difficulté financière",
+   "texte": "Le trésorier de {rival} lance un appel aux dons.",
+   "cat": "rival",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {
+    "rival": true
+   },
+   "themes": {},
+   "duree": 4,
+   "choix": [
+    {
+     "t": "Attaquer frontalement",
+     "eff": {
+      "notoriete": 2,
+      "relationRival": -15
+     }
+    },
+    {
+     "t": "Rester en retrait",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Tendre la main à ses électeurs",
+     "eff": {
+      "capital": -2,
+      "voleRival": 1,
+      "relationRival": -8
+     }
+    }
+   ]
+  },
+  {
+   "id": "rival06",
+   "titre": "Une vidéo embarrassante pour {rival}",
+   "texte": "Les propos d'un candidat de {rival} font polémique.",
+   "cat": "rival",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {
+    "rival": true
+   },
+   "themes": {},
+   "duree": 4,
+   "choix": [
+    {
+     "t": "Attaquer frontalement",
+     "eff": {
+      "notoriete": 2,
+      "relationRival": -15
+     }
+    },
+    {
+     "t": "Rester en retrait",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Tendre la main à ses électeurs",
+     "eff": {
+      "capital": -2,
+      "voleRival": 1,
+      "relationRival": -8
+     }
+    }
+   ]
+  },
+  {
+   "id": "rival07",
+   "titre": "{rival} change de ligne",
+   "texte": "Un virage doctrinal déroute une partie de ses électeurs.",
+   "cat": "rival",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {
+    "rival": true
+   },
+   "themes": {},
+   "duree": 4,
+   "choix": [
+    {
+     "t": "Attaquer frontalement",
+     "eff": {
+      "notoriete": 2,
+      "relationRival": -15
+     }
+    },
+    {
+     "t": "Rester en retrait",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Tendre la main à ses électeurs",
+     "eff": {
+      "capital": -2,
+      "voleRival": 1,
+      "relationRival": -8
+     }
+    }
+   ]
+  },
+  {
+   "id": "rival08",
+   "titre": "Congrès houleux chez {rival}",
+   "texte": "Le vote des militants de {rival} est contesté.",
+   "cat": "rival",
+   "portee": "nat",
+   "poids": 2,
+   "cond": {
+    "rival": true
+   },
+   "themes": {},
+   "duree": 4,
+   "choix": [
+    {
+     "t": "Attaquer frontalement",
+     "eff": {
+      "notoriete": 2,
+      "relationRival": -15
+     }
+    },
+    {
+     "t": "Rester en retrait",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Tendre la main à ses électeurs",
+     "eff": {
+      "capital": -2,
+      "voleRival": 1,
+      "relationRival": -8
+     }
+    }
+   ]
+  },
+  {
+   "id": "parti01",
+   "titre": "Fuite dans la presse",
+   "texte": "Le compte rendu du dernier bureau national est publié mot pour mot.",
+   "cat": "interne",
+   "portee": "parti",
+   "poids": 3,
+   "cond": {},
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Chercher le responsable",
+     "eff": {
+      "unite": -3,
+      "capital": 2
+     }
+    },
+    {
+     "t": "Minimiser",
+     "eff": {
+      "credibilite": -1
+     }
+    },
+    {
+     "t": "Temporiser"
+    }
+   ]
+  },
+  {
+   "id": "parti02",
+   "titre": "Un cadre critique la ligne",
+   "texte": "Dans une interview, un de vos cadres prend ses distances avec la direction.",
+   "cat": "interne",
+   "portee": "parti",
+   "poids": 3,
+   "cond": {},
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Rappel à l'ordre",
+     "eff": {
+      "unite": -2,
+      "capital": 1,
+      "cadreMoral": -10
+     }
+    },
+    {
+     "t": "Ouvrir le débat",
+     "eff": {
+      "unite": 2,
+      "capital": -2
+     }
+    },
+    {
+     "t": "Temporiser"
+    }
+   ]
+  },
+  {
+   "id": "parti03",
+   "titre": "Une fédération en crise",
+   "texte": "Le délégué départemental est contesté par la moitié de ses sections.",
+   "cat": "interne",
+   "portee": "parti",
+   "poids": 3,
+   "cond": {},
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Mettre la fédération sous tutelle",
+     "eff": {
+      "capital": -4,
+      "unite": -1,
+      "militants": -1
+     }
+    },
+    {
+     "t": "Organiser un vote local",
+     "eff": {
+      "unite": 1,
+      "argent": -15000
+     }
+    },
+    {
+     "t": "Temporiser"
+    }
+   ]
+  },
+  {
+   "id": "parti04",
+   "titre": "Afflux d'adhésions",
+   "texte": "Après une séquence favorable, les demandes d'adhésion affluent.",
+   "cat": "interne",
+   "portee": "parti",
+   "poids": 3,
+   "cond": {},
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Ouvrir grand les portes",
+     "eff": {
+      "militants": 6,
+      "unite": -2
+     }
+    },
+    {
+     "t": "Former avant d'intégrer",
+     "eff": {
+      "militants": 3,
+      "argent": -30000
+     }
+    },
+    {
+     "t": "Temporiser"
+    }
+   ]
+  },
+  {
+   "id": "parti05",
+   "titre": "Le trésorier alerte",
+   "texte": "Les dépenses courantes dépassent les recettes depuis trois mois.",
+   "cat": "interne",
+   "portee": "parti",
+   "poids": 3,
+   "cond": {},
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Plan d'économies",
+     "eff": {
+      "argent": 80000,
+      "militants": -2,
+      "unite": -1
+     }
+    },
+    {
+     "t": "Appel aux dons",
+     "eff": {
+      "argent": 40000,
+      "credibilite": -1
+     }
+    },
+    {
+     "t": "Temporiser"
+    }
+   ]
+  },
+  {
+   "id": "parti06",
+   "titre": "Polémique au mouvement jeunes",
+   "texte": "Une soirée du mouvement jeunes dérape. Des images circulent.",
+   "cat": "interne",
+   "portee": "parti",
+   "poids": 3,
+   "cond": {},
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Sanctionner",
+     "eff": {
+      "credibilite": 1,
+      "militants": -1
+     },
+     "opinion": {
+      "jeunes": -1
+     }
+    },
+    {
+     "t": "Défendre les jeunes",
+     "eff": {
+      "credibilite": -2
+     },
+     "opinion": {
+      "jeunes": 1
+     }
+    },
+    {
+     "t": "Temporiser"
+    }
+   ]
+  },
+  {
+   "id": "parti07",
+   "titre": "Un ralliement surprise",
+   "texte": "Un élu local d'un autre parti veut vous rejoindre.",
+   "cat": "interne",
+   "portee": "parti",
+   "poids": 3,
+   "cond": {},
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "L'accueillir en fanfare",
+     "eff": {
+      "notoriete": 2,
+      "unite": -1,
+      "ralliement": 1
+     }
+    },
+    {
+     "t": "L'accueillir discrètement",
+     "eff": {
+      "ralliement": 1
+     }
+    },
+    {
+     "t": "Temporiser"
+    }
+   ]
+  },
+  {
+   "id": "parti08",
+   "titre": "Démission collective",
+   "texte": "Une section entière annonce son départ.",
+   "cat": "interne",
+   "portee": "parti",
+   "poids": 3,
+   "cond": {},
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Tenter de les retenir",
+     "eff": {
+      "capital": -3,
+      "unite": 1
+     }
+    },
+    {
+     "t": "Tourner la page",
+     "eff": {
+      "militants": -3
+     }
+    },
+    {
+     "t": "Temporiser"
+    }
+   ]
+  },
+  {
+   "id": "parti09",
+   "titre": "Université d'été",
+   "texte": "Le rendez-vous annuel approche. Quel format ?",
+   "cat": "interne",
+   "portee": "parti",
+   "poids": 3,
+   "cond": {},
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Grand rassemblement",
+     "eff": {
+      "argent": -120000,
+      "militants": 4,
+      "notoriete": 2,
+      "unite": 2
+     }
+    },
+    {
+     "t": "Format réduit",
+     "eff": {
+      "argent": -30000,
+      "unite": 1
+     }
+    },
+    {
+     "t": "Temporiser"
+    }
+   ]
+  },
+  {
+   "id": "parti10",
+   "titre": "Un don embarrassant",
+   "texte": "Un gros donateur au profil sulfureux veut vous soutenir.",
+   "cat": "interne",
+   "portee": "parti",
+   "poids": 3,
+   "cond": {},
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Accepter",
+     "eff": {
+      "argent": 7500,
+      "risqueAffaire": 1
+     }
+    },
+    {
+     "t": "Refuser",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Temporiser"
+    }
+   ]
+  },
+  {
+   "id": "parti11",
+   "titre": "Message malheureux d'un cadre",
+   "texte": "Un de vos responsables locaux publie un message qui fait scandale.",
+   "cat": "interne",
+   "portee": "parti",
+   "poids": 3,
+   "cond": {},
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Exclure",
+     "eff": {
+      "credibilite": 2,
+      "unite": -2
+     }
+    },
+    {
+     "t": "Demander des excuses",
+     "eff": {
+      "credibilite": -1
+     }
+    },
+    {
+     "t": "Temporiser"
+    }
+   ]
+  },
+  {
+   "id": "parti12",
+   "titre": "Pétition de militants",
+   "texte": "Des centaines de militants demandent plus de démocratie interne.",
+   "cat": "interne",
+   "portee": "parti",
+   "poids": 3,
+   "cond": {},
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Accepter une consultation",
+     "eff": {
+      "unite": 3,
+      "capital": -3
+     }
+    },
+    {
+     "t": "Refuser",
+     "eff": {
+      "unite": -3,
+      "capital": 1
+     }
+    },
+    {
+     "t": "Temporiser"
+    }
+   ]
+  },
+  {
+   "id": "parti13",
+   "titre": "Permanence vandalisée",
+   "texte": "Un de vos locaux a été dégradé dans la nuit.",
+   "cat": "interne",
+   "portee": "parti",
+   "poids": 3,
+   "cond": {},
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Porter plainte et médiatiser",
+     "eff": {
+      "notoriete": 1,
+      "militants": 1
+     }
+    },
+    {
+     "t": "Porter plainte sans bruit"
+    },
+    {
+     "t": "Temporiser"
+    }
+   ]
+  },
+  {
+   "id": "parti14",
+   "titre": "Fichier des adhérents piraté",
+   "texte": "Des données personnelles de vos adhérents circulent.",
+   "cat": "interne",
+   "portee": "parti",
+   "poids": 3,
+   "cond": {},
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Tout dire tout de suite",
+     "eff": {
+      "credibilite": 1,
+      "militants": -1,
+      "argent": -40000
+     }
+    },
+    {
+     "t": "Gérer en interne",
+     "eff": {
+      "risqueAffaire": 1
+     }
+    },
+    {
+     "t": "Temporiser"
+    }
+   ]
+  },
+  {
+   "id": "parti15",
+   "titre": "Deux barons se déchirent",
+   "texte": "Deux figures locales se disputent le leadership d'une région.",
+   "cat": "interne",
+   "portee": "parti",
+   "poids": 3,
+   "cond": {},
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Arbitrer",
+     "eff": {
+      "capital": -3,
+      "unite": 1
+     }
+    },
+    {
+     "t": "Laisser faire",
+     "eff": {
+      "unite": -3
+     }
+    },
+    {
+     "t": "Temporiser"
+    }
+   ]
+  },
+  {
+   "id": "parti16",
+   "titre": "Proposition d'alliance locale",
+   "texte": "Un parti voisin propose une liste commune dans plusieurs villes.",
+   "cat": "interne",
+   "portee": "parti",
+   "poids": 3,
+   "cond": {},
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Accepter",
+     "eff": {
+      "unite": -1,
+      "credibilite": 1,
+      "capital": 2
+     }
+    },
+    {
+     "t": "Refuser",
+     "eff": {
+      "unite": 1
+     }
+    },
+    {
+     "t": "Temporiser"
+    }
+   ]
+  },
+  {
+   "id": "parti17",
+   "titre": "Un journaliste en immersion",
+   "texte": "Un reporter veut suivre votre équipe pendant un mois.",
+   "cat": "interne",
+   "portee": "parti",
+   "poids": 3,
+   "cond": {},
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Accepter",
+     "eff": {
+      "notoriete": 3,
+      "risqueGaffe": 1
+     }
+    },
+    {
+     "t": "Refuser"
+    },
+    {
+     "t": "Temporiser"
+    }
+   ]
+  },
+  {
+   "id": "parti18",
+   "titre": "Le livre d'un ancien",
+   "texte": "Un ancien cadre publie un livre à charge.",
+   "cat": "interne",
+   "portee": "parti",
+   "poids": 3,
+   "cond": {},
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Répondre point par point",
+     "eff": {
+      "notoriete": 1,
+      "credibilite": -1
+     }
+    },
+    {
+     "t": "Ignorer",
+     "eff": {
+      "unite": -1
+     }
+    },
+    {
+     "t": "Temporiser"
+    }
+   ]
+  },
+  {
+   "id": "parti19",
+   "titre": "Conflit d'investiture",
+   "texte": "Deux candidats revendiquent la même circonscription.",
+   "cat": "interne",
+   "portee": "parti",
+   "poids": 3,
+   "cond": {},
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Trancher pour le mieux implanté",
+     "eff": {
+      "capital": -2
+     }
+    },
+    {
+     "t": "Organiser un vote des militants",
+     "eff": {
+      "unite": 1,
+      "argent": -8000
+     }
+    },
+    {
+     "t": "Temporiser"
+    }
+   ]
+  },
+  {
+   "id": "parti20",
+   "titre": "Formation des cadres",
+   "texte": "L'école de formation propose un plan ambitieux.",
+   "cat": "interne",
+   "portee": "parti",
+   "poids": 3,
+   "cond": {},
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Financer le plan",
+     "eff": {
+      "argent": -150000,
+      "formation": 1,
+      "unite": 1
+     }
+    },
+    {
+     "t": "Reporter"
+    },
+    {
+     "t": "Temporiser"
+    }
+   ]
+  },
+  {
+   "id": "parti21",
+   "titre": "Les élus rechignent à reverser",
+   "texte": "Plusieurs élus ne versent plus leur contribution au parti.",
+   "cat": "interne",
+   "portee": "parti",
+   "poids": 3,
+   "cond": {},
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Exiger les versements",
+     "eff": {
+      "argent": 60000,
+      "unite": -2
+     }
+    },
+    {
+     "t": "Fermer les yeux",
+     "eff": {
+      "capital": -1
+     }
+    },
+    {
+     "t": "Temporiser"
+    }
+   ]
+  },
+  {
+   "id": "parti22",
+   "titre": "Nouvelle identité visuelle",
+   "texte": "L'agence propose de changer le logo et les couleurs de campagne.",
+   "cat": "interne",
+   "portee": "parti",
+   "poids": 3,
+   "cond": {},
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Valider",
+     "eff": {
+      "argent": -90000,
+      "notoriete": 2
+     }
+    },
+    {
+     "t": "Garder l'existant"
+    },
+    {
+     "t": "Temporiser"
+    }
+   ]
+  },
+  {
+   "id": "maire01",
+   "titre": "L'usine du coin ferme",
+   "texte": "Deux cents emplois sont menacés dans votre commune.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "maire"
+   },
+   "themes": {
+    "emploi": 3
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Monter au créneau à Paris",
+     "eff": {
+      "bilan": 2,
+      "notoriete": 2,
+      "forme": -5
+     }
+    },
+    {
+     "t": "Préparer la reconversion du site",
+     "eff": {
+      "bilan": 3,
+      "budget": -400000
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "maire02",
+   "titre": "Le projet de tramway divise",
+   "texte": "Les commerçants craignent les travaux. Les usagers l'attendent.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "maire"
+   },
+   "themes": {
+    "transports": 3
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Lancer le chantier",
+     "axe": "ecologie",
+     "sens": 1,
+     "eff": {
+      "bilan": 3,
+      "budget": -2000000
+     },
+     "opinion": {
+      "independants": -2,
+      "jeunes": 2
+     }
+    },
+    {
+     "t": "Organiser une consultation",
+     "eff": {
+      "bilan": 1
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "maire03",
+   "titre": "Une classe menacée de fermeture",
+   "texte": "L'académie veut supprimer une classe dans une école de quartier.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "maire"
+   },
+   "themes": {
+    "ecole": 3
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Mobiliser avec les parents",
+     "eff": {
+      "bilan": 2,
+      "notoriete": 1
+     }
+    },
+    {
+     "t": "Négocier avec le rectorat",
+     "eff": {
+      "bilan": 1,
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "maire04",
+   "titre": "Incivilités dans un quartier",
+   "texte": "Les habitants se plaignent de rodéos et de tapage.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "maire"
+   },
+   "themes": {
+    "securite": 3
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Renforcer la police municipale",
+     "axe": "securite",
+     "sens": 1,
+     "eff": {
+      "bilan": 2,
+      "budget": -300000
+     }
+    },
+    {
+     "t": "Financer des médiateurs",
+     "axe": "securite",
+     "sens": -1,
+     "eff": {
+      "bilan": 2,
+      "budget": -150000
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "maire05",
+   "titre": "La rivière déborde",
+   "texte": "Des caves et des commerces sont inondés.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "maire"
+   },
+   "themes": {
+    "ecologie": 2
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Aide d'urgence de la commune",
+     "eff": {
+      "bilan": 3,
+      "budget": -250000
+     }
+    },
+    {
+     "t": "Attendre l'état de catastrophe naturelle",
+     "eff": {
+      "bilan": -2
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "maire06",
+   "titre": "Le club de foot au bord du dépôt de bilan",
+   "texte": "Le club historique de la ville demande une subvention exceptionnelle.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "maire"
+   },
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Sauver le club",
+     "eff": {
+      "bilan": 2,
+      "budget": -200000
+     },
+     "opinion": {
+      "populaire": 2
+     }
+    },
+    {
+     "t": "Refuser",
+     "eff": {
+      "bilan": -1,
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "maire07",
+   "titre": "La piscine est vétuste",
+   "texte": "Le bassin fuit. La remise aux normes coûte cher.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "maire"
+   },
+   "themes": {
+    "services_publics": 2
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Rénover",
+     "eff": {
+      "bilan": 3,
+      "budget": -1500000
+     }
+    },
+    {
+     "t": "Fermer et mutualiser avec la ville voisine",
+     "axe": "decentralisation",
+     "sens": 1,
+     "eff": {
+      "bilan": -1,
+      "budget": 100000
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "maire08",
+   "titre": "Grève à la cantine",
+   "texte": "Les agents de restauration scolaire cessent le travail.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "maire"
+   },
+   "themes": {
+    "services_publics": 2
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Céder sur les primes",
+     "axe": "social",
+     "sens": 1,
+     "eff": {
+      "bilan": 1,
+      "budget": -120000
+     }
+    },
+    {
+     "t": "Tenir bon",
+     "axe": "social",
+     "sens": -1,
+     "eff": {
+      "bilan": -1,
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "maire09",
+   "titre": "Dépôts sauvages",
+   "texte": "Les décharges illégales se multiplient aux abords de la ville.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "maire"
+   },
+   "themes": {
+    "ecologie": 2
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Brigade verte et amendes",
+     "axe": "securite",
+     "sens": 1,
+     "eff": {
+      "bilan": 2,
+      "budget": -80000
+     }
+    },
+    {
+     "t": "Campagne de sensibilisation",
+     "eff": {
+      "bilan": 1,
+      "budget": -20000
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "maire10",
+   "titre": "Un promoteur veut construire",
+   "texte": "Un projet de trois cents logements est proposé sur une friche.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "maire"
+   },
+   "themes": {
+    "logement": 3
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Accorder le permis",
+     "axe": "economie",
+     "sens": 1,
+     "eff": {
+      "bilan": 1,
+      "budget": 300000
+     },
+     "opinion": {
+      "jeunes": 1,
+      "retraites": -1
+     }
+    },
+    {
+     "t": "Exiger plus de logements sociaux",
+     "axe": "economie",
+     "sens": -1,
+     "eff": {
+      "bilan": 1
+     },
+     "opinion": {
+      "precaires": 2,
+      "aise": -1
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "maire11",
+   "titre": "Demande de vidéoprotection",
+   "texte": "Des riverains réclament des caméras.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "maire"
+   },
+   "themes": {
+    "securite": 2
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Installer des caméras",
+     "axe": "securite",
+     "sens": 1,
+     "eff": {
+      "bilan": 2,
+      "budget": -200000
+     }
+    },
+    {
+     "t": "Refuser",
+     "axe": "securite",
+     "sens": -1,
+     "eff": {
+      "bilan": -1
+     },
+     "opinion": {
+      "diplomes": 1
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "maire12",
+   "titre": "Le festival de l'été",
+   "texte": "L'association organisatrice demande un soutien renforcé.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "maire"
+   },
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Doubler la subvention",
+     "eff": {
+      "bilan": 2,
+      "budget": -100000
+     },
+     "opinion": {
+      "jeunes": 2
+     }
+    },
+    {
+     "t": "Maintenir le montant"
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "maire13",
+   "titre": "Plus de médecin",
+   "texte": "Le dernier généraliste du quartier part à la retraite.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "maire"
+   },
+   "themes": {
+    "sante": 4
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Créer un centre de santé municipal",
+     "axe": "social",
+     "sens": 1,
+     "eff": {
+      "bilan": 4,
+      "budget": -500000
+     }
+    },
+    {
+     "t": "Offrir un local à un libéral",
+     "eff": {
+      "bilan": 2,
+      "budget": -60000
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "maire14",
+   "titre": "Le centre-ville se vide",
+   "texte": "Les rideaux baissent les uns après les autres.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "maire"
+   },
+   "themes": {
+    "emploi": 2
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Préempter et installer des commerces",
+     "axe": "economie",
+     "sens": -1,
+     "eff": {
+      "bilan": 3,
+      "budget": -600000
+     }
+    },
+    {
+     "t": "Baisser les taxes locales des commerçants",
+     "axe": "economie",
+     "sens": 1,
+     "eff": {
+      "bilan": 2,
+      "budget": -200000
+     },
+     "opinion": {
+      "independants": 2
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "maire15",
+   "titre": "Un bâtiment squatté",
+   "texte": "Un immeuble municipal vide est occupé.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "maire"
+   },
+   "themes": {
+    "logement": 2,
+    "securite": 1
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Demander l'expulsion",
+     "axe": "securite",
+     "sens": 1,
+     "eff": {
+      "bilan": 1
+     }
+    },
+    {
+     "t": "Négocier un relogement",
+     "axe": "social",
+     "sens": 1,
+     "eff": {
+      "bilan": 1,
+      "budget": -80000
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "maire16",
+   "titre": "Pétition sur le stationnement",
+   "texte": "La hausse des tarifs passe mal.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "maire"
+   },
+   "themes": {
+    "transports": 2
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Reculer",
+     "eff": {
+      "bilan": 1,
+      "budget": -150000,
+      "credibilite": -1
+     }
+    },
+    {
+     "t": "Maintenir",
+     "axe": "ecologie",
+     "sens": 1,
+     "eff": {
+      "bilan": -1,
+      "budget": 100000
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "maire17",
+   "titre": "Visite ministérielle",
+   "texte": "Un ministre vient inaugurer un équipement dans votre ville.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "maire"
+   },
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "L'accueillir chaleureusement",
+     "eff": {
+      "notoriete": 2,
+      "bilan": 1
+     }
+    },
+    {
+     "t": "Garder ses distances",
+     "eff": {
+      "militants": 1
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "maire18",
+   "titre": "Fusion intercommunale",
+   "texte": "Le préfet propose de fusionner votre intercommunalité avec la voisine.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "maire"
+   },
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Accepter",
+     "axe": "decentralisation",
+     "sens": -1,
+     "eff": {
+      "budget": 200000,
+      "bilan": -1
+     }
+    },
+    {
+     "t": "Refuser",
+     "axe": "decentralisation",
+     "sens": 1,
+     "eff": {
+      "bilan": 1
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "maire19",
+   "titre": "Budget participatif",
+   "texte": "Des habitants demandent à décider d'une partie des investissements.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "maire"
+   },
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Le créer",
+     "axe": "institutions",
+     "sens": 1,
+     "eff": {
+      "bilan": 2,
+      "budget": -150000
+     }
+    },
+    {
+     "t": "Décliner",
+     "axe": "institutions",
+     "sens": -1
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "maire20",
+   "titre": "Une école à reconstruire",
+   "texte": "Le groupe scolaire date des années 1960 et prend l'eau.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "maire"
+   },
+   "themes": {
+    "ecole": 3
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Reconstruire",
+     "eff": {
+      "bilan": 4,
+      "budget": -3000000
+     }
+    },
+    {
+     "t": "Réparer au minimum",
+     "eff": {
+      "bilan": 1,
+      "budget": -300000
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "maire21",
+   "titre": "Canicule et écoles surchauffées",
+   "texte": "Les parents réclament des travaux avant l'été prochain.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "maire"
+   },
+   "themes": {
+    "ecole": 2,
+    "ecologie": 2
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Plan de végétalisation des cours",
+     "axe": "ecologie",
+     "sens": 1,
+     "eff": {
+      "bilan": 3,
+      "budget": -700000
+     }
+    },
+    {
+     "t": "Acheter des ventilateurs",
+     "eff": {
+      "bilan": 1,
+      "budget": -40000
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "coll01",
+   "titre": "Collèges vétustes",
+   "texte": "Trois établissements ont besoin de travaux lourds.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "president_local"
+   },
+   "themes": {
+    "ecole": 3
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Plan de rénovation",
+     "eff": {
+      "bilan": 3,
+      "budget": -8000000
+     }
+    },
+    {
+     "t": "Étaler sur dix ans",
+     "eff": {
+      "bilan": 1,
+      "budget": -2000000
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "coll02",
+   "titre": "Le coût du RSA explose",
+   "texte": "Les dépenses sociales pèsent sur le budget.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "president_local"
+   },
+   "themes": {
+    "dette": 2
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Renforcer les contrôles",
+     "axe": "social",
+     "sens": -1,
+     "eff": {
+      "bilan": 1,
+      "budget": 3000000
+     }
+    },
+    {
+     "t": "Investir dans l'insertion",
+     "axe": "social",
+     "sens": 1,
+     "eff": {
+      "bilan": 2,
+      "budget": -3000000
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "coll03",
+   "titre": "Routes dégradées",
+   "texte": "Les nids-de-poule se multiplient sur le réseau.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "president_local"
+   },
+   "themes": {
+    "transports": 3
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Plan routes",
+     "eff": {
+      "bilan": 3,
+      "budget": -6000000
+     },
+     "opinion": {
+      "rural": 2
+     }
+    },
+    {
+     "t": "Parer au plus pressé",
+     "eff": {
+      "bilan": 1,
+      "budget": -1000000
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "coll04",
+   "titre": "Lycées saturés",
+   "texte": "Les effectifs débordent dans plusieurs bassins.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "president_local"
+   },
+   "themes": {
+    "ecole": 3
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Construire un nouvel établissement",
+     "eff": {
+      "bilan": 4,
+      "budget": -15000000
+     }
+    },
+    {
+     "t": "Installer des préfabriqués",
+     "eff": {
+      "bilan": -1,
+      "budget": -1000000
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "coll05",
+   "titre": "Trains régionaux en retard",
+   "texte": "Les usagers sont excédés par les suppressions de trains.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "president_local"
+   },
+   "themes": {
+    "transports": 4
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Ouvrir à la concurrence",
+     "axe": "economie",
+     "sens": 1,
+     "eff": {
+      "bilan": 2
+     }
+    },
+    {
+     "t": "Commander de nouvelles rames",
+     "axe": "economie",
+     "sens": -1,
+     "eff": {
+      "bilan": 3,
+      "budget": -20000000
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "coll06",
+   "titre": "Aides aux entreprises",
+   "texte": "Une entreprise demande une aide pour ne pas délocaliser.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "president_local"
+   },
+   "themes": {
+    "emploi": 3
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Accorder l'aide",
+     "axe": "economie",
+     "sens": -1,
+     "eff": {
+      "bilan": 2,
+      "budget": -4000000
+     }
+    },
+    {
+     "t": "Refuser le chantage",
+     "axe": "economie",
+     "sens": 1,
+     "eff": {
+      "bilan": -1,
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "coll07",
+   "titre": "La fibre n'arrive pas",
+   "texte": "Les zones rurales attendent toujours le très haut débit.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "president_local"
+   },
+   "themes": {
+    "services_publics": 3
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Financer le raccordement",
+     "eff": {
+      "bilan": 3,
+      "budget": -5000000
+     },
+     "opinion": {
+      "rural": 3
+     }
+    },
+    {
+     "t": "Attendre les opérateurs",
+     "eff": {
+      "bilan": -2
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "coll08",
+   "titre": "Les pompiers manquent de moyens",
+   "texte": "Le service d'incendie demande une rallonge.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "president_local"
+   },
+   "themes": {
+    "securite": 2
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Augmenter la dotation",
+     "eff": {
+      "bilan": 2,
+      "budget": -2500000
+     }
+    },
+    {
+     "t": "Refuser",
+     "eff": {
+      "bilan": -2
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "coll09",
+   "titre": "Soutien aux agriculteurs",
+   "texte": "Après une mauvaise année, la profession demande une aide.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "president_local"
+   },
+   "themes": {
+    "agriculture": 4
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Fonds d'urgence",
+     "eff": {
+      "bilan": 2,
+      "budget": -3000000
+     },
+     "opinion": {
+      "agri": 3
+     }
+    },
+    {
+     "t": "Renvoyer vers l'État",
+     "eff": {
+      "bilan": -1
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "coll10",
+   "titre": "Un grand projet d'équipement",
+   "texte": "Un projet de parc de loisirs promet des emplois mais consomme des terres.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "president_local"
+   },
+   "themes": {
+    "emploi": 2,
+    "ecologie": 2
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Soutenir",
+     "axe": "ecologie",
+     "sens": -1,
+     "eff": {
+      "bilan": 2
+     },
+     "opinion": {
+      "independants": 1
+     }
+    },
+    {
+     "t": "S'opposer",
+     "axe": "ecologie",
+     "sens": 1,
+     "eff": {
+      "bilan": 1
+     },
+     "opinion": {
+      "jeunes": 1
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "depute01",
+   "titre": "Un amendement transpartisan",
+   "texte": "Des collègues d'autres groupes vous proposent de cosigner un amendement.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "depute"
+   },
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Cosigner",
+     "eff": {
+      "credibilite": 2,
+      "unite": -1,
+      "activite": 2
+     }
+    },
+    {
+     "t": "Refuser",
+     "eff": {
+      "unite": 1
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "depute02",
+   "titre": "La niche parlementaire",
+   "texte": "Votre groupe a une journée pour ses textes. Lequel pousser ?",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "depute"
+   },
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Un texte symbolique",
+     "eff": {
+      "notoriete": 3,
+      "activite": 2
+     }
+    },
+    {
+     "t": "Un texte qui peut passer",
+     "eff": {
+      "credibilite": 3,
+      "activite": 3
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "depute03",
+   "titre": "Commission d'enquête",
+   "texte": "Vous pouvez demander une commission d'enquête sur un sujet d'actualité.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "depute"
+   },
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "La demander",
+     "eff": {
+      "notoriete": 3,
+      "capital": -3,
+      "activite": 4
+     }
+    },
+    {
+     "t": "S'abstenir"
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "depute04",
+   "titre": "Question au gouvernement",
+   "texte": "Vous avez la parole mardi. Quel ton ?",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "depute"
+   },
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Offensif",
+     "eff": {
+      "notoriete": 3,
+      "risqueGaffe": 1,
+      "activite": 1
+     }
+    },
+    {
+     "t": "Technique",
+     "eff": {
+      "credibilite": 2,
+      "activite": 1
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "depute05",
+   "titre": "Un vote difficile",
+   "texte": "La consigne de votre groupe heurte vos électeurs.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "depute"
+   },
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Suivre le groupe",
+     "eff": {
+      "unite": 1,
+      "bilan": -2
+     }
+    },
+    {
+     "t": "Voter selon sa circonscription",
+     "eff": {
+      "unite": -2,
+      "bilan": 3
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "depute06",
+   "titre": "Un lobby insistant",
+   "texte": "Un groupe d'intérêt vous propose un amendement clés en main.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "depute"
+   },
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Refuser et le dire",
+     "eff": {
+      "credibilite": 2,
+      "notoriete": 1
+     }
+    },
+    {
+     "t": "Écouter poliment",
+     "eff": {
+      "risqueAffaire": 1
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "depute07",
+   "titre": "Mission d'information",
+   "texte": "On vous propose de corédiger un rapport.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "depute"
+   },
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Accepter",
+     "eff": {
+      "credibilite": 3,
+      "forme": -6,
+      "activite": 4
+     }
+    },
+    {
+     "t": "Décliner"
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "depute08",
+   "titre": "Classement des députés",
+   "texte": "Un site publie les taux de présence. Le vôtre est moyen.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "depute"
+   },
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Être plus présent à Paris",
+     "eff": {
+      "credibilite": 1,
+      "bilan": -1,
+      "activite": 2
+     }
+    },
+    {
+     "t": "Assumer la priorité au terrain",
+     "eff": {
+      "bilan": 2
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "depute09",
+   "titre": "Incident de séance",
+   "texte": "Un échange vif tourne à l'invective dans l'hémicycle.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "depute"
+   },
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Calmer le jeu",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Monter le ton",
+     "eff": {
+      "notoriete": 2,
+      "risqueGaffe": 1
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "depute10",
+   "titre": "Permanence parlementaire",
+   "texte": "Les demandes des habitants s'accumulent.",
+   "cat": "mandat",
+   "portee": "mandat",
+   "poids": 3,
+   "cond": {
+    "role": "depute"
+   },
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Recruter un collaborateur local",
+     "eff": {
+      "bilan": 3
+     }
+    },
+    {
+     "t": "Tenir plus de permanences",
+     "eff": {
+      "bilan": 2,
+      "forme": -6
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "perso01",
+   "titre": "Une offre dans le privé",
+   "texte": "Une entreprise vous propose un poste bien payé, mais prenant.",
+   "cat": "carriere",
+   "portee": "perso",
+   "poids": 3,
+   "cond": {
+    "mode": "carriere"
+   },
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Refuser pour la politique",
+     "eff": {
+      "moral": 3
+     }
+    },
+    {
+     "t": "Accepter à temps partiel",
+     "eff": {
+      "forme": -8,
+      "reseau": 1
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "perso02",
+   "titre": "Un mentor",
+   "texte": "Un élu chevronné propose de vous prendre sous son aile.",
+   "cat": "carriere",
+   "portee": "perso",
+   "poids": 3,
+   "cond": {
+    "mode": "carriere"
+   },
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Accepter",
+     "eff": {
+      "mentor": 1
+     }
+    },
+    {
+     "t": "Garder son indépendance",
+     "eff": {
+      "moral": 2
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "perso03",
+   "titre": "Portrait dans la presse locale",
+   "texte": "Le journal veut faire votre portrait.",
+   "cat": "carriere",
+   "portee": "perso",
+   "poids": 3,
+   "cond": {
+    "mode": "carriere"
+   },
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Accepter",
+     "eff": {
+      "notorietePerso": 3,
+      "risqueGaffe": 1
+     }
+    },
+    {
+     "t": "Décliner"
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "perso04",
+   "titre": "Un rival local vous attaque",
+   "texte": "Un concurrent de votre propre camp répand des rumeurs.",
+   "cat": "carriere",
+   "portee": "perso",
+   "poids": 3,
+   "cond": {
+    "mode": "carriere"
+   },
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Répliquer",
+     "eff": {
+      "notorietePerso": 1,
+      "unite": -1
+     }
+    },
+    {
+     "t": "Laisser dire et travailler",
+     "eff": {
+      "moral": -2,
+      "credibilitePerso": 1
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "perso05",
+   "titre": "Invitation à un dîner",
+   "texte": "Des notables de la ville vous invitent.",
+   "cat": "carriere",
+   "portee": "perso",
+   "poids": 3,
+   "cond": {
+    "mode": "carriere"
+   },
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Y aller",
+     "eff": {
+      "reseau": 1,
+      "forme": -2
+     }
+    },
+    {
+     "t": "Rester sur le terrain",
+     "eff": {
+      "ancrage": 1
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "perso06",
+   "titre": "La fatigue s'installe",
+   "texte": "Les semaines s'enchaînent sans repos.",
+   "cat": "carriere",
+   "portee": "perso",
+   "poids": 3,
+   "cond": {
+    "mode": "carriere"
+   },
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Prendre une semaine de repos",
+     "eff": {
+      "forme": 25,
+      "repos": 1
+     }
+    },
+    {
+     "t": "Continuer",
+     "eff": {
+      "forme": -10,
+      "moral": -3
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "perso07",
+   "titre": "Vie de famille",
+   "texte": "Vos proches trouvent que la politique prend trop de place.",
+   "cat": "carriere",
+   "portee": "perso",
+   "poids": 3,
+   "cond": {
+    "mode": "carriere"
+   },
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Lever le pied un mois",
+     "eff": {
+      "forme": 15,
+      "moral": 5,
+      "repos": 2
+     }
+    },
+    {
+     "t": "Expliquer que c'est temporaire",
+     "eff": {
+      "moral": -4
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "perso08",
+   "titre": "École des cadres",
+   "texte": "Le parti vous propose une formation de plusieurs week-ends.",
+   "cat": "carriere",
+   "portee": "perso",
+   "poids": 3,
+   "cond": {
+    "mode": "carriere"
+   },
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "S'inscrire",
+     "eff": {
+      "formationPerso": 1,
+      "forme": -5
+     }
+    },
+    {
+     "t": "Pas le temps"
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "perso09",
+   "titre": "Une rumeur",
+   "texte": "On raconte que vous voulez quitter le parti.",
+   "cat": "carriere",
+   "portee": "perso",
+   "poids": 3,
+   "cond": {
+    "mode": "carriere"
+   },
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Démentir publiquement",
+     "eff": {
+      "notorietePerso": 1
+     }
+    },
+    {
+     "t": "Ne rien dire",
+     "eff": {
+      "unite": -1
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "perso10",
+   "titre": "Prise de parole en assemblée générale",
+   "texte": "Vous avez trois minutes devant les militants.",
+   "cat": "carriere",
+   "portee": "perso",
+   "poids": 3,
+   "cond": {
+    "mode": "carriere"
+   },
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Discours offensif",
+     "eff": {
+      "notorietePerso": 2,
+      "capitalPerso": 2,
+      "risqueGaffe": 1
+     }
+    },
+    {
+     "t": "Discours consensuel",
+     "eff": {
+      "capitalPerso": 1
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "perso11",
+   "titre": "Engagement associatif",
+   "texte": "Une association de quartier cherche un bénévole régulier.",
+   "cat": "carriere",
+   "portee": "perso",
+   "poids": 3,
+   "cond": {
+    "mode": "carriere"
+   },
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "S'engager",
+     "eff": {
+      "ancrage": 2,
+      "forme": -4
+     }
+    },
+    {
+     "t": "Décliner"
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "perso12",
+   "titre": "Un adversaire vous tend la main",
+   "texte": "Un responsable d'un autre parti vous verrait bien chez lui.",
+   "cat": "carriere",
+   "portee": "perso",
+   "poids": 3,
+   "cond": {
+    "mode": "carriere"
+   },
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Écouter la proposition",
+     "eff": {
+      "offreDebauchage": 1
+     }
+    },
+    {
+     "t": "Couper court",
+     "eff": {
+      "loyaute": 1
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "media01",
+   "titre": "Invitation à la grande matinale",
+   "texte": "La radio la plus écoutée veut votre porte-parole demain matin.",
+   "cat": "medias",
+   "portee": "parti",
+   "poids": 2,
+   "cond": {},
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Envoyer le chef",
+     "eff": {
+      "interview": 1
+     }
+    },
+    {
+     "t": "Envoyer un second couteau",
+     "eff": {
+      "notoriete": 1
+     }
+    },
+    {
+     "t": "Temporiser"
+    }
+   ]
+  },
+  {
+   "id": "media02",
+   "titre": "Polémique sur un plateau",
+   "texte": "Un de vos représentants s'est emporté en direct.",
+   "cat": "medias",
+   "portee": "parti",
+   "poids": 2,
+   "cond": {},
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Assumer",
+     "eff": {
+      "notoriete": 2,
+      "credibilite": -1
+     }
+    },
+    {
+     "t": "S'excuser",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Temporiser"
+    }
+   ]
+  },
+  {
+   "id": "media03",
+   "titre": "Fausse information virale",
+   "texte": "Une rumeur infondée sur votre programme circule massivement.",
+   "cat": "medias",
+   "portee": "parti",
+   "poids": 2,
+   "cond": {},
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Démentir avec des chiffres",
+     "eff": {
+      "credibilite": 1,
+      "argent": -10000
+     }
+    },
+    {
+     "t": "Ignorer",
+     "eff": {
+      "credibilite": -2
+     }
+    },
+    {
+     "t": "Temporiser"
+    }
+   ]
+  },
+  {
+   "id": "media04",
+   "titre": "Un documentaire sur le parti",
+   "texte": "Une chaîne prépare une enquête de fond.",
+   "cat": "medias",
+   "portee": "parti",
+   "poids": 2,
+   "cond": {},
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Ouvrir les portes",
+     "eff": {
+      "notoriete": 3,
+      "risqueGaffe": 1
+     }
+    },
+    {
+     "t": "Refuser de participer",
+     "eff": {
+      "credibilite": -1
+     }
+    },
+    {
+     "t": "Temporiser"
+    }
+   ]
+  },
+  {
+   "id": "media05",
+   "titre": "Clash sur les réseaux",
+   "texte": "Un échange avec un influenceur dégénère.",
+   "cat": "medias",
+   "portee": "parti",
+   "poids": 2,
+   "cond": {},
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Surenchérir",
+     "eff": {
+      "viralite": 3,
+      "credibilite": -1
+     },
+     "opinion": {
+      "jeunes": 1
+     }
+    },
+    {
+     "t": "Clore l'échange"
+    },
+    {
+     "t": "Temporiser"
+    }
+   ]
+  },
+  {
+   "id": "media06",
+   "titre": "Format long",
+   "texte": "Un podcast politique propose deux heures d'entretien.",
+   "cat": "medias",
+   "portee": "parti",
+   "poids": 2,
+   "cond": {},
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Accepter",
+     "eff": {
+      "credibilite": 2,
+      "notoriete": 1
+     },
+     "opinion": {
+      "diplomes": 1,
+      "jeunes": 1
+     }
+    },
+    {
+     "t": "Refuser"
+    },
+    {
+     "t": "Temporiser"
+    }
+   ]
+  },
+  {
+   "id": "media07",
+   "titre": "Interview piège",
+   "texte": "Le journaliste a un dossier sur vos contradictions.",
+   "cat": "medias",
+   "portee": "parti",
+   "poids": 2,
+   "cond": {},
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Y aller préparé",
+     "eff": {
+      "interview": 1
+     }
+    },
+    {
+     "t": "Annuler",
+     "eff": {
+      "credibilite": -1
+     }
+    },
+    {
+     "t": "Temporiser"
+    }
+   ]
+  },
+  {
+   "id": "media08",
+   "titre": "Sondage choc",
+   "texte": "Un institut vous donne quatre points de plus que la semaine dernière.",
+   "cat": "medias",
+   "portee": "parti",
+   "poids": 2,
+   "cond": {},
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Communiquer dessus",
+     "eff": {
+      "notoriete": 2,
+      "militants": 2
+     }
+    },
+    {
+     "t": "Rester prudent",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Temporiser"
+    }
+   ]
+  },
+  {
+   "id": "pres01",
+   "titre": "Réforme des retraites",
+   "texte": "Votre majorité attend un cap clair.",
+   "cat": "presidence",
+   "portee": "mandat",
+   "poids": 4,
+   "cond": {
+    "role": "president"
+   },
+   "themes": {
+    "retraites": 4
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Avancer l'âge de départ",
+     "axe": "social",
+     "sens": 1,
+     "eff": {
+      "popularite": 4,
+      "budgetEtat": -1
+     },
+     "opinion": {
+      "populaire": 3,
+      "aise": -2
+     }
+    },
+    {
+     "t": "Reculer l'âge de départ",
+     "axe": "social",
+     "sens": -1,
+     "eff": {
+      "popularite": -6,
+      "budgetEtat": 2
+     },
+     "opinion": {
+      "aise": 2,
+      "populaire": -3
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "pres02",
+   "titre": "Réforme des institutions",
+   "texte": "Vous aviez promis de changer les règles du jeu.",
+   "cat": "presidence",
+   "portee": "mandat",
+   "poids": 4,
+   "cond": {
+    "role": "president"
+   },
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Proportionnelle et référendum d'initiative citoyenne",
+     "axe": "institutions",
+     "sens": 1,
+     "eff": {
+      "popularite": 3
+     }
+    },
+    {
+     "t": "Statu quo",
+     "axe": "institutions",
+     "sens": -1,
+     "eff": {
+      "popularite": -2
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "pres03",
+   "titre": "Colère sociale",
+   "texte": "Un mouvement parti des réseaux bloque les ronds-points.",
+   "cat": "presidence",
+   "portee": "mandat",
+   "poids": 4,
+   "cond": {
+    "role": "president"
+   },
+   "themes": {
+    "pouvoir_achat": 4
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Céder sur le pouvoir d'achat",
+     "axe": "economie",
+     "sens": -1,
+     "eff": {
+      "popularite": 3,
+      "budgetEtat": -2
+     }
+    },
+    {
+     "t": "Tenir la ligne",
+     "axe": "economie",
+     "sens": 1,
+     "eff": {
+      "popularite": -4,
+      "budgetEtat": 1
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "pres04",
+   "titre": "Sommet international",
+   "texte": "La France doit prendre position dans une crise majeure.",
+   "cat": "presidence",
+   "portee": "mandat",
+   "poids": 4,
+   "cond": {
+    "role": "president"
+   },
+   "themes": {
+    "europe": 3
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Jouer collectif avec l'Europe",
+     "axe": "europe",
+     "sens": 1,
+     "eff": {
+      "popularite": 1
+     }
+    },
+    {
+     "t": "Faire entendre une voix singulière",
+     "axe": "europe",
+     "sens": -1,
+     "eff": {
+      "popularite": 2
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "pres05",
+   "titre": "Le budget",
+   "texte": "Il manque trente milliards.",
+   "cat": "presidence",
+   "portee": "mandat",
+   "poids": 4,
+   "cond": {
+    "role": "president"
+   },
+   "themes": {
+    "dette": 4
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Augmenter les impôts des plus aisés",
+     "axe": "economie",
+     "sens": -1,
+     "eff": {
+      "popularite": 1,
+      "budgetEtat": 2
+     },
+     "opinion": {
+      "aise": -3
+     }
+    },
+    {
+     "t": "Couper dans les dépenses",
+     "axe": "economie",
+     "sens": 1,
+     "eff": {
+      "popularite": -3,
+      "budgetEtat": 2
+     },
+     "opinion": {
+      "public": -3
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "pres06",
+   "titre": "Catastrophe naturelle",
+   "texte": "Une région est dévastée.",
+   "cat": "presidence",
+   "portee": "mandat",
+   "poids": 4,
+   "cond": {
+    "role": "president"
+   },
+   "themes": {
+    "ecologie": 3
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Se rendre sur place et débloquer des fonds",
+     "eff": {
+      "popularite": 3,
+      "budgetEtat": -1
+     }
+    },
+    {
+     "t": "Envoyer le Premier ministre",
+     "eff": {
+      "popularite": -2
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "pres07",
+   "titre": "Popularité en berne",
+   "texte": "Les sondages sont mauvais. Vos proches s'inquiètent.",
+   "cat": "presidence",
+   "portee": "mandat",
+   "poids": 4,
+   "cond": {
+    "role": "president"
+   },
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Changer de Premier ministre",
+     "eff": {
+      "popularite": 3,
+      "unite": -2
+     }
+    },
+    {
+     "t": "Garder le cap",
+     "eff": {
+      "popularite": -1,
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "pres08",
+   "titre": "Promesse phare",
+   "texte": "Le moment est venu d'appliquer votre mesure la plus attendue.",
+   "cat": "presidence",
+   "portee": "mandat",
+   "poids": 4,
+   "cond": {
+    "role": "president"
+   },
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Par la loi, vite",
+     "eff": {
+      "popularite": 4,
+      "credibilite": 2,
+      "budgetEtat": -1
+     }
+    },
+    {
+     "t": "Par étapes",
+     "eff": {
+      "popularite": -1,
+      "credibilite": -1
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "pres09",
+   "titre": "Référendum",
+   "texte": "Vous pouvez consulter les Français sur un grand sujet.",
+   "cat": "presidence",
+   "portee": "mandat",
+   "poids": 4,
+   "cond": {
+    "role": "president"
+   },
+   "themes": {},
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Organiser le référendum",
+     "axe": "institutions",
+     "sens": 1,
+     "eff": {
+      "popularite": 2,
+      "referendum": 1
+     }
+    },
+    {
+     "t": "Passer par le Parlement",
+     "axe": "institutions",
+     "sens": -1
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "pres10",
+   "titre": "Réforme fiscale",
+   "texte": "Les entreprises demandent de la stabilité, les ménages du pouvoir d'achat.",
+   "cat": "presidence",
+   "portee": "mandat",
+   "poids": 4,
+   "cond": {
+    "role": "president"
+   },
+   "themes": {
+    "pouvoir_achat": 3
+   },
+   "duree": 0,
+   "choix": [
+    {
+     "t": "Baisser l'impôt sur le revenu",
+     "axe": "economie",
+     "sens": 1,
+     "eff": {
+      "popularite": 3,
+      "budgetEtat": -2
+     }
+    },
+    {
+     "t": "Baisser la TVA sur l'essentiel",
+     "axe": "economie",
+     "sens": -1,
+     "eff": {
+      "popularite": 3,
+      "budgetEtat": -2
+     },
+     "opinion": {
+      "populaire": 2
+     }
+    },
+    {
+     "t": "Reporter la décision",
+     "eff": {
+      "bilan": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "saison01",
+   "titre": "Rentrée scolaire",
+   "texte": "Il manque des professeurs dans de nombreuses académies.",
+   "cat": "calendrier",
+   "portee": "nat",
+   "poids": 5,
+   "cond": {
+    "mois": [
+     9
+    ]
+   },
+   "themes": {
+    "ecole": 3
+   },
+   "duree": 2,
+   "choix": [
+    {
+     "t": "Demander un plan de recrutement",
+     "axe": "social",
+     "sens": 1,
+     "opinion": {
+      "public": 2
+     }
+    },
+    {
+     "t": "Demander plus d'autonomie des établissements",
+     "axe": "decentralisation",
+     "sens": 1,
+     "opinion": {
+      "aise": 1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "saison02",
+   "titre": "Salon de l'agriculture",
+   "texte": "Tous les responsables politiques défilent porte de Versailles.",
+   "cat": "calendrier",
+   "portee": "nat",
+   "poids": 5,
+   "cond": {
+    "mois": [
+     2
+    ]
+   },
+   "themes": {
+    "agriculture": 3
+   },
+   "duree": 2,
+   "choix": [
+    {
+     "t": "Y passer une journée entière",
+     "eff": {
+      "notoriete": 2,
+      "forme": -3
+     },
+     "opinion": {
+      "agri": 2,
+      "rural": 1
+     }
+    },
+    {
+     "t": "Faire une visite rapide",
+     "eff": {
+      "notoriete": 1
+     }
+    },
+    {
+     "t": "Ne pas y aller",
+     "opinion": {
+      "agri": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "saison03",
+   "titre": "Premier mai",
+   "texte": "Les cortèges syndicaux défilent dans tout le pays.",
+   "cat": "calendrier",
+   "portee": "nat",
+   "poids": 5,
+   "cond": {
+    "mois": [
+     5
+    ]
+   },
+   "themes": {
+    "emploi": 2
+   },
+   "duree": 2,
+   "choix": [
+    {
+     "t": "Défiler avec les syndicats",
+     "axe": "social",
+     "sens": 1,
+     "eff": {
+      "militants": 1
+     },
+     "opinion": {
+      "populaire": 1,
+      "public": 1
+     }
+    },
+    {
+     "t": "Organiser son propre rassemblement",
+     "eff": {
+      "militants": 2,
+      "argent": -40000
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "saison04",
+   "titre": "Vœux de début d'année",
+   "texte": "C'est le moment de fixer le cap.",
+   "cat": "calendrier",
+   "portee": "nat",
+   "poids": 5,
+   "cond": {
+    "mois": [
+     1
+    ]
+   },
+   "themes": {},
+   "duree": 2,
+   "choix": [
+    {
+     "t": "Vœux offensifs",
+     "eff": {
+      "notoriete": 2,
+      "militants": 1
+     }
+    },
+    {
+     "t": "Vœux rassembleurs",
+     "eff": {
+      "credibilite": 1,
+      "unite": 1
+     }
+    },
+    {
+     "t": "Simple message vidéo"
+    }
+   ]
+  },
+  {
+   "id": "saison05",
+   "titre": "Congrès des maires",
+   "texte": "Les élus locaux expriment leur ras-le-bol face aux baisses de dotations.",
+   "cat": "calendrier",
+   "portee": "nat",
+   "poids": 5,
+   "cond": {
+    "mois": [
+     11
+    ]
+   },
+   "themes": {
+    "services_publics": 2
+   },
+   "duree": 2,
+   "choix": [
+    {
+     "t": "Défendre les dotations",
+     "axe": "decentralisation",
+     "sens": 1,
+     "opinion": {
+      "rural": 2
+     }
+    },
+    {
+     "t": "Appeler les collectivités à l'effort",
+     "axe": "decentralisation",
+     "sens": -1,
+     "opinion": {
+      "aise": 1,
+      "rural": -2
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "saison06",
+   "titre": "Débat budgétaire",
+   "texte": "Le projet de loi de finances arrive à l'Assemblée.",
+   "cat": "calendrier",
+   "portee": "nat",
+   "poids": 5,
+   "cond": {
+    "mois": [
+     10
+    ]
+   },
+   "themes": {
+    "dette": 3,
+    "pouvoir_achat": 2
+   },
+   "duree": 2,
+   "choix": [
+    {
+     "t": "Présenter un contre-budget",
+     "eff": {
+      "credibilite": 3,
+      "capital": -2
+     }
+    },
+    {
+     "t": "Dénoncer l'austérité",
+     "axe": "economie",
+     "sens": -1,
+     "opinion": {
+      "populaire": 1
+     }
+    },
+    {
+     "t": "Dénoncer le laxisme",
+     "axe": "economie",
+     "sens": 1,
+     "opinion": {
+      "aise": 1
+     }
+    }
+   ]
+  },
+  {
+   "id": "saison07",
+   "titre": "Cérémonies du 11 novembre",
+   "texte": "Le pays rend hommage à ses morts.",
+   "cat": "calendrier",
+   "portee": "nat",
+   "poids": 4,
+   "cond": {
+    "mois": [
+     11
+    ]
+   },
+   "themes": {
+    "identite": 1
+   },
+   "duree": 2,
+   "choix": [
+    {
+     "t": "Participer aux cérémonies",
+     "eff": {
+      "credibilite": 1
+     },
+     "opinion": {
+      "retraites": 1
+     }
+    },
+    {
+     "t": "Envoyer un représentant"
+    }
+   ]
+  },
+  {
+   "id": "saison08",
+   "titre": "Départs en vacances",
+   "texte": "La vie politique tourne au ralenti.",
+   "cat": "calendrier",
+   "portee": "nat",
+   "poids": 4,
+   "cond": {
+    "mois": [
+     8
+    ]
+   },
+   "themes": {},
+   "duree": 2,
+   "choix": [
+    {
+     "t": "Tournée des plages et des marchés",
+     "eff": {
+      "notoriete": 1,
+      "militants": 1,
+      "forme": -4
+     }
+    },
+    {
+     "t": "Laisser souffler les équipes",
+     "eff": {
+      "forme": 8
+     }
+    }
+   ]
+  },
+  {
+   "id": "saison09",
+   "titre": "Fêtes de fin d'année",
+   "texte": "Les banques alimentaires lancent leur collecte.",
+   "cat": "calendrier",
+   "portee": "nat",
+   "poids": 4,
+   "cond": {
+    "mois": [
+     12
+    ]
+   },
+   "themes": {
+    "pouvoir_achat": 2
+   },
+   "duree": 2,
+   "choix": [
+    {
+     "t": "Mobiliser les militants pour la collecte",
+     "eff": {
+      "credibilite": 1,
+      "militants": 1
+     },
+     "opinion": {
+      "precaires": 1
+     }
+    },
+    {
+     "t": "Trêve des confiseurs",
+     "eff": {
+      "forme": 5
+     }
+    }
+   ]
+  },
+  {
+   "id": "saison10",
+   "titre": "Parcoursup",
+   "texte": "Des milliers de bacheliers restent sans affectation.",
+   "cat": "calendrier",
+   "portee": "nat",
+   "poids": 4,
+   "cond": {
+    "mois": [
+     6,
+     7
+    ]
+   },
+   "themes": {
+    "ecole": 3
+   },
+   "duree": 2,
+   "choix": [
+    {
+     "t": "Demander la suppression de la plateforme",
+     "axe": "societe",
+     "sens": 1,
+     "opinion": {
+      "jeunes": 2
+     }
+    },
+    {
+     "t": "Défendre la sélection",
+     "axe": "societe",
+     "sens": -1,
+     "opinion": {
+      "aise": 1,
+      "jeunes": -1
+     }
+    },
+    {
+     "t": "Ne pas commenter",
+     "eff": {
+      "notoriete": -1
+     }
+    }
+   ]
+  },
+  {
+   "id": "deces01",
+   "titre": "Disparition d'une grande figure",
+   "texte": "Une personnalité qui a marqué la vie publique pendant quarante ans s'est éteinte.",
+   "cat": "deces",
+   "portee": "nat",
+   "poids": 1,
+   "cond": {},
+   "themes": {},
+   "duree": 2,
+   "choix": [
+    {
+     "t": "Rendre hommage",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Rester silencieux"
+    }
+   ]
+  },
+  {
+   "id": "deces02",
+   "titre": "Hommage national",
+   "texte": "Le pays salue la mémoire d'un ancien résistant, dernier de sa génération.",
+   "cat": "deces",
+   "portee": "nat",
+   "poids": 1,
+   "cond": {},
+   "themes": {},
+   "duree": 2,
+   "choix": [
+    {
+     "t": "Rendre hommage",
+     "eff": {
+      "credibilite": 1
+     }
+    },
+    {
+     "t": "Rester silencieux"
+    }
+   ]
+  }
+ ]
+}

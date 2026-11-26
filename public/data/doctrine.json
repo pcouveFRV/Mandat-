@@ -1,0 +1,1479 @@
+{
+ "_doc": "axes : -5 = premier pôle, +5 = second pôle. themeAxes : poids de chaque axe pour chaque thème. propositions : débloquées quand la position du parti sur l'axe atteint positionRequise du côté du pôle.",
+ "axes": [
+  {
+   "id": "economie",
+   "nom": "Économie",
+   "poleMoins": "Économie dirigée, redistribution",
+   "polePlus": "Économie libérale, baisse des impôts"
+  },
+  {
+   "id": "immigration",
+   "nom": "Immigration",
+   "poleMoins": "Ouverture et régularisations",
+   "polePlus": "Fermeté et réduction des flux"
+  },
+  {
+   "id": "europe",
+   "nom": "Europe",
+   "poleMoins": "Souveraineté nationale",
+   "polePlus": "Intégration européenne"
+  },
+  {
+   "id": "securite",
+   "nom": "Sécurité et justice",
+   "poleMoins": "Prévention et libertés",
+   "polePlus": "Ordre et fermeté pénale"
+  },
+  {
+   "id": "ecologie",
+   "nom": "Écologie",
+   "poleMoins": "Priorité à la production",
+   "polePlus": "Transition écologique rapide"
+  },
+  {
+   "id": "societe",
+   "nom": "Questions de société",
+   "poleMoins": "Conservatisme",
+   "polePlus": "Progressisme"
+  },
+  {
+   "id": "institutions",
+   "nom": "Institutions",
+   "poleMoins": "Ve République et exécutif fort",
+   "polePlus": "Nouvelle République et démocratie directe"
+  },
+  {
+   "id": "social",
+   "nom": "Protection sociale",
+   "poleMoins": "Responsabilité individuelle, baisse des dépenses",
+   "polePlus": "Protection sociale étendue"
+  },
+  {
+   "id": "etranger",
+   "nom": "Politique étrangère",
+   "poleMoins": "Non-alignement",
+   "polePlus": "Alliance atlantique et soutien à l'Ukraine"
+  },
+  {
+   "id": "decentralisation",
+   "nom": "Décentralisation",
+   "poleMoins": "État central fort",
+   "polePlus": "Pouvoir aux territoires"
+  }
+ ],
+ "themes": [
+  {
+   "id": "pouvoir_achat",
+   "nom": "Pouvoir d'achat",
+   "axes": [
+    3,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "securite",
+   "nom": "Sécurité",
+   "axes": [
+    0,
+    1,
+    0,
+    4,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "immigration",
+   "nom": "Immigration",
+   "axes": [
+    0,
+    4,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "sante",
+   "nom": "Santé",
+   "axes": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    3,
+    0,
+    1
+   ]
+  },
+  {
+   "id": "ecole",
+   "nom": "École",
+   "axes": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    2,
+    0,
+    1,
+    0,
+    1
+   ]
+  },
+  {
+   "id": "emploi",
+   "nom": "Emploi",
+   "axes": [
+    3,
+    0,
+    1,
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "ecologie",
+   "nom": "Écologie",
+   "axes": [
+    1,
+    0,
+    0,
+    0,
+    4,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "retraites",
+   "nom": "Retraites",
+   "axes": [
+    2,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    3,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "logement",
+   "nom": "Logement",
+   "axes": [
+    2,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    2,
+    0,
+    1
+   ]
+  },
+  {
+   "id": "services_publics",
+   "nom": "Services publics",
+   "axes": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    3,
+    0,
+    2
+   ]
+  },
+  {
+   "id": "europe",
+   "nom": "Europe",
+   "axes": [
+    0,
+    0,
+    4,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0
+   ]
+  },
+  {
+   "id": "identite",
+   "nom": "Identité",
+   "axes": [
+    0,
+    2,
+    1,
+    0,
+    0,
+    3,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "dette",
+   "nom": "Dette",
+   "axes": [
+    4,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "transports",
+   "nom": "Transports",
+   "axes": [
+    0,
+    0,
+    0,
+    0,
+    2,
+    0,
+    0,
+    1,
+    0,
+    3
+   ]
+  },
+  {
+   "id": "agriculture",
+   "nom": "Agriculture",
+   "axes": [
+    1,
+    0,
+    2,
+    0,
+    3,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  }
+ ],
+ "propositions": [
+  {
+   "id": "p01",
+   "nom": "Blocage des prix des produits de base",
+   "axe": "economie",
+   "pole": -1,
+   "positionRequise": 2,
+   "theme": "pouvoir_achat",
+   "coutCapital": 10,
+   "credibiliteRequise": 20,
+   "attire": [
+    "populaire",
+    "precaires"
+   ],
+   "repousse": [
+    "independants",
+    "aise"
+   ]
+  },
+  {
+   "id": "p02",
+   "nom": "Hausse du SMIC à 1 600 euros net",
+   "axe": "economie",
+   "pole": -1,
+   "positionRequise": 3,
+   "theme": "pouvoir_achat",
+   "coutCapital": 15,
+   "credibiliteRequise": 30,
+   "attire": [
+    "populaire",
+    "jeunes"
+   ],
+   "repousse": [
+    "independants"
+   ]
+  },
+  {
+   "id": "p03",
+   "nom": "Rétablissement de l'impôt sur la fortune",
+   "axe": "economie",
+   "pole": -1,
+   "positionRequise": 2,
+   "theme": "dette",
+   "coutCapital": 10,
+   "credibiliteRequise": 25,
+   "attire": [
+    "populaire",
+    "public"
+   ],
+   "repousse": [
+    "aise"
+   ]
+  },
+  {
+   "id": "p04",
+   "nom": "Taxe sur les superprofits",
+   "axe": "economie",
+   "pole": -1,
+   "positionRequise": 1,
+   "theme": "dette",
+   "coutCapital": 8,
+   "credibiliteRequise": 20,
+   "attire": [
+    "populaire",
+    "moyen"
+   ],
+   "repousse": [
+    "aise"
+   ]
+  },
+  {
+   "id": "p05",
+   "nom": "Nationalisation des autoroutes",
+   "axe": "economie",
+   "pole": -1,
+   "positionRequise": 4,
+   "theme": "transports",
+   "coutCapital": 20,
+   "credibiliteRequise": 40,
+   "attire": [
+    "populaire",
+    "rural"
+   ],
+   "repousse": [
+    "aise",
+    "independants"
+   ]
+  },
+  {
+   "id": "p06",
+   "nom": "Planification industrielle",
+   "axe": "economie",
+   "pole": -1,
+   "positionRequise": 3,
+   "theme": "emploi",
+   "coutCapital": 15,
+   "credibiliteRequise": 45,
+   "attire": [
+    "populaire",
+    "public"
+   ],
+   "repousse": [
+    "independants"
+   ]
+  },
+  {
+   "id": "p07",
+   "nom": "Baisse massive des impôts de production",
+   "axe": "economie",
+   "pole": 1,
+   "positionRequise": 2,
+   "theme": "emploi",
+   "coutCapital": 10,
+   "credibiliteRequise": 30,
+   "attire": [
+    "independants",
+    "aise"
+   ],
+   "repousse": [
+    "public"
+   ]
+  },
+  {
+   "id": "p08",
+   "nom": "Suppression des droits de succession",
+   "axe": "economie",
+   "pole": 1,
+   "positionRequise": 3,
+   "theme": "pouvoir_achat",
+   "coutCapital": 15,
+   "credibiliteRequise": 25,
+   "attire": [
+    "aise",
+    "retraites",
+    "independants"
+   ],
+   "repousse": [
+    "populaire"
+   ]
+  },
+  {
+   "id": "p09",
+   "nom": "Défiscalisation des heures supplémentaires",
+   "axe": "economie",
+   "pole": 1,
+   "positionRequise": 1,
+   "theme": "pouvoir_achat",
+   "coutCapital": 8,
+   "credibiliteRequise": 20,
+   "attire": [
+    "actifs",
+    "populaire"
+   ],
+   "repousse": []
+  },
+  {
+   "id": "p10",
+   "nom": "Réduction de 100 000 postes de fonctionnaires",
+   "axe": "economie",
+   "pole": 1,
+   "positionRequise": 4,
+   "theme": "dette",
+   "coutCapital": 20,
+   "credibiliteRequise": 40,
+   "attire": [
+    "independants",
+    "aise"
+   ],
+   "repousse": [
+    "public",
+    "rural"
+   ]
+  },
+  {
+   "id": "p11",
+   "nom": "Règle d'or budgétaire",
+   "axe": "economie",
+   "pole": 1,
+   "positionRequise": 2,
+   "theme": "dette",
+   "coutCapital": 12,
+   "credibiliteRequise": 45,
+   "attire": [
+    "aise",
+    "retraites"
+   ],
+   "repousse": [
+    "precaires"
+   ]
+  },
+  {
+   "id": "p12",
+   "nom": "Simplification des normes pour les entreprises",
+   "axe": "economie",
+   "pole": 1,
+   "positionRequise": 1,
+   "theme": "emploi",
+   "coutCapital": 6,
+   "credibiliteRequise": 20,
+   "attire": [
+    "independants",
+    "agri"
+   ],
+   "repousse": []
+  },
+  {
+   "id": "p13",
+   "nom": "Régularisation des travailleurs sans papiers",
+   "axe": "immigration",
+   "pole": -1,
+   "positionRequise": 3,
+   "theme": "immigration",
+   "coutCapital": 15,
+   "credibiliteRequise": 30,
+   "attire": [
+    "diplomes",
+    "jeunes"
+   ],
+   "repousse": [
+    "populaire",
+    "rural"
+   ]
+  },
+  {
+   "id": "p14",
+   "nom": "Accueil digne et droit d'asile renforcé",
+   "axe": "immigration",
+   "pole": -1,
+   "positionRequise": 2,
+   "theme": "immigration",
+   "coutCapital": 10,
+   "credibiliteRequise": 25,
+   "attire": [
+    "diplomes"
+   ],
+   "repousse": [
+    "populaire"
+   ]
+  },
+  {
+   "id": "p15",
+   "nom": "Droit de vote des étrangers aux élections locales",
+   "axe": "immigration",
+   "pole": -1,
+   "positionRequise": 4,
+   "theme": "identite",
+   "coutCapital": 20,
+   "credibiliteRequise": 35,
+   "attire": [
+    "jeunes",
+    "diplomes"
+   ],
+   "repousse": [
+    "retraites",
+    "rural"
+   ]
+  },
+  {
+   "id": "p16",
+   "nom": "Quotas annuels d'immigration votés au Parlement",
+   "axe": "immigration",
+   "pole": 1,
+   "positionRequise": 2,
+   "theme": "immigration",
+   "coutCapital": 10,
+   "credibiliteRequise": 25,
+   "attire": [
+    "retraites",
+    "moyen"
+   ],
+   "repousse": [
+    "diplomes"
+   ]
+  },
+  {
+   "id": "p17",
+   "nom": "Expulsion systématique des délinquants étrangers",
+   "axe": "immigration",
+   "pole": 1,
+   "positionRequise": 3,
+   "theme": "immigration",
+   "coutCapital": 12,
+   "credibiliteRequise": 25,
+   "attire": [
+    "populaire",
+    "retraites"
+   ],
+   "repousse": [
+    "diplomes"
+   ]
+  },
+  {
+   "id": "p18",
+   "nom": "Référendum sur l'immigration",
+   "axe": "immigration",
+   "pole": 1,
+   "positionRequise": 4,
+   "theme": "immigration",
+   "coutCapital": 20,
+   "credibiliteRequise": 35,
+   "attire": [
+    "populaire",
+    "rural"
+   ],
+   "repousse": [
+    "diplomes",
+    "jeunes"
+   ]
+  },
+  {
+   "id": "p19",
+   "nom": "Suppression du droit du sol",
+   "axe": "immigration",
+   "pole": 1,
+   "positionRequise": 5,
+   "theme": "identite",
+   "coutCapital": 25,
+   "credibiliteRequise": 40,
+   "attire": [
+    "populaire"
+   ],
+   "repousse": [
+    "jeunes",
+    "diplomes"
+   ]
+  },
+  {
+   "id": "p20",
+   "nom": "Priorité nationale pour le logement social",
+   "axe": "immigration",
+   "pole": 1,
+   "positionRequise": 4,
+   "theme": "logement",
+   "coutCapital": 18,
+   "credibiliteRequise": 30,
+   "attire": [
+    "populaire",
+    "precaires"
+   ],
+   "repousse": [
+    "diplomes"
+   ]
+  },
+  {
+   "id": "p21",
+   "nom": "Sortie des traités de libre-échange",
+   "axe": "europe",
+   "pole": -1,
+   "positionRequise": 2,
+   "theme": "agriculture",
+   "coutCapital": 10,
+   "credibiliteRequise": 25,
+   "attire": [
+    "agri",
+    "populaire"
+   ],
+   "repousse": [
+    "aise"
+   ]
+  },
+  {
+   "id": "p22",
+   "nom": "Primauté du droit national sur le droit européen",
+   "axe": "europe",
+   "pole": -1,
+   "positionRequise": 3,
+   "theme": "europe",
+   "coutCapital": 15,
+   "credibiliteRequise": 35,
+   "attire": [
+    "populaire",
+    "rural"
+   ],
+   "repousse": [
+    "diplomes"
+   ]
+  },
+  {
+   "id": "p23",
+   "nom": "Baisse de la contribution française au budget européen",
+   "axe": "europe",
+   "pole": -1,
+   "positionRequise": 2,
+   "theme": "dette",
+   "coutCapital": 10,
+   "credibiliteRequise": 25,
+   "attire": [
+    "retraites",
+    "rural"
+   ],
+   "repousse": [
+    "diplomes"
+   ]
+  },
+  {
+   "id": "p24",
+   "nom": "Défense européenne commune",
+   "axe": "europe",
+   "pole": 1,
+   "positionRequise": 3,
+   "theme": "europe",
+   "coutCapital": 15,
+   "credibiliteRequise": 40,
+   "attire": [
+    "diplomes",
+    "aise"
+   ],
+   "repousse": [
+    "populaire"
+   ]
+  },
+  {
+   "id": "p25",
+   "nom": "Grand emprunt européen pour l'industrie",
+   "axe": "europe",
+   "pole": 1,
+   "positionRequise": 2,
+   "theme": "emploi",
+   "coutCapital": 12,
+   "credibiliteRequise": 35,
+   "attire": [
+    "diplomes",
+    "moyen"
+   ],
+   "repousse": []
+  },
+  {
+   "id": "p26",
+   "nom": "Élection directe d'un président de l'Union",
+   "axe": "europe",
+   "pole": 1,
+   "positionRequise": 5,
+   "theme": "europe",
+   "coutCapital": 25,
+   "credibiliteRequise": 45,
+   "attire": [
+    "diplomes"
+   ],
+   "repousse": [
+    "rural",
+    "populaire"
+   ]
+  },
+  {
+   "id": "p27",
+   "nom": "Police de proximité dans chaque quartier",
+   "axe": "securite",
+   "pole": -1,
+   "positionRequise": 1,
+   "theme": "securite",
+   "coutCapital": 8,
+   "credibiliteRequise": 20,
+   "attire": [
+    "urbain",
+    "moyen"
+   ],
+   "repousse": []
+  },
+  {
+   "id": "p28",
+   "nom": "Peines alternatives à la prison",
+   "axe": "securite",
+   "pole": -1,
+   "positionRequise": 3,
+   "theme": "securite",
+   "coutCapital": 12,
+   "credibiliteRequise": 30,
+   "attire": [
+    "diplomes",
+    "jeunes"
+   ],
+   "repousse": [
+    "retraites"
+   ]
+  },
+  {
+   "id": "p29",
+   "nom": "Légalisation encadrée du cannabis",
+   "axe": "securite",
+   "pole": -1,
+   "positionRequise": 3,
+   "theme": "securite",
+   "coutCapital": 15,
+   "credibiliteRequise": 30,
+   "attire": [
+    "jeunes",
+    "diplomes"
+   ],
+   "repousse": [
+    "retraites",
+    "rural"
+   ]
+  },
+  {
+   "id": "p30",
+   "nom": "Récépissé de contrôle d'identité",
+   "axe": "securite",
+   "pole": -1,
+   "positionRequise": 4,
+   "theme": "securite",
+   "coutCapital": 15,
+   "credibiliteRequise": 30,
+   "attire": [
+    "jeunes",
+    "precaires"
+   ],
+   "repousse": [
+    "retraites"
+   ]
+  },
+  {
+   "id": "p31",
+   "nom": "Peines planchers pour les récidivistes",
+   "axe": "securite",
+   "pole": 1,
+   "positionRequise": 2,
+   "theme": "securite",
+   "coutCapital": 10,
+   "credibiliteRequise": 25,
+   "attire": [
+    "retraites",
+    "populaire"
+   ],
+   "repousse": [
+    "diplomes"
+   ]
+  },
+  {
+   "id": "p32",
+   "nom": "Construction de 20 000 places de prison",
+   "axe": "securite",
+   "pole": 1,
+   "positionRequise": 3,
+   "theme": "securite",
+   "coutCapital": 12,
+   "credibiliteRequise": 30,
+   "attire": [
+    "retraites",
+    "rural"
+   ],
+   "repousse": [
+    "jeunes"
+   ]
+  },
+  {
+   "id": "p33",
+   "nom": "Présomption de légitime défense pour les forces de l'ordre",
+   "axe": "securite",
+   "pole": 1,
+   "positionRequise": 4,
+   "theme": "securite",
+   "coutCapital": 18,
+   "credibiliteRequise": 30,
+   "attire": [
+    "retraites",
+    "populaire"
+   ],
+   "repousse": [
+    "jeunes",
+    "diplomes"
+   ]
+  },
+  {
+   "id": "p34",
+   "nom": "Majorité pénale à 16 ans",
+   "axe": "securite",
+   "pole": 1,
+   "positionRequise": 4,
+   "theme": "securite",
+   "coutCapital": 15,
+   "credibiliteRequise": 25,
+   "attire": [
+    "retraites"
+   ],
+   "repousse": [
+    "jeunes"
+   ]
+  },
+  {
+   "id": "p35",
+   "nom": "Relance du nucléaire",
+   "axe": "ecologie",
+   "pole": -1,
+   "positionRequise": 1,
+   "theme": "ecologie",
+   "coutCapital": 8,
+   "credibiliteRequise": 30,
+   "attire": [
+    "actifs",
+    "aise"
+   ],
+   "repousse": [
+    "jeunes"
+   ]
+  },
+  {
+   "id": "p36",
+   "nom": "Moratoire sur les éoliennes",
+   "axe": "ecologie",
+   "pole": -1,
+   "positionRequise": 3,
+   "theme": "ecologie",
+   "coutCapital": 12,
+   "credibiliteRequise": 25,
+   "attire": [
+    "rural",
+    "retraites"
+   ],
+   "repousse": [
+    "jeunes",
+    "diplomes"
+   ]
+  },
+  {
+   "id": "p37",
+   "nom": "Fin des zones à faibles émissions",
+   "axe": "ecologie",
+   "pole": -1,
+   "positionRequise": 2,
+   "theme": "transports",
+   "coutCapital": 10,
+   "credibiliteRequise": 20,
+   "attire": [
+    "populaire",
+    "rural"
+   ],
+   "repousse": [
+    "urbain",
+    "diplomes"
+   ]
+  },
+  {
+   "id": "p38",
+   "nom": "Baisse des taxes sur les carburants",
+   "axe": "ecologie",
+   "pole": -1,
+   "positionRequise": 2,
+   "theme": "pouvoir_achat",
+   "coutCapital": 10,
+   "credibiliteRequise": 20,
+   "attire": [
+    "rural",
+    "populaire"
+   ],
+   "repousse": [
+    "diplomes"
+   ]
+  },
+  {
+   "id": "p39",
+   "nom": "Rénovation thermique de 700 000 logements par an",
+   "axe": "ecologie",
+   "pole": 1,
+   "positionRequise": 2,
+   "theme": "logement",
+   "coutCapital": 12,
+   "credibiliteRequise": 35,
+   "attire": [
+    "moyen",
+    "jeunes"
+   ],
+   "repousse": []
+  },
+  {
+   "id": "p40",
+   "nom": "Sortie des pesticides en dix ans",
+   "axe": "ecologie",
+   "pole": 1,
+   "positionRequise": 3,
+   "theme": "agriculture",
+   "coutCapital": 15,
+   "credibiliteRequise": 30,
+   "attire": [
+    "diplomes",
+    "jeunes"
+   ],
+   "repousse": [
+    "agri"
+   ]
+  },
+  {
+   "id": "p41",
+   "nom": "Interdiction des vols intérieurs courts",
+   "axe": "ecologie",
+   "pole": 1,
+   "positionRequise": 4,
+   "theme": "transports",
+   "coutCapital": 15,
+   "credibiliteRequise": 30,
+   "attire": [
+    "jeunes",
+    "diplomes"
+   ],
+   "repousse": [
+    "aise",
+    "independants"
+   ]
+  },
+  {
+   "id": "p42",
+   "nom": "Règle verte dans la Constitution",
+   "axe": "ecologie",
+   "pole": 1,
+   "positionRequise": 5,
+   "theme": "ecologie",
+   "coutCapital": 25,
+   "credibiliteRequise": 40,
+   "attire": [
+    "jeunes",
+    "diplomes"
+   ],
+   "repousse": [
+    "agri",
+    "independants"
+   ]
+  },
+  {
+   "id": "p43",
+   "nom": "Train à un euro pour les jeunes",
+   "axe": "ecologie",
+   "pole": 1,
+   "positionRequise": 1,
+   "theme": "transports",
+   "coutCapital": 8,
+   "credibiliteRequise": 20,
+   "attire": [
+    "jeunes"
+   ],
+   "repousse": []
+  },
+  {
+   "id": "p44",
+   "nom": "Uniforme à l'école",
+   "axe": "societe",
+   "pole": -1,
+   "positionRequise": 2,
+   "theme": "ecole",
+   "coutCapital": 8,
+   "credibiliteRequise": 20,
+   "attire": [
+    "retraites",
+    "rural"
+   ],
+   "repousse": [
+    "jeunes"
+   ]
+  },
+  {
+   "id": "p45",
+   "nom": "Service national obligatoire",
+   "axe": "societe",
+   "pole": -1,
+   "positionRequise": 3,
+   "theme": "identite",
+   "coutCapital": 15,
+   "credibiliteRequise": 30,
+   "attire": [
+    "retraites"
+   ],
+   "repousse": [
+    "jeunes"
+   ]
+  },
+  {
+   "id": "p46",
+   "nom": "Politique nataliste et prime de naissance",
+   "axe": "societe",
+   "pole": -1,
+   "positionRequise": 2,
+   "theme": "identite",
+   "coutCapital": 12,
+   "credibiliteRequise": 25,
+   "attire": [
+    "rural",
+    "moyen"
+   ],
+   "repousse": []
+  },
+  {
+   "id": "p47",
+   "nom": "Aide active à mourir",
+   "axe": "societe",
+   "pole": 1,
+   "positionRequise": 2,
+   "theme": "sante",
+   "coutCapital": 10,
+   "credibiliteRequise": 30,
+   "attire": [
+    "diplomes",
+    "retraites"
+   ],
+   "repousse": []
+  },
+  {
+   "id": "p48",
+   "nom": "Congé parental égal pour les deux parents",
+   "axe": "societe",
+   "pole": 1,
+   "positionRequise": 2,
+   "theme": "emploi",
+   "coutCapital": 10,
+   "credibiliteRequise": 25,
+   "attire": [
+    "jeunes",
+    "actifs"
+   ],
+   "repousse": []
+  },
+  {
+   "id": "p49",
+   "nom": "Plan national contre les discriminations",
+   "axe": "societe",
+   "pole": 1,
+   "positionRequise": 3,
+   "theme": "identite",
+   "coutCapital": 12,
+   "credibiliteRequise": 25,
+   "attire": [
+    "jeunes",
+    "urbain"
+   ],
+   "repousse": [
+    "rural"
+   ]
+  },
+  {
+   "id": "p50",
+   "nom": "Référendum d'initiative citoyenne",
+   "axe": "institutions",
+   "pole": 1,
+   "positionRequise": 2,
+   "theme": "services_publics",
+   "coutCapital": 12,
+   "credibiliteRequise": 25,
+   "attire": [
+    "populaire",
+    "jeunes"
+   ],
+   "repousse": [
+    "aise"
+   ]
+  },
+  {
+   "id": "p51",
+   "nom": "Assemblée constituante pour une VIe République",
+   "axe": "institutions",
+   "pole": 1,
+   "positionRequise": 5,
+   "theme": "services_publics",
+   "coutCapital": 30,
+   "credibiliteRequise": 40,
+   "attire": [
+    "jeunes",
+    "populaire"
+   ],
+   "repousse": [
+    "retraites",
+    "aise"
+   ]
+  },
+  {
+   "id": "p52",
+   "nom": "Proportionnelle intégrale aux législatives",
+   "axe": "institutions",
+   "pole": 1,
+   "positionRequise": 3,
+   "theme": "services_publics",
+   "coutCapital": 15,
+   "credibiliteRequise": 30,
+   "attire": [
+    "jeunes",
+    "diplomes"
+   ],
+   "repousse": []
+  },
+  {
+   "id": "p53",
+   "nom": "Septennat non renouvelable",
+   "axe": "institutions",
+   "pole": -1,
+   "positionRequise": 2,
+   "theme": "services_publics",
+   "coutCapital": 10,
+   "credibiliteRequise": 30,
+   "attire": [
+    "retraites"
+   ],
+   "repousse": []
+  },
+  {
+   "id": "p54",
+   "nom": "Réduction du nombre de parlementaires",
+   "axe": "institutions",
+   "pole": -1,
+   "positionRequise": 2,
+   "theme": "dette",
+   "coutCapital": 10,
+   "credibiliteRequise": 20,
+   "attire": [
+    "populaire",
+    "retraites"
+   ],
+   "repousse": []
+  },
+  {
+   "id": "p55",
+   "nom": "Retraite à 60 ans",
+   "axe": "social",
+   "pole": 1,
+   "positionRequise": 4,
+   "theme": "retraites",
+   "coutCapital": 20,
+   "credibiliteRequise": 35,
+   "attire": [
+    "populaire",
+    "actifs"
+   ],
+   "repousse": [
+    "aise",
+    "independants"
+   ]
+  },
+  {
+   "id": "p56",
+   "nom": "Allocation d'autonomie pour les jeunes",
+   "axe": "social",
+   "pole": 1,
+   "positionRequise": 3,
+   "theme": "pouvoir_achat",
+   "coutCapital": 15,
+   "credibiliteRequise": 30,
+   "attire": [
+    "jeunes",
+    "precaires"
+   ],
+   "repousse": [
+    "retraites"
+   ]
+  },
+  {
+   "id": "p57",
+   "nom": "Cent pour cent Sécu",
+   "axe": "social",
+   "pole": 1,
+   "positionRequise": 3,
+   "theme": "sante",
+   "coutCapital": 15,
+   "credibiliteRequise": 35,
+   "attire": [
+    "populaire",
+    "retraites"
+   ],
+   "repousse": [
+    "independants"
+   ]
+  },
+  {
+   "id": "p58",
+   "nom": "Recrutement de 100 000 soignants",
+   "axe": "social",
+   "pole": 1,
+   "positionRequise": 2,
+   "theme": "sante",
+   "coutCapital": 12,
+   "credibiliteRequise": 30,
+   "attire": [
+    "retraites",
+    "public",
+    "rural"
+   ],
+   "repousse": []
+  },
+  {
+   "id": "p59",
+   "nom": "Retraite à 65 ans",
+   "axe": "social",
+   "pole": -1,
+   "positionRequise": 3,
+   "theme": "retraites",
+   "coutCapital": 20,
+   "credibiliteRequise": 40,
+   "attire": [
+    "aise",
+    "independants"
+   ],
+   "repousse": [
+    "populaire",
+    "actifs"
+   ]
+  },
+  {
+   "id": "p60",
+   "nom": "Conditionner le RSA à une activité",
+   "axe": "social",
+   "pole": -1,
+   "positionRequise": 2,
+   "theme": "emploi",
+   "coutCapital": 10,
+   "credibiliteRequise": 25,
+   "attire": [
+    "retraites",
+    "independants"
+   ],
+   "repousse": [
+    "precaires"
+   ]
+  },
+  {
+   "id": "p61",
+   "nom": "Capitalisation pour les retraites",
+   "axe": "social",
+   "pole": -1,
+   "positionRequise": 4,
+   "theme": "retraites",
+   "coutCapital": 20,
+   "credibiliteRequise": 40,
+   "attire": [
+    "aise",
+    "jeunes"
+   ],
+   "repousse": [
+    "populaire",
+    "retraites"
+   ]
+  },
+  {
+   "id": "p62",
+   "nom": "Sortie du commandement intégré de l'OTAN",
+   "axe": "etranger",
+   "pole": -1,
+   "positionRequise": 4,
+   "theme": "europe",
+   "coutCapital": 20,
+   "credibiliteRequise": 35,
+   "attire": [
+    "populaire"
+   ],
+   "repousse": [
+    "diplomes",
+    "aise"
+   ]
+  },
+  {
+   "id": "p63",
+   "nom": "Conférence de paix et cessez-le-feu en Ukraine",
+   "axe": "etranger",
+   "pole": -1,
+   "positionRequise": 2,
+   "theme": "europe",
+   "coutCapital": 10,
+   "credibiliteRequise": 25,
+   "attire": [
+    "populaire",
+    "rural"
+   ],
+   "repousse": [
+    "diplomes"
+   ]
+  },
+  {
+   "id": "p64",
+   "nom": "Budget de la défense à 3 % du PIB",
+   "axe": "etranger",
+   "pole": 1,
+   "positionRequise": 2,
+   "theme": "dette",
+   "coutCapital": 12,
+   "credibiliteRequise": 35,
+   "attire": [
+    "retraites",
+    "aise"
+   ],
+   "repousse": [
+    "jeunes"
+   ]
+  },
+  {
+   "id": "p65",
+   "nom": "Livraisons d'armes renforcées à l'Ukraine",
+   "axe": "etranger",
+   "pole": 1,
+   "positionRequise": 3,
+   "theme": "europe",
+   "coutCapital": 12,
+   "credibiliteRequise": 30,
+   "attire": [
+    "diplomes"
+   ],
+   "repousse": [
+    "populaire"
+   ]
+  },
+  {
+   "id": "p66",
+   "nom": "Suppression des agences régionales de santé",
+   "axe": "decentralisation",
+   "pole": 1,
+   "positionRequise": 2,
+   "theme": "sante",
+   "coutCapital": 10,
+   "credibiliteRequise": 25,
+   "attire": [
+    "rural",
+    "retraites"
+   ],
+   "repousse": []
+  },
+  {
+   "id": "p67",
+   "nom": "Autonomie fiscale des régions",
+   "axe": "decentralisation",
+   "pole": 1,
+   "positionRequise": 3,
+   "theme": "services_publics",
+   "coutCapital": 15,
+   "credibiliteRequise": 35,
+   "attire": [
+    "rural",
+    "independants"
+   ],
+   "repousse": []
+  },
+  {
+   "id": "p68",
+   "nom": "Statut d'autonomie pour la Corse et les outre-mer",
+   "axe": "decentralisation",
+   "pole": 1,
+   "positionRequise": 4,
+   "theme": "identite",
+   "coutCapital": 18,
+   "credibiliteRequise": 30,
+   "attire": [
+    "rural"
+   ],
+   "repousse": [
+    "retraites"
+   ]
+  },
+  {
+   "id": "p69",
+   "nom": "Retour des services publics dans chaque canton",
+   "axe": "decentralisation",
+   "pole": -1,
+   "positionRequise": 1,
+   "theme": "services_publics",
+   "coutCapital": 10,
+   "credibiliteRequise": 30,
+   "attire": [
+    "rural",
+    "retraites",
+    "public"
+   ],
+   "repousse": []
+  },
+  {
+   "id": "p70",
+   "nom": "Suppression d'un échelon territorial",
+   "axe": "decentralisation",
+   "pole": -1,
+   "positionRequise": 3,
+   "theme": "dette",
+   "coutCapital": 15,
+   "credibiliteRequise": 35,
+   "attire": [
+    "aise",
+    "urbain"
+   ],
+   "repousse": [
+    "rural"
+   ]
+  }
+ ]
+}
