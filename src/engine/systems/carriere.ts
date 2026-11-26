@@ -21,7 +21,7 @@ const plusEstime = (e: Etat, v: number) => { e.joueur.pointsVictoire.estime = cl
 // Écrans ouverts au joueur. En mode Carrière, un écran qui n'est pas gagné n'existe pas dans le menu.
 export const ACCES: Record<string, { nom: string; texte: string }> = {
   accueil: { nom: 'Tableau de bord', texte: '' }, perso: { nom: 'Personnalisation', texte: '' }, chronique: { nom: 'Chronique', texte: '' },
-  inbox: { nom: 'Boîte de réception', texte: '' }, agora: { nom: 'Agora', texte: '' }, equipe: { nom: 'Terrain', texte: '' }, profil: { nom: 'Mon parcours', texte: '' }, contacts: { nom: 'Carnet', texte: '' },
+  inbox: { nom: 'Boîte de réception', texte: '' }, agora: { nom: 'Agora', texte: '' }, equipe: { nom: 'Terrain', texte: '' }, profil: { nom: 'Mon parcours', texte: '' }, contacts: { nom: 'Carnet', texte: '' }, annuaire: { nom: 'Annuaire des élus', texte: '' },
   carte: { nom: 'Carte', texte: 'Vous tenez une section : on vous confie les cartes électorales. Résultats, intentions de vote et implantation, jusqu\'à la commune.' },
   effectif: { nom: 'Effectif', texte: 'Vous avez maintenant accès au fichier des cadres et des élus du parti, avec leurs fiches.' },
   historique: { nom: 'Historique', texte: 'Les archives électorales du parti vous sont ouvertes : tous les scrutins passés et les sondages.' },
@@ -34,9 +34,9 @@ export const ACCES: Record<string, { nom: string; texte: string }> = {
   doctrine: { nom: 'Doctrine', texte: 'Vous pesez sur la ligne : l\'arbre de doctrine et les propositions du parti vous sont ouverts.' },
 };
 export function accesJoueur(e: Etat): string[] {
-  const j = e.joueur; if (j.mode === 'parti') return Object.keys(ACCES).filter(k => k !== 'profil' && k !== 'contacts' && k !== 'chronique'); const p = e.persos[j.perso]; const P = e.partis[j.parti]; if (!p) return ['accueil', 'perso', 'chronique', 'inbox', 'agora', 'equipe', 'profil', 'contacts'];
+  const j = e.joueur; if (j.mode === 'parti') return Object.keys(ACCES).filter(k => k !== 'profil' && k !== 'contacts' && k !== 'chronique'); const p = e.persos[j.perso]; const P = e.partis[j.parti]; if (!p) return ['accueil', 'perso', 'chronique', 'inbox', 'agora', 'equipe', 'profil', 'contacts', 'annuaire'];
   const chef = !!P && P.chef === p.id; const bureau = !!P && Object.values(P.bureau).includes(p.id); const r = chef ? 4 : p.rang; const elu = p.mandats.length > 0;
-  const a = ['accueil', 'perso', 'chronique', 'inbox', 'agora', 'equipe', 'profil', 'contacts']; if (r >= 1 || elu) a.push('carte', 'effectif', 'historique', 'pantheon', 'campagne'); if (elu) a.push('mandat');
+  const a = ['accueil', 'perso', 'chronique', 'inbox', 'agora', 'equipe', 'profil', 'contacts', 'annuaire']; if (r >= 1 || elu) a.push('carte', 'effectif', 'historique', 'pantheon', 'campagne'); if (elu) a.push('mandat');
   if (r >= 2) a.push('parti', 'finances'); if (r >= 3 || bureau || (e.debat && !e.debat.fini)) a.push('medias'); if (r >= 3 || bureau) a.push('doctrine');
   return a;
 }

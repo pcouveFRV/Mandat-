@@ -16,7 +16,9 @@ Version V6 livrée. Le jeu est en ligne sur https://pcouvefrv.github.io/Mandat-/
 | 4 | Personnalisation : atelier d'emblème, fondation d'un parti (nom, sigle, couleur), financements (dons, prêts d'adhérents, emprunt) | Fait, testé |
 | 5 | Incarner une personne réelle : un élu de la ville choisie ou une personnalité nationale | Fait, testé |
 
-Tests de la V6 : 70 tests automatiques (10 nouveaux dans `tests/v6.test.ts`), 8 parties simulées de 330 semaines avec élus réels sans erreur, robot navigateur sur les nouveaux écrans sans erreur de console, une partie robot de 300 semaines par l'interface.
+Ajouts du 26 novembre au soir : avatars dessinés (Notionists, DiceBear), visage modifiable, annuaire des élus avec prise de contact.
+
+Tests de la V6 : 73 tests automatiques (13 nouveaux dans `tests/v6.test.ts`), 8 parties simulées de 330 semaines avec élus réels sans erreur, robot navigateur sur les nouveaux écrans sans erreur de console, une partie robot de 300 semaines par l'interface.
 
 Non fait dans la V6 : base historique (départs 2010 à 2022), sénateurs et conseillers départementaux et régionaux réels (le répertoire ne donne pas leur parti), sociologie INSEE, scissions spontanées (toujours aucune en simulation), essai du modèle d'écriture local avec un vrai modèle.
 

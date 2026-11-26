@@ -116,6 +116,7 @@ export function parlerContact(e: Etat, d: Donnees, rng: Rng, id: number, sujet: 
     else if (c.relation >= 50 || c.dette > 0) { e.joueur.pointsVictoire.estime = clamp(estime(e) + 1.5, 0, 100); c.relation = clamp(c.relation - 5, 0, 100); c.dette -= 1; t = 'Je vais parler de toi à deux ou trois personnes qui comptent. Tu me revaudras ça.'; }
     else { c.relation = clamp(c.relation - 3, 0, 100); t = 'On ne se connaît pas encore assez pour que je m\'engage pour toi.'; } }
   else if (sujet === 'rendre') { if (c.dette >= 0) { t = 'Tu ne me dois rien. Mais c\'est gentil.'; c.relation = clamp(c.relation + 2, 0, 100); } else { c.dette += 1; c.relation = clamp(c.relation + 8, 0, 100); p.forme = clamp(p.forme - 6, 0, 100); t = 'Merci. On n\'oublie pas ceux qui tiennent parole.'; } }
+  if (c.reel && t) t = sujet === 'service' ? (/Je vais parler|D'accord/.test(t) ? `${c.prenom} ${c.nom} accepte de vous aider. Vous lui devez un service.` : `${c.prenom} ${c.nom} décline pour l'instant.`) : sujet === 'rendre' ? 'Le service est rendu. La relation s\'en ressent.' : sujet === 'rumeur' ? `Vous faites le point sur ce qui se dit. ${t.replace(/[«»]/g, '').replace(/ ?Enfin, je dis ça, je ne dis rien\./, '')}` : 'L\'échange est cordial. La relation progresse un peu.';
   return { ok: true, texte: t };
 }
 const photo = (p: Perso) => `${p.rang}|${p.parti}|${p.statut}|${p.mandats.map(m => m.type).sort().join(',')}`;
@@ -145,6 +146,7 @@ export function actionParcours(e: Etat, d: Donnees, rng: Rng, a: any): { ok: boo
   const g = parcoursDe(e, d); const non = (t: string) => ({ ok: false, texte: t }), ok = (t = '') => ({ ok: true, texte: t }); const p = moiDe(e); if (!p) return non('Réservé au mode Carrière.');
   switch (a.type) {
     case 'profilPortrait': { const v = (a.portrait as number[] ?? []).slice(0, 6).map((x, i) => clamp(+x | 0, 0, i === 0 ? 99 : 5)); if (v.length !== 6) return non('Portrait invalide.'); g.portrait = v; return ok(); }
+    case 'profilVisage': { const v = a.visage && typeof a.visage === 'object' ? a.visage : {}; const r: Record<string, number> = {}; for (const k of ['hair', 'eyes', 'brows', 'nose', 'lips', 'body', 'glasses', 'beard', 'gesture']) if (v[k] !== undefined && v[k] !== null) r[k] = clamp(+v[k] | 0, -1, 99); g.visage = r; return ok(); }
     case 'profilTexte': g.bio = String(a.bio ?? '').slice(0, 400); g.slogan = String(a.slogan ?? '').slice(0, 80); if (['pedagogue', 'offensif', 'humour', 'emotion', 'coulisses'].includes(a.style)) g.style = a.style; return ok('Fiche mise à jour.');
     case 'profilEntrainement': { const v = [...new Set((a.attrs as number[] ?? []).map(x => +x))].filter(x => ENTRAINABLES.includes(x)).slice(0, 3); if (!v.length) return non('Choisissez au moins un attribut.'); g.entrainement = v; return ok(`Vous travaillez : ${v.map(i => NOMS_ATTRS[i].toLowerCase()).join(', ')}.`); }
     case 'profilMetier': if (!METIERS[a.metier]) return non('Choix inconnu.'); if (g.metierChange !== undefined && e.semaine - g.metierChange < 12) return non('Vous venez de changer de situation. Attendez trois mois.'); g.metier = a.metier; g.metierChange = e.semaine; return ok(`${METIERS[a.metier].nom}. ${METIERS[a.metier].desc}`);
@@ -166,7 +168,7 @@ export function vueParcours(e: Etat, d: Donnees) {
   const ech = e.calendrier.filter(k => !k.fait1 && k.s1 > e.semaine && k.s1 - e.semaine <= 60 && k.s1 - e.semaine >= 6 && ['municipales', 'departementales', 'legislatives', 'regionales', 'europeennes'].includes(k.type)).map(k => ({ type: k.type, dans: k.s1 - e.semaine, date: jourVote(k.s1), investi: investi(e, p, k.type) }));
   const D = g.dossier;
   return {
-    carriere: true, id: p.id, reel: !!p.reel, nom: nomComplet(p), age: 2026 + Math.floor(e.semaine / 52) - p.naissance, parti: p.parti, rang: p.rang, portrait: g.portrait, bio: g.bio, slogan: g.slogan, style: g.style,
+    carriere: true, id: p.id, reel: !!p.reel, visage: g.visage ?? {}, nom: nomComplet(p), age: 2026 + Math.floor(e.semaine / 52) - p.naissance, parti: p.parti, rang: p.rang, portrait: g.portrait, bio: g.bio, slogan: g.slogan, style: g.style,
     attrs: p.attrs.map((v, i) => ({ i, nom: NOMS_ATTRS[i], v, entrainable: ENTRAINABLES.includes(i), choisi: g.entrainement.includes(i) })), pot: p.pot, forme: Math.round(p.forme), moral: Math.round(p.moral), notoriete: Math.round(p.notoriete), estime: Math.round(es),
     metier: g.metier, metiers: METIERS, argent: Math.round(g.argent), revenu: (METIERS[g.metier]?.revenu ?? 0) + ind, indemnites: ind, depenses: TRAIN_VIE, mandats: p.mandats.map(m => LIB_MANDAT[m.type] ?? m.type),
     ambition: g.ambition, ambitions: Object.keys(AMBITIONS).map(k => ({ id: k, nom: AMBITIONS[k].nom })), etapes: etapesAmbition(e, d), reputation: rep,

@@ -8,7 +8,7 @@ import { useMagasin, maj, lireMagasin, toast, aller, agir, euro, nb, Info, Parti
 import { Agora } from './agora';
 import { Terrain } from './terrain';
 import { Profil, Carnet, Portrait } from './parcours';
-import { TableauDeBord, Chronique, Personnalisation, Embleme } from './v6';
+import { TableauDeBord, Chronique, Personnalisation, Embleme, Annuaire } from './v6';
 import { lireConfig, ecrireConfig, tester, chargerLocal, localCharge, modeleLocal } from './assistant';
 import { Accueil } from './accueil';
 import { Inbox, FichePerso, Effectif, EcranParti } from './ecrans1';
@@ -16,7 +16,7 @@ import { Finances, Doctrine, Medias, Historique } from './ecrans2';
 import { Campagne, Mandat, Soiree, Pantheon } from './ecrans3';
 import { EcranCarte } from './carte';
 
-const GROUPES: [string, [string, string][]][] = [['Bureau', [['accueil', 'Tableau de bord'], ['inbox', 'Boîte de réception'], ['agora', 'Agora'], ['equipe', 'Terrain'], ['medias', 'Médias']]], ['Moi', [['profil', 'Mon parcours'], ['contacts', 'Carnet'], ['chronique', 'Chronique'], ['perso', 'Personnalisation']]], ['Organisation', [['effectif', 'Effectif'], ['parti', 'Parti'], ['finances', 'Finances'], ['doctrine', 'Doctrine']]], ['Élections', [['carte', 'Carte'], ['campagne', 'Campagne'], ['mandat', 'Mandat'], ['historique', 'Historique']]]];
+const GROUPES: [string, [string, string][]][] = [['Bureau', [['accueil', 'Tableau de bord'], ['inbox', 'Boîte de réception'], ['agora', 'Agora'], ['equipe', 'Terrain'], ['medias', 'Médias']]], ['Moi', [['profil', 'Mon parcours'], ['contacts', 'Carnet'], ['annuaire', 'Annuaire des élus'], ['chronique', 'Chronique'], ['perso', 'Personnalisation']]], ['Organisation', [['effectif', 'Effectif'], ['parti', 'Parti'], ['finances', 'Finances'], ['doctrine', 'Doctrine']]], ['Élections', [['carte', 'Carte'], ['campagne', 'Campagne'], ['mandat', 'Mandat'], ['historique', 'Historique']]]];
 const TUTO: [string, string, string][] = [
   ['accueil', 'Le tableau de bord', 'C\'est votre point de départ : ce qui presse cette semaine, votre secteur, les sondages, le calendrier. Un clic sur une ligne ouvre l\'écran concerné.'],
   ['inbox', 'La boîte de réception', 'Tout passe par ici : messages de vos cadres, sondages, invitations, décisions à prendre. Les messages qui attendent une réponse sont signalés en rouge.'],
@@ -140,7 +140,7 @@ function Tutoriel() {
 
 function Jeu() {
   const m = useMagasin(); const b = m.base;
-  const E = m.ecran === 'inbox' ? <Inbox /> : m.ecran === 'carte' ? <EcranCarte /> : m.ecran === 'effectif' ? <Effectif /> : m.ecran === 'parti' ? <EcranParti /> : m.ecran === 'finances' ? <Finances /> : m.ecran === 'doctrine' ? <Doctrine /> : m.ecran === 'campagne' ? <Campagne /> : m.ecran === 'medias' ? <Medias /> : m.ecran === 'mandat' ? <Mandat /> : m.ecran === 'historique' ? <Historique /> : m.ecran === 'agora' ? <Agora /> : m.ecran === 'equipe' ? <Terrain /> : m.ecran === 'accueil' ? <TableauDeBord /> : m.ecran === 'chronique' ? <Chronique /> : m.ecran === 'perso' ? <Personnalisation /> : m.ecran === 'profil' ? <Profil /> : m.ecran === 'contacts' ? <Carnet /> : m.ecran === 'pantheon' ? <Pantheon /> : <Inbox />;
+  const E = m.ecran === 'inbox' ? <Inbox /> : m.ecran === 'carte' ? <EcranCarte /> : m.ecran === 'effectif' ? <Effectif /> : m.ecran === 'parti' ? <EcranParti /> : m.ecran === 'finances' ? <Finances /> : m.ecran === 'doctrine' ? <Doctrine /> : m.ecran === 'campagne' ? <Campagne /> : m.ecran === 'medias' ? <Medias /> : m.ecran === 'mandat' ? <Mandat /> : m.ecran === 'historique' ? <Historique /> : m.ecran === 'agora' ? <Agora /> : m.ecran === 'equipe' ? <Terrain /> : m.ecran === 'annuaire' ? <Annuaire /> : m.ecran === 'accueil' ? <TableauDeBord /> : m.ecran === 'chronique' ? <Chronique /> : m.ecran === 'perso' ? <Personnalisation /> : m.ecran === 'profil' ? <Profil /> : m.ecran === 'contacts' ? <Carnet /> : m.ecran === 'pantheon' ? <Pantheon /> : <Inbox />;
   const P = b.partis[b.parti]; const sombre = m.theme === 'sombre'; const acces: string[] = b.acces ?? [];
   useEffect(() => { const a = accentParti(P?.couleur ?? '#0066cc', sombre); const st = document.documentElement.style; st.setProperty('--accent', a.accent); st.setProperty('--accent-t', a.texte); st.setProperty('--accent-doux', a.doux); return () => { st.removeProperty('--accent'); st.removeProperty('--accent-t'); st.removeProperty('--accent-doux'); }; }, [P?.couleur, sombre]);
   return <div class="cadre">

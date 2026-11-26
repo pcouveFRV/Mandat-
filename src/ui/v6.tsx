@@ -1,10 +1,10 @@
 // V6 : tableau de bord, page d'encyclopédie « Chronique », personnalisation (emblème, parti, financements).
-import { useState } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 import { useMagasin, useVue, agir, aller, nb, euro, Bloc, Jauge, Parti, Logo, ouvrirFiche, RANGS } from './composants';
 import { Portrait } from './parcours';
 
 const SCRUTINS: Record<string, string> = { municipales: 'Municipales', departementales: 'Départementales', regionales: 'Régionales', legislatives: 'Législatives', europeennes: 'Européennes', senatoriales: 'Sénatoriales', presidentielle: 'Présidentielle' };
-const ROLES: Record<string, string> = { mentor: 'mentor', allie: 'allié', rival: 'rival', journaliste: 'journaliste', cadre: 'cadre du parti' };
+const ROLES: Record<string, string> = { mentor: 'mentor', allie: 'allié', rival: 'rival', journaliste: 'journaliste', cadre: 'cadre du parti', elu: 'élu d\'un autre parti' };
 
 // Emblème original à composer : une forme, un symbole neutre, deux couleurs, des initiales.
 const SYMBOLES = ['Initiales seules', 'Étoile', 'Soleil', 'Montagne', 'Vague', 'Arbre', 'Pont', 'Épi'];
@@ -113,5 +113,35 @@ export function Personnalisation() {
         <p class="doux petit-texte" style={{ marginTop: '6px' }}>La banque prête selon vos sondages et vos adhérents, à 12 % sur trois ans. Le financement public, lui, ne tombe qu'après des législatives : 1 % des voix dans 50 circonscriptions au moins.</p>
       </Bloc>}
     </div>
+  </div>;
+}
+
+// Annuaire des élus : qui tient quoi autour de vous, avec prise de contact.
+const PORTEES: [string, string][] = [['secteur', 'Mon secteur'], ['dept', 'Mon département'], ['region', 'Ma région'], ['national', 'National']];
+export function Annuaire() {
+  const m = useMagasin(); const b = m.base; const [portee, setPortee] = useState('secteur'); const [q, setQ] = useState(''); const [parti, setParti] = useState(-1); const [conseil, setConseil] = useState<any[]>([]);
+  const v = useVue('annuaire', { portee, q, parti });
+  useEffect(() => { if (!v?.zone || !v?.dept) return; let vivant = true; fetch(new URL(`./data/elus/${v.dept}.json`, document.baseURI).href).then(r => r.ok ? r.json() : {}).then(o => { if (vivant) setConseil((o[v.zone] ?? []).map((x: any[]) => ({ zone: v.zone, nom: x[0], prenom: x[1], sexe: x[2], naissance: x[3], parti: x[4], fonction: x[5] }))); }).catch(() => undefined); return () => { vivant = false; }; }, [v?.zone, v?.dept]);
+  if (!v) return <div>Chargement...</div>;
+  const norm = (s: string) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim(); const connus = new Set<string>([...v.lignes.map((l: any) => norm(l.nom)), ...(v.contactsRepertoire ?? [])]); const qq = norm(q);
+  const reste = conseil.filter(x => !connus.has(norm(`${x.prenom} ${x.nom}`)) && (!qq || norm(`${x.prenom} ${x.nom}`).includes(qq)) && (parti < 0 || x.parti === b.partis[parti]?.id));
+  const total = v.partis.reduce((s: number, x: any) => s + x.n, 0) || 1;
+  return <div>
+    <h1>Annuaire des élus</h1>
+    <div class="grille" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', marginBottom: '14px' }}>{v.reperes.map((r: any) => <div class="bloc" style={{ cursor: 'pointer' }} onClick={() => ouvrirFiche(r.id)}><h3>{r.titre}</h3><b>{r.nom}</b> <Parti i={r.parti} /></div>)}</div>
+    <div class="ligne" style={{ marginBottom: '10px' }}>{PORTEES.map(([k, n]) => <button class={portee === k ? 'principal' : ''} onClick={() => { setPortee(k); setParti(-1); }}>{n}</button>)}<span class="espace" /><input type="text" aria-label="Chercher un élu" placeholder="Chercher un nom" value={q} onInput={(ev: any) => setQ(ev.target.value)} style={{ width: '220px' }} /></div>
+    <Bloc titre={`${v.total} élus et cadres${portee === 'secteur' ? ` autour de ${v.lieu}` : ''}`}>
+      <div style={{ display: 'flex', height: '10px', borderRadius: '6px', overflow: 'hidden', marginBottom: '8px' }}>{v.partis.map((x: any) => <span title={`${b.partis[x.parti].sigle} : ${x.n}`} style={{ width: `${x.n / total * 100}%`, background: b.partis[x.parti].couleur }} />)}</div>
+      <div class="ligne" style={{ gap: '6px', marginBottom: '8px' }}><button class={`petit ${parti < 0 ? 'principal' : ''}`} onClick={() => setParti(-1)}>Tous</button>{v.partis.map((x: any) => <button class={`petit ${parti === x.parti ? 'principal' : ''}`} onClick={() => setParti(parti === x.parti ? -1 : x.parti)}>{b.partis[x.parti].sigle} {x.n}</button>)}{v.carriere && <><span class="espace" /><span class="doux petit-texte">Prises de contact restantes cette semaine : {v.priseReste}</span></>}</div>
+      <table><thead><tr><th>Nom</th><th>Parti</th><th>Fonctions</th><th class="droite">Âge</th><th class="droite">Notoriété</th><th></th></tr></thead><tbody>
+        {v.lignes.map((l: any) => <tr><td><a onClick={() => ouvrirFiche(l.id)}><b>{l.nom}</b></a>{l.suivi && <span class="doux petit-texte"> suivi</span>}</td><td>{l.parti >= 0 ? <Parti i={l.parti} /> : <span class="doux">sans</span>}</td><td style={{ whiteSpace: 'normal' }}>{l.fonctions.length ? l.fonctions.join(', ') : RANGS[l.rang]}</td><td class="droite">{l.age}</td><td class="droite">{l.notoriete}</td>
+          <td class="droite" style={{ whiteSpace: 'nowrap' }}>{v.carriere && (l.contact >= 0 ? <button class="petit" onClick={() => aller('contacts')}>Dans le carnet ({l.contact})</button> : <button class="petit" disabled={l.refus || v.priseReste <= 0} onClick={() => agir({ type: 'annuaireContact', id: l.id })}>{l.refus ? 'Sans réponse' : 'Prendre contact'}</button>)} {v.carriere && <button class="petit" onClick={() => agir({ type: 'suivre', id: l.id }, true)}>{l.suivi ? 'Ne plus suivre' : 'Suivre'}</button>} <button class="petit" onClick={() => aller('chronique', { perso: l.id })}>Chronique</button></td></tr>)}
+        {v.lignes.length === 0 && <tr><td colSpan={6} class="doux">Personne ne correspond.</td></tr>}</tbody></table>
+      {v.coupe && <p class="doux petit-texte">Liste limitée aux 150 premiers. Affinez avec la recherche ou un parti.</p>}
+    </Bloc>
+    {portee === 'secteur' && reste.length > 0 && <div style={{ marginTop: '14px' }}><Bloc titre={`Conseil municipal : ${reste.length} autres élus (Répertoire national des élus)`}>
+      <p class="doux petit-texte">Ces élus réels n'ont pas encore de fiche dans votre partie. Prendre contact avec l'un d'eux la crée.</p>
+      <div class="defile" style={{ maxHeight: '420px' }}><table><tbody>{reste.slice(0, 200).map(x => <tr><td><b>{x.prenom} {x.nom}</b></td><td>{x.parti ? <span class="doux">{x.parti}</span> : <span class="doux">sans étiquette retenue</span>}</td><td style={{ whiteSpace: 'normal' }}>{x.fonction || 'Conseiller municipal'}</td><td class="droite">{x.naissance ? 2026 - x.naissance + ' ans' : ''}</td><td class="droite">{v.carriere && <button class="petit" disabled={v.priseReste <= 0} onClick={() => agir({ type: 'annuaireContactElu', elu: x })}>Prendre contact</button>}</td></tr>)}</tbody></table></div>
+    </Bloc></div>}
   </div>;
 }

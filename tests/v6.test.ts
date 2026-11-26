@@ -60,3 +60,29 @@ describe('emblème et financement', () => {
     const r = act(e, { type: 'fonderPartiV6', nom: 'Élan du Sud', sigle: 'eds', couleur: '#123456' }); if (r.ok) { const N = e.partis[e.joueur.parti]; expect(N.sigle).toBe('EDS'); expect(N.couleur).toBe('#123456'); expect(N.chef).toBe(p.id); expect(act(e, { type: 'finAppel' }).ok).toBe(true); } else expect(r.texte.length).toBeGreaterThan(5);
   });
 });
+
+describe('annuaire et visage', () => {
+  it('liste les élus du secteur, du département et du pays, avec les repères', async () => {
+    const { vueAnnuaire } = await import('../src/engine/systems/annuaire');
+    const e = creerPartie(d, { scenario: 'route2027', mode: 'carriere', parti: 'LR', graine: 7, perso: perso0 } as any);
+    const s: any = vueAnnuaire(e, d, { portee: 'secteur' }); expect(s.lignes.length).toBeGreaterThan(2); expect(s.reperes.length).toBeGreaterThanOrEqual(3); expect(s.zone).toBe('S1309'); expect(s.dept).toBe('13');
+    const dp: any = vueAnnuaire(e, d, { portee: 'dept' }); expect(dp.total).toBeGreaterThan(s.total); expect(dp.lignes.every((l: any) => l.id !== e.joueur.perso)).toBe(true);
+    const n: any = vueAnnuaire(e, d, { portee: 'national', q: 'le pen' }); expect(n.lignes.some((l: any) => l.nom === 'Marine Le Pen')).toBe(true);
+    const f: any = vueAnnuaire(e, d, { portee: 'dept', parti: dp.partis[0].parti }); expect(f.lignes.every((l: any) => l.parti === dp.partis[0].parti)).toBe(true);
+    expect((vue(e, d, 'annuaire', { portee: 'region' }) as any).portee).toBe('region');
+    const ep = creerPartie(d, { scenario: 'route2027', mode: 'parti', parti: 'PS', graine: 7 } as any); expect((vueAnnuaire(ep, d, {}) as any).carriere).toBe(false); expect(act(ep, { type: 'annuaireContact', id: 5 }).ok).toBe(false);
+  });
+  it('prend contact avec un élu, deux fois par semaine au plus, sans prêter de paroles à une personne réelle', async () => {
+    const { vueAnnuaire } = await import('../src/engine/systems/annuaire');
+    const e = creerPartie(d, { scenario: 'route2027', mode: 'carriere', parti: 'LR', graine: 11, perso: perso0 } as any); const g = e.parcours ?? (vue(e, d, 'parcours', {}), e.parcours!); const n0 = g.contacts.length;
+    let faits = 0; for (let k = 0; k < 30 && g.contacts.length < n0 + 2; k++) { const v: any = vueAnnuaire(e, d, { portee: 'dept' }); const cible = v.lignes.filter((l: any) => l.contact < 0 && !l.refus)[k % 5]; const r1 = act(e, { type: 'annuaireContact', id: cible.id }); expect(r1.ok).toBe(true); const c2 = v.lignes.filter((l: any) => l.contact < 0 && !l.refus && l.id !== cible.id)[0]; act(e, { type: 'annuaireContact', id: c2.id }); expect(act(e, { type: 'annuaireContact', id: v.lignes[9].id }).ok).toBe(false); faits++; tour(e, d); }
+    expect(g.contacts.length).toBeGreaterThanOrEqual(n0 + 2); const c = g.contacts[g.contacts.length - 1]; expect(c.perso).toBeGreaterThanOrEqual(0); expect(act(e, { type: 'annuaireContact', id: c.perso }).ok).toBe(false);
+    const r = act(e, { type: 'annuaireContactElu', elu: { zone: 'S1309', nom: 'Dupont-Essai', prenom: 'Jeanne', sexe: 'F', naissance: 1980, parti: 'LR', fonction: 'Conseiller d\'arrondissement' } }); expect(r.ok).toBe(true); const q = e.persos.find(p => p.nom === 'Dupont-Essai')!; expect(q.reel).toBe(true); expect(q.mandats.length).toBe(1);
+    expect(act(e, { type: 'annuaireContactElu', elu: { zone: 'C75056', nom: 'Ailleurs', prenom: 'Luc' } }).ok).toBe(false);
+    const cr = g.contacts.find(x => x.reel); if (cr) { cr.parle = -1; const t = act(e, { type: 'contactParler', id: cr.id, sujet: 'conseil' }).texte; expect(t).not.toMatch(/[«»]|\bje\b|\btu\b/i); }
+  });
+  it('enregistre les réglages du visage en les bornant', () => {
+    const e = creerPartie(d, { scenario: 'route2027', mode: 'carriere', parti: 'LR', graine: 7, perso: perso0 } as any); expect(act(e, { type: 'profilVisage', visage: { hair: 12, glasses: 0, beard: 500, intrus: 3, eyes: -4 } }).ok).toBe(true);
+    expect(e.parcours!.visage).toEqual({ hair: 12, glasses: 0, beard: 99, eyes: -1 }); expect((vue(e, d, 'parcours', {}) as any).visage.hair).toBe(12); act(e, { type: 'profilVisage', visage: {} }); expect(e.parcours!.visage).toEqual({});
+  });
+});

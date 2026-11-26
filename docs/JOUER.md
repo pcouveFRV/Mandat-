@@ -244,3 +244,7 @@ Incarner une personne réelle. À la création d'un personnage, choisissez une v
 Chronique. Chaque personnage a une page d'encyclopédie écrite à partir de votre partie : parcours, prises de position sur Agora, engagements, controverses, résultats électoraux. La vôtre est dans le menu Moi ; celle des autres s'ouvre depuis leur fiche.
 
 Personnalisation. L'atelier d'emblème compose un logo original (forme, symbole, couleurs, initiales) qui peut remplacer la pastille de votre parti. En mode Carrière, vous pouvez fonder votre parti dès que vous êtes assez connu (notoriété 25 ou mandat important). Le chef d'un parti peut lancer un appel aux dons, demander des prêts à ses adhérents ou emprunter à la banque.
+
+Visage. Dans Mon parcours, « Modifier ma fiche » ouvre l'éditeur : cheveux, yeux, sourcils, nez, bouche, tenue, lunettes, barbe, geste. Chaque trait se règle avec les flèches ou se laisse au hasard.
+
+Annuaire des élus. Menu Moi. Il montre qui tient votre territoire (maire, député, présidents du département et de la région), puis la liste des élus de votre secteur, de votre département, de votre région ou du pays. Vous pouvez filtrer par parti, chercher un nom, ouvrir une fiche ou une page Chronique, suivre quelqu'un. En mode Carrière, « Prendre contact » tente d'ajouter l'élu à votre carnet : deux essais par semaine, plus facile dans votre parti et à votre niveau. Sous la liste du secteur, le conseil municipal réel est affiché en entier.

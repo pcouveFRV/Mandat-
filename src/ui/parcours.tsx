@@ -6,19 +6,32 @@ import { discuter, assistantActif } from './assistant';
 // Portrait dessiné à composer : formes simples, sans ressemblance avec personne.
 // Avatar du personnage : un visage dessiné (style Notionists, bibliothèque DiceBear embarquée dans public/vendor) tiré du nom.
 // Une personne réelle garde ses initiales : un visage tiré au hasard ne lui ressemblerait pas.
+// Réglages du visage : -1 ou absent laisse le tirage au sort, 0 retire l'accessoire (lunettes, barbe, geste), sinon on impose la variante.
+const PARTIES: [string, string, boolean][] = [['hair', 'Cheveux', false], ['eyes', 'Yeux', false], ['brows', 'Sourcils', false], ['nose', 'Nez', false], ['lips', 'Bouche', false], ['body', 'Tenue', false], ['glasses', 'Lunettes', true], ['beard', 'Barbe', true], ['gesture', 'Geste', true]];
+function optionsVisage(choix: Record<string, string[]>, vis: Record<string, number>): Record<string, unknown> {
+  const o: Record<string, unknown> = {}; for (const [k, , facultatif] of PARTIES) { const v = vis[k]; const liste = choix?.[k] ?? []; if (v === undefined || v < 0 || !liste.length) continue; if (facultatif) { if (v === 0) o[k + 'Probability'] = 0; else { o[k + 'Probability'] = 100; o[k] = [liste[(v - 1) % liste.length]]; } } else o[k] = [liste[v % liste.length]]; }
+  return o;
+}
+function EditeurVisage({ vis }: { vis: Record<string, number> }) {
+  const [choix, setChoix] = useState<Record<string, string[]> | null>(null); useEffect(() => { chargerAvatars().then(m => setChoix(m?.choix ?? {})); }, []);
+  if (!choix) return <p class="doux">Chargement des visages...</p>; if (!Object.keys(choix).length) return <p class="doux">Les visages dessinés ne sont pas disponibles.</p>;
+  const regler = (k: string, v: number | undefined) => { const n: Record<string, number> = { ...vis }; if (v === undefined) delete n[k]; else n[k] = v; agir({ type: 'profilVisage', visage: n }, true); };
+  return <div class="grille g2" style={{ gap: '6px 18px', marginBottom: '10px' }}>{PARTIES.map(([k, nom, facultatif]) => { const n = (choix[k] ?? []).length + (facultatif ? 1 : 0); const v = vis[k]; const auto = v === undefined || v < 0; if (!n) return null;
+    return <div class="ligne" style={{ flexWrap: 'nowrap', gap: '6px' }}><span class="doux" style={{ width: '70px' }}>{nom}</span><button class="petit" aria-label={`${nom} précédent`} onClick={() => regler(k, auto ? n - 1 : (v - 1 + n) % n)}>‹</button><span style={{ width: '74px', textAlign: 'center' }} class="petit-texte">{auto ? 'Au hasard' : facultatif && v === 0 ? 'Sans' : `${facultatif ? v : v + 1} sur ${facultatif ? n - 1 : n}`}</span><button class="petit" aria-label={`${nom} suivant`} onClick={() => regler(k, auto ? 0 : (v + 1) % n)}>›</button>{!auto && <button class="petit" onClick={() => regler(k, undefined)}>Hasard</button>}</div>; })}</div>;
+}
 let moduleAvatars: Promise<any> | null = null; const cacheAvatars = new Map<string, string>();
 const chargerAvatars = () => moduleAvatars ?? (moduleAvatars = import(/* @vite-ignore */ new URL('./vendor/avatars.js', document.baseURI).href).catch(() => null));
 export function Portrait({ p, taille = 64 }: { p?: number[]; taille?: number }) {
-  const b = useMagasin().base; const nom: string = b?.moi?.nom ?? ''; const c = b?.partis?.[b.parti]?.couleur ?? '#8e8e93'; const reel = !!b?.moi?.reel; const cle = `${nom}#${p?.[0] ?? 0}`;
-  const [svg, setSvg] = useState<string>(cacheAvatars.get(cle) ?? '');
-  useEffect(() => { if (reel || !nom) return; const dispo = cacheAvatars.get(cle); if (dispo) { setSvg(dispo); return; } let vivant = true; chargerAvatars().then(m => { if (!m) return; const s = m.avatar(cle); cacheAvatars.set(cle, s); if (vivant) setSvg(s); }); return () => { vivant = false; }; }, [cle, reel]);
+  const b = useMagasin().base; const nom: string = b?.moi?.nom ?? ''; const c = b?.partis?.[b.parti]?.couleur ?? '#8e8e93'; const reel = !!b?.moi?.reel; const vis: Record<string, number> = b?.visage ?? {}; const cle = `${nom}#${p?.[0] ?? 0}`; const cleV = cle + JSON.stringify(vis);
+  const [svg, setSvg] = useState<string>(cacheAvatars.get(cleV) ?? '');
+  useEffect(() => { if (reel || !nom) return; const dispo = cacheAvatars.get(cleV); if (dispo) { setSvg(dispo); return; } let vivant = true; chargerAvatars().then(m => { if (!m) return; const s = m.avatar(cle, optionsVisage(m.choix, vis)); cacheAvatars.set(cleV, s); if (vivant) setSvg(s); }); return () => { vivant = false; }; }, [cleV, reel]);
   const cadre = { width: `${taille}px`, height: `${taille}px`, borderRadius: '26%', flex: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' };
   if (!reel && svg) return <span aria-label="Avatar" style={{ ...cadre, background: `color-mix(in srgb, ${c} 16%, #fff)` }} dangerouslySetInnerHTML={{ __html: svg }} />;
   const ini = nom.split(/[\s-]+/).filter(Boolean).map(x => x[0]).slice(0, 2).join('').toUpperCase();
   return <span aria-label="Avatar" style={{ ...cadre, background: `linear-gradient(145deg, ${c}, color-mix(in srgb, ${c} 68%, #000))`, color: '#fff', fontWeight: 600, fontSize: `${Math.round(taille * 0.38)}px`, letterSpacing: '.02em' }}>{ini}</span>;
 }
 const SCRUTINS: Record<string, string> = { municipales: 'Municipales', departementales: 'Départementales', legislatives: 'Législatives', regionales: 'Régionales', europeennes: 'Européennes' };
-const ROLES: Record<string, string> = { mentor: 'Mentor', allie: 'Allié', rival: 'Rival', journaliste: 'Journaliste', cadre: 'Cadre du parti' };
+const ROLES: Record<string, string> = { mentor: 'Mentor', allie: 'Allié', rival: 'Rival', journaliste: 'Journaliste', cadre: 'Cadre du parti', elu: 'Élu d\'un autre parti' };
 const sem = (n: number) => `${n} semaine${n > 1 ? 's' : ''}`;
 
 function Investiture({ v }: { v: any }) {
@@ -56,7 +69,7 @@ export function Profil() {
     <div class="ligne" style={{ gap: '16px', marginBottom: '14px' }}><Portrait p={P} taille={84} /><div><h1 style={{ margin: 0 }}>{v.nom}</h1><div class="doux">{v.age} ans, {RANGS[v.rang]}, {v.lieu} <Parti i={v.parti} /></div>{v.slogan && <div style={{ marginTop: '4px' }}><i>« {v.slogan} »</i></div>}{v.mandats.length > 0 && <div class="doux petit-texte">{v.mandats.join(', ')}</div>}</div><span class="espace" /><button onClick={() => { setEdit(!edit); setBio(v.bio); setSlogan(v.slogan); }}>{edit ? 'Fermer' : 'Modifier ma fiche'}</button></div>
     <div class="grille" style={{ gap: '14px' }}>
       {edit && <Bloc titre="Ma fiche">
-        {!v.reel && <div class="ligne" style={{ marginBottom: '10px' }}><button onClick={() => { const n = P.slice(); n[0] = (n[0] + 1) % 100; agir({ type: 'profilPortrait', portrait: n }, true); }}>Changer de visage</button><span class="doux petit-texte">Cent visages possibles pour votre nom.</span></div>}
+        {!v.reel && <><div class="ligne" style={{ marginBottom: '10px', gap: '14px' }}><Portrait p={P} taille={120} /><div><b>Mon visage</b><p class="doux petit-texte" style={{ margin: '2px 0 8px' }}>Réglez chaque trait, ou repartez d'un visage au hasard.</p><div class="ligne"><button onClick={() => { const n = P.slice(); n[0] = (n[0] + 1) % 100; agir({ type: 'profilPortrait', portrait: n }, true); }}>Autre visage au hasard</button>{Object.keys(v.visage ?? {}).length > 0 && <button onClick={() => agir({ type: 'profilVisage', visage: {} }, true)}>Tout remettre au hasard</button>}</div></div></div><EditeurVisage vis={v.visage ?? {}} /></>}
         <div class="grille" style={{ gap: '6px', }}><input type="text" aria-label="Slogan" maxLength={80} placeholder="Votre slogan personnel (80 caractères)" value={slogan ?? ''} onInput={(ev: any) => setSlogan(ev.target.value)} />
           <textarea aria-label="Biographie" rows={3} maxLength={400} placeholder="Votre biographie : d'où vous venez, ce que vous faites, pourquoi vous vous engagez (400 caractères)" value={bio ?? ''} onInput={(ev: any) => setBio(ev.target.value)} />
           <div class="ligne"><span class="doux">Votre style :</span><select aria-label="Style" value={v.style} onChange={(ev: any) => agir({ type: 'profilTexte', bio: bio ?? v.bio, slogan: slogan ?? v.slogan, style: ev.target.value }, true)}><option value="pedagogue">Pédagogue</option><option value="offensif">Offensif</option><option value="humour">Décalé</option><option value="emotion">Proche des gens</option><option value="coulisses">Coulisses</option></select><span class="espace" /><button class="principal" onClick={() => agir({ type: 'profilTexte', bio, slogan, style: v.style })}>Enregistrer</button></div></div>
@@ -98,7 +111,7 @@ function Echange({ c, v, fermer }: { c: any; v: any; fermer: () => void }) {
     <p class="doux petit-texte">{c.qui}.</p>
     <div style={{ minHeight: '110px', margin: '10px 0', display: 'grid', gap: '8px' }}>{fil.length === 0 && <p class="doux">Une rencontre par semaine. De quoi parlez-vous ?</p>}{fil.map(h => <div style={{ justifySelf: h.moi ? 'end' : 'start', maxWidth: '85%', padding: '8px 12px', borderRadius: '14px', background: h.moi ? 'var(--accent)' : 'var(--fond3)', color: h.moi ? '#fff' : 'var(--texte)' }}>{h.t}</div>)}{attente && <div class="doux">{c.prenom} écrit...</div>}</div>
     <div class="ligne"><button onClick={() => sujet('nouvelles', 'Comment vas-tu ?')}>Prendre des nouvelles</button><button onClick={() => sujet('conseil', 'Tu ferais quoi, à ma place ?')}>Demander conseil</button><button onClick={() => sujet('rumeur', 'Qu\'est-ce qui se dit en ce moment ?')}>Ce qui se dit</button><button onClick={() => sujet('service', 'J\'aurais besoin d\'un coup de main.')}>Demander un service</button>{c.dette < 0 && <button onClick={() => sujet('rendre', 'Je te dois un service. Dis-moi.')}>Rendre un service</button>}</div>
-    {assistantActif() && <div class="ligne" style={{ marginTop: '10px' }}><input type="text" style={{ flex: 1 }} maxLength={300} placeholder="Écrire librement..." value={txt} onInput={(ev: any) => setTxt(ev.target.value)} onKeyDown={(ev: any) => { if (ev.key === 'Enter') libre(); }} /><button class="principal" disabled={attente} onClick={libre}>Envoyer</button></div>}
+    {c.reel && <p class="doux petit-texte" style={{ marginTop: '8px' }}>Personne réelle : le jeu résume l'échange sans lui prêter de paroles.</p>}{assistantActif() && !c.reel && <div class="ligne" style={{ marginTop: '10px' }}><input type="text" style={{ flex: 1 }} maxLength={300} placeholder="Écrire librement..." value={txt} onInput={(ev: any) => setTxt(ev.target.value)} onKeyDown={(ev: any) => { if (ev.key === 'Enter') libre(); }} /><button class="principal" disabled={attente} onClick={libre}>Envoyer</button></div>}
   </div></div>;
 }
 export function Carnet() {

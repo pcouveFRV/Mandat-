@@ -162,3 +162,4 @@ Mesures sur la machine de construction (2 coeurs) : environ 65 ms par semaine en
 - `vueChronique(e, d, id?)` : page d'un personnage, construite depuis son historique, ses publications, ses promesses. Champ `reel` pour le bandeau de fiction.
 - `actionV6` : `emblemeModifier` (valeurs nettoyées), `fonderPartiV6`, `finEmprunt`, `finAppel`, `finPrets`. `tourFinancement` rembourse chaque semaine.
 - `creerPartie` : `perso.incarne` reprend un personnage réel existant ou crée l'élu à partir du répertoire. Les maires réels remplacent les maires simulés quand leur parti est connu.
+- `systems/annuaire.ts` : `vueAnnuaire(e, d, { portee, q, parti })` et `actionAnnuaire` (`annuaireContact` pour un personnage de la partie, `annuaireContactElu` pour un conseiller du répertoire, créé à la volée). Action `profilVisage` dans `parcours.ts`.
