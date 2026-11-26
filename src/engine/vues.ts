@@ -1,4 +1,5 @@
 // Vues : données dérivées de l'état pour l'interface. Aucune vue ne modifie l'état. Les valeurs cachées ne sortent jamais d'ici.
+import { accesJoueur } from './systems/carriere';
 import { vueExecutif, roleExecutif } from './systems/executif';
 import { vueAgora } from './systems/agora';
 import type { Donnees, Etat, Perso, Scrutin } from './types';
@@ -30,7 +31,7 @@ export function vue(e: Etat, d: Donnees, nom: string, p: any = {}): any {
       return { semaine: e.semaine, date: dateTexte(e.semaine), annee: annee(e.semaine), fini: e.semaine >= SEMAINE_FIN, scenario: e.scenario, graine: e.graine, mode: j.mode, parti: j.parti, perso: j.perso, tutoriel: j.tutoriel, fin: j.fin ?? null, scoreFinal: j.scoreFinal, droits: droits(e),
         partis: e.partis.map(q => ({ idx: q.idx, id: q.id, sigle: q.sigle, nom: q.nom, couleur: q.couleur, actif: q.actif, famille: q.famille })),
         res: P ? { tresorerie: Math.round(P.tresorerie), militants: Math.round(P.militants), adherents: Math.round(P.adherents), capital: Math.round(P.capital), credibilite: Math.round(P.credibilite), notoriete: Math.round(P.notoriete), unite: Math.round(P.unite), dynamique: Math.round(P.dynamique), fatigue: Math.round(P.fatigue), usure: Math.round((P.scoreIA.usure ?? 0) * 100) } : null,
-        agora: { aReagir: (e.agora?.reactions ?? []).length },
+        agora: { aReagir: (e.agora?.reactions ?? []).length }, acces: accesJoueur(e), nouveaux: j.nouveaux ?? [],
         moi: moi ? { ...resumePerso(e, d, moi), estime: Math.round(estime(e)), activite: e.options.activite ?? 'terrain', zone: d.zones[moi.zone]?.nom } : null, activites: ACTIVITES,
         nonLus: e.inbox.filter(m => !m.lu).length, aRepondre: e.inbox.filter(m => m.choix && m.repondu === undefined).length, prochaines: proch, soiree: !!e.soiree, debat: e.debat ? { fini: e.debat.fini, type: e.debat.type } : null, entreDeux: Object.keys(e.entreDeux),
         grandDebat: !!e.entreDeux.presidentielle && !e.entreDeux.presidentielle.debatFait && e.entreDeux.presidentielle.unites.PR.maintenus.some(i => e.entreDeux.presidentielle.unites.PR.cands[i].parti === j.parti),

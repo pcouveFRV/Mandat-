@@ -18,8 +18,30 @@ export const ACTIVITES: Record<string, { nom: string; desc: string }> = {
 export const estime = (e: Etat) => e.joueur.pointsVictoire.estime ?? 0;
 const plusEstime = (e: Etat, v: number) => { e.joueur.pointsVictoire.estime = clamp(estime(e) + v, -30, 200); };
 
+// Écrans ouverts au joueur. En mode Carrière, un écran qui n'est pas gagné n'existe pas dans le menu.
+export const ACCES: Record<string, { nom: string; texte: string }> = {
+  inbox: { nom: 'Boîte de réception', texte: '' }, agora: { nom: 'Agora', texte: '' },
+  carte: { nom: 'Carte', texte: 'Vous tenez une section : on vous confie les cartes électorales. Résultats, intentions de vote et implantation, jusqu\'à la commune.' },
+  effectif: { nom: 'Effectif', texte: 'Vous avez maintenant accès au fichier des cadres et des élus du parti, avec leurs fiches.' },
+  historique: { nom: 'Historique', texte: 'Les archives électorales du parti vous sont ouvertes : tous les scrutins passés et les sondages.' },
+  pantheon: { nom: 'Panthéon', texte: 'Votre parcours commence à compter. Le Panthéon suit votre score et vos objectifs.' },
+  campagne: { nom: 'Campagne', texte: 'Vous entrez dans la machine électorale : candidatures, investitures, budgets et plans de campagne.' },
+  mandat: { nom: 'Mandat', texte: 'Vous êtes élu. Cet écran regroupe tout ce que vous pouvez faire dans l\'exercice de votre mandat.' },
+  parti: { nom: 'Parti', texte: 'Vous êtes un cadre départemental : la vie interne du parti vous est ouverte. Fédérations, courants, bureau, congrès.' },
+  finances: { nom: 'Finances', texte: 'On vous montre désormais les comptes du parti : recettes, dépenses, dette et financement public.' },
+  medias: { nom: 'Médias', texte: 'Les plateaux s\'ouvrent à vous : invitations, entretiens, débats et sondages commandés.' },
+  doctrine: { nom: 'Doctrine', texte: 'Vous pesez sur la ligne : l\'arbre de doctrine et les propositions du parti vous sont ouverts.' },
+};
+export function accesJoueur(e: Etat): string[] {
+  const j = e.joueur; if (j.mode === 'parti') return Object.keys(ACCES); const p = e.persos[j.perso]; const P = e.partis[j.parti]; if (!p) return ['inbox', 'agora'];
+  const chef = !!P && P.chef === p.id; const bureau = !!P && Object.values(P.bureau).includes(p.id); const r = chef ? 4 : p.rang; const elu = p.mandats.length > 0;
+  const a = ['inbox', 'agora']; if (r >= 1 || elu) a.push('carte', 'effectif', 'historique', 'pantheon', 'campagne'); if (elu) a.push('mandat');
+  if (r >= 2) a.push('parti', 'finances'); if (r >= 3 || bureau || (e.debat && !e.debat.fini)) a.push('medias'); if (r >= 3 || bureau) a.push('doctrine');
+  return a;
+}
 export function tourCarriere(e: Etat, d: Donnees, rng: Rng, ctx: Ctx) {
   if (e.joueur.mode !== 'carriere') return; const p = e.persos[e.joueur.perso]; const P = e.partis[e.joueur.parti]; if (!p) return; const nP = e.partis.length;
+  { const acc = accesJoueur(e); const connus = e.joueur.acces; if (!connus) e.joueur.acces = acc; else { const nv = acc.filter(k => !connus.includes(k) && ACCES[k].texte); if (nv.length) { e.joueur.acces = [...new Set([...connus, ...acc])]; e.joueur.nouveaux = [...(e.joueur.nouveaux ?? []), ...nv].slice(-6); message(e, ctx, 'carriere', nv.length > 1 ? 'De nouvelles portes s\'ouvrent' : `Nouvel accès : ${ACCES[nv[0]].nom}`, nv.map(k => `${ACCES[k].nom}. ${ACCES[k].texte}`).join('\n\n') + '\n\nLe menu de gauche est à jour.', false); } } }
   const act = (e.options as any).activite ?? 'terrain'; const pr = (i: number, proba: number) => { if (rng.chance(proba * (p.forme / 100)) && p.attrs[i] < Math.min(20, p.pot + 2)) { p.attrs[i]++; return true; } return false; };
   switch (act) {
     case 'terrain': p.forme = clamp(p.forme - 2.5, 0, 100); plusEstime(e, 0.35 + attr(d, p, A.terrain, 'terrain') * 0.02); pr(A.terrain, 0.06); pr(A.ancrage, 0.07); pr(A.organisation, 0.03); if (P.actif) { e.impl[p.zone * nP + P.idx] += 0.004 + attr(d, p, A.terrain, 'terrain') * 0.0006; e.mob[p.zone * nP + P.idx] = clamp(e.mob[p.zone * nP + P.idx] + 0.01, 0, 1.2); } p.notoriete = clamp(p.notoriete + 0.05, 0, 100); break;

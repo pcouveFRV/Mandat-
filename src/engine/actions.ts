@@ -61,6 +61,7 @@ function executer(e: Etat, d: Donnees, rng: Rng, ctx: Ctx, a: Action): Retour {
     case 'bougerAxe': if (!dr.doctrine) return non(REFUS); { const t = bougerAxe(e, d, rng, ctx, P, a.axe, a.delta); return t.startsWith('Ligne') ? ok(t) : non(t); }
     // ----- Médias -----
     case 'execReforme': case 'execAvancer': case 'execAbandon': case 'execPM': case 'execRemaniement': case 'execDissolution': case 'execReferendum': { const r = actionExecutif(e, d, rng, ctx, a); return r.ok ? ok(r.texte) : non(r.texte); }
+    case 'accesVu': { if (e.joueur.nouveaux) e.joueur.nouveaux = e.joueur.nouveaux.filter(k => k !== a.ecran); return ok(''); }
     case 'agoraPublier': { if (e.joueur.mode === 'parti' && !dr.medias) return non(REFUS); const t = publierJoueur(e, d, rng, a as any); return t.ok ? ok(t.texte) : non(t.texte); }
     case 'agoraDeleguer': { if (e.joueur.mode !== 'parti') return non('Vous gérez vous-même votre compte.'); agoraDe(e, d).delegue = !!a.valeur; return ok(a.valeur ? 'Votre équipe numérique publie désormais à votre place, prudemment.' : 'Vous reprenez la main sur le compte du parti.'); }
     case 'publier': if (!dr.medias) return non(REFUS); return ok(publier(e, d, rng, ctx, P, a.valeur));

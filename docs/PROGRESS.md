@@ -6,6 +6,19 @@ Ce fichier permet de reprendre le travail à partir du dépôt seul.
 
 Version V4 en cours. La V3 est livrée. Il reste une action côté GitHub pour la mise en ligne (voir « À faire par le propriétaire du dépôt »).
 
+## V5 : plan validé par Pierre et état
+
+Idée directrice : le jeu devient d'abord une carrière. On commence simple militant et le jeu s'ouvre à mesure qu'on monte.
+
+1. Progression et déverrouillage des écrans. Fait. `accesJoueur` dans `src/engine/systems/carriere.ts` : un simple militant ne voit que la boîte de réception et Agora. Le reste arrive avec le rang et les mandats, avec un message et une pastille « nouveau » dans le menu. Le mode Parti garde tous les écrans.
+2. Équipe de militants, planning hebdomadaire par quartier, campagne comme opération (QG, matériel, temps forts, incidents, soir du vote par bureau). À faire.
+3. Événements en trois temps (à chaud, lendemain, à froid) et fils qui durent. À faire.
+4. Petite IA : propositions de publications sur Agora et discussion libre avec les personnages générés. Pierre veut qu'elle tourne entièrement sur un serveur, pas sur son Mac. En attente des informations sur ce serveur (adresse, accès, mémoire, carte graphique). Règles retenues : l'IA écrit, le moteur décide ; le jeu marche sans elle ; aucune citation ni accusation inventée pour une personne réelle.
+5. Mini-jeux courts et délégables : porte-à-porte, tractage, prise de parole, négociation, dépouillement, question au gouvernement. À faire.
+6. Vraies données 2026 puis base historique avec départs en 2010, 2014, 2017 et 2022. Les deux terminaux de la session (cloud et Mac) sont bridés et ne joignent pas data.gouv ni l'INSEE : il faut un script que Pierre lance lui-même sur son Mac. À préparer.
+
+Affaires judiciaires : Pierre a levé la règle de départ. Les affaires réelles entrent comme des faits datés et sourcés, avec le terme exact. Aucune affaire inventée sur une personne réelle.
+
 ## V4 : état des lots
 
 1. Interface. Fait. Habillage refait (docs/DESIGN.md), barre latérale groupée, accent à la couleur du parti, emplacement des logos, boîte de réception en deux volets, thème clair par défaut. Bug du menu de vitesse corrigé (il passait derrière le contenu).
@@ -13,7 +26,7 @@ Version V4 en cours. La V3 est livrée. Il reste une action côté GitHub pour l
 3. Vraies données. Pas fait. Les sites officiels sont inaccessibles depuis la session. Un dépôt GitHub public (Mrsaltyx/defi-municipales-2026) contient le répertoire des maires et les résultats des municipales 2026 en parquet, mais l'outil de lecture a été refusé par les garde-fous de la session. À reprendre : lire ces fichiers sur un poste où pandas et pyarrow sont installés, exporter en CSV dans `.sources/`, puis compléter `scripts/data/construire.mjs`.
 4. Équilibre. Fait pour les présidentielles et les législatives (docs/EQUILIBRAGE.md : RN 37 %, RE 31 %, PS 24 %, LR 7 % des présidentielles simulées, 3,6 alternances par partie). Pas fait pour les scissions : toujours aucune en 20 parties, l'unité ne descend pas sous 53. Piste : relever le seuil d'unité dans `partis.ts` ou faire baisser l'unité plus fort après une défaite.
 5. Exécutif. Fait pour la présidence et le gouvernement (`src/engine/systems/executif.ts`). Pas fait : budgets pluriannuels des mairies, départements et régions.
-6. Finitions. Tests (42), rapport d'équilibrage, essais par robot : fait. Partie d'essai V4 : 160 semaines en mode Carrière à Marseille, sans erreur.
+6. Finitions. Tests (44), rapport d'équilibrage, essais par robot : fait. Partie d'essai V4 : 160 semaines en mode Carrière à Marseille, sans erreur.
 
 ## Plan et état
 

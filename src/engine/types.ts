@@ -94,7 +94,7 @@ export interface ResultatLieu { lieu: string; id: string; inscrits: number; vota
 export interface Archive { s: number; type: Scrutin; tour: number; titre: string; national: ResultatLigne[]; participation: number; lieux?: ResultatLieu[]; sieges?: number[]; resume: string; explicationJoueur?: string }
 export interface Soiree { type: Scrutin; tour: number; s: number; estimation: ResultatLigne[]; final: ResultatLigne[]; lieux: ResultatLieu[]; participation: number; reactions: { perso: string; parti: number; texte: string }[]; sieges?: number[]; titre: string; explication: string; carte: { niveau: 'dept' | 'circo' | 'region'; couleurs: Record<string, number> } }
 export interface Debat { id: number; type: 'interview' | 'debat' | 'grand_debat'; media: string; perso: number; adversaire: number; questions: { theme: number; genre: string; texte: string }[]; tour: number; score: number; scoreAdv: number; journal: string[]; fini: boolean; enjeu: number }
-export interface Joueur { mode: Mode; parti: number; perso: number; tutoriel: number; scoreFinal?: number; fin?: { type: string; titre: string; texte: string }; debutPremierPlan: number; trahisons: number; pointsVictoire: Record<string, number>; aQuitte: number }
+export interface Joueur { mode: Mode; parti: number; perso: number; tutoriel: number; scoreFinal?: number; fin?: { type: string; titre: string; texte: string }; debutPremierPlan: number; trahisons: number; pointsVictoire: Record<string, number>; aQuitte: number; acces?: string[]; nouveaux?: string[] }
 export interface Etat {
   version: number; graine: number; rng: number; scenario: string; semaine: number; debut: number;
   joueur: Joueur; partis: Parti[]; persos: Perso[];

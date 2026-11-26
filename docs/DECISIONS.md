@@ -54,3 +54,8 @@ Une ligne par décision, avec la raison.
 - Érosion des fidélités calées sur 2024 : 0,5 % par mois pour les valeurs positives, 0,2 % pour les négatives. Raison : sur 25 ans, ce que les partis font en jeu doit prendre le relais du point de départ. La règle est la même pour tous les partis.
 - Scissions : possibles quand un courant de 12 à 50 % est durablement mécontent dans un parti à l'unité sous 52, au plus une fois tous les trois ans. Une déroute aux législatives fait baisser l'unité et l'humeur des courants. Raison : aucune scission en 20 parties dans la V3.
 - Données réelles : un dépôt GitHub public contient le répertoire des maires et les résultats des municipales 2026 au format parquet. Je n'ai pas pu les lire : l'outil de lecture nécessaire a été refusé par les garde-fous de ma session et je n'ai pas contourné ce refus. Le lot reste à faire.
+
+## V5
+
+- Déverrouillage des écrans en mode Carrière : un écran non gagné n'apparaît pas du tout dans le menu, sans bouton grisé. Raison : demande de Pierre. Paliers : militant (boîte de réception, Agora), responsable de section ou élu (carte, effectif, historique, Panthéon, campagne), élu (mandat), cadre départemental (parti, finances), bureau national ou figure nationale (médias, doctrine). L'écran Médias s'ouvre aussi le temps d'un entretien en cours.
+- Le tutoriel ne présente que les écrans déjà ouverts.

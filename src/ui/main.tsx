@@ -94,25 +94,26 @@ function MenuJeu() {
 }
 
 function Tutoriel() {
-  const m = useMagasin(); const i = m.base.tutoriel; if (i < 0 || i >= TUTO.length) return null; const [ecran, titre, texte] = TUTO[i];
-  useEffect(() => { if (m.ecran !== ecran) aller(ecran); }, [i]);
+  const m = useMagasin(); const i = m.base.tutoriel; const ouvert = i >= 0 && i < TUTO.length && (m.base.acces ?? []).includes(TUTO[i][0]);
+  useEffect(() => { if (i >= 0 && i < TUTO.length && !ouvert) agir({ type: 'tutoriel', etape: i + 1 >= TUTO.length ? -1 : i + 1 }, true); else if (ouvert && m.ecran !== TUTO[i][0]) aller(TUTO[i][0]); }, [i, ouvert]);
+  if (!ouvert) return null; const [, titre, texte] = TUTO[i];
   return <div class="tuto"><h3>Tutoriel {i + 1}/{TUTO.length}</h3><b>{titre}</b><p style={{ marginTop: '6px' }}>{texte}</p><div class="ligne"><button class="petit" onClick={() => agir({ type: 'tutoriel', etape: -1 }, true)}>Désactiver</button><span class="espace" />{i > 0 && <button class="petit" onClick={() => agir({ type: 'tutoriel', etape: i - 1 }, true)}>Précédent</button>}<button class="petit principal" onClick={() => agir({ type: 'tutoriel', etape: i + 1 >= TUTO.length ? -1 : i + 1 }, true)}>{i + 1 >= TUTO.length ? 'Terminer' : 'Suivant'}</button></div></div>;
 }
 
 function Jeu() {
   const m = useMagasin(); const b = m.base;
   const E = m.ecran === 'inbox' ? <Inbox /> : m.ecran === 'carte' ? <EcranCarte /> : m.ecran === 'effectif' ? <Effectif /> : m.ecran === 'parti' ? <EcranParti /> : m.ecran === 'finances' ? <Finances /> : m.ecran === 'doctrine' ? <Doctrine /> : m.ecran === 'campagne' ? <Campagne /> : m.ecran === 'medias' ? <Medias /> : m.ecran === 'mandat' ? <Mandat /> : m.ecran === 'historique' ? <Historique /> : m.ecran === 'agora' ? <Agora /> : m.ecran === 'pantheon' ? <Pantheon /> : <Inbox />;
-  const P = b.partis[b.parti]; const sombre = m.theme === 'sombre';
+  const P = b.partis[b.parti]; const sombre = m.theme === 'sombre'; const acces: string[] = b.acces ?? [];
   useEffect(() => { const a = accentParti(P?.couleur ?? '#0066cc', sombre); const st = document.documentElement.style; st.setProperty('--accent', a.accent); st.setProperty('--accent-t', a.texte); st.setProperty('--accent-doux', a.doux); return () => { st.removeProperty('--accent'); st.removeProperty('--accent-t'); st.removeProperty('--accent-doux'); }; }, [P?.couleur, sombre]);
   return <div class="cadre">
     <nav class="menu">
       <div class="entete"><Logo i={b.parti} taille={38} /><div><b>{P?.nom}</b><small>{b.mode === 'carriere' && b.moi ? b.moi.nom : 'Direction du parti'}</small></div></div>
-      {GROUPES.map(([g, liste]) => <>
+      {GROUPES.map(([g, tous]) => { const liste = tous.filter(([k]) => acces.includes(k)); return liste.length === 0 ? null : <>
         <div class="groupe">{g}</div>
-        {liste.map(([k, n]) => <a class={m.ecran === k ? 'actif' : ''} onClick={() => aller(k)}>{n}{k === 'inbox' && b.aRepondre > 0 ? <span class="badge rouge">{b.aRepondre}</span> : k === 'inbox' && b.nonLus > 0 ? <span class="badge">{b.nonLus}</span> : k === 'campagne' && b.entreDeux.length > 0 ? <span class="badge rouge">2e tour</span> : k === 'medias' && (b.debat && !b.debat.fini || b.grandDebat) ? <span class="badge rouge">1</span> : k === 'agora' && b.agora?.aReagir > 0 ? <span class="badge">{b.agora.aReagir}</span> : null}</a>)}
-      </>)}
-      <div class="groupe">Bilan</div>
-      <a class={m.ecran === 'pantheon' ? 'actif' : ''} onClick={() => aller('pantheon')}>Panthéon</a>
+        {liste.map(([k, n]) => <a class={m.ecran === k ? 'actif' : ''} onClick={() => { if (b.nouveaux.includes(k)) agir({ type: 'accesVu', ecran: k }, true); aller(k); }}>{n}{b.nouveaux.includes(k) && m.ecran !== k ? <span class="badge">nouveau</span> : null}{k === 'inbox' && b.aRepondre > 0 ? <span class="badge rouge">{b.aRepondre}</span> : k === 'inbox' && b.nonLus > 0 ? <span class="badge">{b.nonLus}</span> : k === 'campagne' && b.entreDeux.length > 0 ? <span class="badge rouge">2e tour</span> : k === 'medias' && (b.debat && !b.debat.fini || b.grandDebat) ? <span class="badge rouge">1</span> : k === 'agora' && b.agora?.aReagir > 0 ? <span class="badge">{b.agora.aReagir}</span> : null}</a>)}
+      </>; })}
+      {acces.includes('pantheon') && <><div class="groupe">Bilan</div>
+      <a class={m.ecran === 'pantheon' ? 'actif' : ''} onClick={() => aller('pantheon')}>Panthéon</a></>}
       <div class="pied petit-texte doux">Score : <b style={{ color: 'var(--texte)' }}>{b.score}</b>{b.victoires.filter((v: any) => v.acquis).map((v: any) => <div class="ok">{v.nom}</div>)}
         {b.president && <div style={{ marginTop: '6px' }}>Président : {b.president.nom} <Parti i={b.president.parti} /><br />Popularité {b.president.popularite} %</div>}
         <div style={{ marginTop: '6px' }}>Chômage {String(b.eco.chomage).replace('.', ',')} %<br />Croissance {String(b.eco.croissance).replace('.', ',')} %</div></div>
