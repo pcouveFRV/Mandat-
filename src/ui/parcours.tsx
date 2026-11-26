@@ -3,21 +3,12 @@ import { useState } from 'preact/hooks';
 import { useMagasin, useVue, agir, nb, Bloc, Jauge, Parti, toast, moteurAction, ouvrirFiche, RANGS } from './composants';
 import { discuter, assistantActif } from './assistant';
 
-const PEAUX = ['#f6d7bd', '#e3b088', '#b97c50', '#7b4a2c']; const CHEVEUX = ['#2a1c14', '#6b4423', '#b88a48', '#8f8f8f', '#a93a22']; const TENUES = ['#1f2a44', '#3b3b3b', '#7a1f2b', '#2e5d4f'];
 // Portrait dessiné à composer : formes simples, sans ressemblance avec personne.
-export function Portrait({ p, taille = 64 }: { p: number[]; taille?: number }) {
-  const [peau, coupe, coul, lunettes, barbe, tenue] = p; const C = CHEVEUX[coul % CHEVEUX.length], S = PEAUX[peau % PEAUX.length];
-  const coupes = [<path d="M14 24 Q14 8 32 8 Q50 8 50 24 Q44 15 32 15 Q20 15 14 24Z" fill={C} />, <path d="M13 28 Q11 6 32 7 Q53 6 51 28 Q48 14 32 13 Q16 14 13 28Z" fill={C} />, <path d="M13 26 Q13 7 32 7 Q51 7 51 26 L51 40 Q47 30 46 22 Q32 12 18 22 Q17 30 13 40Z" fill={C} />, <path d="M18 17 Q32 9 46 17 Q32 13 18 17Z" fill={C} />, <path d="M12 26 Q12 5 32 6 Q52 5 52 26 Q46 12 30 16 Q20 18 12 26Z" fill={C} />];
-  return <svg viewBox="0 0 64 64" width={taille} height={taille} style={{ borderRadius: '24%', background: 'var(--fond3)', flex: 'none' }} aria-label="Portrait">
-    <path d="M8 64 Q10 46 32 46 Q54 46 56 64Z" fill={TENUES[tenue % TENUES.length]} /><path d="M27 46 L32 54 L37 46Z" fill="#fff" />
-    <rect x="27" y="38" width="10" height="10" fill={S} /><ellipse cx="32" cy="27" rx="15" ry="17" fill={S} />
-    {coupes[coupe % coupes.length]}
-    <circle cx="26" cy="27" r="1.6" fill="#1d1d1f" /><circle cx="38" cy="27" r="1.6" fill="#1d1d1f" /><path d="M27 35 Q32 38 37 35" stroke="#1d1d1f" stroke-width="1.3" fill="none" stroke-linecap="round" />
-    {barbe === 1 && <path d="M19 31 Q32 50 45 31 Q40 40 32 40 Q24 40 19 31Z" fill={C} opacity=".9" />}{barbe === 2 && <path d="M26 33 Q32 31 38 33" stroke={C} stroke-width="2" fill="none" />}
-    {lunettes === 1 && <g stroke="#1d1d1f" stroke-width="1.3" fill="none"><circle cx="26" cy="27" r="4.5" /><circle cx="38" cy="27" r="4.5" /><path d="M30.5 27 L33.5 27" /></g>}{lunettes === 2 && <g stroke="#1d1d1f" stroke-width="1.5" fill="none"><rect x="21" y="23.5" width="9" height="7" rx="1.5" /><rect x="34" y="23.5" width="9" height="7" rx="1.5" /><path d="M30 27 L34 27" /></g>}
-  </svg>;
+// Avatar sobre : les initiales du personnage sur la couleur de son parti. Le portrait dessiné a été retiré à la demande de Pierre.
+export function Portrait({ taille = 64 }: { p?: number[]; taille?: number }) {
+  const b = useMagasin().base; const nom: string = b?.moi?.nom ?? ''; const ini = nom.split(/[\s-]+/).filter(Boolean).map(x => x[0]).slice(0, 2).join('').toUpperCase(); const c = b?.partis?.[b.parti]?.couleur ?? '#8e8e93';
+  return <span aria-label="Avatar" style={{ width: `${taille}px`, height: `${taille}px`, borderRadius: '26%', flex: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: `linear-gradient(145deg, ${c}, color-mix(in srgb, ${c} 68%, #000))`, color: '#fff', fontWeight: 600, fontSize: `${Math.round(taille * 0.38)}px`, letterSpacing: '.02em' }}>{ini}</span>;
 }
-const CHOIX_PORTRAIT: [string, string[]][] = [['Teint', ['Clair', 'Hâlé', 'Mat', 'Foncé']], ['Coupe', ['Courte', 'Volume', 'Longue', 'Dégarnie', 'Mèche']], ['Cheveux', ['Noirs', 'Châtains', 'Blonds', 'Gris', 'Roux']], ['Lunettes', ['Sans', 'Rondes', 'Rectangulaires']], ['Barbe', ['Sans', 'Barbe', 'Moustache']], ['Tenue', ['Bleu nuit', 'Anthracite', 'Bordeaux', 'Vert sombre']]];
 const SCRUTINS: Record<string, string> = { municipales: 'Municipales', departementales: 'Départementales', legislatives: 'Législatives', regionales: 'Régionales', europeennes: 'Européennes' };
 const ROLES: Record<string, string> = { mentor: 'Mentor', allie: 'Allié', rival: 'Rival', journaliste: 'Journaliste', cadre: 'Cadre du parti' };
 const sem = (n: number) => `${n} semaine${n > 1 ? 's' : ''}`;
@@ -57,8 +48,7 @@ export function Profil() {
     <div class="ligne" style={{ gap: '16px', marginBottom: '14px' }}><Portrait p={P} taille={84} /><div><h1 style={{ margin: 0 }}>{v.nom}</h1><div class="doux">{v.age} ans, {RANGS[v.rang]}, {v.lieu} <Parti i={v.parti} /></div>{v.slogan && <div style={{ marginTop: '4px' }}><i>« {v.slogan} »</i></div>}{v.mandats.length > 0 && <div class="doux petit-texte">{v.mandats.join(', ')}</div>}</div><span class="espace" /><button onClick={() => { setEdit(!edit); setBio(v.bio); setSlogan(v.slogan); }}>{edit ? 'Fermer' : 'Modifier ma fiche'}</button></div>
     <div class="grille" style={{ gap: '14px' }}>
       {edit && <Bloc titre="Ma fiche">
-        <div class="grille g2">{CHOIX_PORTRAIT.map(([nom, opts], k) => <label class="ligne"><span style={{ width: '80px' }} class="doux">{nom}</span><select aria-label={nom} value={P[k]} onChange={(ev: any) => { const n = P.slice(); n[k] = +ev.target.value; agir({ type: 'profilPortrait', portrait: n }, true); }}>{opts.map((o, i) => <option value={i}>{o}</option>)}</select></label>)}</div>
-        <div class="grille" style={{ gap: '6px', marginTop: '10px' }}><input type="text" aria-label="Slogan" maxLength={80} placeholder="Votre slogan personnel (80 caractères)" value={slogan ?? ''} onInput={(ev: any) => setSlogan(ev.target.value)} />
+        <div class="grille" style={{ gap: '6px', }}><input type="text" aria-label="Slogan" maxLength={80} placeholder="Votre slogan personnel (80 caractères)" value={slogan ?? ''} onInput={(ev: any) => setSlogan(ev.target.value)} />
           <textarea aria-label="Biographie" rows={3} maxLength={400} placeholder="Votre biographie : d'où vous venez, ce que vous faites, pourquoi vous vous engagez (400 caractères)" value={bio ?? ''} onInput={(ev: any) => setBio(ev.target.value)} />
           <div class="ligne"><span class="doux">Votre style :</span><select aria-label="Style" value={v.style} onChange={(ev: any) => agir({ type: 'profilTexte', bio: bio ?? v.bio, slogan: slogan ?? v.slogan, style: ev.target.value }, true)}><option value="pedagogue">Pédagogue</option><option value="offensif">Offensif</option><option value="humour">Décalé</option><option value="emotion">Proche des gens</option><option value="coulisses">Coulisses</option></select><span class="espace" /><button class="principal" onClick={() => agir({ type: 'profilTexte', bio, slogan, style: v.style })}>Enregistrer</button></div></div>
       </Bloc>}

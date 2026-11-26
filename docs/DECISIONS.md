@@ -97,3 +97,4 @@ Une ligne par décision, avec la raison.
 - Emblème : dessin original composé dans le jeu (4 formes, 8 symboles neutres, 2 couleurs, initiales). Les logos réels des partis ne sont pas dessinés (marques déposées) ; l'emplacement `public/data/logos` reste prévu pour des fichiers fournis par le joueur.
 - Financement : emprunt bancaire à 12 % sur trois ans, plafonné selon les sondages et les adhérents ; appel aux dons une fois par trimestre ; prêts d'adhérents une fois par semestre, contre un peu d'unité. Un seul prêt à la fois.
 - Le tableau de bord est l'écran d'ouverture et la première étape du tutoriel. Il est accessible dès le rang de militant, comme Chronique et Personnalisation.
+- Portrait dessiné du personnage retiré à la demande de Pierre (rendu jugé mauvais). Il est remplacé par un avatar sobre : initiales sur la couleur du parti. Piste si l'on veut de vrais visages : une bibliothèque d'avatars sous licence libre intégrée au dépôt.

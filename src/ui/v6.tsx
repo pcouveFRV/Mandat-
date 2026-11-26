@@ -97,7 +97,7 @@ export function Personnalisation() {
           </div></div>
         <p class="doux petit-texte" style={{ marginTop: '8px' }}>L'emblème est un dessin original composé ici. Pour utiliser une image à vous, déposez-la dans le dossier des logos du jeu (voir public/data/logos).</p>
       </Bloc>
-      {carriere && <Bloc titre="Mon personnage"><div class="ligne" style={{ gap: '14px' }}>{b.portrait && <Portrait p={b.portrait} taille={84} />}<div><b>{b.moi?.nom}</b><div class="doux">{RANGS[b.moi?.rang ?? 0]}</div><div class="ligne" style={{ marginTop: '8px' }}><button onClick={() => aller('profil')}>Modifier ma fiche et mon portrait</button><button onClick={() => aller('chronique')}>Voir ma page Chronique</button></div></div></div></Bloc>}
+      {carriere && <Bloc titre="Mon personnage"><div class="ligne" style={{ gap: '14px' }}>{b.portrait && <Portrait p={b.portrait} taille={84} />}<div><b>{b.moi?.nom}</b><div class="doux">{RANGS[b.moi?.rang ?? 0]}</div><div class="ligne" style={{ marginTop: '8px' }}><button onClick={() => aller('profil')}>Modifier ma fiche</button><button onClick={() => aller('chronique')}>Voir ma page Chronique</button></div></div></div></Bloc>}
       {carriere && !b.estChef && <Bloc titre="Fonder mon parti">
         <p>Quitter votre parti pour créer le vôtre. Vous partez de presque rien : il faut être connu (notoriété 25 au moins) pour que quelqu'un vous suive.</p>
         <div class="grille" style={{ gap: '6px' }}><input type="text" aria-label="Nom du parti" maxLength={40} placeholder="Nom du parti" value={nom} onInput={(ev: any) => setNom(ev.target.value)} />
