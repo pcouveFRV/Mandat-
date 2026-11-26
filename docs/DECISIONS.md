@@ -77,3 +77,13 @@ Une ligne par décision, avec la raison.
 - Les brouillons proposés au joueur viennent du même générateur, avec un tirage séparé : en demander ne change pas la partie.
 - Commentaires sous les publications du joueur : trois, tirés selon l'accueil. Comptes citoyens générés.
 - Petite IA : Pierre la voulait « sur le serveur du site ». Un hébergement statique ne peut pas faire tourner de modèle. Elle tourne donc dans le navigateur (WebLLM, WebGPU), gratuitement. Le modèle est choisi dans la liste fournie par la bibliothèque, parmi des petits modèles, sans identifiant figé dans le code. Non testée avec un vrai modèle : la session n'a pas accès au réseau depuis son navigateur de test.
+- Écrans Mon parcours et Carnet ouverts dès le rang de militant, en mode Carrière seulement. Raison : ce sont les écrans du personnage, pas du parti.
+- Barre du haut : un militant voit ses ressources personnelles (compte, notoriété, forme, moral, estime). Les ressources du parti apparaissent quand l'écran Parti s'ouvre.
+- Encart du parti dans la barre latérale : logo, rang, intentions de vote, tendance, députés. Les variations hebdomadaires s'affichent à côté des ressources.
+- Logos des partis : toujours aucun logo officiel embarqué ni redessiné, pour la même raison qu'en V4 (ce sont des marques). L'encart affiche la pastille au sigle ou le fichier déposé par le joueur.
+- Portrait du joueur : dessin à composer à partir de formes simples, sans ressemblance recherchée.
+- Argent personnel : salaire hebdomadaire, indemnités par mandat, 330 euros de dépenses par semaine. Valeurs de jeu, pas des barèmes officiels.
+- Investiture : le dossier donne un bonus au calcul existant (estime, rang, notoriété) au lieu de le remplacer. Raison : garder la cohérence avec les règles de la V3. Les rivaux sont des personnages générés pour l'occasion.
+- Dissidence après un refus d'investiture : pas faite. Elle demande de créer une candidature hors parti dans chaque scrutin.
+- Contacts : cinq personnages générés propres au joueur, distincts des personnages du monde. Raison : pouvoir leur prêter des répliques.
+- Scissions : seuil d'unité relevé de 52 à 60.

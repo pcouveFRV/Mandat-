@@ -101,6 +101,35 @@ Vous commencez simple militant et vous ne voyez que trois écrans : la boîte de
 
 Chaque ouverture est annoncée par un message et une pastille « nouveau » dans le menu. Le mode Parti ouvre tout dès le départ.
 
+## Mon parcours
+
+L'écran de votre personnage, ouvert dès le premier jour en mode Carrière.
+
+- **Fiche** : portrait à composer (teint, coupe, cheveux, lunettes, barbe, tenue), slogan, biographie, style. Modifiable à tout moment.
+- **Ambition** : maire, député, chef de parti ou président. Le jeu affiche les quatre étapes et salue chaque étape franchie.
+- **Ce que je travaille** : trois attributs au plus, qui progressent un peu plus vite.
+- **Vie hors politique** : un compte en banque, des dépenses chaque semaine, et un choix entre emploi à plein temps (plus d'argent, moins de rendement politique), mi-temps, ou tout pour la politique. Les mandats versent des indemnités. Un compte dans le rouge pèse sur le moral.
+- **Ce qu'on dit de vous** : militants, cadres, presse locale, avec les raisons.
+- **Journal de carrière** et **promesses** faites.
+
+## Les investitures
+
+Tout se passe dans Mon parcours. Les investitures s'ouvrent environ un an avant un scrutin et se ferment six semaines avant.
+
+1. Vous vous déclarez, pour la tête ou pour une place sur la liste. Vous découvrez les autres candidats.
+2. Vous montez votre dossier : tournée des sections, coups de fil, note sur le territoire. Deux démarches par semaine au plus.
+3. Vous demandez l'appui de vos contacts. Un appui obtenu est un service que vous devrez.
+4. Vous pouvez promettre : votre voix au congrès, une place sur votre liste, votre soutien à un rival la prochaine fois. C'est très efficace, et on vous le rappellera un an ou deux plus tard.
+5. Le jour dit, vous passez devant la commission : quatre questions, trois façons de répondre à chacune, plus ou moins audacieuses.
+6. Verdict : investi, suppléant, ou écarté. Si vous ne venez pas, la commission tranche sans vous.
+
+Votre poids dans le parti compte toujours : un simple militant n'obtiendra pas une circonscription, même avec un bon dossier.
+
+## Le carnet
+
+- **Contacts** : un mentor, un allié, un rival, un journaliste local, un cadre du parti. Une rencontre par semaine et par personne : prendre des nouvelles, demander conseil, savoir ce qui se dit, demander un service, rendre un service. Une relation qu'on n'entretient pas s'use.
+- **Personnes suivies** : ouvrez la fiche de n'importe quel personnage et cliquez sur Suivre. Vous êtes prévenu de ses promotions, de ses mandats et de ses changements de parti.
+
 ## Le terrain et l'équipe
 
 Votre secteur est découpé en six quartiers, chacun avec son profil, son accueil pour votre parti et un niveau d'ancrage. L'ancrage monte avec le travail de terrain et redescend lentement si on n'y revient pas. Il pèse sur le vote du secteur.
@@ -108,6 +137,7 @@ Votre secteur est découpé en six quartiers, chacun avec son profil, son accuei
 - **Sortir vous-même**, une fois par semaine et par type :
   - Porte-à-porte : cinq portes. À chaque porte, un indice sur la personne et sur son sujet du moment, pas toujours fiable. Vous choisissez de quoi parler, ou vous écoutez sans chercher à convaincre.
   - Tractage : six créneaux, trois à choisir, selon l'affluence et le public attendu.
+  - Prise de parole : une réunion publique en trois temps (ouvrir, répondre à un contradicteur, conclure). Le fond passe mieux dans un quartier difficile, l'attaque en terrain favorable.
 - **Diriger l'équipe** (à partir de responsable de section) : chaque militant a quatre compétences, une disponibilité, une motivation et une fatigue. Vous lui donnez une mission et un quartier, vous l'envoyez en formation ou au repos, vous nommez un bras droit, vous accueillez ou déclinez les nouveaux. Un militant épuisé ou négligé finit par partir. La taille de l'équipe est plafonnée selon votre rang.
 - **Parler** avec chaque militant, une fois par semaine : prendre des nouvelles, savoir ce qui se dit dans le quartier, demander un effort. Avec un assistant d'écriture branché, vous pouvez aussi lui écrire librement.
 - **Matériel** : tracts et affiches se commandent et arrivent avec un délai. Sans matériel, une mission rend deux fois moins.

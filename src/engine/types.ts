@@ -112,8 +112,11 @@ export interface Etat {
   journal: { s: number; t: string }[]; consignes: Record<number, number>; desistements: Record<string, string[]>;
   entreDeux: Record<string, EntreDeux>; politiqueAlliance: Record<string, string>;
   options: { vitesse: number; auto?: boolean; activite?: string };
-  agora?: Agora; executif?: Executif; equipe?: Equipe;
+  agora?: Agora; executif?: Executif; equipe?: Equipe; parcours?: Parcours;
 }
+export interface Contact { id: number; nom: string; prenom: string; sexe: 'M' | 'F'; age: number; role: string; qui: string; relation: number; parle: number; dette: number; caractere: string }
+export interface Dossier { type: Scrutin; place: 'tete' | 'liste'; lib: string; commission: number; scrutin: number; soutiens: number; rivaux: { nom: string; profil: string; score: number }[]; fait: Record<string, number>; promesses: string[]; oral: { i: number; score: number; journal: string[]; fini: boolean } | null; verdict: string; issue: string }
+export interface Parcours { portrait: number[]; bio: string; slogan: string; style: string; entrainement: number[]; metier: string; metierChange?: number; argent: number; ambition: string; ambitionFaite: Record<string, boolean>; promesses: { s: number; a: string; t: string; rappel: number; regle?: boolean | string }[]; dossier: Dossier | null; contacts: Contact[]; suivis: number[]; photos: Record<number, string>; etapesVues: number }
 export interface Militant { id: number; nom: string; prenom: string; sexe: 'M' | 'F'; age: number; comp: number[]; dispo: number; motiv: number; fatigue: number; depuis: number; quartier: number; action: string; caractere: string; lieutenant?: boolean; cible?: number; parle?: number; bonus?: number }
 export interface Quartier { nom: string; profil: string; segs: string[]; poids: number; accueil: number; ancrage: number; contacts: number }
 export interface Incident { id: string; titre: string; texte: string; choix: { t: string; effet: string }[]; quartier: number; m: number; n: number; expire: number }

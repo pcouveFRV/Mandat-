@@ -12,10 +12,12 @@ Le jeu est en ligne sur https://pcouvefrv.github.io/Mandat-/ (dépôt public, d�
 
 1. Textes concrets sur Agora, brouillons, commentaires. Fait.
 2. Petite IA dans le navigateur (WebLLM). Code fait, repli testé. Jamais chargée avec un vrai modèle : à tester par Pierre sur le site en ligne (Menu > Assistant d'écriture > Petit modèle dans le navigateur).
-3. Personnage modifiable : portrait à composer, biographie, plan d'entraînement, vie hors politique, réputation, journal de carrière, objectifs personnels. À faire.
-4. Investitures en parcours complet : se déclarer, dossier de soutiens, campagne interne, oral devant la commission, verdict, dissidence. À faire.
-5. Carnet de contacts, suivi de personnages, discussion étendue aux cadres générés et aux journalistes. À faire.
-6. Reports : mini-jeux de négociation, de prise de parole et de question au gouvernement, scissions, budgets des collectivités. À faire.
+3. Personnage modifiable. Fait : portrait à composer, biographie, slogan, style, entraînement, métier et argent, ambition en quatre étapes, réputation, journal, promesses. `src/engine/systems/parcours.ts`, `src/ui/parcours.tsx`.
+4. Investitures. Fait : déclaration, dossier, appuis, promesses, oral en quatre questions, verdict. Pas fait : dissidence après un refus.
+5. Carnet. Fait : cinq contacts générés avec discussions, suivi de personnages avec alertes. Pas fait : discussion avec les personnages du monde.
+6. Reports. Fait : prise de parole en réunion publique, seuil des scissions relevé, barre du haut et encart du parti. Pas fait : mini-jeu de négociation, question au gouvernement en mini-jeu (elle reste une initiative simple), budgets des collectivités.
+
+Tests : 60, dans cinq fichiers. Essais par robot dans `.local/` (non versionnés).
 
 ## V5 : plan validé par Pierre et état
 

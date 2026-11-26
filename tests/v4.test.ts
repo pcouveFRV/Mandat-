@@ -56,10 +56,10 @@ describe('exécutif', () => {
 });
 
 describe('progression', () => {
-  it('ouvre tous les écrans en mode Parti', async () => { const { accesJoueur, ACCES } = await import('../src/engine/systems/carriere'); expect(accesJoueur(nouvelle('PS')).length).toBe(Object.keys(ACCES).length); });
+  it('ouvre tous les écrans en mode Parti', async () => { const { accesJoueur, ACCES } = await import('../src/engine/systems/carriere'); expect(accesJoueur(nouvelle('PS')).length).toBe(Object.keys(ACCES).length - 2); /* Mon parcours et Carnet sont propres au mode Carrière */ });
   it('ne montre que la boîte de réception et Agora à un simple militant, puis ouvre le reste avec le rang', async () => {
     const { accesJoueur } = await import('../src/engine/systems/carriere'); const e = nouvelle('LR', 'carriere'); const p = e.persos[e.joueur.perso]; const P = e.partis[e.joueur.parti]; p.mandats = []; p.rang = 0; if (P.chef === p.id) P.chef = -1; for (const k of Object.keys(P.bureau)) if (P.bureau[k] === p.id) P.bureau[k] = -1;
-    expect(accesJoueur(e)).toEqual(['inbox', 'agora', 'equipe']); tour(e, d);
+    expect(accesJoueur(e)).toEqual(['inbox', 'agora', 'equipe', 'profil', 'contacts']); tour(e, d);
     p.rang = 1; expect(accesJoueur(e)).toContain('campagne'); expect(accesJoueur(e)).not.toContain('finances'); const avant = e.inbox.length; tour(e, d);
     expect(e.inbox.length).toBeGreaterThan(avant); expect(e.joueur.nouveaux).toContain('carte');
     p.rang = 2; expect(accesJoueur(e)).toContain('finances'); expect(accesJoueur(e)).not.toContain('doctrine'); p.rang = 3; expect(accesJoueur(e)).toContain('doctrine');

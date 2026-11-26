@@ -1,4 +1,5 @@
 // Actions du joueur. Chaque action vérifie les droits du joueur puis appelle les mêmes fonctions que l'IA.
+import { actionParcours, reglerPromesse } from './systems/parcours';
 import { actionEquipe } from './systems/equipe';
 import { actionExecutif } from './systems/executif';
 import { publierJoueur, agoraDe } from './systems/agora';
@@ -27,7 +28,7 @@ const ok = (texte = ''): Retour => ({ ok: true, texte }); const non = (texte: st
 const REFUS = 'Votre poste ne vous donne pas ce pouvoir. Montez dans le parti pour décider de cela.';
 
 function repondreMessage(e: Etat, d: Donnees, rng: Rng, ctx: Ctx, m: Message, choix: number): Retour {
-  if (m.repondu !== undefined) return non('Déjà répondu.'); m.repondu = choix; m.lu = true; const P = e.partis[e.joueur.parti]; const a = m.action; if (!a) return ok();
+  if (m.repondu !== undefined) return non('Déjà répondu.'); m.repondu = choix; m.lu = true; const P = e.partis[e.joueur.parti]; const a = m.action; if (!a) { if (m.titre === 'On vous rappelle une promesse') return ok(reglerPromesse(e, d, choix)); return ok(); }
   switch (a.type) {
     case 'evenement': { const ev = d.evenements.find(x => x.id === a.data.ev); if (!ev) return ok(); const r = appliquerChoix(e, d, rng, ctx, P, ev, ev.choix[choix], a.data.rival ?? -1); return ok(r ? `Effets : ${r}.` : 'Décision prise.'); }
     case 'congres': resoudreCongres(e, d, rng, ctx, P, choix); return ok();
@@ -63,6 +64,7 @@ function executer(e: Etat, d: Donnees, rng: Rng, ctx: Ctx, a: Action): Retour {
     // ----- Médias -----
     case 'execReforme': case 'execAvancer': case 'execAbandon': case 'execPM': case 'execRemaniement': case 'execDissolution': case 'execReferendum': { const r = actionExecutif(e, d, rng, ctx, a); return r.ok ? ok(r.texte) : non(r.texte); }
     case 'equipeParler': case 'jeuDemarrer': case 'jeuChoix': case 'jeuFermer': case 'equipeAnnonce': case 'equipeBilanVu': case 'equipeAuto': case 'equipeAffecter': case 'equipeRepartir': case 'equipeRecruter': case 'equipeRefuser': case 'equipeLieutenant': case 'equipeEcarter': case 'equipeConvivial': case 'equipeCommander': case 'equipeTemps': case 'equipeIncident': { const r = actionEquipe(e, d, rng, a); return r.ok ? ok(r.texte) : non(r.texte); }
+    case 'profilPortrait': case 'profilTexte': case 'profilEntrainement': case 'profilMetier': case 'profilAmbition': case 'suivre': case 'contactParler': case 'invDeclarer': case 'invAgir': case 'invPromettre': case 'invSoutien': case 'invOral': case 'invRepondre': case 'invFermer': { const r = actionParcours(e, d, rng, a); return r.ok ? ok(r.texte) : non(r.texte); }
     case 'accesVu': { if (e.joueur.nouveaux) e.joueur.nouveaux = e.joueur.nouveaux.filter(k => k !== a.ecran); return ok(''); }
     case 'agoraPublier': { if (e.joueur.mode === 'parti' && !dr.medias) return non(REFUS); const t = publierJoueur(e, d, rng, a as any); return t.ok ? ok(t.texte) : non(t.texte); }
     case 'agoraDeleguer': { if (e.joueur.mode !== 'parti') return non('Vous gérez vous-même votre compte.'); agoraDe(e, d).delegue = !!a.valeur; return ok(a.valeur ? 'Votre équipe numérique publie désormais à votre place, prudemment.' : 'Vous reprenez la main sur le compte du parti.'); }

@@ -4,9 +4,10 @@ import { useEffect, useState } from 'preact/hooks';
 import './style.css';
 import * as moteur from './moteur';
 import * as stockage from './stockage';
-import { useMagasin, maj, lireMagasin, toast, aller, agir, euro, nb, Info, Parti, Logo, accentParti } from './composants';
+import { useMagasin, maj, lireMagasin, toast, aller, agir, euro, nb, Info, Parti, Logo, accentParti, RANGS } from './composants';
 import { Agora } from './agora';
 import { Terrain } from './terrain';
+import { Profil, Carnet, Portrait } from './parcours';
 import { lireConfig, ecrireConfig, tester, chargerLocal, localCharge, modeleLocal } from './assistant';
 import { Accueil } from './accueil';
 import { Inbox, FichePerso, Effectif, EcranParti } from './ecrans1';
@@ -14,7 +15,7 @@ import { Finances, Doctrine, Medias, Historique } from './ecrans2';
 import { Campagne, Mandat, Soiree, Pantheon } from './ecrans3';
 import { EcranCarte } from './carte';
 
-const GROUPES: [string, [string, string][]][] = [['Bureau', [['inbox', 'Boîte de réception'], ['agora', 'Agora'], ['equipe', 'Terrain'], ['medias', 'Médias']]], ['Organisation', [['effectif', 'Effectif'], ['parti', 'Parti'], ['finances', 'Finances'], ['doctrine', 'Doctrine']]], ['Élections', [['carte', 'Carte'], ['campagne', 'Campagne'], ['mandat', 'Mandat'], ['historique', 'Historique']]]];
+const GROUPES: [string, [string, string][]][] = [['Bureau', [['inbox', 'Boîte de réception'], ['agora', 'Agora'], ['equipe', 'Terrain'], ['medias', 'Médias']]], ['Moi', [['profil', 'Mon parcours'], ['contacts', 'Carnet']]], ['Organisation', [['effectif', 'Effectif'], ['parti', 'Parti'], ['finances', 'Finances'], ['doctrine', 'Doctrine']]], ['Élections', [['carte', 'Carte'], ['campagne', 'Campagne'], ['mandat', 'Mandat'], ['historique', 'Historique']]]];
 const TUTO: [string, string, string][] = [
   ['inbox', 'La boîte de réception', 'Tout passe par ici : messages de vos cadres, sondages, invitations, décisions à prendre. Les messages qui attendent une réponse sont signalés en rouge.'],
   ['inbox', 'Le temps', 'Le bouton Continuer, en haut à droite, fait avancer d\'une semaine. La flèche à côté permet d\'aller jusqu\'au prochain message important ou jusqu\'à la prochaine élection.'],
@@ -25,6 +26,7 @@ const TUTO: [string, string, string][] = [
   ['campagne', 'Les campagnes', 'Calendrier, alliances, investitures, budget, meetings, parrainages. Avant chaque scrutin, c\'est ici que tout se joue. Entre les deux tours, vous décidez des désistements et des fusions.'],
   ['agora', 'Agora', 'Le réseau social du jeu. Publiez un message, un visuel, une vidéo ou un direct, sur vos thèmes ou en réaction à l\'actualité. Réagir à chaud rapporte plus et expose davantage. Vos abonnés montent avec les publications réussies.'],
   ['equipe', 'Le terrain', 'Votre secteur est découpé en quartiers. Sortez vous-même en porte-à-porte ou en tractage, une fois par semaine. Quand vous prendrez une section, vous dirigerez l\'équipe de militants : missions, formation, matériel, temps forts de campagne.'],
+  ['profil', 'Votre parcours', 'Votre fiche se modifie à tout moment : portrait, biographie, slogan. Choisissez une ambition, les attributs que vous travaillez, et votre équilibre entre métier et politique. C\'est aussi ici que vous vous déclarez candidat à une investiture.'],
   ['medias', 'Les médias', 'Interviews et débats se jouent en répliques : attaquer, esquiver, sortir un chiffre, jouer l\'émotion, contre-attaquer. Le bon choix dépend de la question et des attributs de celui qui parle.'],
   ['inbox', 'À vous de jouer', 'Avancez de quelques semaines, répondez aux messages, et gardez un oeil sur la date de la prochaine élection. Quand votre camp gouverne, l\'écran Mandat ouvre les réformes, le 49.3, le référendum et la dissolution. Le guide complet est dans docs/JOUER.md. Bonne partie.'],
 ];
@@ -38,24 +40,37 @@ const INFO_RES: Record<string, string> = {
   dynamique: 'Élan du moment, de -50 à +50. Suit la tendance des sondages et les résultats. Elle joue sur les adhésions, les dons et le vote.',
 };
 
+// Variation d'une ressource depuis la semaine précédente, affichée à côté de sa valeur.
+const precedent: Record<string, { d: string; v: number; avant: number }> = {};
+function Delta({ k, v, d }: { k: string; v: number; d: string }) {
+  const x = precedent[k]; if (!x) { precedent[k] = { d, v, avant: v }; return null; } if (x.d !== d) { x.avant = x.v; x.v = v; x.d = d; }
+  const dv = Math.round((v - x.avant) * 10) / 10; if (!dv) return null; return <span class={`delta ${dv > 0 ? 'plus' : 'moins'}`}>{dv > 0 ? '+' : ''}{nb(dv)}</span>;
+}
 function BarreHaut() {
   const m = useMagasin(); const b = m.base; const [ouvert, setOuvert] = useState(false); const [n, setN] = useState(4); const r = b.res;
   const bloque = b.aRepondre > 0; const fini = !!b.fin && b.fin.type !== 'fin' || b.fini;
   const go = (k: number, arret: string) => { setOuvert(false); if (m.occupe) return; maj({ occupe: 'Simulation en cours' }); moteur.avancer(k, arret); };
+  const perso = b.mode === 'carriere' && b.moi && !(b.acces ?? []).includes('parti') && b.argent !== null && b.argent !== undefined;
   return <div class="haut">
     <span class="date">{b.date}</span>
     <div class="res">
-      {r && <>
+      {perso && <>
+        <span class="r"><small><Info t="Votre argent personnel. Salaire et indemnités d'élu, moins vos dépenses courantes.">Mon compte</Info></small><b class={b.argent < 0 ? 'danger-t' : ''}>{nb(b.argent)} €<Delta k="argent" v={b.argent} d={b.date} /></b></span>
+        <span class="r"><small><Info t="Ce que les Français connaissent de vous, de 0 à 100.">Notoriété</Info></small><b>{b.moi.notoriete}<Delta k="notoPerso" v={b.moi.notoriete} d={b.date} /></b></span>
+        <span class="r"><small><Info t="Votre forme physique. Elle baisse avec l'activité et remonte au repos.">Forme</Info></small><b class={b.moi.forme < 30 ? 'danger-t' : ''}>{b.moi.forme}</b></span>
+        <span class="r opt1"><small><Info t="Votre moral. Il pèse sur vos prestations.">Moral</Info></small><b>{b.moi.moral}</b></span>
+      </>}
+      {r && !perso && <>
         <span class="r"><small><Info t={INFO_RES.tresorerie}>Trésorerie</Info></small><b class={r.tresorerie < 0 ? 'danger-t' : ''}>{euro(r.tresorerie)}</b></span>
-        <span class="r opt1"><small><Info t={INFO_RES.militants}>Militants</Info></small><b>{nb(r.militants)}</b></span>
-        <span class="r opt2"><small><Info t={INFO_RES.capital}>Capital</Info></small><b>{r.capital}</b></span>
-        <span class="r opt1"><small><Info t={INFO_RES.credibilite}>Crédibilité</Info></small><b>{r.credibilite}</b></span>
-        <span class="r opt2"><small><Info t={INFO_RES.notoriete}>Notoriété</Info></small><b>{r.notoriete}</b></span>
+        <span class="r opt1"><small><Info t={INFO_RES.militants}>Militants</Info></small><b>{nb(r.militants)}<Delta k="militants" v={r.militants} d={b.date} /></b></span>
+        <span class="r opt2"><small><Info t={INFO_RES.capital}>Capital</Info></small><b>{r.capital}<Delta k="capital" v={r.capital} d={b.date} /></b></span>
+        <span class="r opt1"><small><Info t={INFO_RES.credibilite}>Crédibilité</Info></small><b>{r.credibilite}<Delta k="credibilite" v={r.credibilite} d={b.date} /></b></span>
+        <span class="r opt2"><small><Info t={INFO_RES.notoriete}>Notoriété</Info></small><b>{r.notoriete}<Delta k="notoriete" v={r.notoriete} d={b.date} /></b></span>
         <span class="r opt2"><small><Info t={INFO_RES.unite}>Unité</Info></small><b class={r.unite < 30 ? 'danger-t' : ''}>{r.unite}</b></span>
         <span class="r opt1"><small><Info t={INFO_RES.dynamique}>Dynamique</Info></small><b class={r.dynamique > 5 ? 'ok' : r.dynamique < -5 ? 'danger-t' : ''}>{r.dynamique > 0 ? '+' : ''}{r.dynamique}</b></span>
       </>}
-      {b.mode === 'carriere' && b.moi && <span class="r"><small><Info t="Votre poids dans le parti. Il monte avec le militantisme, le réseau et les mandats. Il décide des promotions et des investitures.">Estime</Info></small><b>{b.moi.estime}</b></span>}
-      {b.prochaines[0] && <span class="r"><small>Prochaine échéance</small><b>{b.prochaines[0].nom.replace('Élections ', '').replace('Élection ', '')} {b.prochaines[0].tour2 ? '(2e tour)' : ''} : {b.prochaines[0].dans > 0 ? `${b.prochaines[0].dans} sem.` : 'cette semaine'}</b></span>}
+      {b.mode === 'carriere' && b.moi && <span class="r"><small><Info t="Votre poids dans le parti. Il monte avec le militantisme, le réseau et les mandats. Il décide des promotions et des investitures.">Estime</Info></small><b>{b.moi.estime}<Delta k="estime" v={b.moi.estime} d={b.date} /></b></span>}
+      {b.prochaines[0] && <span class="echeance" title="Prochaine échéance électorale">{b.prochaines[0].nom.replace('Élections ', '').replace('Élection ', '')}{b.prochaines[0].tour2 ? ' (2e tour)' : ''} : {b.prochaines[0].dans > 0 ? `J-${b.prochaines[0].dans * 7}` : 'cette semaine'}</span>}
     </div>
     <button onClick={() => maj({ menuJeu: true })}>Menu</button>
     <span style={{ position: 'relative', display: 'flex' }}>
@@ -123,12 +138,15 @@ function Tutoriel() {
 
 function Jeu() {
   const m = useMagasin(); const b = m.base;
-  const E = m.ecran === 'inbox' ? <Inbox /> : m.ecran === 'carte' ? <EcranCarte /> : m.ecran === 'effectif' ? <Effectif /> : m.ecran === 'parti' ? <EcranParti /> : m.ecran === 'finances' ? <Finances /> : m.ecran === 'doctrine' ? <Doctrine /> : m.ecran === 'campagne' ? <Campagne /> : m.ecran === 'medias' ? <Medias /> : m.ecran === 'mandat' ? <Mandat /> : m.ecran === 'historique' ? <Historique /> : m.ecran === 'agora' ? <Agora /> : m.ecran === 'equipe' ? <Terrain /> : m.ecran === 'pantheon' ? <Pantheon /> : <Inbox />;
+  const E = m.ecran === 'inbox' ? <Inbox /> : m.ecran === 'carte' ? <EcranCarte /> : m.ecran === 'effectif' ? <Effectif /> : m.ecran === 'parti' ? <EcranParti /> : m.ecran === 'finances' ? <Finances /> : m.ecran === 'doctrine' ? <Doctrine /> : m.ecran === 'campagne' ? <Campagne /> : m.ecran === 'medias' ? <Medias /> : m.ecran === 'mandat' ? <Mandat /> : m.ecran === 'historique' ? <Historique /> : m.ecran === 'agora' ? <Agora /> : m.ecran === 'equipe' ? <Terrain /> : m.ecran === 'profil' ? <Profil /> : m.ecran === 'contacts' ? <Carnet /> : m.ecran === 'pantheon' ? <Pantheon /> : <Inbox />;
   const P = b.partis[b.parti]; const sombre = m.theme === 'sombre'; const acces: string[] = b.acces ?? [];
   useEffect(() => { const a = accentParti(P?.couleur ?? '#0066cc', sombre); const st = document.documentElement.style; st.setProperty('--accent', a.accent); st.setProperty('--accent-t', a.texte); st.setProperty('--accent-doux', a.doux); return () => { st.removeProperty('--accent'); st.removeProperty('--accent-t'); st.removeProperty('--accent-doux'); }; }, [P?.couleur, sombre]);
   return <div class="cadre">
     <nav class="menu">
-      <div class="entete"><Logo i={b.parti} taille={38} /><div><b>{P?.nom}</b><small>{b.mode === 'carriere' && b.moi ? b.moi.nom : 'Direction du parti'}</small></div></div>
+      {b.mode === 'carriere' && b.moi && b.portrait ? <a class="entete" style={{ padding: '6px 8px 10px' }} onClick={() => aller('profil')}><Portrait p={b.portrait} taille={42} /><div><b>{b.moi.nom}</b><small>{RANGS[b.moi.rang]}</small></div></a>
+        : <div class="entete"><Logo i={b.parti} taille={38} /><div><b>{P?.nom}</b><small>Direction du parti</small></div></div>}
+      <div class="encart" onClick={() => aller(acces.includes('parti') ? 'parti' : 'agora')}><div class="ligne" style={{ flexWrap: 'nowrap' }}><Logo i={b.parti} taille={30} /><div style={{ minWidth: 0 }}><b>{P?.sigle}</b><small>{b.encart.rang === 1 ? '1er parti' : `${b.encart.rang}e parti`} sur {b.encart.nb}</small></div><span class="espace" /><div class="droite"><b>{String(b.encart.intentions).replace('.', ',')} %</b><small class={b.encart.dynamique > 0 ? 'ok' : b.encart.dynamique < 0 ? 'danger-t' : ''}>{b.encart.dynamique > 0 ? 'en hausse' : b.encart.dynamique < 0 ? 'en baisse' : 'stable'}</small></div></div>
+        <div class="petit-texte doux" style={{ marginTop: '4px' }}>{b.encart.deputes} député{b.encart.deputes > 1 ? 's' : ''}{b.argent !== null && b.argent !== undefined ? `, votre compte : ${nb(b.argent)} €` : ''}</div></div>
       {GROUPES.map(([g, tous]) => { const liste = tous.filter(([k]) => acces.includes(k)); return liste.length === 0 ? null : <>
         <div class="groupe">{g}</div>
         {liste.map(([k, n]) => <a class={m.ecran === k ? 'actif' : ''} onClick={() => { if (b.nouveaux.includes(k)) agir({ type: 'accesVu', ecran: k }, true); aller(k); }}>{n}{b.nouveaux.includes(k) && m.ecran !== k ? <span class="badge">nouveau</span> : null}{k === 'inbox' && b.aRepondre > 0 ? <span class="badge rouge">{b.aRepondre}</span> : k === 'inbox' && b.nonLus > 0 ? <span class="badge">{b.nonLus}</span> : k === 'campagne' && b.entreDeux.length > 0 ? <span class="badge rouge">2e tour</span> : k === 'medias' && (b.debat && !b.debat.fini || b.grandDebat) ? <span class="badge rouge">1</span> : k === 'agora' && b.agora?.aReagir > 0 ? <span class="badge">{b.agora.aReagir}</span> : null}</a>)}

@@ -20,7 +20,7 @@ const plusEstime = (e: Etat, v: number) => { e.joueur.pointsVictoire.estime = cl
 
 // Écrans ouverts au joueur. En mode Carrière, un écran qui n'est pas gagné n'existe pas dans le menu.
 export const ACCES: Record<string, { nom: string; texte: string }> = {
-  inbox: { nom: 'Boîte de réception', texte: '' }, agora: { nom: 'Agora', texte: '' }, equipe: { nom: 'Terrain', texte: '' },
+  inbox: { nom: 'Boîte de réception', texte: '' }, agora: { nom: 'Agora', texte: '' }, equipe: { nom: 'Terrain', texte: '' }, profil: { nom: 'Mon parcours', texte: '' }, contacts: { nom: 'Carnet', texte: '' },
   carte: { nom: 'Carte', texte: 'Vous tenez une section : on vous confie les cartes électorales. Résultats, intentions de vote et implantation, jusqu\'à la commune.' },
   effectif: { nom: 'Effectif', texte: 'Vous avez maintenant accès au fichier des cadres et des élus du parti, avec leurs fiches.' },
   historique: { nom: 'Historique', texte: 'Les archives électorales du parti vous sont ouvertes : tous les scrutins passés et les sondages.' },
@@ -33,9 +33,9 @@ export const ACCES: Record<string, { nom: string; texte: string }> = {
   doctrine: { nom: 'Doctrine', texte: 'Vous pesez sur la ligne : l\'arbre de doctrine et les propositions du parti vous sont ouverts.' },
 };
 export function accesJoueur(e: Etat): string[] {
-  const j = e.joueur; if (j.mode === 'parti') return Object.keys(ACCES); const p = e.persos[j.perso]; const P = e.partis[j.parti]; if (!p) return ['inbox', 'agora', 'equipe'];
+  const j = e.joueur; if (j.mode === 'parti') return Object.keys(ACCES).filter(k => k !== 'profil' && k !== 'contacts'); const p = e.persos[j.perso]; const P = e.partis[j.parti]; if (!p) return ['inbox', 'agora', 'equipe', 'profil', 'contacts'];
   const chef = !!P && P.chef === p.id; const bureau = !!P && Object.values(P.bureau).includes(p.id); const r = chef ? 4 : p.rang; const elu = p.mandats.length > 0;
-  const a = ['inbox', 'agora', 'equipe']; if (r >= 1 || elu) a.push('carte', 'effectif', 'historique', 'pantheon', 'campagne'); if (elu) a.push('mandat');
+  const a = ['inbox', 'agora', 'equipe', 'profil', 'contacts']; if (r >= 1 || elu) a.push('carte', 'effectif', 'historique', 'pantheon', 'campagne'); if (elu) a.push('mandat');
   if (r >= 2) a.push('parti', 'finances'); if (r >= 3 || bureau || (e.debat && !e.debat.fini)) a.push('medias'); if (r >= 3 || bureau) a.push('doctrine');
   return a;
 }
@@ -76,7 +76,7 @@ export function promouvoir(e: Etat, d: Donnees, poste: string): string {
   const a = P.bureau[poste]; if (a >= 0) { e.persos[a].postes = e.persos[a].postes.filter(x => x !== poste); } P.bureau[poste] = p.id; p.postes.push(poste); if (p.rang < 3) p.rang = 3; ajouterHist(e, p, `Entre au bureau national de ${P.sigle} (${LIB_POSTE[poste]})`); return `Vous êtes ${LIB_POSTE[poste]} du parti.`;
 }
 // Demande d'investiture : acceptée d'office si le joueur décide des investitures, sinon selon son estime, son rang et la concurrence.
-export function demanderInvestiture(e: Etat, d: Donnees, rng: Rng, type: Scrutin, place: 'tete' | 'liste'): string {
+export function demanderInvestiture(e: Etat, d: Donnees, rng: Rng, type: Scrutin, place: 'tete' | 'liste', bonus = 0): string {
   const p = e.persos[e.joueur.perso]; const P = e.partis[e.joueur.parti]; if (!P.actif) return 'Vous n\'avez pas de parti.'; const es = estime(e); const dr = droits(e);
   const z = d.zones[p.zone]; let uid = ''; let besoin = 0; let lib = '';
   if (type === 'municipales') { const v = d.villes.find(x => x.zones.includes(p.zone) && x.plm !== 1); if (!v) return 'Votre commune est trop petite pour être simulée : installez-vous dans une ville de plus de 10 000 habitants.'; uid = place === 'tete' ? v.id : 'liste'; besoin = place === 'tete' ? 18 + Math.log10(v.pop) * 6 : 6; lib = place === 'tete' ? `tête de liste à ${v.nom}` : `une place sur la liste à ${v.nom}`; if (place === 'liste') e.investitures.municipales = { ...(e.investitures.municipales ?? {}), [`liste:${P.idx}`]: p.id, [`listeVille:${P.idx}`]: v.idx }; }
@@ -85,7 +85,7 @@ export function demanderInvestiture(e: Etat, d: Donnees, rng: Rng, type: Scrutin
   else if (type === 'regionales') { uid = place === 'tete' ? 'R' + d.depts[p.dept].region : 'liste'; besoin = place === 'tete' ? 70 : 22; lib = place === 'tete' ? 'la tête de liste régionale' : 'une place éligible sur la liste régionale'; }
   else if (type === 'europeennes') { uid = place === 'tete' ? 'EU' : 'liste'; besoin = place === 'tete' ? 90 : 55; lib = place === 'tete' ? 'la tête de liste européenne' : 'une place éligible sur la liste européenne'; }
   else return 'Pas d\'investiture individuelle pour ce scrutin.';
-  const score = es + p.rang * 6 + p.notoriete * 0.3 + rng.gauss() * 5; if (!dr.investitures && !(dr.terrain !== 'tous' && (dr.terrain as number[]).includes(p.dept) && ['municipales', 'departementales'].includes(type)) && score < besoin) { plusEstime(e, -1); return `La commission d'investiture refuse ${lib}. Il vous manque du poids dans le parti (estime ${Math.round(es)}, il en faudrait environ ${Math.round(besoin)}).`; }
+  const score = es + p.rang * 6 + p.notoriete * 0.3 + rng.gauss() * 5 + bonus; if (!dr.investitures && !(dr.terrain !== 'tous' && (dr.terrain as number[]).includes(p.dept) && ['municipales', 'departementales'].includes(type)) && score < besoin) { plusEstime(e, -1); return `La commission d'investiture refuse ${lib}. Il vous manque du poids dans le parti (estime ${Math.round(es)}, il en faudrait environ ${Math.round(besoin)}).`; }
   e.investitures[type] = { ...(e.investitures[type] ?? {}), [`${uid}:${P.idx}`]: p.id }; ajouterHist(e, p, `Investi par ${P.sigle} pour ${lib}`); return `Vous obtenez l'investiture pour ${lib}.`;
 }
 export function quitterParti(e: Etat, d: Donnees): string { const p = e.persos[e.joueur.perso]; const P = e.partis[e.joueur.parti]; liberer(e, p); p.parti = -1; e.joueur.aQuitte = e.semaine; e.joueur.pointsVictoire.estime = 0; e.joueur.trahisons++; ajouterHist(e, p, `Quitte ${P.sigle}`); for (const s of e.assemblee) if (s.perso === p.id) s.parti = -1; return `Vous quittez ${P.nom}. Vous gardez vos mandats, sans étiquette. Il faudra rebondir vite.`; }

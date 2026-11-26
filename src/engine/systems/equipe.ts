@@ -167,6 +167,12 @@ function cloreCampagne(e: Etat, d: Donnees, rng: Rng, ctx: Ctx, g: Equipe) {
 }
 
 // ---------- Mini-jeux ----------
+// Prise de parole en réunion publique : trois moments, trois façons de s'y prendre à chaque fois.
+const REUNION: { t: string; options: { t: string; attr: number; dif: number; fond: number }[] }[] = [
+  { t: 'La salle se remplit. Comment ouvrez-vous ?', options: [{ t: 'Par une anecdote du quartier', attr: 18, dif: 0, fond: 1 }, { t: 'Par un chiffre qui frappe', attr: 5, dif: 0.05, fond: 0 }, { t: 'En attaquant d\'entrée le bilan des sortants', attr: 0, dif: 0.15, fond: -1 }] },
+  { t: 'Au fond, un homme se lève et vous coupe : « Vous dites tous la même chose avant les élections. »', options: [{ t: 'Lui répondre sur le fond, point par point', attr: 1, dif: 0.05, fond: 0 }, { t: 'Lui donner raison, puis dire ce que vous ferez différemment', attr: 11, dif: 0, fond: 1 }, { t: 'Mettre les rieurs de votre côté', attr: 0, dif: 0.2, fond: -1 }] },
+  { t: 'Il reste deux minutes. Comment concluez-vous ?', options: [{ t: 'En demandant à chacun de venir militer samedi', attr: 18, dif: 0.1, fond: 0 }, { t: 'Par un engagement précis pour le quartier', attr: 5, dif: 0.05, fond: 1 }, { t: 'Par des remerciements sobres', attr: 12, dif: -0.1, fond: 0 }] },
+];
 function themeFort(d: Donnees, seg: number, rng: Rng, fiable: boolean): number { const pr = d.segments[seg].priorites; if (!fiable) return rng.int(0, pr.length - 1); let m = 0; pr.forEach((v, i) => { if (v > pr[m]) m = i; }); return m; }
 const accord = (d: Donnees, P: Parti, seg: number, theme: number) => { const ax = d.themes[theme]?.axes ?? []; if (!ax.length) return 0; let s = 0; for (const a of ax) s += Math.sign(P.axes[a] * d.segments[seg].axes[a]) * Math.min(1, Math.abs(d.segments[seg].axes[a]) / 2); return s / ax.length; };
 export function demarrerJeu(e: Etat, d: Donnees, rng: Rng, type: string, quartier: number): string {
@@ -181,6 +187,7 @@ export function demarrerJeu(e: Etat, d: Donnees, rng: Rng, type: string, quartie
     const spots = lieux.map(([nom, base]) => { const id = rng.pick(q.segs); const seg = d.segments.findIndex(s => s.id === id); const aff = clamp(base + rng.int(-1, 1), 1, 5); let dist = 0; for (let a = 0; a < P.axes.length; a++) dist += (P.axes[a] - d.segments[seg].axes[a]) ** 2; return { nom, affluence: aff, public: d.segments[seg].nom, valeur: aff * (0.6 + clamp(1 - dist / 70, -0.5, 1) * 0.6) * (0.85 + rng.next() * 0.3), choisi: false }; });
     g.jeu = { type, quartier: qi, spots, restants: 3, score: 0, fini: false }; g.jeux[type] = true; return '';
   }
+  if (type === 'reunion') { g.jeu = { type, quartier: qi, i: 0, score: 0, journal: [], question: REUNION[0], fini: false }; g.jeux[type] = true; return ''; }
   return 'Jeu inconnu.';
 }
 export function jouer(e: Etat, d: Donnees, rng: Rng, a: any): string {
@@ -191,6 +198,14 @@ export function jouer(e: Etat, d: Donnees, rng: Rng, a: any): string {
     else { const pr = d.segments[p.seg].priorites[choix] ?? 0; const ac = accord(d, P, p.seg, choix); if (ac < -0.25) { pts = -1; t = `Mauvais terrain : sur « ${d.themes[choix].nom} », il pense l'inverse de vous. La porte se referme.`; } else if (pr >= 4 && ac > 0.2) { pts = 3; t = `En plein dans le mille. « ${d.themes[choix].nom} », c'est son sujet, et vous êtes d'accord. Il veut être rappelé.`; } else if (pr >= 3) { pts = 2; t = 'Le sujet l\'intéresse. La discussion dure, il garde le tract.'; } else { pts = 0; t = 'Ce n\'est pas son sujet. Il hoche la tête et attend que vous partiez.'; } }
     p.fait = choix; p.resultat = t; J.score += pts; J.i++;
     if (J.i >= J.portes.length) finJeu(e, g, q, J.score / 15, moi, nP, P, 'porte');
+    return t;
+  }
+  if (J.type === 'reunion') {
+    const Q0 = REUNION[J.i]; if (!Q0) return ''; const o = Q0.options[clamp(+a.choix, 0, 2)]; const orateur = moi ?? e.persos[P.chef]; const niv = orateur ? orateur.attrs[o.attr] : 10;
+    // Le fond compte plus dans un quartier difficile, l'attaque passe mieux en terrain favorable.
+    const pr = clamp(0.45 + (niv - 10) * 0.05 - o.dif + o.fond * (q.accueil < 0 ? 0.08 : -0.02) + (o.fond < 0 && q.accueil > 0.2 ? 0.1 : 0), 0.1, 0.92); const reussi = rng.chance(pr); const pts = reussi ? 2 + o.dif * 6 : -1;
+    J.score += pts; const t = reussi ? (J.i === 1 ? 'La salle applaudit. Le contradicteur se rassoit.' : 'Ça prend. On vous écoute.') : (J.i === 1 ? 'Des murmures. Vous avez perdu une partie de la salle.' : 'Un flottement. Ce n\'était pas le bon registre ici.');
+    J.journal.push(t); J.i++; J.question = REUNION[J.i] ?? null; if (J.i >= REUNION.length) { finJeu(e, g, q, J.score / 8, moi, nP, P, 'reunion'); if (J.score >= 5 && g.candidats.length < 4) g.candidats.push(nouveauMilitant(e, d, rng, g, 8)); }
     return t;
   }
   if (J.type === 'tractage') {
@@ -204,7 +219,7 @@ function finJeu(e: Etat, g: Equipe, q: Quartier, ratio: number, moi: any, nP: nu
   const r = clamp(ratio, -0.3, 1); q.ancrage = clamp(q.ancrage + 4 * r, 0, 100); q.contacts += Math.round(12 * Math.max(0, r)); const i = g.zone * nP + P.idx; e.impl[i] = clamp(e.impl[i] + 0.004 * r * q.poids * 5, -2, 2); if (g.campagne) e.mob[i] = clamp(e.mob[i] + 0.01 * r, 0, 1.2);
   if (moi) { e.joueur.pointsVictoire.estime = clamp((e.joueur.pointsVictoire.estime ?? 0) + 1.2 * Math.max(0, r), 0, 100); moi.forme = clamp(moi.forme - 4, 0, 100); }
   for (const m of g.membres) if (m.quartier === g.quartiers.indexOf(q)) m.motiv = clamp(m.motiv + 3 * r, 0, 100);
-  g.jeu.fini = true; g.jeu.bilan = r >= 0.75 ? 'Excellente sortie. On reparlera de vous dans le quartier.' : r >= 0.4 ? 'Bonne sortie. Quelques contacts à rappeler.' : r >= 0.1 ? 'Sortie moyenne.' : 'Sortie ratée. Le quartier n\'était pas d\'humeur.'; note(g, `${type === 'porte' ? 'Porte-à-porte' : 'Tractage'} à ${q.nom} : ${g.jeu.bilan}`);
+  g.jeu.fini = true; g.jeu.bilan = r >= 0.75 ? 'Excellente sortie. On reparlera de vous dans le quartier.' : r >= 0.4 ? 'Bonne sortie. Quelques contacts à rappeler.' : r >= 0.1 ? 'Sortie moyenne.' : 'Sortie ratée. Le quartier n\'était pas d\'humeur.'; note(g, `${type === 'porte' ? 'Porte-à-porte' : type === 'reunion' ? 'Réunion publique' : 'Tractage'} à ${q.nom} : ${g.jeu.bilan}`);
 }
 // Dépouillement : le joueur annonce quand il veut. Tôt et juste, c'est payant. Tôt et faux, c'est une gaffe.
 export function annoncer(e: Etat, d: Donnees, rng: Rng, vus: number, enTete: boolean): string {
