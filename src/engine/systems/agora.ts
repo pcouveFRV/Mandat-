@@ -46,6 +46,66 @@ const villeDe = (d: Donnees, rng: Rng, p: Perso | null) => { const z = p ? d.zon
 const remplir = (t: string, sujet: string, ville: string) => { const s = t.replace(/\{sujet\}/g, sujet).replace(/\{ville\}/g, ville); return s.charAt(0).toUpperCase() + s.slice(1); };
 const minuscule = (s: string) => s;
 
+// ---------- Rédaction ----------
+// Une publication dit quelque chose de précis : le fait (l'événement et sa description, ou un chiffre du moment),
+// la position du parti (tirée des choix de l'événement ou de sa ligne sur le thème) et, si elle existe, une mesure de son programme.
+const bas = (s: string) => s.charAt(0).toLowerCase() + s.slice(1);
+// Ce que veut faire un parti sur chaque axe, selon son pôle (moins, plus). Formules à l'infinitif.
+const CAPS: Record<string, [string, string]> = {
+  economie: ['bloquer les prix des produits de base et mieux partager les richesses', 'baisser les impôts et libérer ceux qui travaillent'],
+  immigration: ['ouvrir des voies légales et régulariser ceux qui travaillent', 'réduire les flux et faire appliquer les expulsions'],
+  europe: ['reprendre la main sur nos lois et nos frontières', 'avancer vers une Europe plus intégrée'],
+  securite: ['miser sur la prévention et protéger les libertés', 'rétablir l\'ordre et la fermeté des peines'],
+  ecologie: ['produire d\'abord, sans normes qui étouffent', 'accélérer la transition écologique'],
+  societe: ['défendre nos repères et nos traditions', 'ouvrir de nouveaux droits'],
+  institutions: ['garder un exécutif fort et stable', 'passer à une nouvelle République, avec plus de démocratie directe'],
+  social: ['réduire la dépense et responsabiliser chacun', 'étendre la protection sociale'],
+  etranger: ['garder une voix indépendante, sans alignement', 'tenir nos alliances et soutenir l\'Ukraine'],
+  decentralisation: ['garder un État fort qui décide', 'donner le pouvoir aux territoires'],
+};
+const sansPoint = (s: string) => s.replace(/[.\s]+$/, '');
+function matiere(e: Etat, d: Donnees, rng: Rng, P: Parti, sujet: string, axe: number): { titre: string; fait: string; position: string; mesure: string; chiffre: string; evenement: boolean } {
+  const g = agoraDe(e, d); const ev = d.evenements.find(x => x.id === g.sources?.[sujet]); let position = '', ax = axe;
+  if (ev) { let m = -99; for (const c of ev.choix) { const i = c.axe ? d.axes.findIndex(x => x.id === c.axe) : -1; const s = i >= 0 ? (c.sens ?? 0) * P.axes[i] : 0.5; if (s > m) { m = s; position = bas(sansPoint(c.t)); if (i >= 0) ax = i; } } }
+  const A0 = ax >= 0 ? d.axes[ax] : null; const cap = A0 && CAPS[A0.id] ? CAPS[A0.id][P.axes[ax] >= 0 ? 1 : 0] : '';
+  const props = A0 ? d.propositions.filter(p => P.propositions.includes(p.id) && p.axe === A0.id) : []; const mesure = props.length ? bas(props[rng.int(0, props.length - 1)].nom) : '';
+  const pct = (x: number) => String(Math.round(x * 10) / 10).replace('.', ','); const eco = A0 && (A0.id === 'economie' || A0.id === 'social');
+  const chiffres = eco ? [`Chômage à ${pct(e.eco.chomage)} %.`, `Croissance à ${pct(e.eco.croissance)} %.`, `Inflation à ${pct(e.eco.inflation)} %.`] : e.presidence.perso >= 0 ? [`${Math.round(e.presidence.popularite)} % de Français seulement font confiance à l'exécutif.`] : ['Les Français attendent des réponses.'];
+  return { titre: sansPoint(sujet), fait: ev ? ev.texte : '', position: position || cap || 'proposer autre chose', mesure, chiffre: rng.pick(chiffres), evenement: !!ev };
+}
+export function rediger(e: Etat, d: Donnees, rng: Rng, P: Parti, ville: string, ton: string, sujet: string, axe: number): string {
+  const m = matiere(e, d, rng, P, sujet, axe); const mes = m.mesure ? ` Notre mesure : ${m.mesure}.` : ''; const pos = m.position; let v: string[];
+  if (m.evenement) v = ({
+    pedagogue: [`${m.titre}. ${m.fait} Notre position est simple : ${pos}.${mes}`, `${m.fait} Sur ce dossier, ${P.sigle} propose de ${pos.startsWith('a') || pos.startsWith('é') ? 'prendre ses responsabilités : ' : ''}${pos}.${mes}`, `${m.titre} : au-delà de l'émotion, que faire ? ${pos.charAt(0).toUpperCase() + pos.slice(1)}. C'est ce que nous défendons.`],
+    offensif: [`${m.titre}. ${m.fait} Le gouvernement savait et n'a rien fait. Il faut ${pos}, maintenant.`, `${m.fait} Combien d'alertes faudra-t-il encore ? Notre réponse : ${pos}.`, `${m.titre} : la facture de leurs renoncements. Nous, nous disons : ${pos}.${mes}`],
+    humour: [`${m.titre}. Le gouvernement découvre le sujet, comme chaque année à la même date. Notre réponse tient en une ligne : ${pos}.`, `${m.fait} Promis, cette fois ils vont créer une commission. Nous, on propose plutôt : ${pos}.`],
+    emotion: [`${m.fait} À ${ville}, on m'en a parlé ce matin, avec de la colère et de la fatigue. Notre choix : ${pos}.`, `${m.titre}. Derrière ce titre il y a des familles, à ${ville} comme ailleurs. Nous leur devons une réponse : ${pos}.`],
+    coulisses: [`Réunion de bureau ce soir, un seul point à l'ordre du jour : ${bas(m.titre)}. La ligne est arrêtée : ${pos}.`, `Dans les coulisses : deux heures de débat sur un sujet, ${bas(m.titre)}. On en sort avec une position : ${pos}.`],
+  } as Record<string, string[]>)[ton] ?? [];
+  else v = ({
+    pedagogue: [`${m.titre} : ${m.chiffre} Ce que nous proposons : ${pos}.${mes}`, `On nous demande notre ligne sur ce thème, ${bas(m.titre)}. La voici : ${pos}.${mes}`, `${m.chiffre} Derrière ce chiffre, un choix politique. Le nôtre : ${pos}.${mes}`],
+    offensif: [`${m.chiffre} Et le gouvernement regarde ailleurs. ${m.titre} : il est temps de ${pos}.`, `${m.titre}. Des années de discours, aucun résultat. ${m.chiffre} Nous voulons ${pos}.${mes}`, `${m.chiffre} Voilà leur bilan. Voilà pourquoi il faut ${pos}.`],
+    humour: [`${m.chiffre} Mais rassurez-vous, tout est sous contrôle. ${m.titre} : notre idée un peu folle, ${pos}.`, `${m.titre}. Le plan du gouvernement tient sur un ticket de caisse. Le nôtre : ${pos}.${mes}`],
+    emotion: [`À ${ville} ce matin, on m'a parlé de ce sujet : ${bas(m.titre)}. Pas de chiffres, des vies. C'est pour eux qu'il faut ${pos}.`, `${m.titre}. Une retraitée de ${ville} m'a dit : « on ne demande pas la lune ». Elle a raison. Il faut ${pos}.${mes}`],
+    coulisses: [`Soirée de travail avec les militants de ${ville}. Thème : ${bas(m.titre)}. On repart avec une feuille de route : ${pos}.`, `Dans les coulisses du bureau national. Au programme : ${bas(m.titre)}.${mes || ` Notre cap : ${pos}.`}`],
+  } as Record<string, string[]>)[ton] ?? [];
+  const t = v.length ? v[rng.int(0, v.length - 1)] : `${m.titre}. ${pos.charAt(0).toUpperCase() + pos.slice(1)}.`;
+  return t.replace(/\s+/g, ' ').trim().slice(0, 280);
+}
+// Trois brouillons pour le joueur, un par ton. Tirage propre : demander des brouillons ne change pas la partie.
+export function brouillons(e: Etat, d: Donnees, cible: string, n: number): { ton: string; texte: string }[] {
+  const g = agoraDe(e, d); const P = e.partis[e.joueur.parti]; const [type, val] = String(cible).split(':'); let sujet = '', axe = -1;
+  if (type === 'reaction') { const r = g.reactions.find(x => x.id === +val); if (r) { sujet = r.titre; axe = r.axe; } } else if (type === 'tendance') { const t = g.tendances[+val]; if (t) { sujet = t.sujet; axe = t.axe; } }
+  if (!sujet) { axe = clamp(+val || 0, 0, d.axes.length - 1); sujet = d.axes[axe].nom; }
+  const rng = new Rng((e.graine ^ Math.imul(e.semaine + 1, 2654435761) ^ Math.imul(n + 1, 40503)) >>> 0); const moi = e.joueur.mode === 'carriere' ? e.persos[e.joueur.perso] : null;
+  return ['pedagogue', 'offensif', 'emotion'].map(ton => ({ ton, texte: rediger(e, d, rng, P, villeDe(d, rng, moi), ton, sujet, axe) }));
+}
+const COMMENTAIRES: Record<string, string[]> = {
+  buzz: ['Enfin quelqu\'un qui le dit clairement.', 'Partagé. Tout le monde devrait lire ça.', 'Je ne vote pas pour vous d\'habitude, mais là, respect.', 'On en reparle dans six mois, quand il faudra passer aux actes ?'],
+  normal: ['D\'accord sur le constat. Et concrètement, vous faites quoi ?', 'Merci d\'en parler, on se sent moins seuls.', 'Facile à dire dans l\'opposition.', 'Vous étiez où quand c\'était le moment de voter contre ?', 'Venez le dire chez nous, on vous attend.'],
+  polemique: ['Supprimez ça avant que ça empire.', 'Capture d\'écran faite. Internet n\'oublie pas.', 'Vous vous relisez avant de publier ?', 'Même vos soutiens sont gênés, là.'],
+};
+
 export interface DemandePost { format: string; ton: string; sujet: string; axe: number; texte?: string; reaction?: number; force?: number }
 // Publie un message. auteur null : compte officiel du parti (qualité de l'équipe numérique).
 export function publierAgora(e: Etat, d: Donnees, rng: Rng, P: Parti, auteur: Perso | null, q: DemandePost, moi = false): Post {
@@ -64,8 +124,9 @@ export function publierAgora(e: Etat, d: Donnees, rng: Rng, P: Parti, auteur: Pe
   const tauxLike = rate ? 0.008 : 0.025 + 0.02 * clamp(x, 0, 2); const likes = Math.round(vues * tauxLike); const partages = Math.round(vues * (rate ? 0.03 : 0.004 + 0.006 * T.viral * clamp(x, 0, 2.5))); const comm = Math.round(vues * (rate ? 0.02 : 0.003 * T.risque + 0.002));
   const ville = villeDe(d, rng, auteur); const sujetTxt = minuscule(q.sujet);
   // Aucun propos inventé pour une personne réelle : description neutre de la publication.
-  const texte = q.texte && moi ? q.texte.slice(0, 280) : auteur?.reel ? `Publie ${NOMS_FORMAT[q.format] ?? 'un message'} sur le thème : ${sujetTxt}. Ton : ${T.nom.toLowerCase()}.` : remplir(rng.pick(GABARITS[q.ton] ?? GABARITS.pedagogue), sujetTxt, ville);
+  const texte = q.texte && moi ? q.texte.slice(0, 280) : auteur?.reel ? `Publie ${NOMS_FORMAT[q.format] ?? 'un message'} sur le thème : ${sujetTxt}. Ton : ${T.nom.toLowerCase()}.` : rediger(e, d, rng, P, ville, q.ton, q.sujet, q.axe);
   const post: Post = { id: g.prochain++, s: e.semaine, perso: auteur ? auteur.id : -1, parti: P.idx, compte: auteur ? nomComplet(auteur) : P.nom, genre: auteur ? 'elu' : 'parti', format: q.format, ton: q.ton, sujet: q.sujet, texte, vues, likes, partages, comm, etat: rate ? 'polemique' : buzz ? 'buzz' : '', moi };
+  if (moi) { const pool = COMMENTAIRES[rate ? 'polemique' : buzz ? 'buzz' : 'normal']; const deja: number[] = []; post.commentaires = [0, 1, 2].map(() => { let k = rng.int(0, pool.length - 1); while (deja.includes(k)) k = (k + 1) % pool.length; deja.push(k); const sexe = rng.chance(0.5) ? 'F' : 'M'; const gen = d.noms.prenoms[sexe]; const l = gen[rng.int(0, gen.length - 1)]; return { qui: `${l[rng.int(0, l.length - 1)]}_${String(rng.int(1, 95)).padStart(2, '0')}`, t: pool[k] }; }); }
   g.posts.push(post); if (g.posts.length > 90) g.posts.splice(0, g.posts.length - 90);
   // Effets. Le poids dépend de l'audience réelle et du rang de celui qui parle.
   const poids = (auteur ? Math.min(1, 0.25 + 0.2 * auteur.rang) : 1) * usure; const portee = clamp(Math.log10(Math.max(10, vues)) / 6, 0.15, 1.25) * poids;
@@ -87,8 +148,8 @@ export function publierAgora(e: Etat, d: Donnees, rng: Rng, P: Parti, auteur: Pe
 }
 
 // Appelé quand un événement national tombe : ouvre une tendance et une fenêtre de réaction pour le joueur.
-export function signalerEvenement(e: Etat, d: Donnees, titre: string, axe: number, duree: number, episode = 0) {
-  const g = agoraDe(e, d); (g.suivis ??= []).push({ titre, axe, s: e.semaine, episode }); if (g.suivis.length > 12) g.suivis.shift(); g.tendances.unshift({ sujet: titre, axe, force: 1, fin: e.semaine + clamp(duree, 2, 5) }); if (g.tendances.length > 6) g.tendances.length = 6;
+export function signalerEvenement(e: Etat, d: Donnees, titre: string, axe: number, duree: number, episode = 0, ev = '') {
+  const g = agoraDe(e, d); if (ev) { (g.sources ??= {})[titre] = ev; const cles = Object.keys(g.sources); if (cles.length > 30) delete g.sources[cles[0]]; } (g.suivis ??= []).push({ titre, axe, s: e.semaine, episode }); if (g.suivis.length > 12) g.suivis.shift(); g.tendances.unshift({ sujet: titre, axe, force: 1, fin: e.semaine + clamp(duree, 2, 5) }); if (g.tendances.length > 6) g.tendances.length = 6;
   g.reactions.push({ id: g.prochain++, titre, axe, s: e.semaine, expire: e.semaine + 1 }); if (g.reactions.length > 5) g.reactions.shift();
 }
 
@@ -105,7 +166,7 @@ export function tourAgora(e: Etat, d: Donnees, rng: Rng, ctx: Ctx) {
     if (age === 1 && !sv.lendemain) { sv.lendemain = true; const riv = e.partis.filter(P => P.actif && P.idx !== PJ.idx).sort((a, b) => b.notoriete - a.notoriete).slice(0, 6); const deux = [riv[rng.int(0, Math.min(2, riv.length - 1))], riv[rng.int(Math.min(3, riv.length - 1), riv.length - 1)]].filter(Boolean);
       if (actif && (sv.ton || poidsJ >= 0.6)) message(e, ctx, 'actu', `Le lendemain : ${sv.titre}`, `La presse reprend l'affaire ce matin. ${deux.map(P => `${P.nom} ${rng.pick(POSTURES)}`).join('. ')}.\n\n${sv.ton ? `Votre réaction ${sv.chaud ? 'à chaud ' : ''}(ton ${TONS[sv.ton]?.nom.toLowerCase() ?? sv.ton}) est citée parmi les premières.` : 'Votre camp ne s\'est pas encore exprimé. La fenêtre pour réagir sur Agora se referme cette semaine.'}`, false);
       // Un fil qui dure : certains événements ont une suite, qui rouvre une tendance et une fenêtre de réaction.
-      if (sv.episode < 2 && rng.chance(sv.episode === 0 ? 0.35 : 0.25)) { const base = sv.titre.split(' : ')[0]; const t = rng.pick(SUITES).replace('{t}', base); g.suites = [...(g.suites ?? []), { titre: t, axe: sv.axe, s: e.semaine + rng.int(1, 2), episode: sv.episode + 1 }]; } }
+      if (sv.episode < 2 && rng.chance(sv.episode === 0 ? 0.35 : 0.25)) { const base = sv.titre.split(' : ')[0]; const t = rng.pick(SUITES).replace('{t}', base); if (g.sources?.[sv.titre]) g.sources[t] = g.sources[sv.titre]; g.suites = [...(g.suites ?? []), { titre: t, axe: sv.axe, s: e.semaine + rng.int(1, 2), episode: sv.episode + 1 }]; } }
     if (age >= 4) { g.suivis = (g.suivis ?? []).filter(k => k !== sv); if (!sv.ton && poidsJ < 0.6) continue; const tirage = rng.next(); const issue = tirage < 0.55 ? 'confirme' : tirage < 0.75 ? 'retourne' : 'oublie'; let t = '', dc = 0;
       if (issue === 'oublie') t = 'Un mois plus tard, plus personne n\'en parle. Ni gagnant ni perdant.';
       else if (!sv.ton) { if (issue === 'confirme') { dc = -0.4; t = 'Les faits ont donné raison à ceux qui avaient parlé. On note que votre camp s\'était tu.'; } else { dc = 0.3; t = 'L\'histoire s\'est retournée contre ceux qui avaient réagi trop vite. Votre silence passe pour de la prudence.'; } }

@@ -7,7 +7,7 @@ import * as stockage from './stockage';
 import { useMagasin, maj, lireMagasin, toast, aller, agir, euro, nb, Info, Parti, Logo, accentParti } from './composants';
 import { Agora } from './agora';
 import { Terrain } from './terrain';
-import { lireConfig, ecrireConfig, tester } from './assistant';
+import { lireConfig, ecrireConfig, tester, chargerLocal, localCharge, modeleLocal } from './assistant';
 import { Accueil } from './accueil';
 import { Inbox, FichePerso, Effectif, EcranParti } from './ecrans1';
 import { Finances, Doctrine, Medias, Historique } from './ecrans2';
@@ -75,15 +75,19 @@ function BarreHaut() {
   </div>;
 }
 
-// Réglage de l'assistant d'écriture : adresse du serveur de modèle, nom du modèle, jeton.
+// Réglage de l'assistant d'écriture : aucun, local dans le navigateur, ou serveur de modèle.
 function ReglageAssistant() {
-  const [c, setC] = useState(lireConfig()); const [etatT, setEtatT] = useState('');
-  const chg = (k: string, v: string) => { const n = { ...c, [k]: v }; setC(n); ecrireConfig(n); };
+  const [c, setC] = useState(lireConfig()); const [etatT, setEtatT] = useState(localCharge() ? `Assistant local chargé (${modeleLocal}).` : ''); const [charge, setCharge] = useState(false);
+  const chg = (k: string, v: string) => { const n = { ...c, [k]: v } as any; setC(n); ecrireConfig(n); };
+  const activer = async () => { setCharge(true); try { const m = await chargerLocal(t => setEtatT(t)); setEtatT(`Assistant local prêt (${m}).`); } catch (err: any) { setEtatT('Échec : ' + (err?.message ?? 'erreur') + ' Le jeu continue avec ses propres textes.'); } setCharge(false); };
   return <div style={{ marginTop: '14px' }}><h3>Assistant d'écriture (facultatif)</h3>
-    <p class="doux petit-texte">Branchez un serveur de modèle compatible avec l'API OpenAI (par exemple Ollama) pour obtenir des propositions de publications sur mesure et discuter librement avec vos militants. Sans lui, le jeu utilise ses propres textes. Voir le dossier serveur/ du dépôt.</p>
-    <div class="grille" style={{ gap: '6px' }}><input type="text" aria-label="Adresse du serveur" placeholder="Adresse du serveur, par exemple https://ia.mondomaine.fr" value={c.url} onInput={(ev: any) => chg('url', ev.target.value.trim())} />
+    <p class="doux petit-texte">Il rédige des propositions de publications et fait parler vos militants. Il n'a aucun effet sur les règles : sans lui, le jeu utilise ses propres textes.</p>
+    <div class="ligne">{[['aucun', 'Textes du jeu'], ['local', 'Petit modèle dans le navigateur'], ['serveur', 'Serveur de modèle']].map(([k, n]) => <label><input type="radio" name="assistant" checked={c.mode === k} onChange={() => chg('mode', k)} /> {n}</label>)}</div>
+    {c.mode === 'local' && <div style={{ marginTop: '6px' }}><p class="doux petit-texte">Gratuit et sans serveur : un petit modèle ouvert tourne sur votre machine. Premier lancement : téléchargement unique d'environ 1 Go, gardé ensuite en cache. Demande un navigateur avec WebGPU (Chrome ou Edge récents sur ordinateur) et ne fonctionne pas sur la page publiée sur claude.ai. À recharger à chaque ouverture du jeu.</p>
+      <button class="principal" disabled={charge || localCharge()} onClick={activer}>{localCharge() ? 'Assistant local chargé' : charge ? 'Chargement...' : 'Activer l\'assistant local'}</button> {localCharge() && <button onClick={async () => { try { setEtatT('Réponse : ' + await tester()); } catch (err: any) { setEtatT('Échec : ' + (err?.message ?? 'erreur')); } }}>Tester</button>}</div>}
+    {c.mode === 'serveur' && <div class="grille" style={{ gap: '6px', marginTop: '6px' }}><input type="text" aria-label="Adresse du serveur" placeholder="Adresse du serveur, par exemple https://ia.mondomaine.fr" value={c.url} onInput={(ev: any) => chg('url', ev.target.value.trim())} />
       <div class="ligne"><input type="text" aria-label="Modèle" style={{ flex: 1 }} placeholder="Nom du modèle" value={c.modele} onInput={(ev: any) => chg('modele', ev.target.value.trim())} /><input type="text" aria-label="Jeton" style={{ flex: 1 }} placeholder="Jeton d'accès" value={c.cle} onInput={(ev: any) => chg('cle', ev.target.value.trim())} />
-        <button disabled={!c.url || !c.modele} onClick={async () => { setEtatT('Test en cours...'); try { setEtatT('Réponse : ' + await tester()); } catch (err: any) { setEtatT('Échec : ' + (err?.message ?? 'erreur')); } }}>Tester</button></div></div>
+        <button disabled={!c.url || !c.modele} onClick={async () => { setEtatT('Test en cours...'); try { setEtatT('Réponse : ' + await tester()); } catch (err: any) { setEtatT('Échec : ' + (err?.message ?? 'erreur')); } }}>Tester</button></div></div>}
     {etatT && <p class="petit-texte" style={{ marginTop: '6px' }}>{etatT}</p>}
   </div>;
 }

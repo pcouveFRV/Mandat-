@@ -6,6 +6,17 @@ Ce fichier permet de reprendre le travail à partir du dépôt seul.
 
 Version V4 en cours. La V3 est livrée. Il reste une action côté GitHub pour la mise en ligne (voir « À faire par le propriétaire du dépôt »).
 
+## V5.2 : plan validé par Pierre et état
+
+Le jeu est en ligne sur https://pcouvefrv.github.io/Mandat-/ (dépôt public, déploiement à chaque push).
+
+1. Textes concrets sur Agora, brouillons, commentaires. Fait.
+2. Petite IA dans le navigateur (WebLLM). Code fait, repli testé. Jamais chargée avec un vrai modèle : à tester par Pierre sur le site en ligne (Menu > Assistant d'écriture > Petit modèle dans le navigateur).
+3. Personnage modifiable : portrait à composer, biographie, plan d'entraînement, vie hors politique, réputation, journal de carrière, objectifs personnels. À faire.
+4. Investitures en parcours complet : se déclarer, dossier de soutiens, campagne interne, oral devant la commission, verdict, dissidence. À faire.
+5. Carnet de contacts, suivi de personnages, discussion étendue aux cadres générés et aux journalistes. À faire.
+6. Reports : mini-jeux de négociation, de prise de parole et de question au gouvernement, scissions, budgets des collectivités. À faire.
+
 ## V5 : plan validé par Pierre et état
 
 Idée directrice : le jeu devient d'abord une carrière. On commence simple militant et le jeu s'ouvre à mesure qu'on monte.

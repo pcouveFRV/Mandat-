@@ -2,6 +2,7 @@
 import { useState } from 'preact/hooks';
 import { useMagasin, useVue, agir, nb, Parti, Logo, Avatar, Bloc, Courbes, couleurParti, ouvrirFiche, toast } from './composants';
 import { proposer, nomTon, assistantActif, Proposition } from './assistant';
+import * as moteur from './moteur';
 
 const court = (x: number) => x >= 1e6 ? `${(x / 1e6).toFixed(1).replace('.', ',')} M` : x >= 10000 ? `${Math.round(x / 1000)} k` : nb(x);
 const il_y_a = (s: number, maintenant: number) => { const k = maintenant - s; return k <= 0 ? 'cette semaine' : k === 1 ? 'la semaine dernière' : `il y a ${k} semaines`; };
@@ -17,18 +18,19 @@ function Publication({ p, semaine }: { p: any; semaine: number }) {
     </div>
     <div class="corps">{p.texte}</div>
     {(p.format === 'image' || p.format === 'video' || p.format === 'direct') && p.genre !== 'citoyen' && <div class={`visuel ${p.format === 'video' ? 'video' : ''}`} style={{ background: `linear-gradient(135deg, ${c}, #1d1d1f)` }}>{p.format === 'direct' ? 'EN DIRECT' : p.format === 'video' ? '' : p.sujet}</div>}
+    {p.commentaires && <div style={{ marginTop: '8px', borderTop: '1px solid var(--bord)', paddingTop: '6px' }}>{p.commentaires.map((c: any) => <div class="petit-texte" style={{ padding: '2px 0' }}><b>{c.qui}</b> <span class="doux">{c.t}</span></div>)}</div>}
     <div class="pied"><span><b>{court(p.vues)}</b> vues</span><span><b>{court(p.likes)}</b> j'aime</span><span><b>{court(p.partages)}</b> partages</span><span><b>{court(p.comm)}</b> commentaires</span></div>
   </div>;
 }
 
 export function Agora() {
   const m = useMagasin(); const b = m.base; const v = useVue('agora');
-  const [format, setFormat] = useState('texte'); const [ton, setTon] = useState('pedagogue'); const [cible, setCible] = useState(''); const [texte, setTexte] = useState(''); const [voix, setVoix] = useState(-1); const [filtre, setFiltre] = useState('tout'); const [props, setProps] = useState<Proposition[]>([]); const [attente, setAttente] = useState(false);
+  const [format, setFormat] = useState('texte'); const [ton, setTon] = useState('pedagogue'); const [cible, setCible] = useState(''); const [texte, setTexte] = useState(''); const [voix, setVoix] = useState(-1); const [filtre, setFiltre] = useState('tout'); const [props, setProps] = useState<Proposition[]>([]); const [attente, setAttente] = useState(false); const [nbDemandes, setNbDemandes] = useState(0);
   if (!v) return <div>Chargement...</div>;
   const dr = b.droits; const peut = v.carriere || dr.medias; const cibleEff = cible && (cible.startsWith('axe:') || (cible.startsWith('reaction:') ? v.reactions.some((r: any) => `reaction:${r.id}` === cible) : v.tendances.some((t: any) => `tendance:${t.i}` === cible))) ? cible : v.reactions[0] ? `reaction:${v.reactions[0].id}` : v.tendances[0] ? `tendance:${v.tendances[0].i}` : 'axe:0';
   const publier = async () => { const ok = await agir({ type: 'agoraPublier', format, ton, cible: cibleEff, texte, voix }); if (ok) { setTexte(''); setProps([]); } };
   const libelleCible = () => { const [t, id] = cibleEff.split(':'); return t === 'reaction' ? v.reactions.find((r: any) => r.id === +id)?.titre : t === 'tendance' ? v.tendances.find((x: any) => x.i === +id)?.sujet : v.axes[+id]?.nom; };
-  const demanderProps = async () => { setAttente(true); const P = b.partis[b.parti]; const r = await proposer({ sujet: libelleCible() ?? '', parti: P.nom, ligne: v.ligne ?? '', auteur: v.carriere && b.moi ? b.moi.nom : 'le compte officiel du parti', aChaud: cibleEff.startsWith('reaction:'), graine: v.semaine + v.faits }); setAttente(false); setProps(r.propositions); if (r.erreur) toast(r.erreur, false); };
+  const demanderProps = async () => { setAttente(true); const P = b.partis[b.parti]; const r = await proposer({ sujet: libelleCible() ?? '', parti: P.nom, ligne: v.ligne ?? '', auteur: v.carriere && b.moi ? b.moi.nom : 'le compte officiel du parti', aChaud: cibleEff.startsWith('reaction:'), repli: await moteur.vue('brouillons', { cible: cibleEff, n: v.faits + nbDemandes }) }); setNbDemandes(nbDemandes + 1); setAttente(false); setProps(r.propositions); if (r.erreur) toast(r.erreur, false); };
   const posts = v.posts.filter((p: any) => filtre === 'tout' || (filtre === 'moi' ? p.parti === b.parti : filtre === 'politique' ? p.genre === 'elu' || p.genre === 'parti' : p.genre === filtre));
   const reste = Math.max(0, v.max - v.faits);
   return <div>
@@ -50,7 +52,7 @@ export function Agora() {
             {!v.carriere && v.voix.length > 0 && <select aria-label="Compte" value={voix} onChange={(ev: any) => setVoix(+ev.target.value)}><option value={-1}>Compte du parti</option>{v.voix.map((x: any) => <option value={x.id}>{x.nom} ({court(x.abonnes)})</option>)}</select>}
             <span class="espace" /><button disabled={!peut || attente} onClick={demanderProps}>{attente ? 'Rédaction...' : 'Proposer trois versions'}</button><button class="principal" disabled={!peut} onClick={publier}>Publier</button>
           </div>
-          {props.length > 0 && <div class="choix">{props.map(p => <button onClick={() => { setTexte(p.texte); if (v.tons[p.ton]) setTon(p.ton); }}><small>{nomTon(p.ton)}{p.source === 'assistant' ? ', rédigé par l\'assistant' : ''}</small>{p.texte}</button>)}<span class="doux petit-texte">Cliquez sur une version pour la reprendre, puis retouchez-la. {assistantActif() ? '' : 'Branchez un assistant d\'écriture dans le menu pour des propositions rédigées sur mesure.'}</span></div>}
+          {props.length > 0 && <div class="choix">{props.map(p => <button onClick={() => { setTexte(p.texte); if (v.tons[p.ton]) setTon(p.ton); }}><small>{nomTon(p.ton)}{p.source === 'assistant' ? ', rédigé par l\'assistant' : ''}</small>{p.texte}</button>)}<span class="doux petit-texte">Cliquez sur une version pour la reprendre, puis retouchez-la. {assistantActif() ? '' : 'Redemandez pour d\'autres versions. Un assistant d\'écriture peut être activé dans le menu.'}</span></div>}
           <p class="doux petit-texte" style={{ margin: '8px 0 0' }}>{v.formats[format].desc} {v.tons[ton].desc} {reste > 0 ? `Encore ${reste} publication${reste > 1 ? 's' : ''} utile${reste > 1 ? 's' : ''} cette semaine : chaque publication de plus porte moins.` : 'Vous avez beaucoup publié cette semaine : la suivante portera très peu.'}</p>
           {!v.carriere && <label class="ligne petit-texte" style={{ marginTop: '6px' }}><input type="checkbox" checked={v.delegue} disabled={!dr.medias} onChange={(ev: any) => agir({ type: 'agoraDeleguer', valeur: ev.target.checked })} /> Laisser l'équipe numérique publier à ma place (prudent, moins d'éclat)</label>}
         </div>

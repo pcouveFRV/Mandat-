@@ -2,7 +2,7 @@
 import { vueEquipe } from './systems/equipe';
 import { accesJoueur } from './systems/carriere';
 import { vueExecutif, roleExecutif } from './systems/executif';
-import { vueAgora } from './systems/agora';
+import { vueAgora, brouillons } from './systems/agora';
 import type { Donnees, Etat, Perso, Scrutin } from './types';
 import { ATTRS_NOM, A } from './types';
 import { dateTexte, annee, NOM_SCRUTIN, DUREE_CAMPAGNE, SEMAINE_FIN } from './calendrier';
@@ -63,6 +63,7 @@ export function vue(e: Etat, d: Donnees, nom: string, p: any = {}): any {
       propositions: d.propositions.map(pr => ({ ...pr, axeNom: d.axes.find(a => a.id === pr.axe)!.nom, themeNom: d.themes.find(t => t.id === pr.theme)!.nom, etat: etatProposition(e, d, P, pr), chez: e.partis.filter(q => q.actif && q.propositions.includes(pr.id)).map(q => q.idx) })), capital: Math.round(P.capital), credibilite: Math.round(P.credibilite), culture: Math.round(P.culture), mouvements: r1(P.scoreIA.mouvements ?? 0),
       priorites: d.themes.map((t, ti) => ({ nom: t.nom, v: r1(d.segments.reduce((s, _, si) => s + priorites(e, d, si, 0)[ti], 0) / d.segments.length) })).sort((a, b) => b.v - a.v) };
     case 'agora': return vueAgora(e, d);
+    case 'brouillons': return brouillons(e, d, p.cible, p.n ?? 0);
     case 'equipe': return vueEquipe(e, d);
     case 'medias': return { medias: d.medias, debat: e.debat ? { ...e.debat, persoNom: nomComplet(e.persos[e.debat.perso]), advNom: e.debat.adversaire >= 0 ? nomComplet(e.persos[e.debat.adversaire]) : '', advParti: e.debat.adversaire >= 0 ? e.persos[e.debat.adversaire].parti : -1, mediaNom: d.medias.find(m => m.id === e.debat!.media)?.nom ?? 'Débat' } : null, reponses: REPONSES.map(r => ({ id: r.id, nom: r.nom, desc: r.desc, attr: ATTRS_NOM[r.attr] })), publications: PUBLICATIONS, viralite: r1(P.viralite), gaffes: r1(P.gaffes), dernierePub: (P.scoreIA.dernierePub ?? -9) >= e.semaine,
       sondages: e.sondages.slice(-14).reverse().map(s => ({ ...s, date: dateTexte(s.s) })), hist: e.histIntentions, porteParole: P.bureau.porte_parole >= 0 ? resumePerso(e, d, e.persos[P.bureau.porte_parole]) : null };

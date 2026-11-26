@@ -135,7 +135,13 @@ Certains événements ont une suite une ou deux semaines plus tard, qui rouvre l
 
 Sur Agora, le bouton « Proposer trois versions » rédige trois publications sur le sujet choisi : posée, offensive, proche des gens. Vous en reprenez une et vous la retouchez.
 
-Sans rien brancher, ces textes viennent du jeu. Si vous branchez un serveur de modèle (menu du jeu, voir le dossier `serveur/`), ils sont rédigés sur mesure, et la discussion libre avec vos militants s'ouvre. L'assistant écrit, il ne décide de rien : les effets restent calculés par le jeu. Relisez toujours avant de publier.
+Sans rien activer, ces textes viennent du jeu : ils reprennent le fait du jour, la position de votre parti et, quand elle existe, une mesure de votre programme. Redemandez pour d'autres versions.
+
+Deux options dans le menu du jeu pour des textes rédigés sur mesure et pour la discussion libre avec vos militants :
+
+- Petit modèle dans le navigateur : gratuit, sans serveur. Il tourne sur votre machine. Premier lancement : un téléchargement d'environ 1 Go, gardé en cache. Il faut un navigateur avec WebGPU (Chrome ou Edge récents sur ordinateur), et le recharger à chaque ouverture du jeu.
+- Serveur de modèle : voir le dossier `serveur/`.
+ L'assistant écrit, il ne décide de rien : les effets restent calculés par le jeu. Relisez toujours avant de publier.
 
 ## Agora, le réseau social
 

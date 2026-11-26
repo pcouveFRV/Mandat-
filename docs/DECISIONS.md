@@ -69,3 +69,11 @@ Une ligne par décision, avec la raison.
 - Affaires réelles : règle levée par Pierre. Elles entreront avec la base historique, comme des faits datés et sourcés. Rien n'est encore intégré.
 - Négociation et question au gouvernement en mini-jeux : reportées. Le débat télévisé existant en tient lieu pour l'instant.
 - Données : script `scripts/data/telecharger-mac.mjs`, à lancer sur le Mac de Pierre. Les identifiants des jeux de données ont été vérifiés sur data.gouv.fr. Une copie est déposée dans `~/Mandat-donnees/`.
+
+## V5.2
+
+- Mise en ligne : Pierre a rendu le dépôt public et activé GitHub Pages. Le jeu est déployé à chaque push sur https://pcouvefrv.github.io/Mandat-/ . Raison : il ne veut rien payer, et Pages est gratuit sur un dépôt public.
+- Textes des publications : générateur du moteur (`rediger` dans `agora.ts`) qui assemble le fait (texte de l'événement ou chiffre du moment), la position du parti (choix de l'événement le plus proche de sa ligne, ou formule d'action par axe et par pôle) et une mesure adoptée. Raison : Pierre trouvait les anciennes formules incompréhensibles. Les personnes réelles gardent une description neutre.
+- Les brouillons proposés au joueur viennent du même générateur, avec un tirage séparé : en demander ne change pas la partie.
+- Commentaires sous les publications du joueur : trois, tirés selon l'accueil. Comptes citoyens générés.
+- Petite IA : Pierre la voulait « sur le serveur du site ». Un hébergement statique ne peut pas faire tourner de modèle. Elle tourne donc dans le navigateur (WebLLM, WebGPU), gratuitement. Le modèle est choisi dans la liste fournie par la bibliothèque, parmi des petits modèles, sans identifiant figé dans le code. Non testée avec un vrai modèle : la session n'a pas accès au réseau depuis son navigateur de test.
