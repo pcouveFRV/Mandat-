@@ -36,6 +36,7 @@ export function Logo({ i, taille = 28 }: { i: number; taille?: number }) {
   const p = etat.base?.partis[i]; const [, set] = useState(0);
   useEffect(() => { if (logos) return; let vivant = true; chargerLogos().then(() => { if (vivant) set(x => x + 1); }); return () => { vivant = false; }; }, []);
   if (!p) return null; const src = logos?.[p.id];
+  if (src) return <span class="logo avec-image" title={p.nom} style={{ width: `${taille}px`, height: `${taille}px` }}><img src={src} alt={p.sigle} width={Math.round(taille * 0.8)} height={Math.round(taille * 0.8)} /></span>;
   return <span class="logo" title={p.nom} style={{ width: `${taille}px`, height: `${taille}px`, background: p.couleur, fontSize: `${Math.max(8, Math.round(taille * (p.sigle.length > 3 ? 0.27 : 0.34)))}px` }}>{src ? <img src={src} alt={p.sigle} /> : p.sigle}</span>;
 }
 // Accent de l'interface tiré de la couleur du parti, ajusté pour rester lisible (contraste 4,5 au moins).

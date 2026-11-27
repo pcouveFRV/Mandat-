@@ -1,4 +1,19 @@
 {
-  "_doc": "Liste des fichiers de logos déposés dans ce dossier. Exemple : [\"RN.svg\", \"PS.png\"]. Voir LISEZMOI.md.",
-  "fichiers": []
+ "_doc": "Liste des fichiers de logos de ce dossier. Voir SOURCES.md pour leur origine et LISEZMOI.md pour ajouter les vôtres.",
+ "fichiers": [
+  "LO.svg",
+  "LFI.png",
+  "PCF.svg",
+  "ECO.png",
+  "PP.svg",
+  "RE.svg",
+  "MDM.svg",
+  "HOR.svg",
+  "UDI.svg",
+  "LR.svg",
+  "UDR.svg",
+  "RN.svg",
+  "REC.png",
+  "DLF.svg"
+ ]
 }
