@@ -1,7 +1,7 @@
 // Mon parcours (fiche du joueur, entraînement, métier, ambition, réputation, investiture, journal) et Carnet (contacts, suivis).
 import { useEffect, useState } from 'preact/hooks';
-import { useMagasin, useVue, agir, nb, Bloc, Jauge, Parti, toast, moteurAction, ouvrirFiche, RANGS } from './composants';
-import { discuter, assistantActif } from './assistant';
+import { useMagasin, useVue, agir, nb, Bloc, Jauge, Parti, toast, moteurAction, ouvrirFiche, RANGS, lireMagasin } from './composants';
+import { discuter, assistantActif, proposerBio } from './assistant';
 
 // Portrait dessiné à composer : formes simples, sans ressemblance avec personne.
 // Avatar du personnage : un visage dessiné (style Notionists, bibliothèque DiceBear embarquée dans public/vendor) tiré du nom.
@@ -79,6 +79,7 @@ export function Profil() {
       {edit && <Bloc titre="Ma fiche">
         {!v.reel && <><div class="ligne" style={{ marginBottom: '10px', gap: '14px' }}><Portrait p={P} taille={120} /><div><b>Mon visage</b><p class="doux petit-texte" style={{ margin: '2px 0 8px' }}>Réglez chaque trait, ou repartez d'un visage au hasard.</p><div class="ligne"><button onClick={() => { const n = P.slice(); n[0] = (n[0] + 1) % 100; agir({ type: 'profilPortrait', portrait: n }, true); }}>Autre visage au hasard</button>{Object.keys(v.visage ?? {}).length > 0 && <button onClick={() => agir({ type: 'profilVisage', visage: {} }, true)}>Tout remettre au hasard</button>}</div></div></div><EditeurVisage vis={v.visage ?? {}} /></>}
         <div class="grille" style={{ gap: '6px', }}><input type="text" aria-label="Slogan" maxLength={80} placeholder="Votre slogan personnel (80 caractères)" value={slogan ?? ''} onInput={(ev: any) => setSlogan(ev.target.value)} />
+          {assistantActif() && !v.reel && <div><button class="petit" onClick={async () => { try { const r = await proposerBio({ prenom: String(v.nom).split(' ')[0], age: v.age, lieu: v.lieu, parti: lireMagasin().base.partis[v.parti]?.nom ?? '', rang: RANGS[v.rang], metier: v.metiers?.[v.metier]?.nom ?? '', style: v.style ?? '' }); if (r.bio) setBio(r.bio); if (r.slogan) setSlogan(r.slogan); } catch (err: any) { toast(String(err?.message ?? err), false); } }}>Proposer un slogan et une biographie</button></div>}
           <textarea aria-label="Biographie" rows={3} maxLength={400} placeholder="Votre biographie : d'où vous venez, ce que vous faites, pourquoi vous vous engagez (400 caractères)" value={bio ?? ''} onInput={(ev: any) => setBio(ev.target.value)} />
           <div class="ligne"><span class="doux">Votre style :</span><select aria-label="Style" value={v.style} onChange={(ev: any) => agir({ type: 'profilTexte', bio: bio ?? v.bio, slogan: slogan ?? v.slogan, style: ev.target.value }, true)}><option value="pedagogue">Pédagogue</option><option value="offensif">Offensif</option><option value="humour">Décalé</option><option value="emotion">Proche des gens</option><option value="coulisses">Coulisses</option></select><span class="espace" /><button class="principal" onClick={() => agir({ type: 'profilTexte', bio, slogan, style: v.style })}>Enregistrer</button></div></div>
       </Bloc>}

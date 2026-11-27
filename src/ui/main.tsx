@@ -10,7 +10,7 @@ import { Terrain } from './terrain';
 import { Profil, Carnet, Portrait } from './parcours';
 import { TableauDeBord, Chronique, Personnalisation, Embleme, Annuaire } from './v6';
 import { Actualite, Objectif, Palette, ouvrirRecherche } from './v7';
-import { lireConfig, ecrireConfig, tester, chargerLocal, localCharge, modeleLocal } from './assistant';
+import { lireConfig, ecrireConfig, tester, chargerLocal, localCharge, modeleLocal, MODELE_CLAUDE, lireUsage, remettreUsage } from './assistant';
 import { Accueil } from './accueil';
 import { Inbox, FichePerso, Effectif, EcranParti } from './ecrans1';
 import { Finances, Doctrine, Medias, Historique } from './ecrans2';
@@ -98,14 +98,19 @@ function BarreHaut() {
 
 // Réglage de l'assistant d'écriture : aucun, local dans le navigateur, ou serveur de modèle.
 function ReglageAssistant() {
-  const [c, setC] = useState(lireConfig()); const [etatT, setEtatT] = useState(localCharge() ? `Assistant local chargé (${modeleLocal}).` : ''); const [charge, setCharge] = useState(false);
+  const [c, setC] = useState(lireConfig()); const [etatT, setEtatT] = useState(localCharge() ? `Assistant local chargé (${modeleLocal}).` : ''); const [charge, setCharge] = useState(false); const [usage, setUsage] = useState(lireUsage());
   const chg = (k: string, v: string) => { const n = { ...c, [k]: v } as any; setC(n); ecrireConfig(n); };
   const activer = async () => { setCharge(true); try { const m = await chargerLocal(t => setEtatT(t)); setEtatT(`Assistant local prêt (${m}).`); } catch (err: any) { setEtatT('Échec : ' + (err?.message ?? 'erreur') + ' Le jeu continue avec ses propres textes.'); } setCharge(false); };
   return <div style={{ marginTop: '14px' }}><h3>Assistant d'écriture (facultatif)</h3>
-    <p class="doux petit-texte">Il rédige des propositions de publications et fait parler vos militants. Il n'a aucun effet sur les règles : sans lui, le jeu utilise ses propres textes.</p>
-    <div class="ligne">{[['aucun', 'Textes du jeu'], ['local', 'Petit modèle dans le navigateur'], ['serveur', 'Serveur de modèle']].map(([k, n]) => <label><input type="radio" name="assistant" checked={c.mode === k} onChange={() => chg('mode', k)} /> {n}</label>)}</div>
+    <p class="doux petit-texte">Il rédige des publications et des réponses, fait parler vos militants, développe les articles, écrit les réactions de vos abonnés et joue le directeur de campagne. Il n'a aucun effet sur les règles : sans lui, le jeu utilise ses propres textes.</p>
+    <div class="ligne">{[['aucun', 'Textes du jeu'], ['claude', 'Claude (clé API)'], ['local', 'Petit modèle dans le navigateur'], ['serveur', 'Serveur de modèle']].map(([k, n]) => <label><input type="radio" name="assistant" checked={c.mode === k} onChange={() => chg('mode', k)} /> {n}</label>)}</div>
     {c.mode === 'local' && <div style={{ marginTop: '6px' }}><p class="doux petit-texte">Gratuit et sans serveur : un petit modèle ouvert tourne sur votre machine. Premier lancement : téléchargement unique d'environ 1 Go, gardé ensuite en cache. Demande un navigateur avec WebGPU (Chrome ou Edge récents sur ordinateur) et ne fonctionne pas sur la page publiée sur claude.ai. À recharger à chaque ouverture du jeu.</p>
       <button class="principal" disabled={charge || localCharge()} onClick={activer}>{localCharge() ? 'Assistant local chargé' : charge ? 'Chargement...' : 'Activer l\'assistant local'}</button> {localCharge() && <button onClick={async () => { try { setEtatT('Réponse : ' + await tester()); } catch (err: any) { setEtatT('Échec : ' + (err?.message ?? 'erreur')); } }}>Tester</button>}</div>}
+    {c.mode === 'claude' && <div class="grille" style={{ gap: '6px', marginTop: '6px' }}>
+      <p class="doux petit-texte">Service payant à l'usage, distinct de l'abonnement Claude. La clé reste dans ce navigateur : elle n'est ni envoyée au site du jeu ni enregistrée dans les sauvegardes. Créez-la dans un espace de travail avec un plafond de dépense, et ne la partagez pas.</p>
+      <div class="ligne"><input type="password" aria-label="Clé API Claude" style={{ flex: 2 }} placeholder="Clé API (sk-ant-...)" autocomplete="off" value={c.cleClaude} onInput={(ev: any) => chg('cleClaude', ev.target.value.trim())} /><input type="text" aria-label="Modèle Claude" style={{ flex: 1 }} placeholder={MODELE_CLAUDE} value={c.modeleClaude} onInput={(ev: any) => chg('modeleClaude', ev.target.value.trim())} />
+        <button disabled={!c.cleClaude} onClick={async () => { setEtatT('Test en cours...'); try { setEtatT('Réponse : ' + await tester()); } catch (err: any) { setEtatT('Échec : ' + (err?.message ?? 'erreur')); } setUsage(lireUsage()); }}>Tester</button></div>
+      <div class="ligne petit-texte doux"><span>Depuis la dernière remise à zéro : {usage.appels} appel{usage.appels > 1 ? 's' : ''}, {usage.entree.toLocaleString('fr-FR')} jetons envoyés, {usage.sortie.toLocaleString('fr-FR')} jetons reçus.</span><button class="petit" onClick={() => { remettreUsage(); setUsage(lireUsage()); }}>Remettre à zéro</button><button class="petit" onClick={() => { chg('cleClaude', ''); }}>Effacer la clé</button></div></div>}
     {c.mode === 'serveur' && <div class="grille" style={{ gap: '6px', marginTop: '6px' }}><input type="text" aria-label="Adresse du serveur" placeholder="Adresse du serveur, par exemple https://ia.mondomaine.fr" value={c.url} onInput={(ev: any) => chg('url', ev.target.value.trim())} />
       <div class="ligne"><input type="text" aria-label="Modèle" style={{ flex: 1 }} placeholder="Nom du modèle" value={c.modele} onInput={(ev: any) => chg('modele', ev.target.value.trim())} /><input type="text" aria-label="Jeton" style={{ flex: 1 }} placeholder="Jeton d'accès" value={c.cle} onInput={(ev: any) => chg('cle', ev.target.value.trim())} />
         <button disabled={!c.url || !c.modele} onClick={async () => { setEtatT('Test en cours...'); try { setEtatT('Réponse : ' + await tester()); } catch (err: any) { setEtatT('Échec : ' + (err?.message ?? 'erreur')); } }}>Tester</button></div></div>}

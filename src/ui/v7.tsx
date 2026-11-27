@@ -1,7 +1,7 @@
 // V7 : actualité simulée, recherche universelle, objectif du moment, bilan de la semaine.
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { useMagasin, useVue, agir, aller, maj, Bloc, Parti, ouvrirFiche, toast } from './composants';
-import { assistantActif, developper } from './assistant';
+import { assistantActif, developper, conseiller } from './assistant';
 import * as moteur from './moteur';
 
 const RUBRIQUES: Record<string, string> = { une: 'À la une', politique: 'Politique', economie: 'Économie', local: 'Chez vous', enquete: 'Feuilleton', societe: 'En bref' };
@@ -66,3 +66,23 @@ export function Palette({ ecrans }: { ecrans: [string, string][] }) {
 }
 export const ouvrirRecherche = () => window.dispatchEvent(new Event('mandat-recherche'));
 export const basculerMenu = () => maj({ menuOuvert: !(window as any).__mandat.lire().menuOuvert } as any);
+
+// Le mot du directeur de campagne : l'assistant lit les chiffres du tableau de bord et propose les priorités de la semaine.
+export function Directeur({ v }: { v: any }) {
+  const b = useMagasin().base; const [t, setT] = useState(''); const [sem, setSem] = useState(-1); const [attente, setAttente] = useState(false);
+  if (!assistantActif()) return null;
+  const demander = async () => { setAttente(true); try {
+    const L: string[] = [`Date : ${v.date}. ${v.carriere && v.moi ? `Je suis ${['militant', 'cadre local', 'cadre', 'dirigeant', 'figure nationale', 'chef'][Math.min(5, v.moi.rang)]} à ${v.lieu}, notoriété ${v.moi.notoriete} sur 100, estime du parti ${v.moi.estime} sur 100, forme ${v.moi.forme}, moral ${v.moi.moral}, compte personnel ${v.moi.argent} euros.` : `Je dirige le parti ${v.parti.nom}.`}`,
+      `Parti : ${v.parti.sigle}, ${String(v.parti.intentions).replace('.', ',')} % d'intentions de vote, unité ${v.parti.unite} sur 100. Classement : ${v.classement.slice(0, 5).map((c: any) => `${b.partis[c.parti].sigle} ${c.v} %`).join(', ')}.`,
+      v.ambition ? `Mon ambition : ${v.ambition.nom}. Prochaine étape : ${v.ambition.etape}.` : '', b.objectif ? `Objectif affiché par le jeu : ${b.objectif.t}.` : '',
+      `À faire cette semaine : ${v.taches.map((x: any) => x.t).join(' ; ') || 'rien d\'urgent'}.`,
+      `Mes quartiers (ancrage sur 100) : ${v.quartiers.map((q: any) => `${q.nom} ${q.ancrage}`).join(', ')}. Équipe : ${v.equipe.n} militants, motivation ${v.equipe.motiv}, ${v.equipe.fatigues} épuisés, caisse ${v.equipe.caisse} euros.`,
+      `Calendrier : ${v.echeances.map((x: any) => `${x.type} dans ${x.dans} semaines`).join(', ')}.${v.campagne ? ` Campagne en cours : ${v.campagne.type}, élan ${v.campagne.elan}.` : ''}`,
+      `Agora : ${v.abonnes} abonnés. Tendances : ${v.tendances.join(', ') || 'aucune'}.`, b.bilan?.lignes?.length ? `Cette semaine : ${b.bilan.lignes.map((l: any) => `${l.t} ${l.v}`).join(' ; ')}.` : '',
+      v.negliges?.length ? `Contacts que je néglige : ${v.negliges.length}.` : '', v.dettes?.length ? `Je dois un service à ${v.dettes.length} personne(s).` : ''];
+    setT(await conseiller(L.filter(Boolean).join('\n'))); setSem(b.semaine); } catch (err: any) { toast(String(err?.message ?? err), false); } setAttente(false); };
+  return <Bloc titre="Le mot du directeur de campagne">
+    {t ? <p style={{ whiteSpace: 'pre-line', lineHeight: 1.5 }}>{t}</p> : <p class="doux">Votre directeur de campagne lit vos chiffres et vous dit par quoi commencer.</p>}
+    <button class="petit" disabled={attente} onClick={demander}>{attente ? 'Il réfléchit...' : t ? (sem === b.semaine ? 'Redemander' : 'Mettre à jour pour cette semaine') : 'Lui demander son avis'}</button>
+  </Bloc>;
+}

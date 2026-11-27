@@ -264,3 +264,5 @@ Recherche. Ctrl+K (Cmd+K sur Mac), la touche / ou le bouton Rechercher : tapez l
 Bilan. Le tableau de bord résume ce qui a changé dans la semaine : intentions de vote, abonnés, compte, ancrage.
 
 Téléphone. Sur un petit écran, le menu se replie derrière le bouton en haut à gauche.
+
+Assistant Claude. Menu, puis « Claude (clé API) » : collez votre clé, testez. L'assistant propose alors des publications et des réponses, écrit d'autres réactions d'abonnés, développe les articles, propose un slogan et une biographie, et donne chaque semaine le mot du directeur de campagne sur le tableau de bord. Chaque texte est produit à la demande, sur un clic. Le menu affiche le nombre d'appels et de jetons consommés.
