@@ -129,7 +129,7 @@
    "nom": "Bez",
    "prenom": "Eleonore",
    "sexe": "F",
-   "naissance": null,
+   "naissance": 1976,
    "parti": "RN",
    "rang": 3,
    "roles": [
