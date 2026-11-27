@@ -62,3 +62,9 @@ export async function discuter(o: { nom: string; age: number; caractere: string;
   const fil = o.historique.slice(-6).map(h => `${h.moi ? 'Responsable' : o.nom} : ${h.t}`).join('\n');
   return (await demander(sys, `${fil ? fil + '\n' : ''}Responsable : ${o.message}\n${o.nom} :`, 220)).slice(0, 600);
 }
+
+// Développe un article de l'actualité simulée. Le modèle reçoit les faits du jeu et ne doit rien y ajouter sur des personnes réelles.
+export async function developper(titre: string, chapo: string, corps: string): Promise<string> {
+  const t = await demander(`${REGLES}\nTu es journaliste dans un jeu de simulation politique. Tu rédiges un article court, sobre et factuel, en français, à partir des seuls éléments fournis. Tu n'inventes aucun nom de personne et tu ne cites aucune personnalité réelle.`, `Titre : ${titre}\nChapô : ${chapo}\nÉléments : ${corps}\n\nRédige l'article en 110 à 150 mots, en trois paragraphes, sans titre, sans liste.`, 420);
+  return t.replace(/^\s*["«]|["»]\s*$/g, '').slice(0, 1400);
+}

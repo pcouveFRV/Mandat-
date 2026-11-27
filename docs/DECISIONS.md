@@ -102,3 +102,14 @@ Une ligne par décision, avec la raison.
 - Annuaire des élus : quatre portées (secteur, département, région, national), repères du territoire (maire, député, présidents du département et de la région), filtre par parti, recherche. En mode Carrière, deux prises de contact par semaine ; la réponse dépend du parti, de l'écart de niveau et de la notoriété. Un refus bloque huit semaines.
 - Les conseillers du répertoire officiel n'ont pas de fiche tant que le joueur ne les contacte pas. Raison : 38 792 fiches alourdiraient chaque tour.
 - Personne réelle dans le carnet : le jeu résume l'échange au style indirect et ne lui prête aucune parole. La discussion libre avec le modèle d'écriture est désactivée pour elle.
+
+## V7
+
+- Logos : fichiers officiels pris sur Wikimedia Commons par un workflow GitHub (`logos.yml`), uniquement domaine public ou licence libre. Le choix final se fait à la main sur une planche, puis les fichiers retenus sont copiés dans `public/data/logos`. Ils ne sont pas redessinés. Les logos restent des marques : usage pour désigner les partis dans un jeu personnel sans but commercial. Aucun fichier libre trouvé pour le PS, qui garde sa pastille.
+- Actualité : Pierre a refusé les vrais titres de presse. Le jeu fabrique ses histoires. Les faits politiques viennent de la simulation ; les histoires locales et les feuilletons sont inventés, avec des entreprises, des lieux-dits et des personnes fictifs. Aucune personne réelle n'y est citée (testé).
+- La petite IA ne sert qu'à allonger un article à partir des éléments du jeu, avec interdiction de citer une personne réelle. Sans elle, le texte du jeu suffit.
+- Réseau social : une réponse compte comme une publication de la semaine ; trois republications par semaine ; un adversaire peut répondre, ce qui augmente les vues des deux. Une personne réelle qui répond n'a pas de texte inventé (« Répond à cette publication. »).
+- Les étiquettes « divers » et « régionalistes » n'ont pas de compte officiel : elles ne répondent pas et n'interpellent pas.
+- Réseau social et presse tirent leurs hasards sur un générateur à part, dérivé de la graine. Raison : ne pas décaler le reste de la simulation, et garder une partie reproductible.
+- Objectif du moment : une seule consigne, calculée dans cet ordre : décision en attente, soir de vote, incident, réaction à chaud, investiture, puis étape de progression.
+- La vue de recherche universelle s'appelle `rechercheTout` : `recherche` existait déjà pour l'écran Effectif.

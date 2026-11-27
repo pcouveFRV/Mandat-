@@ -5,6 +5,7 @@ import { tourParcours, tourFinancement } from './systems/parcours';
 import { tourEquipe } from './systems/equipe';
 import { tourExecutif } from './systems/executif';
 import { tourAgora } from './systems/agora';
+import { tourSocial, tourPresse, photoSemaine, bilanSemaine } from './systems/v7';
 import type { Donnees, Etat, Ctx, Message } from './types';
 import { Rng } from './rng';
 import { mois, annee, SEMAINE_FIN } from './calendrier';
@@ -25,7 +26,7 @@ import { tourVictoire } from './victoire';
 
 export function tour(e: Etat, d: Donnees): Message[] {
   const ctx: Ctx = { d, messages: [] }; if (e.joueur.fin && e.joueur.fin.type !== 'fin' && false) return []; if (e.semaine >= SEMAINE_FIN + 1) return [];
-  const rng = new Rng(e.rng); e.semaine++; e.soiree = null;
+  const avant = photoSemaine(e, d); const rng = new Rng(e.rng); e.semaine++; e.soiree = null;
   const nouveauMois = mois(e.semaine) !== mois(e.semaine - 1); const nouvelleAnnee = annee(e.semaine) !== annee(e.semaine - 1);
   tourEvenements(e, d, rng, ctx);   // 1. actualité, chocs sur les priorités, réactions
   tourMedias(e, d, rng, ctx);       // 2. invitations, passages médias
@@ -45,6 +46,8 @@ export function tour(e: Etat, d: Donnees): Message[] {
   tourEquipe(e, d, rng, ctx);       // 11 bis. équipe de militants, campagne locale, incidents
   tourCarriere(e, d, rng, ctx);     // 12. mode Carrière
   tourParcours(e, d, rng, ctx); tourFinancement(e);     // 12 bis. argent, entraînement, ambition, investiture, contacts
+  { const r7 = new Rng((e.rng ^ 0x5bd1e995) + e.semaine * 7919); tourSocial(e, d, r7, ctx); tourPresse(e, d, r7, ctx); } // 12 ter. réseau social et presse : tirage à part, pour ne pas décaler le reste de la simulation
+  bilanSemaine(e, d, avant);
   tourVictoire(e, d, ctx);          // 13. victoire, défaite, fin de partie
   e.rng = rng.s; return ctx.messages;
 }

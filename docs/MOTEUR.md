@@ -163,3 +163,9 @@ Mesures sur la machine de construction (2 coeurs) : environ 65 ms par semaine en
 - `actionV6` : `emblemeModifier` (valeurs nettoyées), `fonderPartiV6`, `finEmprunt`, `finAppel`, `finPrets`. `tourFinancement` rembourse chaque semaine.
 - `creerPartie` : `perso.incarne` reprend un personnage réel existant ou crée l'élu à partir du répertoire. Les maires réels remplacent les maires simulés quand leur parti est connu.
 - `systems/annuaire.ts` : `vueAnnuaire(e, d, { portee, q, parti })` et `actionAnnuaire` (`annuaireContact` pour un personnage de la partie, `annuaireContactElu` pour un conseiller du répertoire, créé à la volée). Action `profilVisage` dans `parcours.ts`.
+
+## V7 (`systems/v7.ts`)
+
+- Réseau : `actionSocial` (`agoraAimer`, `agoraReposter`, `agoraRepondre`, `agoraLireNotifs`), `tourSocial` (réponses entre comptes, interpellations, paliers d'abonnés), vues `agora` (enrichie par `vueAgora2`), `agoraFil`, `agoraProfil`.
+- Presse : `tourPresse` écrit les articles dans `e.presse`, vue `presse`, action `presseLire`. Gabarits dans `LOCAUX`, `ARCS`, `ISSUES`, `BREVES`.
+- Aides : `objectif`, `vueRecherche` (vue `rechercheTout`), `photoSemaine` et `bilanSemaine` (appelées au début et à la fin de `tour`).

@@ -248,3 +248,19 @@ Personnalisation. L'atelier d'emblème compose un logo original (forme, symbole,
 Visage. Dans Mon parcours, « Modifier ma fiche » ouvre l'éditeur : cheveux, yeux, sourcils, nez, bouche, tenue, lunettes, barbe, geste. Chaque trait se règle avec les flèches ou se laisse au hasard.
 
 Annuaire des élus. Menu Moi. Il montre qui tient votre territoire (maire, député, présidents du département et de la région), puis la liste des élus de votre secteur, de votre département, de votre région ou du pays. Vous pouvez filtrer par parti, chercher un nom, ouvrir une fiche ou une page Chronique, suivre quelqu'un. En mode Carrière, « Prendre contact » tente d'ajouter l'élu à votre carnet : deux essais par semaine, plus facile dans votre parti et à votre niveau. Sous la liste du secteur, le conseil municipal réel est affiché en entier.
+
+## Nouveautés de la V7
+
+Logos. Les partis ont leur logo dans le menu, le tableau de bord, l'annuaire et Agora.
+
+Agora. Trois fils : Pour toi (ce qui tourne le plus), Abonnements (les comptes que vous suivez et votre parti), Tout. Sous chaque publication : Répondre, Republier, J'aime. Cliquer sur le texte ouvre le fil de discussion, cliquer sur un nom ouvre le profil du compte. Répondre à un adversaire peut lancer un échange : plus de vues pour les deux, plus de risque pour vous. L'onglet Notifications signale les réponses, les interpellations, les caps d'abonnés. L'onglet Messages renvoie vers votre carnet. L'onglet Mon profil donne vos statistiques.
+
+Actualité. Le journal de votre partie, dans le menu Bureau. La une reprend le fait politique de la semaine. Les rubriques Chez vous et Feuilleton racontent des histoires inventées : une classe qui ferme, une usine menacée, un marché public contesté. Vous pouvez réagir sur Agora ou aller sur le terrain. Si l'assistant d'écriture est actif, « Lire l'article complet » le développe.
+
+Objectif. En haut de l'écran, une consigne vous dit quoi faire maintenant. Un clic ouvre le bon écran.
+
+Recherche. Ctrl+K (Cmd+K sur Mac), la touche / ou le bouton Rechercher : tapez le nom d'un écran, d'un élu ou d'une ville.
+
+Bilan. Le tableau de bord résume ce qui a changé dans la semaine : intentions de vote, abonnés, compte, ancrage.
+
+Téléphone. Sur un petit écran, le menu se replie derrière le bouton en haut à gauche.

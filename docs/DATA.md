@@ -110,3 +110,7 @@ Chaîne de production : le workflow `.github/workflows/donnees.yml` lance `scrip
 Correspondance nuance vers parti : elle est dans `scripts/data/elus.mjs`. Les nuances « divers », « extrême » sans parti précis et les nuances vides ne donnent aucun parti.
 
 Non intégrés : sénateurs, conseillers départementaux et régionaux (le répertoire ne donne pas leur parti).
+
+## Logos des partis (V7)
+
+`public/data/logos/` : un fichier par parti, déclaré dans `index.json`. Origine, titre et licence de chaque fichier dans `SOURCES.md`. Pour les mettre à jour : lancer le workflow « Logos des partis », récupérer la branche `logos`, choisir, copier.

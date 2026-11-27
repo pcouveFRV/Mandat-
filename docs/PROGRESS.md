@@ -4,7 +4,19 @@ Ce fichier permet de reprendre le travail à partir du dépôt seul.
 
 ## État
 
-Version V6 livrée. Le jeu est en ligne sur https://pcouvefrv.github.io/Mandat-/ et se redéploie à chaque push sur `main`.
+Version V7 livrée. Le jeu est en ligne sur https://pcouvefrv.github.io/Mandat-/ et se redéploie à chaque push sur `main`.
+
+## V7 : plan validé par Pierre et état
+
+| Lot | Contenu | État |
+|---|---|---|
+| 1 | Logos des partis : 14 logos récupérés sur Wikimedia Commons (domaine public ou licence libre), sources dans `public/data/logos/SOURCES.md` | Fait, testé. Pas de logo libre pour le PS |
+| 2 | Agora, vrai réseau social : onglets Pour toi, Abonnements, Tout ; répondre, republier, aimer ; fils de discussion ; profils des comptes ; notifications ; messages vers le carnet ; statistiques | Fait, testé |
+| 3 | Actualité simulée : journal de la partie avec la une, les sondages, l'économie, des histoires locales et des feuilletons en plusieurs épisodes, tous inventés ; article long rédigé par la petite IA quand elle est active | Fait, testé (sans la petite IA, jamais essayée avec un vrai modèle) |
+| 4 | Plus intuitif : objectif du moment, recherche universelle (Ctrl+K ou /), bilan de la semaine, mise en page pour téléphone | Fait, testé. Non fait : aperçu du coût avant chaque action, refonte du menu |
+| 5 | Restes : carte dans l'annuaire, vrais conseillers départementaux et régionaux, scissions, départs historiques | Non fait |
+
+Tests de la V7 : 84 tests automatiques (11 nouveaux dans `tests/v7.test.ts`), 12 parties simulées de 260 à 330 semaines sans erreur, robots navigateur sur tous les nouveaux écrans (ordinateur et téléphone) sans erreur de console, une partie de 160 semaines jouée par l'interface.
 
 ## V6 : plan validé par Pierre et état
 

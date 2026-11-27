@@ -1,6 +1,7 @@
 // Actions du joueur. Chaque action vérifie les droits du joueur puis appelle les mêmes fonctions que l'IA.
 import { actionParcours, reglerPromesse, actionV6 } from './systems/parcours';
 import { actionAnnuaire } from './systems/annuaire';
+import { actionSocial, actionPresse } from './systems/v7';
 import { actionEquipe } from './systems/equipe';
 import { actionExecutif } from './systems/executif';
 import { publierJoueur, agoraDe } from './systems/agora';
@@ -66,6 +67,8 @@ function executer(e: Etat, d: Donnees, rng: Rng, ctx: Ctx, a: Action): Retour {
     case 'execReforme': case 'execAvancer': case 'execAbandon': case 'execPM': case 'execRemaniement': case 'execDissolution': case 'execReferendum': { const r = actionExecutif(e, d, rng, ctx, a); return r.ok ? ok(r.texte) : non(r.texte); }
     case 'equipeParler': case 'jeuDemarrer': case 'jeuChoix': case 'jeuFermer': case 'equipeAnnonce': case 'equipeBilanVu': case 'equipeAuto': case 'equipeAffecter': case 'equipeRepartir': case 'equipeRecruter': case 'equipeRefuser': case 'equipeLieutenant': case 'equipeEcarter': case 'equipeConvivial': case 'equipeCommander': case 'equipeTemps': case 'equipeIncident': { const r = actionEquipe(e, d, rng, a); return r.ok ? ok(r.texte) : non(r.texte); }
     case 'profilPortrait': case 'profilVisage': case 'profilTexte': case 'profilEntrainement': case 'profilMetier': case 'profilAmbition': case 'suivre': case 'contactParler': case 'invDeclarer': case 'invAgir': case 'invPromettre': case 'invSoutien': case 'invOral': case 'invRepondre': case 'invFermer': { const r = actionParcours(e, d, rng, a); return r.ok ? ok(r.texte) : non(r.texte); }
+    case 'agoraAimer': case 'agoraReposter': case 'agoraRepondre': case 'agoraLireNotifs': { const r = actionSocial(e, d, rng, a); return r.ok ? ok(r.texte) : non(r.texte); }
+    case 'presseLire': { const r = actionPresse(e, d, a); return r.ok ? ok(r.texte) : non(r.texte); }
     case 'annuaireContact': case 'annuaireContactElu': { const r = actionAnnuaire(e, d, rng, a); return r.ok ? ok(r.texte) : non(r.texte); }
     case 'emblemeModifier': case 'fonderPartiV6': case 'finEmprunt': case 'finAppel': case 'finPrets': { const r = actionV6(e, d, rng, a); return r.ok ? ok(r.texte) : non(r.texte); }
     case 'accesVu': { if (e.joueur.nouveaux) e.joueur.nouveaux = e.joueur.nouveaux.filter(k => k !== a.ecran); return ok(''); }

@@ -9,6 +9,7 @@ import { Agora } from './agora';
 import { Terrain } from './terrain';
 import { Profil, Carnet, Portrait } from './parcours';
 import { TableauDeBord, Chronique, Personnalisation, Embleme, Annuaire } from './v6';
+import { Actualite, Objectif, Palette, ouvrirRecherche } from './v7';
 import { lireConfig, ecrireConfig, tester, chargerLocal, localCharge, modeleLocal } from './assistant';
 import { Accueil } from './accueil';
 import { Inbox, FichePerso, Effectif, EcranParti } from './ecrans1';
@@ -16,7 +17,7 @@ import { Finances, Doctrine, Medias, Historique } from './ecrans2';
 import { Campagne, Mandat, Soiree, Pantheon } from './ecrans3';
 import { EcranCarte } from './carte';
 
-const GROUPES: [string, [string, string][]][] = [['Bureau', [['accueil', 'Tableau de bord'], ['inbox', 'Boîte de réception'], ['agora', 'Agora'], ['equipe', 'Terrain'], ['medias', 'Médias']]], ['Moi', [['profil', 'Mon parcours'], ['contacts', 'Carnet'], ['annuaire', 'Annuaire des élus'], ['chronique', 'Chronique'], ['perso', 'Personnalisation']]], ['Organisation', [['effectif', 'Effectif'], ['parti', 'Parti'], ['finances', 'Finances'], ['doctrine', 'Doctrine']]], ['Élections', [['carte', 'Carte'], ['campagne', 'Campagne'], ['mandat', 'Mandat'], ['historique', 'Historique']]]];
+const GROUPES: [string, [string, string][]][] = [['Bureau', [['accueil', 'Tableau de bord'], ['inbox', 'Boîte de réception'], ['presse', 'Actualité'], ['agora', 'Agora'], ['equipe', 'Terrain'], ['medias', 'Médias']]], ['Moi', [['profil', 'Mon parcours'], ['contacts', 'Carnet'], ['annuaire', 'Annuaire des élus'], ['chronique', 'Chronique'], ['perso', 'Personnalisation']]], ['Organisation', [['effectif', 'Effectif'], ['parti', 'Parti'], ['finances', 'Finances'], ['doctrine', 'Doctrine']]], ['Élections', [['carte', 'Carte'], ['campagne', 'Campagne'], ['mandat', 'Mandat'], ['historique', 'Historique']]]];
 const TUTO: [string, string, string][] = [
   ['accueil', 'Le tableau de bord', 'C\'est votre point de départ : ce qui presse cette semaine, votre secteur, les sondages, le calendrier. Un clic sur une ligne ouvre l\'écran concerné.'],
   ['inbox', 'La boîte de réception', 'Tout passe par ici : messages de vos cadres, sondages, invitations, décisions à prendre. Les messages qui attendent une réponse sont signalés en rouge.'],
@@ -54,6 +55,7 @@ function BarreHaut() {
   const go = (k: number, arret: string) => { setOuvert(false); if (m.occupe) return; maj({ occupe: 'Simulation en cours' }); moteur.avancer(k, arret); };
   const perso = b.mode === 'carriere' && b.moi && !(b.acces ?? []).includes('parti') && b.argent !== null && b.argent !== undefined;
   return <div class="haut">
+    <button class="burger" aria-label="Menu des écrans" onClick={() => maj({ menuOuvert: !(m as any).menuOuvert } as any)}>☰</button>
     <span class="date">{b.date}</span>
     <div class="res">
       {perso && <>
@@ -74,6 +76,8 @@ function BarreHaut() {
       {b.mode === 'carriere' && b.moi && <span class="r"><small><Info t="Votre poids dans le parti. Il monte avec le militantisme, le réseau et les mandats. Il décide des promotions et des investitures.">Estime</Info></small><b>{b.moi.estime}<Delta k="estime" v={b.moi.estime} d={b.date} /></b></span>}
       {b.prochaines[0] && <span class="echeance" title="Prochaine échéance électorale">{b.prochaines[0].nom.replace('Élections ', '').replace('Élection ', '')}{b.prochaines[0].tour2 ? ' (2e tour)' : ''} : {b.prochaines[0].dans > 0 ? `J-${b.prochaines[0].dans * 7}` : 'cette semaine'}</span>}
     </div>
+    <Objectif />
+    <button class="loupe" title="Rechercher (Ctrl+K ou /)" aria-label="Rechercher" onClick={ouvrirRecherche}>Rechercher</button>
     <button onClick={() => maj({ menuJeu: true })}>Menu</button>
     <span style={{ position: 'relative', display: 'flex' }}>
       <button class="principal" disabled={!!m.occupe || fini} title={bloque ? 'Des messages attendent une réponse : sans réponse, la décision par défaut sera appliquée.' : ''} onClick={() => go(1, 'semaines')}>{m.occupe ? m.occupe : 'Continuer'}</button>
@@ -140,18 +144,19 @@ function Tutoriel() {
 
 function Jeu() {
   const m = useMagasin(); const b = m.base;
-  const E = m.ecran === 'inbox' ? <Inbox /> : m.ecran === 'carte' ? <EcranCarte /> : m.ecran === 'effectif' ? <Effectif /> : m.ecran === 'parti' ? <EcranParti /> : m.ecran === 'finances' ? <Finances /> : m.ecran === 'doctrine' ? <Doctrine /> : m.ecran === 'campagne' ? <Campagne /> : m.ecran === 'medias' ? <Medias /> : m.ecran === 'mandat' ? <Mandat /> : m.ecran === 'historique' ? <Historique /> : m.ecran === 'agora' ? <Agora /> : m.ecran === 'equipe' ? <Terrain /> : m.ecran === 'annuaire' ? <Annuaire /> : m.ecran === 'accueil' ? <TableauDeBord /> : m.ecran === 'chronique' ? <Chronique /> : m.ecran === 'perso' ? <Personnalisation /> : m.ecran === 'profil' ? <Profil /> : m.ecran === 'contacts' ? <Carnet /> : m.ecran === 'pantheon' ? <Pantheon /> : <Inbox />;
+  const E = m.ecran === 'inbox' ? <Inbox /> : m.ecran === 'carte' ? <EcranCarte /> : m.ecran === 'effectif' ? <Effectif /> : m.ecran === 'parti' ? <EcranParti /> : m.ecran === 'finances' ? <Finances /> : m.ecran === 'doctrine' ? <Doctrine /> : m.ecran === 'campagne' ? <Campagne /> : m.ecran === 'medias' ? <Medias /> : m.ecran === 'mandat' ? <Mandat /> : m.ecran === 'historique' ? <Historique /> : m.ecran === 'agora' ? <Agora /> : m.ecran === 'equipe' ? <Terrain /> : m.ecran === 'presse' ? <Actualite /> : m.ecran === 'annuaire' ? <Annuaire /> : m.ecran === 'accueil' ? <TableauDeBord /> : m.ecran === 'chronique' ? <Chronique /> : m.ecran === 'perso' ? <Personnalisation /> : m.ecran === 'profil' ? <Profil /> : m.ecran === 'contacts' ? <Carnet /> : m.ecran === 'pantheon' ? <Pantheon /> : <Inbox />;
   const P = b.partis[b.parti]; const sombre = m.theme === 'sombre'; const acces: string[] = b.acces ?? [];
   useEffect(() => { const a = accentParti(P?.couleur ?? '#0066cc', sombre); const st = document.documentElement.style; st.setProperty('--accent', a.accent); st.setProperty('--accent-t', a.texte); st.setProperty('--accent-doux', a.doux); return () => { st.removeProperty('--accent'); st.removeProperty('--accent-t'); st.removeProperty('--accent-doux'); }; }, [P?.couleur, sombre]);
-  return <div class="cadre">
-    <nav class="menu">
+  const ecransPalette: [string, string][] = GROUPES.flatMap(([, l]) => l).filter(([k]) => acces.includes(k));
+  return <div class={`cadre ${(m as any).menuOuvert ? 'menu-ouvert' : ''}`}>
+    <nav class="menu" onClick={(ev: any) => { if ((ev.target as HTMLElement).closest('a')) maj({ menuOuvert: false } as any); }}>
       {b.mode === 'carriere' && b.moi && b.portrait ? <a class="entete" style={{ padding: '6px 8px 10px' }} onClick={() => aller('profil')}><Portrait p={b.portrait} taille={42} /><div><b>{b.moi.nom}</b><small>{RANGS[b.moi.rang]}</small></div></a>
         : <div class="entete"><Logo i={b.parti} taille={38} /><div><b>{P?.nom}</b><small>Direction du parti</small></div></div>}
       <div class="encart" onClick={() => aller(acces.includes('parti') ? 'parti' : 'accueil')}><div class="ligne" style={{ flexWrap: 'nowrap' }}>{b.embleme?.actif ? <Embleme e={b.embleme} taille={30} /> : <Logo i={b.parti} taille={30} />}<div style={{ minWidth: 0 }}><b>{P?.sigle}</b><small>{b.encart.rang === 1 ? '1er parti' : `${b.encart.rang}e parti`} sur {b.encart.nb}</small></div><span class="espace" /><div class="droite"><b>{String(b.encart.intentions).replace('.', ',')} %</b><small class={b.encart.dynamique > 0 ? 'ok' : b.encart.dynamique < 0 ? 'danger-t' : ''}>{b.encart.dynamique > 0 ? 'en hausse' : b.encart.dynamique < 0 ? 'en baisse' : 'stable'}</small></div></div>
         <div class="petit-texte doux" style={{ marginTop: '4px' }}>{b.encart.deputes} député{b.encart.deputes > 1 ? 's' : ''}{b.argent !== null && b.argent !== undefined ? `, votre compte : ${nb(b.argent)} €` : ''}</div></div>
       {GROUPES.map(([g, tous]) => { const liste = tous.filter(([k]) => acces.includes(k)); return liste.length === 0 ? null : <>
         <div class="groupe">{g}</div>
-        {liste.map(([k, n]) => <a class={m.ecran === k ? 'actif' : ''} onClick={() => { if (b.nouveaux.includes(k)) agir({ type: 'accesVu', ecran: k }, true); aller(k); }}>{n}{b.nouveaux.includes(k) && m.ecran !== k ? <span class="badge">nouveau</span> : null}{k === 'inbox' && b.aRepondre > 0 ? <span class="badge rouge">{b.aRepondre}</span> : k === 'inbox' && b.nonLus > 0 ? <span class="badge">{b.nonLus}</span> : k === 'campagne' && b.entreDeux.length > 0 ? <span class="badge rouge">2e tour</span> : k === 'medias' && (b.debat && !b.debat.fini || b.grandDebat) ? <span class="badge rouge">1</span> : k === 'agora' && b.agora?.aReagir > 0 ? <span class="badge">{b.agora.aReagir}</span> : null}</a>)}
+        {liste.map(([k, n]) => <a class={m.ecran === k ? 'actif' : ''} onClick={() => { if (b.nouveaux.includes(k)) agir({ type: 'accesVu', ecran: k }, true); aller(k); }}>{n}{b.nouveaux.includes(k) && m.ecran !== k ? <span class="badge">nouveau</span> : null}{k === 'agora' && b.agoraNotifs > 0 && m.ecran !== k ? <span class="badge">{b.agoraNotifs}</span> : k === 'presse' && b.presseNonLus > 0 && m.ecran !== k ? <span class="badge">{b.presseNonLus}</span> : k === 'inbox' && b.aRepondre > 0 ? <span class="badge rouge">{b.aRepondre}</span> : k === 'inbox' && b.nonLus > 0 ? <span class="badge">{b.nonLus}</span> : k === 'campagne' && b.entreDeux.length > 0 ? <span class="badge rouge">2e tour</span> : k === 'medias' && (b.debat && !b.debat.fini || b.grandDebat) ? <span class="badge rouge">1</span> : k === 'agora' && b.agora?.aReagir > 0 ? <span class="badge">{b.agora.aReagir}</span> : null}</a>)}
       </>; })}
       {acces.includes('pantheon') && <><div class="groupe">Bilan</div>
       <a class={m.ecran === 'pantheon' ? 'actif' : ''} onClick={() => aller('pantheon')}>Panthéon</a></>}
@@ -165,6 +170,7 @@ function Jeu() {
     {m.soiree && <Soiree />}
     {m.menuJeu && <MenuJeu />}
     {b.fin && m.ecran !== 'pantheon' && !m.soiree && <div class="voile"><div class="modale" style={{ width: 'min(520px, 94vw)' }}><h2>{b.fin.titre}</h2><p>{b.fin.texte}</p><p>Score final : <b>{b.scoreFinal ?? b.score}</b></p><div class="ligne"><button class="principal" onClick={() => aller('pantheon')}>Voir le Panthéon</button><button onClick={() => maj({ phase: 'menu', base: null })}>Retour à l'accueil</button></div></div></div>}
+    <Palette ecrans={ecransPalette} />
     <Tutoriel />
   </div>;
 }
