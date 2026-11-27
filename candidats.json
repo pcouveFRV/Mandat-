@@ -1,0 +1,544 @@
+{
+ "LO": {
+  "retenus": [
+   {
+    "titre": "File:Logo Lutte Ouvrière.svg",
+    "licence": "Public domain",
+    "auteur": "Probably Édouard Taubé (Mody)",
+    "page": "https://commons.wikimedia.org/wiki/File:Logo_Lutte_Ouvri%C3%A8re.svg",
+    "mime": "image/svg+xml",
+    "fichier": "LO_1.svg",
+    "octets": 8900
+   },
+   {
+    "titre": "File:Logo de Lutte Ouvrière.png",
+    "licence": "Public domain",
+    "auteur": "Lutte Ouvrière",
+    "page": "https://commons.wikimedia.org/wiki/File:Logo_de_Lutte_Ouvri%C3%A8re.png",
+    "mime": "image/png",
+    "fichier": "LO_2.png",
+    "octets": 11472
+   }
+  ],
+  "ecartes": []
+ },
+ "LFI": {
+  "retenus": [
+   {
+    "titre": "File:Logo France Insoumise.svg",
+    "licence": "Public domain",
+    "auteur": "La France insoumise",
+    "page": "https://commons.wikimedia.org/wiki/File:Logo_France_Insoumise.svg",
+    "mime": "image/svg+xml",
+    "fichier": "LFI_1.svg",
+    "octets": 14146
+   },
+   {
+    "titre": "File:Logo France Insoumise - Cropped.svg",
+    "licence": "CC0",
+    "auteur": "La France insoumise",
+    "page": "https://commons.wikimedia.org/wiki/File:Logo_France_Insoumise_-_Cropped.svg",
+    "mime": "image/svg+xml",
+    "fichier": "LFI_2.svg",
+    "octets": 2784
+   },
+   {
+    "titre": "File:LFI New Logo.png",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "La France Insoumise",
+    "page": "https://commons.wikimedia.org/wiki/File:LFI_New_Logo.png",
+    "mime": "image/png",
+    "fichier": "LFI_3.png",
+    "octets": 43289
+   },
+   {
+    "titre": "File:LOGO-LFI-2026.png",
+    "licence": "Public domain",
+    "auteur": "Unknown authorUnknown author",
+    "page": "https://commons.wikimedia.org/wiki/File:LOGO-LFI-2026.png",
+    "mime": "image/png",
+    "fichier": "LFI_4.png",
+    "octets": 15015
+   },
+   {
+    "titre": "File:LFI Logo 2024 (cropped).svg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "GlowstoneUnknown",
+    "page": "https://commons.wikimedia.org/wiki/File:LFI_Logo_2024_(cropped).svg",
+    "mime": "image/svg+xml",
+    "fichier": "LFI_5.svg",
+    "octets": 61302
+   },
+   {
+    "titre": "File:LOGO-LFI-2026 (cropped).png",
+    "licence": "Public domain",
+    "auteur": "Unknown authorUnknown author",
+    "page": "https://commons.wikimedia.org/wiki/File:LOGO-LFI-2026_(cropped).png",
+    "mime": "image/png",
+    "fichier": "LFI_6.png",
+    "octets": 5220
+   },
+   {
+    "titre": "File:LFI Logo 2024.svg",
+    "licence": "Public domain",
+    "auteur": "GlowstoneUnknown",
+    "page": "https://commons.wikimedia.org/wiki/File:LFI_Logo_2024.svg",
+    "mime": "image/svg+xml",
+    "fichier": "LFI_7.svg",
+    "octets": 61536
+   },
+   {
+    "titre": "File:LFI Logo 2024-simplifié.png",
+    "licence": "CC BY 3.0",
+    "auteur": "Unknown authorUnknown author",
+    "page": "https://commons.wikimedia.org/wiki/File:LFI_Logo_2024-simplifi%C3%A9.png",
+    "mime": "image/png",
+    "fichier": "LFI_8.png",
+    "octets": 41522
+   }
+  ],
+  "ecartes": []
+ },
+ "PCF": {
+  "retenus": [
+   {
+    "titre": "File:Logo du Parti communiste français (2018)-étoile.svg",
+    "licence": "Public domain",
+    "auteur": "Unknown authorUnknown author",
+    "page": "https://commons.wikimedia.org/wiki/File:Logo_du_Parti_communiste_fran%C3%A7ais_(2018)-%C3%A9toile.svg",
+    "mime": "image/svg+xml",
+    "fichier": "PCF_1.svg",
+    "octets": 1261
+   },
+   {
+    "titre": "File:Logo – Parti communiste français (2018).svg",
+    "licence": "Public domain",
+    "auteur": "Parti communiste français",
+    "page": "https://commons.wikimedia.org/wiki/File:Logo_%E2%80%93_Parti_communiste_fran%C3%A7ais_(2018).svg",
+    "mime": "image/svg+xml",
+    "fichier": "PCF_2.svg",
+    "octets": 8099
+   },
+   {
+    "titre": "File:Logo du Parti communiste français.png",
+    "licence": "Public domain",
+    "auteur": "PCF",
+    "page": "https://commons.wikimedia.org/wiki/File:Logo_du_Parti_communiste_fran%C3%A7ais.png",
+    "mime": "image/png",
+    "fichier": "PCF_3.png",
+    "octets": 19901
+   },
+   {
+    "titre": "File:Logo Parti communiste français.svg",
+    "licence": "Public domain",
+    "auteur": "Unknown authorUnknown author",
+    "page": "https://commons.wikimedia.org/wiki/File:Logo_Parti_communiste_fran%C3%A7ais.svg",
+    "mime": "image/svg+xml",
+    "fichier": "PCF_4.svg",
+    "octets": 14899
+   },
+   {
+    "titre": "File:PCF logo v2.svg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "PCFTechOps",
+    "page": "https://commons.wikimedia.org/wiki/File:PCF_logo_v2.svg",
+    "mime": "image/svg+xml",
+    "fichier": "PCF_5.svg",
+    "octets": 39557
+   },
+   {
+    "titre": "File:PCF Logo.svg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "PCFTechOps",
+    "page": "https://commons.wikimedia.org/wiki/File:PCF_Logo.svg",
+    "mime": "image/svg+xml",
+    "fichier": "PCF_6.svg",
+    "octets": 14448
+   },
+   {
+    "titre": "File:Logo-PCF.png",
+    "licence": "Public domain",
+    "auteur": "Kompowiec",
+    "page": "https://commons.wikimedia.org/wiki/File:Logo-PCF.png",
+    "mime": "image/png",
+    "fichier": "PCF_7.png",
+    "octets": 4519
+   }
+  ],
+  "ecartes": []
+ },
+ "PS": {
+  "retenus": [],
+  "ecartes": []
+ },
+ "ECO": {
+  "retenus": [
+   {
+    "titre": "File:Logo Les Écologistes (France).png",
+    "licence": "Public domain",
+    "auteur": "AliFatehi",
+    "page": "https://commons.wikimedia.org/wiki/File:Logo_Les_%C3%89cologistes_(France).png",
+    "mime": "image/png",
+    "fichier": "ECO_1.png",
+    "octets": 12982
+   },
+   {
+    "titre": "File:Europe Ecologie-Les Verts Logo.svg",
+    "licence": "Public domain",
+    "auteur": "Unknown authorUnknown author",
+    "page": "https://commons.wikimedia.org/wiki/File:Europe_Ecologie-Les_Verts_Logo.svg",
+    "mime": "image/svg+xml",
+    "fichier": "ECO_2.svg",
+    "octets": 38082
+   }
+  ],
+  "ecartes": []
+ },
+ "PP": {
+  "retenus": [
+   {
+    "titre": "File:Logo Place publique.svg",
+    "licence": "Public domain",
+    "auteur": "Place publique",
+    "page": "https://commons.wikimedia.org/wiki/File:Logo_Place_publique.svg",
+    "mime": "image/svg+xml",
+    "fichier": "PP_1.svg",
+    "octets": 2438
+   }
+  ],
+  "ecartes": []
+ },
+ "RE": {
+  "retenus": [
+   {
+    "titre": "File:Renaissance parti logo.svg",
+    "licence": "Public domain",
+    "auteur": "Renaissance",
+    "page": "https://commons.wikimedia.org/wiki/File:Renaissance_parti_logo.svg",
+    "mime": "image/svg+xml",
+    "fichier": "RE_1.svg",
+    "octets": 1172
+   },
+   {
+    "titre": "File:Renaissance-logotype-officiel.svg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Original: Stéphane Séjourné Vector: Valo139",
+    "page": "https://commons.wikimedia.org/wiki/File:Renaissance-logotype-officiel.svg",
+    "mime": "image/svg+xml",
+    "fichier": "RE_2.svg",
+    "octets": 2655
+   }
+  ],
+  "ecartes": []
+ },
+ "MDM": {
+  "retenus": [
+   {
+    "titre": "File:MoDem logo 2019.svg",
+    "licence": "Public domain",
+    "auteur": "Mouvement Démocrate",
+    "page": "https://commons.wikimedia.org/wiki/File:MoDem_logo_2019.svg",
+    "mime": "image/svg+xml",
+    "fichier": "MDM_1.svg",
+    "octets": 3595
+   },
+   {
+    "titre": "File:MoDem logo 2019 - Cropped.svg",
+    "licence": "Public domain",
+    "auteur": "Mouvement Démocrate",
+    "page": "https://commons.wikimedia.org/wiki/File:MoDem_logo_2019_-_Cropped.svg",
+    "mime": "image/svg+xml",
+    "fichier": "MDM_2.svg",
+    "octets": 2914
+   },
+   {
+    "titre": "File:Logo MoDem 2011.png",
+    "licence": "Public domain",
+    "auteur": "Mouvement Démocrate",
+    "page": "https://commons.wikimedia.org/wiki/File:Logo_MoDem_2011.png",
+    "mime": "image/png",
+    "fichier": "MDM_3.png",
+    "octets": 96970
+   },
+   {
+    "titre": "File:MoDem logo.svg",
+    "licence": "Public domain",
+    "auteur": "Mouvement démocrate",
+    "page": "https://commons.wikimedia.org/wiki/File:MoDem_logo.svg",
+    "mime": "image/svg+xml",
+    "fichier": "MDM_4.svg",
+    "octets": 15452
+   }
+  ],
+  "ecartes": []
+ },
+ "HOR": {
+  "retenus": [
+   {
+    "titre": "File:Logo Parti Politique Horizons - 2021.svg",
+    "licence": "Public domain",
+    "auteur": "Horizons",
+    "page": "https://commons.wikimedia.org/wiki/File:Logo_Parti_Politique_Horizons_-_2021.svg",
+    "mime": "image/svg+xml",
+    "fichier": "HOR_1.svg",
+    "octets": 4032
+   },
+   {
+    "titre": "File:Logo Horizons.svg",
+    "licence": "Public domain",
+    "auteur": "Horizons",
+    "page": "https://commons.wikimedia.org/wiki/File:Logo_Horizons.svg",
+    "mime": "image/svg+xml",
+    "fichier": "HOR_2.svg",
+    "octets": 3005
+   }
+  ],
+  "ecartes": []
+ },
+ "UDI": {
+  "retenus": [
+   {
+    "titre": "File:Logo UDI 2019.svg",
+    "licence": "Public domain",
+    "auteur": "Union des Démocrates et Indépendants",
+    "page": "https://commons.wikimedia.org/wiki/File:Logo_UDI_2019.svg",
+    "mime": "image/svg+xml",
+    "fichier": "UDI_1.svg",
+    "octets": 4482
+   },
+   {
+    "titre": "File:UDI logo.svg",
+    "licence": "Public domain",
+    "auteur": "Union des démocrates et indépendants",
+    "page": "https://commons.wikimedia.org/wiki/File:UDI_logo.svg",
+    "mime": "image/svg+xml",
+    "fichier": "UDI_2.svg",
+    "octets": 27062
+   },
+   {
+    "titre": "File:Logo UDI 2019.png",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "UDI",
+    "page": "https://commons.wikimedia.org/wiki/File:Logo_UDI_2019.png",
+    "mime": "image/png",
+    "fichier": "UDI_3.png",
+    "octets": 27401
+   },
+   {
+    "titre": "File:Logo udi.png",
+    "licence": "Public domain",
+    "auteur": "Union des démocrates et indépendants",
+    "page": "https://commons.wikimedia.org/wiki/File:Logo_udi.png",
+    "mime": "image/png",
+    "fichier": "UDI_4.png",
+    "octets": 5172
+   },
+   {
+    "titre": "File:Logo-udi-web.png",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Universidad de Investigación y Desarrollo",
+    "page": "https://commons.wikimedia.org/wiki/File:Logo-udi-web.png",
+    "mime": "image/png",
+    "fichier": "UDI_5.png",
+    "octets": 10058
+   },
+   {
+    "titre": "File:UDI logo 55px 2012.png",
+    "licence": "Public domain",
+    "auteur": "Utlendingsdirektoratet",
+    "page": "https://commons.wikimedia.org/wiki/File:UDI_logo_55px_2012.png",
+    "mime": "image/png",
+    "fichier": "UDI_6.png",
+    "octets": 1255
+   },
+   {
+    "titre": "File:Udi logo 1989 to 2005.svg",
+    "licence": "Public domain",
+    "auteur": "Sfs90 (original); JCRules (derivative); Spider (vector redone)",
+    "page": "https://commons.wikimedia.org/wiki/File:Udi_logo_1989_to_2005.svg",
+    "mime": "image/svg+xml",
+    "fichier": "UDI_7.svg",
+    "octets": 868
+   },
+   {
+    "titre": "File:Logo Udi 1983 1989.png",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Sfs90",
+    "page": "https://commons.wikimedia.org/wiki/File:Logo_Udi_1983_1989.png",
+    "mime": "image/png",
+    "fichier": "UDI_8.png",
+    "octets": 47077
+   }
+  ],
+  "ecartes": []
+ },
+ "LR": {
+  "retenus": [
+   {
+    "titre": "File:Les Républicains - logo (France, 2023).svg",
+    "licence": "Public domain",
+    "auteur": "Les Républicains",
+    "page": "https://commons.wikimedia.org/wiki/File:Les_R%C3%A9publicains_-_logo_(France,_2023).svg",
+    "mime": "image/svg+xml",
+    "fichier": "LR_1.svg",
+    "octets": 15083
+   },
+   {
+    "titre": "File:Les Républicains - logo (France, 2023) (cropped).svg",
+    "licence": "Public domain",
+    "auteur": "Les Républicains",
+    "page": "https://commons.wikimedia.org/wiki/File:Les_R%C3%A9publicains_-_logo_(France,_2023)_(cropped).svg",
+    "mime": "image/svg+xml",
+    "fichier": "LR_2.svg",
+    "octets": 13321
+   },
+   {
+    "titre": "File:Les Républicains - logo (France, 2015-2023).svg",
+    "licence": "Public domain",
+    "auteur": "Les Républicains",
+    "page": "https://commons.wikimedia.org/wiki/File:Les_R%C3%A9publicains_-_logo_(France,_2015-2023).svg",
+    "mime": "image/svg+xml",
+    "fichier": "LR_3.svg",
+    "octets": 11248
+   }
+  ],
+  "ecartes": []
+ },
+ "UDR": {
+  "retenus": [
+   {
+    "titre": "File:UDR logo.png",
+    "licence": "Public domain",
+    "auteur": "Union des droites pour la République",
+    "page": "https://commons.wikimedia.org/wiki/File:UDR_logo.png",
+    "mime": "image/png",
+    "fichier": "UDR_1.png",
+    "octets": 10882
+   },
+   {
+    "titre": "File:UDR logo.svg",
+    "licence": "Public domain",
+    "auteur": "Union des droites pour la République",
+    "page": "https://commons.wikimedia.org/wiki/File:UDR_logo.svg",
+    "mime": "image/svg+xml",
+    "fichier": "UDR_2.svg",
+    "octets": 43174
+   }
+  ],
+  "ecartes": []
+ },
+ "RN": {
+  "retenus": [
+   {
+    "titre": "File:Logo Rassemblement National (cropped).svg",
+    "licence": "Public domain",
+    "auteur": "Rassemblement national",
+    "page": "https://commons.wikimedia.org/wiki/File:Logo_Rassemblement_National_(cropped).svg",
+    "mime": "image/svg+xml",
+    "fichier": "RN_1.svg",
+    "octets": 5890
+   },
+   {
+    "titre": "File:Rassemblement National.svg",
+    "licence": "Public domain",
+    "auteur": "jpfabre",
+    "page": "https://commons.wikimedia.org/wiki/File:Rassemblement_National.svg",
+    "mime": "image/svg+xml",
+    "fichier": "RN_2.svg",
+    "octets": 2831
+   },
+   {
+    "titre": "File:Logo Rassemblement National.svg",
+    "licence": "Public domain",
+    "auteur": "Rassemblement national",
+    "page": "https://commons.wikimedia.org/wiki/File:Logo_Rassemblement_National.svg",
+    "mime": "image/svg+xml",
+    "fichier": "RN_3.svg",
+    "octets": 5749
+   },
+   {
+    "titre": "File:Rassemblement-national-populaire-logo.png",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Felixe16",
+    "page": "https://commons.wikimedia.org/wiki/File:Rassemblement-national-populaire-logo.png",
+    "mime": "image/png",
+    "fichier": "RN_4.png",
+    "octets": 34625
+   },
+   {
+    "titre": "File:Logo Rassemblement National - Cropped.svg",
+    "licence": "CC0",
+    "auteur": "Rassemblement National",
+    "page": "https://commons.wikimedia.org/wiki/File:Logo_Rassemblement_National_-_Cropped.svg",
+    "mime": "image/svg+xml",
+    "fichier": "RN_5.svg",
+    "octets": 2559
+   }
+  ],
+  "ecartes": []
+ },
+ "REC": {
+  "retenus": [
+   {
+    "titre": "File:Logo of the Reconquest (political party).png",
+    "licence": "Public domain",
+    "auteur": "Reconquête parti",
+    "page": "https://commons.wikimedia.org/wiki/File:Logo_of_the_Reconquest_(political_party).png",
+    "mime": "image/png",
+    "fichier": "REC_1.png",
+    "octets": 35964
+   }
+  ],
+  "ecartes": []
+ },
+ "DLF": {
+  "retenus": [
+   {
+    "titre": "File:Debout la France logo (2017).svg",
+    "licence": "Public domain",
+    "auteur": "Debout la France",
+    "page": "https://commons.wikimedia.org/wiki/File:Debout_la_France_logo_(2017).svg",
+    "mime": "image/svg+xml",
+    "fichier": "DLF_1.svg",
+    "octets": 3481
+   },
+   {
+    "titre": "File:Debout la France logo (2022).png",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Site Officiel Debout la France",
+    "page": "https://commons.wikimedia.org/wiki/File:Debout_la_France_logo_(2022).png",
+    "mime": "image/png",
+    "fichier": "DLF_2.png",
+    "octets": 33087
+   },
+   {
+    "titre": "File:Logo Debout la France.png",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Nono44",
+    "page": "https://commons.wikimedia.org/wiki/File:Logo_Debout_la_France.png",
+    "mime": "image/png",
+    "fichier": "DLF_3.png",
+    "octets": 10230
+   },
+   {
+    "titre": "File:DLF logo.svg",
+    "licence": "Public domain",
+    "auteur": "DLF",
+    "page": "https://commons.wikimedia.org/wiki/File:DLF_logo.svg",
+    "mime": "image/svg+xml",
+    "fichier": "DLF_4.svg",
+    "octets": 3746
+   },
+   {
+    "titre": "File:Dlf Logo.svg",
+    "licence": "Public domain",
+    "auteur": "Deutsche Latex Forschungsgemeinschaft Kondome e.V.",
+    "page": "https://commons.wikimedia.org/wiki/File:Dlf_Logo.svg",
+    "mime": "image/svg+xml",
+    "fichier": "DLF_5.svg",
+    "octets": 37411
+   }
+  ],
+  "ecartes": []
+ }
+}
