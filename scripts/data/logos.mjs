@@ -8,9 +8,9 @@ const PARTIS = {
   LO: [['Lutte ouvrière logo', 'Logo Lutte ouvrière'], /lutte.?ouvri/i],
   LFI: [['La France insoumise logo', 'Logo LFI', 'France insoumise phi'], /insoumise|lfi/i],
   PCF: [['Parti communiste français logo', 'Logo PCF'], /pcf|communiste fran/i],
-  PS: [['Parti socialiste France logo', 'Logo Parti socialiste français', 'PS France logo poing rose'], /parti.?socialiste|\bps\b/i],
+  PS: [['Parti socialiste (France) logo', 'Logo PS France 2023', 'Logo du Parti socialiste France', 'Parti socialiste France poing et rose'], /parti.?socialiste|\bps\b/i],
   ECO: [['Les Écologistes logo', 'Europe Écologie Les Verts logo', 'Logo EELV'], /cologistes|eelv|cologie.les.verts/i],
-  PP: [['Place publique logo parti'], /place.?publique/i],
+  PP: [['Place publique', 'Logo Place publique', 'Place publique Glucksmann'], /place.?publique/i],
   RE: [['Renaissance parti logo', 'Logo Renaissance RE parti France'], /renaissance/i],
   MDM: [['MoDem logo', 'Mouvement démocrate logo'], /modem|mouvement.d.mocrate/i],
   HOR: [['Horizons parti logo', 'Logo Horizons Édouard Philippe'], /horizons/i],
@@ -33,10 +33,10 @@ for (const [id, [requetes, motif]] of Object.entries(PARTIS)) {
     for (const p of pages) {
       if (vus.has(p.title)) continue; vus.add(p.title); const ii = p.imageinfo?.[0]; if (!ii) continue; const m = ii.extmetadata ?? {};
       const licence = texte(m.LicenseShortName) || texte(m.UsageTerms); const fiche = { titre: p.title, licence, auteur: texte(m.Artist), page: ii.descriptionurl, mime: ii.mime };
-      if (!motif.test(p.title) || !/logo|embl|symbol/i.test(p.title)) continue;
+      if (!motif.test(p.title) || (id !== 'PP' && !/logo|embl|symbol/i.test(p.title)) || /belgi|unifi|suisse|wallon|luxemb|s.n.gal|jeunes|groupe/i.test(p.title)) continue;
       if (!/svg|png/.test(ii.mime)) continue;
       if (!LIBRE.test(licence)) { bilan[id].ecartes.push(fiche); continue; }
-      if (retenus.length >= 5) continue;
+      if (retenus.length >= 8) continue;
       const ext = ii.mime.includes('svg') ? 'svg' : 'png'; const url = ext === 'svg' ? ii.url : (ii.thumburl ?? ii.url);
       try { const r = await fetch(url, { headers: UA }); if (!r.ok) throw new Error(String(r.status)); const buf = Buffer.from(await r.arrayBuffer()); if (buf.length > 600000) { bilan[id].ecartes.push({ ...fiche, raison: 'trop lourd' }); continue; } const nom = `${id}_${retenus.length + 1}.${ext}`; fs.writeFileSync(`${SORTIE}/${nom}`, buf); retenus.push({ ...fiche, fichier: nom, octets: buf.length }); } catch (e) { console.log(id, 'téléchargement impossible', p.title, String(e)); }
       await new Promise(r => setTimeout(r, 300));
